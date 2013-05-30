@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Synthesis.Blade.Core</id>
+    <version>5.0.2</version>
+    <authors>Kam Figy</authors>
+    <owners>ISITE Design</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/kamsar/Synthesis</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+		Extends Synthesis to support integration with the Blade presentation framework for Sitecore. Synthesis types can then be used in Blade views as models without the need for a discrete presenter.
+
+		This package is designed to be installed on a library project, and does not include configuration files. Use the Synthesis.Blade package for web projects.
+	</description>
+    <releaseNotes>Initial public release</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>sitecore</tags>
+    <dependencies>
+		<dependency id="Synthesis.Core" version="5.0.2" />
+		<dependency id="Blade.Core" version="1.5.6" />
+    </dependencies>
+  </metadata>
+  <files>
+	<file src="..\..\Source\Synthesis.Blade\bin\release\Synthesis.Blade*" target="lib\net45" />
+	<file src="..\..\Source\Synthesis.Blade\**\*.cs" target="src" />
+  </files>
+</package>

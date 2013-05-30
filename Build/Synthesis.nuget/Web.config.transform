@@ -1,0 +1,18 @@
+<configuration>
+    <system.web>
+        <httpModules>
+            <add type="Synthesis.AutoSyncModule, Synthesis" name="Synthesis"/>
+        </httpModules>
+        <httpHandlers>
+            <add verb="GET" path="synthesis.axd" type="Synthesis.HttpHandler, Synthesis" />
+        </httpHandlers>
+    </system.web>
+    <system.webServer>
+        <modules>
+            <add type="Synthesis.AutoSyncModule, Synthesis" name="Synthesis"/>
+        </modules>
+        <handlers>
+            <add name="Synthesis" path="synthesis.axd" verb="GET" type="Synthesis.HttpHandler, Synthesis"/>
+        </handlers>
+    </system.webServer>
+</configuration>

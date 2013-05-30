@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis", "Source\Synthesis\Synthesis.csproj", "{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Tests", "Source\Synthesis.Tests\Synthesis.Tests.csproj", "{CC01C529-5740-4827-A544-918CE0F327F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Blade", "Source\Synthesis.Blade\Synthesis.Blade.csproj", "{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C24728E9-F703-41FA-8B2B-4A44F25B57F0}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC01C529-5740-4827-A544-918CE0F327F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC01C529-5740-4827-A544-918CE0F327F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC01C529-5740-4827-A544-918CE0F327F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC01C529-5740-4827-A544-918CE0F327F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

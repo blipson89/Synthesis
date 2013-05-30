@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Synthesis</id>
+    <version>5.0.2</version>
+    <authors>Kam Figy</authors>
+    <owners>ISITE Design</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/kamsar/Synthesis</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+		Synthesis is a universal object mapper with LINQ support for Sitecore 7. Use the same strongly typed objects to run queries against search indexes or the database, or transparently convert from indexed to database when necessary. Supports fully polymorphic Sitecore template inheritance via a generated interface hierarchy.
+		
+		This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
+	</description>
+	<summary>
+		Synthesis is a universal object mapper with LINQ support for Sitecore 7. This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
+	</summary>
+    <releaseNotes>Cleanup and organization of versioning files</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>sitecore</tags>
+    <dependencies>
+		<dependency id="Synthesis.Core" version="5.0.2" />
+    </dependencies>
+  </metadata>
+  <files>
+	<file src="..\..\Source\Synthesis\Synthesis.config" target="content\App_Config\Include" />
+	<file src="web.config.transform" target="content" />
+  </files>
+</package>
