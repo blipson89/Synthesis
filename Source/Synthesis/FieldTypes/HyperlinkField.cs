@@ -14,7 +14,11 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public override bool HasValue
 		{
-			get { return !string.IsNullOrEmpty(Href); }
+			get
+			{
+				if (InnerField == null) return false; 
+				return !string.IsNullOrEmpty(Href);
+			}
 		}
 
 		/// <summary>

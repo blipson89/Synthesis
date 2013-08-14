@@ -15,7 +15,12 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public virtual string RawValue 
 		{
-			get { return InnerSearchValue ?? InnerField.Value; }
+			get
+			{
+				if( InnerSearchValue != null) return InnerSearchValue;
+				if (InnerField == null) return null;
+				return InnerField.Value;
+			}
 			set { SetFieldValue(value); }
 		}
 

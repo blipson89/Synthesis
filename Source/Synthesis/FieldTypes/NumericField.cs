@@ -42,6 +42,8 @@ namespace Synthesis.FieldTypes
 		{
 			get 
 			{
+				if (InnerField == null) return false;
+
 				decimal value;
 				return decimal.TryParse(InnerField.Value, out value);
 			}

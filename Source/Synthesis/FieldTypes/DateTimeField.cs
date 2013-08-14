@@ -24,7 +24,12 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public override bool HasValue
 		{
-			get { return Value != DateTime.MinValue; }
+			get
+			{
+				if (InnerField == null) return false;
+
+				return Value != DateTime.MinValue;
+			}
 		}
 
 		/// <summary>

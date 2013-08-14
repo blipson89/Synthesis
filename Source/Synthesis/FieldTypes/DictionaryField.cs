@@ -45,7 +45,11 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public override bool HasValue
 		{
-			get { return Values.Count > 0; }
+			get
+			{
+				if (InnerField == null) return false; 
+				return Values.Count > 0;
+			}
 		}
 
 		public void Add(string key, string value)

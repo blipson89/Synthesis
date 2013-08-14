@@ -81,7 +81,11 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public override bool HasValue
 		{
-			get { return GetField() != null; }
+			get
+			{
+				if (InnerField == null) return false; 
+				return GetField() != null;
+			}
 		}
 
 		private Sitecore.Data.Fields.WordDocumentField GetField()

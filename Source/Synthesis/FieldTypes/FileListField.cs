@@ -39,6 +39,8 @@ namespace Synthesis.FieldTypes
 		{
 			get 
 			{
+				if (InnerField == null) return false;
+
 				var list = ItemList;
 				return list != null && list.Count > 0; 
 			}

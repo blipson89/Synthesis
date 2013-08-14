@@ -40,6 +40,8 @@ namespace Synthesis.FieldTypes
 		{
 			get 
 			{
+				if (InnerField == null) return false;
+
 				int value;
 				return int.TryParse(InnerField.Value, out value);
 			}

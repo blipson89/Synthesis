@@ -4,7 +4,6 @@ using Sitecore.Data.Items;
 using Sitecore.Resources.Media;
 using Synthesis.Utility;
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Synthesis.FieldTypes
 {
@@ -18,9 +17,9 @@ namespace Synthesis.FieldTypes
 		/// <summary>
 		/// Gets the URL to the media item. If HasValue is false returns an empty string.
 		/// </summary>
-		public virtual string Url 
-		{ 
-			get 
+		public virtual string Url
+		{
+			get
 			{
 				if (_url != null) return _url;
 
@@ -28,7 +27,7 @@ namespace Synthesis.FieldTypes
 				if (mediaItem != null) return _url = FieldUtility.GetMediaUrl(mediaItem);
 
 				return _url = string.Empty;
-			} 
+			}
 		}
 
 		/// <summary>
@@ -92,7 +91,11 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public override bool HasValue
 		{
-			get { return !(MediaItemId == (ID)null || MediaItemId.IsNull); }
+			get
+			{
+				if (InnerField == null) return false; 
+				return !(MediaItemId == (ID)null || MediaItemId.IsNull);
+			}
 		}
 	}
 }

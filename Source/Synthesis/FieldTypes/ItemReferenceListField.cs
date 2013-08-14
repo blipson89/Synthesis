@@ -63,7 +63,11 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public override bool HasValue
 		{
-			get { return TargetIds.Count > 0; }
+			get
+			{
+				if (InnerField == null) return false; 
+				return TargetIds.Count > 0;
+			}
 		}
 
 		#region IEnumerable Members

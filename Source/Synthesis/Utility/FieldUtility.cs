@@ -16,6 +16,8 @@ namespace Synthesis.Utility
 		/// </summary>
 		public static string GetMediaUrl(MediaItem item)
 		{
+			Assert.ArgumentNotNull(item, "item");
+
 			return StringUtil.EnsurePrefix('/', MediaManager.GetMediaUrl(item));
 		}
 
@@ -24,6 +26,8 @@ namespace Synthesis.Utility
 		/// </summary>
 		public static string GetGeneralLinkHref(LinkField field)
 		{
+			Assert.ArgumentNotNull(field, "field");
+
 			// so Sitecore, why isn't this encapsulated into the LinkField class again?
 			string url = string.Empty;
 

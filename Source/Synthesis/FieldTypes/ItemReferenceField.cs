@@ -15,7 +15,7 @@ namespace Synthesis.FieldTypes
 		/// <summary>
 		/// Gets the item ID that the relationship refers to
 		/// </summary>
-		[SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ID", Justification="Coherent with Sitecore convention")]
+		[SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ID", Justification = "Coherent with Sitecore convention")]
 		public virtual ID TargetId
 		{
 			get { return ((ReferenceField)InnerField).TargetID; }
@@ -31,7 +31,7 @@ namespace Synthesis.FieldTypes
 			{
 				if (HasValue)
 					return InnerItem.Database.GetItem(TargetId).AsStronglyTyped();
-				
+
 				return null;
 			}
 		}
@@ -41,7 +41,11 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public override bool HasValue
 		{
-			get { return TargetId != (ID)null && !TargetId.IsNull && !TargetId.IsGlobalNullId; }
+			get
+			{
+				if (InnerField == null) return false;
+				return TargetId != (ID)null && !TargetId.IsNull && !TargetId.IsGlobalNullId;
+			}
 		}
 
 		public ReferenceField ToReferenceField()
