@@ -207,7 +207,7 @@ namespace Synthesis.Generation
 			// the check against standard template breaks the recursion chain
 			if (string.IsNullOrEmpty(info.InterfaceFullName) && template.Name.ToUpperInvariant() != StandardTemplate)
 			{
-				string interfaceTypeName = string.Concat("I", info.TypeName, "Item");
+				string interfaceTypeName = string.Concat("I", info.TypeName, Parameters.InterfaceSuffix);
 				CodeTypeDeclaration interfaceType = GetTemplateNamespace(codeUnit, template.ID, interfaceNamespace.Name).CreateType(MemberAttributes.Public, interfaceTypeName);
 				interfaceType.IsInterface = true;
 				interfaceType.IsPartial = true;

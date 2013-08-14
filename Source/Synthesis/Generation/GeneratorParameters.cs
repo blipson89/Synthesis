@@ -5,6 +5,13 @@ namespace Synthesis.Generation
 {
 	public class GeneratorParameters
 	{
+		public GeneratorParameters()
+		{
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
+			InterfaceSuffix = "Item";
+// ReSharper restore DoNotCallOverridableMethodsInConstructor
+		}
+
 		/// <summary>
 		/// Validates that all required parameters have been set and are valid values.
 		/// Throws a <see cref="GeneratorParameterException"/> exception for invalid values.
@@ -16,6 +23,9 @@ namespace Synthesis.Generation
 
 			if (string.IsNullOrEmpty(InterfaceNamespace))
 				throw new GeneratorParameterException("InterfaceNamespace was not provided.");
+
+			if (InterfaceSuffix == null)
+				throw new GeneratorParameterException("InterfaceSuffix was not provided.");
 
 			if (string.IsNullOrEmpty(ItemOutputPath))
 				throw new GeneratorParameterException("ItemOutputPath was not provided.");
@@ -60,6 +70,11 @@ namespace Synthesis.Generation
 		/// Namespace of generated item interfaces
 		/// </summary>
 		public virtual string InterfaceNamespace { get; set; }
+
+		/// <summary>
+		/// The suffix to append to interfaces after the template name. Defaults to "Item", e.g. "IFooItem" for a "Foo" template
+		/// </summary>
+		public virtual string InterfaceSuffix { get; set; }
 
 		/// <summary>
 		/// Path to write the output item source file to. Must have write access. Must end in ".cs"
