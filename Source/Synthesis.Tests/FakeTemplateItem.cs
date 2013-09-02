@@ -63,11 +63,6 @@ namespace Synthesis.Tests
 			get { return new FileField(new Lazy<Field>(() => InnerItem.Fields["File"]), null); }
 		}
 
-		public FileListField Files
-		{
-			get { return new FileListField(new Lazy<Field>(() => InnerItem.Fields["Files"]), null); }
-		}
-
 		public HyperlinkField Link
 		{
 			get { return new HyperlinkField(new Lazy<Field>(() => InnerItem.Fields["Link"]), null); }

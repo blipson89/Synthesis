@@ -60,7 +60,6 @@
     <Compile Include="Fixtures\FieldTypes\NumericFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\DateTimeFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\FileFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\FileListFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\HyperlinkFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\ImageFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\IntegerFieldTests.cs" />

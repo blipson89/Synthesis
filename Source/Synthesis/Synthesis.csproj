@@ -121,10 +121,6 @@
     <Compile Include="FieldTypes\DateTimeField.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FieldTypes\FileListField.cs" />
-    <Compile Include="FieldTypes\IFieldRenderableFieldType.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="FieldTypes\FieldType.cs">
       <SubType>Code</SubType>
     </Compile>

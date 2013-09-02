@@ -8,7 +8,6 @@ namespace Synthesis.Tests
 		BooleanField YesOrNo { get; }
 		DateTimeField Timestamp { get; }
 		FileField File { get; }
-		FileListField Files { get; }
 		HyperlinkField Link { get; }
 		ImageField TerriblePicture { get; }
 		IntegerField DaysTillChristmas { get; }
