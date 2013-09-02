@@ -51,20 +51,5 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 		{
 
 		}
-
-		[Test]
-		public void IntegerField_CanImplicitCastToInt()
-		{
-			using (var item = new TestItemContext())
-			{
-				item.SetField(TestFields.INTEGER, "16");
-
-				var field = new IntegerField(new Lazy<Field>(() => item[TestFields.INTEGER]), null);
-
-				int value = field;
-
-				Assert.AreEqual(value, 16);
-			}
-		}
 	}
 }

@@ -57,10 +57,5 @@ namespace Synthesis.FieldTypes
 		{
 			return RawValue;
 		}
-
-		public static implicit operator string(TextField field)
-		{
-			return field.RawValue;
-		}
 	}
 }

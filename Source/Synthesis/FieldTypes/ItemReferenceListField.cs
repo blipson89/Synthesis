@@ -163,10 +163,5 @@ namespace Synthesis.FieldTypes
 		{
 			return InnerField;
 		}
-
-		public static implicit operator MultilistField(ItemReferenceListField field)
-		{
-			return field.ToMultilistField();
-		}
 	}
 }

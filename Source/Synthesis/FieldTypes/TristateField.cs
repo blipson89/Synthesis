@@ -47,10 +47,5 @@ namespace Synthesis.FieldTypes
 		{
 			return Value.ToString();
 		}
-
-		public static implicit operator bool?(TristateField field)
-		{
-			return field.Value;
-		}
 	}
 }

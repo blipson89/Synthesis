@@ -54,15 +54,5 @@ namespace Synthesis.FieldTypes
 		{
 			return Value.ToString(CultureInfo.InvariantCulture);
 		}
-
-		public static implicit operator decimal(NumericField field)
-		{
-			return field.Value;
-		}
-
-		public static implicit operator string(NumericField field)
-		{
-			return field.HasValue ? field.Value.ToString(CultureInfo.InvariantCulture) : string.Empty;
-		}
 	}
 }

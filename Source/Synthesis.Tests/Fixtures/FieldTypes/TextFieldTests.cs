@@ -69,20 +69,5 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 		{
 
 		}
-
-		[Test]
-		public void TextField_CanImplicitCastToString()
-		{
-			using (var item = new TestItemContext())
-			{
-				item.SetField(TestFields.STRING, "the Monstrous Blue Whale #1");
-
-				var field = new TextField(new Lazy<Field>(() => item[TestFields.STRING]), null);
-
-				string value = field;
-
-				Assert.AreEqual(value, "the Monstrous Blue Whale #1");
-			}
-		}
 	}
 }

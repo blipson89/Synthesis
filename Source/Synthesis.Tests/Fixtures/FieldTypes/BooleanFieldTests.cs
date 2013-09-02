@@ -97,35 +97,5 @@ namespace Synthesis.Tests.Fixtures.FieldTypes.FieldTypes
 				Assert.IsFalse(sitecoreField.Checked);
 			}
 		}
-
-		[Test]
-		public void BooleanField_CanImplicitCastToBool()
-		{
-			using (var item = new TestItemContext())
-			{
-				item.SetField(TestFields.BOOLEAN, "1");
-
-				var field = new BooleanField(new Lazy<Field>(() => item[TestFields.BOOLEAN]), null);
-
-				bool boolean = field;
-
-				Assert.IsTrue(boolean);
-			}
-		}
-
-		[Test]
-		public void BooleanField_CanImplicitCastToCheckboxField()
-		{
-			using (var item = new TestItemContext())
-			{
-				item.SetField(TestFields.BOOLEAN, "1");
-
-				var field = new BooleanField(new Lazy<Field>(() => item[TestFields.BOOLEAN]), null);
-
-				CheckboxField sitecoreField = field;
-
-				Assert.IsTrue(sitecoreField.Checked);
-			}
-		}
 	}
 }

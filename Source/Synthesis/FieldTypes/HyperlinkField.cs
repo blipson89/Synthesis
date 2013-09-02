@@ -132,10 +132,5 @@ namespace Synthesis.FieldTypes
 		{
 			return InnerField;
 		}
-
-		public static implicit operator LinkField(HyperlinkField field)
-		{
-			return field.ToLinkField();
-		}
 	}
 }

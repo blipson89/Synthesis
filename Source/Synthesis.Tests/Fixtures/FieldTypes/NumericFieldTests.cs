@@ -51,20 +51,5 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 		{
 
 		}
-
-		[Test]
-		public void NumericField_CanImplicitCastToDecimal()
-		{
-			using (var item = new TestItemContext())
-			{
-				item.SetField(TestFields.NUMERIC, "3.14159");
-
-				var field = new NumericField(new Lazy<Field>(() => item[TestFields.NUMERIC]), null);
-
-				decimal value = field;
-
-				Assert.AreEqual(value, 3.14159m);
-			}
-		}
 	}
 }

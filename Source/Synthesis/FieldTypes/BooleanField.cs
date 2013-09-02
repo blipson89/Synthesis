@@ -37,15 +37,5 @@ namespace Synthesis.FieldTypes
 		{
 			return Value.ToString();
 		}
-
-		public static implicit operator bool(BooleanField field)
-		{
-			return field.Value;
-		}
-
-		public static implicit operator CheckboxField(BooleanField field)
-		{
-			return field.InnerField;
-		}
 	}
 }

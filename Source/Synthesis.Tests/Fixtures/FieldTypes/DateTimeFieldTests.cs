@@ -132,21 +132,5 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 				Assert.IsFalse(field.HasValue);
 			}
 		}
-
-		[Test]
-		public void DateTimeField_CanImplicitCastToDateField()
-		{
-			using (var item = new TestItemContext())
-			{
-				var setTime = DateUtil.IsoNow;
-				item.SetField(TestFields.DATETIME, setTime);
-
-				var field = new DateTimeField(new Lazy<Field>(() => item[TestFields.DATETIME]), null);
-
-				DateField sitecoreField = field;
-
-				Assert.AreEqual(DateUtil.IsoDateToDateTime(setTime), sitecoreField.DateTime);
-			}
-		}
 	}
 }

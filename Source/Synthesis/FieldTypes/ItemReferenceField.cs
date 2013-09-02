@@ -53,10 +53,5 @@ namespace Synthesis.FieldTypes
 		{
 			return InnerField;
 		}
-
-		public static implicit operator ReferenceField(ItemReferenceField field)
-		{
-			return field.ToReferenceField();
-		}
 	}
 }

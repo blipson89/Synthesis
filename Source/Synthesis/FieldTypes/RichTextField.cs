@@ -27,10 +27,5 @@ namespace Synthesis.FieldTypes
 		{
 			return ExpandedLinksValue;
 		}
-
-		public static implicit operator string(RichTextField field)
-		{
-			return field.ExpandedLinksValue;
-		}
 	}
 }

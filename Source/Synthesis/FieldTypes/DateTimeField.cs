@@ -53,10 +53,5 @@ namespace Synthesis.FieldTypes
 		{
 			return InnerField;
 		}
-
-		public static implicit operator DateField(DateTimeField field)
-		{
-			return field.ToDateField();
-		}
 	}
 }

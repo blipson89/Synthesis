@@ -52,15 +52,5 @@ namespace Synthesis.FieldTypes
 		{
 			return Value.ToString(CultureInfo.InvariantCulture);
 		}
-
-		public static implicit operator int(IntegerField field)
-		{
-			return field.Value;
-		}
-
-		public static implicit operator string(IntegerField field)
-		{
-			return (field.HasValue) ? field.Value.ToString(CultureInfo.InvariantCulture) : string.Empty;
-		}
 	}
 }
