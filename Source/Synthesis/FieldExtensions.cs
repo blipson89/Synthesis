@@ -24,7 +24,8 @@ namespace Synthesis
 		{
 			if (field == null) return null;
 
-			var mapping = ProviderResolver.Current.FieldMappingProvider.GetFieldType(field.Type);
+			var templateField = field.Item.Template.GetField(field.ID);
+			var mapping = ProviderResolver.Current.FieldMappingProvider.GetFieldType(templateField);
 
 			var lazy = new Lazy<Field>(() => field);
 

@@ -64,7 +64,9 @@ namespace Synthesis.Configuration
 		{
 			if (_excludedFields == null) RefreshSpecTargets();
 
+// ReSharper disable PossibleNullReferenceException
 			return !_excludedFields.Contains(field.ID);
+// ReSharper restore PossibleNullReferenceException
 		}
 
 		/// <summary>
@@ -183,12 +185,12 @@ namespace Synthesis.Configuration
 			}
 			else
 			{
-				string[] pieces = spec.Split(new string[] { "::" }, StringSplitOptions.RemoveEmptyEntries);
+				string[] pieces = spec.Split(new[] { "::" }, StringSplitOptions.RemoveEmptyEntries);
 
 				if (pieces.Length > 2) throw new ArgumentException("Field input value " + spec + " contained more data than expected");
 
 				var templates = ResolveSpecToItems(pieces[0], GetAllTemplates());
-				var fields = ResolveSpecToItems(pieces[1], GetAllFields());
+				var fields = ResolveSpecToItems(pieces[1], GetAllFields()).ToArray();
 
 				TemplateItem templateItem;
 				foreach (var template in templates)
@@ -266,7 +268,7 @@ namespace Synthesis.Configuration
 		/// <summary>
 		/// Gets ALL templates that reside in the default database (master)
 		/// </summary>
-		private List<Item> GetAllTemplates()
+		private IEnumerable<Item> GetAllTemplates()
 		{
 			/* NOTE: there may be an issue with the GetTemplates() method here modifying the enumerable. It's only intermittent and difficult to reproduce, but
 			 * the code below that causes the result of the call to be enumerated before the LINQ query on it will hopefully put a nail in the issue.
@@ -292,7 +294,7 @@ namespace Synthesis.Configuration
 		/// <remarks>
 		/// Uses the link database. Agnostic of what template they belong to.
 		/// </remarks>
-		private List<Item> GetAllFields()
+		private IEnumerable<Item> GetAllFields()
 		{
 			if (Database == null) return new List<Item>(); // master db didn't exist - fail
 

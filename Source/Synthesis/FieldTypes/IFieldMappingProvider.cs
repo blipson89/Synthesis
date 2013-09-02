@@ -3,7 +3,6 @@ namespace Synthesis.FieldTypes
 {
 	public interface IFieldMappingProvider
 	{
-		FieldMapping GetTemplateFieldType(TemplateFieldItem templateField);
-		FieldMapping GetFieldType(string sitecoreFieldType);
+		FieldMapping GetFieldType(TemplateFieldItem templateField);
 	}
 }

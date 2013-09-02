@@ -322,7 +322,7 @@ namespace Synthesis.Generation
 
 		private bool CreateItemProperty(string propertyName, TemplateFieldItem sitecoreField, CodeTypeMemberCollection members)
 		{
-			var type = _fieldMappingProvider.GetFieldType(sitecoreField.Type);
+			var type = _fieldMappingProvider.GetFieldType(sitecoreField);
 
 			if(type == null)
 			{
@@ -374,7 +374,7 @@ namespace Synthesis.Generation
 
 		private CodeMemberProperty CreateInterfaceProperty(string propertyName, TemplateFieldItem sitecoreField)
 		{
-			var type = _fieldMappingProvider.GetFieldType(sitecoreField.Type);
+			var type = _fieldMappingProvider.GetFieldType(sitecoreField);
 
 			if (type == null)
 			{
