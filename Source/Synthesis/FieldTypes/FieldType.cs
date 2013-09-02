@@ -3,11 +3,12 @@ using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
+using Synthesis.FieldTypes.Interfaces;
 using Synthesis.Utility;
 
 namespace Synthesis.FieldTypes
 {
-	public abstract class FieldType
+	public abstract class FieldType : IFieldType
 	{
 		private readonly Lazy<Field> _innerField;
 		private readonly string _searchValue;

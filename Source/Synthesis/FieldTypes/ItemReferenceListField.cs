@@ -7,6 +7,7 @@ using System.Linq;
 using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
 {
@@ -14,7 +15,7 @@ namespace Synthesis.FieldTypes
 	/// Represents a field that has a list of item ID references (a multilist, treelist, etc)
 	/// </summary>
 	[SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Collection suffix would be confusing here")]
-	public class ItemReferenceListField : FieldType, ICollection<ID>
+	public class ItemReferenceListField : FieldType, IItemReferenceListField
 	{
 		ReadOnlyCollection<IStandardTemplateItem> _targets;
 

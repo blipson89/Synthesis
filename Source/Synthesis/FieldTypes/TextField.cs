@@ -1,10 +1,11 @@
 ﻿using System;
 using Sitecore.Data.Fields;
 using Sitecore.Web.UI.WebControls;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
 {
-	public class TextField : FieldType, IFieldRenderableFieldType
+	public class TextField : FieldType, ITextField
 	{
 		public TextField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
 

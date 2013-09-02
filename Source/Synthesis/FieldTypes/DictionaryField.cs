@@ -3,13 +3,14 @@ using System.Collections.Specialized;
 using System.Web;
 using Sitecore.Data.Fields;
 using System;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
 {
 	/// <summary>
 	/// Represents a field that is a logical dictionary (i.e. a Key Value List)
 	/// </summary>
-	public class DictionaryField : FieldType
+	public class DictionaryField : FieldType, IDictionaryField
 	{
 		NameValueCollection _values;
 

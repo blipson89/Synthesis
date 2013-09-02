@@ -1,12 +1,13 @@
 ﻿using System;
 using Sitecore.Data.Fields;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
 {
 	/// <summary>
 	/// Encapsulates a tri-state (Yes/No/Default) field from Sitecore
 	/// </summary>
-	public class TristateField : FieldType
+	public class TristateField : FieldType, ITristateField
 	{
 		public TristateField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
 

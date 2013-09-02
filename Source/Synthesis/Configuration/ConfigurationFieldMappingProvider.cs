@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Xml;
 using Sitecore.Data.Items;
 using Synthesis.FieldTypes;
-using Sitecore.Data.Templates;
 using System.Diagnostics.CodeAnalysis;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.Configuration
 {
@@ -21,7 +21,7 @@ namespace Synthesis.Configuration
 	/// </example>
 	public class ConfigurationFieldMappingProvider : IFieldMappingProvider
 	{
-		private Dictionary<string, Type> _fieldMappings = new Dictionary<string, Type>();
+		private readonly Dictionary<string, FieldMapping> _fieldMappings = new Dictionary<string, FieldMapping>();
 
 		[SuppressMessage("Microsoft.Design", "CA1059:MembersShouldNotExposeCertainConcreteTypes", MessageId = "System.Xml.XmlNode", Justification="Sitecore convention")]
 		public void AddMapping(XmlNode node)
@@ -33,16 +33,29 @@ namespace Synthesis.Configuration
 
 			if (type == null) throw new ArgumentException("Couldn't resolve field type " + node.Attributes["type"].InnerText);
 
-			_fieldMappings.Add(fieldName, type);
+			Type interfaceType = type;
+			if (node.Attributes["interface"] != null)
+			{
+				interfaceType = Type.GetType(node.Attributes["interface"].InnerText);
+
+				if (interfaceType == null) throw new ArgumentException("Couldn't resolve field interface type " + node.Attributes["interface"].InnerText);
+			}
+
+			_fieldMappings.Add(fieldName, new FieldMapping(interfaceType, type));
 		}
 
-		public Type GetFieldType(string sitecoreFieldType)
+		public FieldMapping GetFieldType(string sitecoreFieldType)
 		{
-			Type fieldType;
+			FieldMapping fieldType;
 			
 			if(_fieldMappings.TryGetValue(sitecoreFieldType, out fieldType)) return fieldType;
 
-			return typeof(TextField); // if no mapping, fall back to a text field
+			return new FieldMapping(typeof(ITextField), typeof(TextField)); // if no mapping, fall back to a text field
+		}
+
+		public FieldMapping GetTemplateFieldType(TemplateFieldItem templateField)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

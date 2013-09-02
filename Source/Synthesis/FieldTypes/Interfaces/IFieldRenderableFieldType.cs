@@ -1,5 +1,7 @@
 ﻿
-namespace Synthesis.FieldTypes
+using System.Linq;
+
+namespace Synthesis.FieldTypes.Interfaces
 {
 	/// <summary>
 	/// Base interface for field types that are capable of being rendered using a FieldRenderer

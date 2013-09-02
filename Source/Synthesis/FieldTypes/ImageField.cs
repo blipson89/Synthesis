@@ -2,10 +2,11 @@
 using System.Globalization;
 using Sitecore.Data.Fields;
 using Sitecore.Web.UI.WebControls;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
 {
-	public class ImageField : FileField, IFieldRenderableFieldType
+	public class ImageField : FileField, IImageField
 	{
 		private int? _width, _height;
 

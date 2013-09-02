@@ -12,13 +12,11 @@ namespace Synthesis.Blade
 		where TModel : class
 		where TItem : class, IStandardTemplateItem
 	{
-		protected SynthesisListPresenter() { }
+		protected override TModel GetModel(IView view, Item[] dataSource)
+		{
+			return GetModel(view, dataSource.AsStronglyTypedCollectionOf<TItem>().ToArray());
+		}
 
-        protected override TModel GetModel(IView view, Item[] dataSource)
-        {
-            return GetModel(view, dataSource.AsStronglyTypedCollectionOf<TItem>().ToArray());
-        }
-
-        protected abstract TModel GetModel(IView view, TItem[] items);
-    }
+		protected abstract TModel GetModel(IView view, TItem[] items);
+	}
 }

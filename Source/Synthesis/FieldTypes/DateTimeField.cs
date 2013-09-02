@@ -3,10 +3,11 @@ using System.Globalization;
 using Sitecore;
 using Sitecore.Data.Fields;
 using Sitecore.Web.UI.WebControls;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
 {
-	public class DateTimeField : FieldType, IFieldRenderableFieldType
+	public class DateTimeField : FieldType, IDateTimeField
 	{
 		public DateTimeField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
 

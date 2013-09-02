@@ -331,7 +331,7 @@ namespace Synthesis.Generation
 			}
 
 			var backingFieldName = "_" + propertyName[0].ToString(CultureInfo.InvariantCulture).ToLower() + propertyName.Substring(1);
-			var backingField = new CodeMemberField(new CodeTypeReference(type), backingFieldName);
+			var backingField = new CodeMemberField(new CodeTypeReference(type.InternalFieldType), backingFieldName);
 
 			backingField.Attributes = MemberAttributes.Private;
 
@@ -340,7 +340,7 @@ namespace Synthesis.Generation
 // ReSharper disable BitwiseOperatorOnEnumWithoutFlags
 					Attributes = MemberAttributes.Public | MemberAttributes.Final,
 // ReSharper restore BitwiseOperatorOnEnumWithoutFlags
-					Type = new CodeTypeReference(type),
+					Type = new CodeTypeReference(type.PublicFieldType),
 					Name = propertyName,
 					HasGet = true
 				};
@@ -358,7 +358,7 @@ namespace Synthesis.Generation
 
 			var backingFieldNullCheck = new CodeConditionStatement();
 			backingFieldNullCheck.Condition = new CodeSnippetExpression(string.Format("{0} == null", backingFieldName));
-			backingFieldNullCheck.TrueStatements.Add(new CodeAssignStatement(new CodeVariableReferenceExpression(backingFieldName), new CodeObjectCreateExpression(property.Type, initializerLambda, initializerSearchReference)));
+			backingFieldNullCheck.TrueStatements.Add(new CodeAssignStatement(new CodeVariableReferenceExpression(backingFieldName), new CodeObjectCreateExpression(type.InternalFieldType, initializerLambda, initializerSearchReference)));
 			property.GetStatements.Add(backingFieldNullCheck);
 
 			// return backingField;
@@ -384,7 +384,7 @@ namespace Synthesis.Generation
 
 			var property = new CodeMemberProperty
 				{
-					Type = new CodeTypeReference(type), 
+					Type = new CodeTypeReference(type.PublicFieldType), 
 					Name = propertyName, 
 					HasGet = true
 				};

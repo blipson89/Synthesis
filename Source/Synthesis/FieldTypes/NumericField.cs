@@ -2,10 +2,11 @@
 using System.Globalization;
 using Sitecore.Data.Fields;
 using Sitecore.Web.UI.WebControls;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
 {
-	public class NumericField : FieldType, IFieldRenderableFieldType
+	public class NumericField : FieldType, INumericField
 	{
 		public NumericField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
 

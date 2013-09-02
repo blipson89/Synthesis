@@ -2,13 +2,14 @@
 using Sitecore.Data;
 using Sitecore.Data.Fields;
 using System.Diagnostics.CodeAnalysis;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
 {
 	/// <summary>
 	/// Represents a singular item reference field type (e.g. lookup, droplink, droptree, etc) that stores its value as an ID
 	/// </summary>
-	public class ItemReferenceField : FieldType
+	public class ItemReferenceField : FieldType, IItemReferenceField
 	{
 		public ItemReferenceField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
 

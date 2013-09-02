@@ -1,12 +1,13 @@
 ﻿using System;
 using Sitecore.Data.Fields;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
 {
 	/// <summary>
 	/// Encapsulates a boolean (checkbox) field from Sitecore
 	/// </summary>
-	public class BooleanField : FieldType
+	public class BooleanField : FieldType, IBooleanField
 	{
 		public BooleanField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
 

@@ -1,19 +1,19 @@
 ﻿namespace Synthesis
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Linq;
-	using System.Text;
 	using System.Web.UI;
-	using Synthesis.FieldTypes;
-using Sitecore.Web.UI.WebControls;
+	using FieldTypes;
+
+	using Sitecore.Web.UI.WebControls;
+	using Synthesis.FieldTypes.Interfaces;
 
 	public static class HtmlTextWriterExtensions
 	{
 		/// <summary>
 		/// Renders a link to the file field as a hyperlink tag. Rendering directives in the Action parameter will construct the body of the link. You may add attributes to the link by adding them to the writer before invoking this method.
 		/// </summary>
-		public static void RenderFileFieldLink(this HtmlTextWriter writer, FileField fileField, Action linkBody)
+		public static void RenderFileFieldLink(this HtmlTextWriter writer, IFileField fileField, Action linkBody)
 		{
 			if (!fileField.HasValue) return;
 
@@ -26,7 +26,7 @@ using Sitecore.Web.UI.WebControls;
 		/// <summary>
 		/// Renders a Synthesis Hyperlink Field to a HtmlTextWriter.
 		/// </summary>
-		public static void RenderLinkField(this HtmlTextWriter writer, HyperlinkField linkField)
+		public static void RenderLinkField(this HtmlTextWriter writer, IHyperlinkField linkField)
 		{
 			RenderLinkField(writer, linkField, x => { });
 		}
@@ -34,11 +34,11 @@ using Sitecore.Web.UI.WebControls;
 		/// <summary>
 		/// Renders a Synthesis Hyperlink Field to a HtmlTextWriter and configures parameters of the field renderer
 		/// </summary>
-		public static void RenderLinkField(this HtmlTextWriter writer, HyperlinkField linkField, Action<Link> parameters)
+		public static void RenderLinkField(this HtmlTextWriter writer, IHyperlinkField linkField, Action<Link> parameters)
 		{
 			if (linkField.HasValue || Sitecore.Context.PageMode.IsPageEditor)
 			{
-				Link link = new Link();
+				var link = new Link();
 				link.AttachToLinkField(linkField);
 				parameters(link);
 
@@ -49,7 +49,7 @@ using Sitecore.Web.UI.WebControls;
 		/// <summary>
 		/// Renders the image using field renderer. Nothing is rendered if the image has no value and we aren't page editing.
 		/// </summary>
-		public static void RenderImageField(this HtmlTextWriter writer, ImageField imageField)
+		public static void RenderImageField(this HtmlTextWriter writer, IImageField imageField)
 		{
 			RenderImageField(writer, imageField, x => { });
 		}
@@ -59,7 +59,7 @@ using Sitecore.Web.UI.WebControls;
 		/// </summary>
 		/// <param name="maxWidth">Maximum width for the image. May be less if it has a portrait aspect ratio. Pass null to scale by height only.</param>
 		/// <param name="maxHeight">Maximum height for the image. May be less if it has a landscape aspect ratio. Pass null to scale by width only.</param>
-		public static void RenderImageField(this HtmlTextWriter writer, ImageField imageField, int? maxWidth, int? maxHeight)
+		public static void RenderImageField(this HtmlTextWriter writer, IImageField imageField, int? maxWidth, int? maxHeight)
 		{
 			RenderImageField(writer, imageField, image =>
 			{
@@ -75,7 +75,7 @@ using Sitecore.Web.UI.WebControls;
 		/// Renders the image to a given HtmlTextWriter using field renderer. Nothing is rendered if the image has no value and we aren't page editing. 
 		/// </summary>
 		/// <param name="parameters">Action to execute to configure parameters on the output control</param>
-		public static void RenderImageField(this HtmlTextWriter writer, ImageField imageField, Action<Image> parameters)
+		public static void RenderImageField(this HtmlTextWriter writer, IImageField imageField, Action<Image> parameters)
 		{
 			var image = new Sitecore.Web.UI.WebControls.Image();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Sitecore.Data.Fields;
+using Synthesis.FieldTypes.Interfaces;
 using Synthesis.Utility;
 
 namespace Synthesis.FieldTypes
@@ -7,7 +8,7 @@ namespace Synthesis.FieldTypes
 	/// <summary>
 	/// Represents a field whose contents are HTML written by a rich text editor that may contain dynamic links
 	/// </summary>
-	public class RichTextField : TextField
+	public class RichTextField : TextField, IRichTextField
 	{
 		public RichTextField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
 

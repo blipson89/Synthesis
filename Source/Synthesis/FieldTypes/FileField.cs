@@ -2,12 +2,13 @@
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using Sitecore.Resources.Media;
+using Synthesis.FieldTypes.Interfaces;
 using Synthesis.Utility;
 using System;
 
 namespace Synthesis.FieldTypes
 {
-	public class FileField : FieldType
+	public class FileField : FieldType, IFileField
 	{
 		private string _url;
 		private MediaItem _mediaItem;
