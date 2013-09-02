@@ -14,7 +14,7 @@ namespace Synthesis.FieldTypes
 	{
 		NameValueCollection _values;
 
-		public DictionaryField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public DictionaryField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the set of IDs that make up the relationships

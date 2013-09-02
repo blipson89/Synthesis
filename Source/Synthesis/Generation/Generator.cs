@@ -351,7 +351,7 @@ namespace Synthesis.Generation
 			// if(backingField == null)
 			//	backingField = new SynthesisFieldType(new Lazy<Field>(() => InnerItem.Fields["xxx"], GetSearchFieldValue("index-field-name"));
 
-			var initializerLambda = new CodeSnippetExpression(string.Format("new global::System.Lazy<global::Sitecore.Data.Fields.Field>(() => InnerItem.Fields[\"{0}\"])", sitecoreField.ID));
+			var initializerLambda = new CodeSnippetExpression(string.Format("new global::Synthesis.FieldTypes.LazyField(() => InnerItem.Fields[\"{0}\"], \"{1}\", \"{2}\")", sitecoreField.ID, sitecoreField.Template.InnerItem.Paths.FullPath, sitecoreField.Name));
 			var initializerSearchReference = new CodeMethodInvokeExpression(new CodeThisReferenceExpression(),
 																			"GetSearchFieldValue",
 																			new CodePrimitiveExpression(_indexFieldNameTranslator.GetIndexFieldName(sitecoreField.Name)));

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using Sitecore.Data.Fields;
+﻿using System.Globalization;
 using Sitecore.Web.UI.WebControls;
 using Synthesis.FieldTypes.Interfaces;
 
@@ -10,7 +8,7 @@ namespace Synthesis.FieldTypes
 	{
 		private int? _width, _height;
 
-		public ImageField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public ImageField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the width of the image, if one was entered

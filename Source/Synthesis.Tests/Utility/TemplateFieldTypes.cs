@@ -11,10 +11,8 @@ namespace Synthesis.Tests.Utility
 		public const string INTEGER_FIELD = "Integer";
 		public const string NUMBER_FIELD = "Number";
 		public const string TEXT_FIELD = "Single-Line Text";
-		public const string WORD_FIELD = "Word Document";
 		public const string TREELIST_FIELD = "Treelist";
 		public const string GENERAL_LINK_FIELD = "General Link";
-		public const string FILE_DROP_AREA_FIELD = "File Drop Area";
 		public const string DROPLINK_FIELD = "Droplink";
 	}
 }

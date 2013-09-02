@@ -1,5 +1,4 @@
-﻿using System;
-using Sitecore.Data;
+﻿using Sitecore.Data;
 using Sitecore.Data.Fields;
 using System.Diagnostics.CodeAnalysis;
 using Synthesis.FieldTypes.Interfaces;
@@ -11,7 +10,7 @@ namespace Synthesis.FieldTypes
 	/// </summary>
 	public class ItemReferenceField : FieldType, IItemReferenceField
 	{
-		public ItemReferenceField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public ItemReferenceField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the item ID that the relationship refers to

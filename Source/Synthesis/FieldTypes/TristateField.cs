@@ -1,5 +1,4 @@
-﻿using System;
-using Sitecore.Data.Fields;
+﻿using Sitecore.Data.Fields;
 using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
@@ -9,7 +8,7 @@ namespace Synthesis.FieldTypes
 	/// </summary>
 	public class TristateField : FieldType, ITristateField
 	{
-		public TristateField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public TristateField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the value of the field. If called when HasValue is false, returns false.

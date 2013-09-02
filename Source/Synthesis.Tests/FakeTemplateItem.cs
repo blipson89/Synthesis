@@ -26,7 +26,7 @@ namespace Synthesis.Tests
 
 		public IStandardTemplateItem CreateInstanceFromSearch(IDictionary<string, string> searchFields)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 	}
 
@@ -46,58 +46,57 @@ namespace Synthesis.Tests
 			return parent.Add(name, new TemplateID(ItemTemplateId)).As<FakeTemplateItem>();
 		}
 
-		#region IFakeTemplateItem Members
-
 		public IBooleanField YesOrNo
 		{
-			get { return new BooleanField(new Lazy<Field>(() => InnerItem.Fields["Yes or No"]), null); }
+			get
+			{
+				return new BooleanField(new LazyField(() => InnerItem.Fields[TestFields.BOOLEAN], "TEST", TestFields.BOOLEAN), null);
+			}
 		}
 
 		public IDateTimeField Timestamp
 		{
-			get { return new DateTimeField(new Lazy<Field>(() => InnerItem.Fields["Timestamp"]), null); }
+			get { return new DateTimeField(new LazyField(() => InnerItem.Fields[TestFields.DATETIME], "TEST", TestFields.DATETIME), null); }
 		}
 
 		public IFileField File
 		{
-			get { return new FileField(new Lazy<Field>(() => InnerItem.Fields["File"]), null); }
+			get { return new FileField(new LazyField(() => InnerItem.Fields[TestFields.FILE], "TEST", TestFields.FILE), null); }
 		}
 
 		public IHyperlinkField Link
 		{
-			get { return new HyperlinkField(new Lazy<Field>(() => InnerItem.Fields["Link"]), null); }
+			get { return new HyperlinkField(new LazyField(() => InnerItem.Fields[TestFields.HYPERLINK], "TEST", TestFields.HYPERLINK), null); }
 		}
 
 		public IImageField TerriblePicture
 		{
-			get { return new ImageField(new Lazy<Field>(() => InnerItem.Fields["Terrible Picture"]), null); }
+			get { return new ImageField(new LazyField(() => InnerItem.Fields[TestFields.IMAGE], "TEST", TestFields.IMAGE), null); }
 		}
 
 		public IIntegerField DaysTillChristmas
 		{
-			get { return new IntegerField(new Lazy<Field>(() => InnerItem.Fields["Days Till Christmas"]), null); }
+			get { return new IntegerField(new LazyField(() => InnerItem.Fields[TestFields.INTEGER], "TEST", TestFields.INTEGER), null); }
 		}
 
 		public IItemReferenceListField RelatedFolders
 		{
-			get { return new ItemReferenceListField(new Lazy<Field>(() => InnerItem.Fields["Related Folders"]), null); }
+			get { return new ItemReferenceListField(new LazyField(() => InnerItem.Fields[TestFields.MULTIPLE_RELATION], "TEST", TestFields.MULTIPLE_RELATION), null); }
 		}
 
 		public INumericField AccountBalance
 		{
-			get { return new NumericField(new Lazy<Field>(() => InnerItem.Fields["Account Balance"]), null); }
+			get { return new NumericField(new LazyField(() => InnerItem.Fields[TestFields.NUMERIC], "TEST", TestFields.NUMERIC), null); }
 		}
 
 		public IItemReferenceField RelatedFolder
 		{
-			get { return new ItemReferenceField(new Lazy<Field>(() => InnerItem.Fields["Related Folder"]), null); }
+			get { return new ItemReferenceField(new LazyField(() => InnerItem.Fields[TestFields.SINGLE_RELATION], "TEST", TestFields.SINGLE_RELATION), null); }
 		}
 
 		public ITextField Title
 		{
-			get { return new TextField(new Lazy<Field>(() => InnerItem.Fields["Title"]), null); }
+			get { return new TextField(new LazyField(() => InnerItem.Fields[TestFields.TEXT], "TEST", TestFields.TEXT), null); }
 		}
-
-		#endregion
 	}
 }

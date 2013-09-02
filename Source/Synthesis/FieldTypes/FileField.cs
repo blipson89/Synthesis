@@ -1,5 +1,4 @@
 ﻿using Sitecore.Data;
-using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using Sitecore.Resources.Media;
 using Synthesis.FieldTypes.Interfaces;
@@ -13,7 +12,7 @@ namespace Synthesis.FieldTypes
 		private string _url;
 		private MediaItem _mediaItem;
 
-		public FileField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public FileField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the URL to the media item. If HasValue is false returns an empty string.
@@ -42,8 +41,8 @@ namespace Synthesis.FieldTypes
 			}
 			set
 			{
-				SetFieldValue(delegate()
-				{
+				SetFieldValue(delegate
+					{
 					var field = (Sitecore.Data.Fields.FileField)InnerField;
 					field.MediaID = value;
 					field.Src = MediaManager.GetMediaUrl(InnerItem); // setting this per content api cookbook - odd that it'd be required though

@@ -10,7 +10,7 @@ namespace Synthesis.FieldTypes
 {
 	public abstract class FieldType : IFieldType
 	{
-		private readonly Lazy<Field> _innerField;
+		private readonly LazyField _innerField;
 		private readonly string _searchValue;
 
 		/// <summary>
@@ -18,7 +18,7 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		/// <param name="innerField">A lazy load that can be invoked if this field needs to get direct access to the underlying field (eg editing, accessing values not in the index)</param>
 		/// <param name="searchValue">Raw value stored in the index for this field. If the field is not from an index, pass null.</param>
-		protected FieldType(Lazy<Field> innerField, string searchValue)
+		protected FieldType(LazyField innerField, string searchValue)
 		{
 			Assert.IsNotNull(innerField, "Callback to load inner field was null.");
 

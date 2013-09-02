@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using Sitecore.Data.Fields;
+﻿using System.Globalization;
 using Sitecore.Web.UI.WebControls;
 using Synthesis.FieldTypes.Interfaces;
 
@@ -8,7 +6,7 @@ namespace Synthesis.FieldTypes
 {
 	public class IntegerField : FieldType, IIntegerField
 	{
-		public IntegerField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public IntegerField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the value of the field. If the field does not have a value or the value isn't parseable, returns default(int).

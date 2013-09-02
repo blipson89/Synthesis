@@ -99,6 +99,7 @@
     <Compile Include="FieldTypes\Interfaces\IRichTextField.cs" />
     <Compile Include="FieldTypes\Interfaces\ITextField.cs" />
     <Compile Include="FieldTypes\Interfaces\IValuedFieldType.cs" />
+    <Compile Include="FieldTypes\LazyField.cs" />
     <Compile Include="FieldTypes\TristateField.cs" />
     <Compile Include="FieldTypes\DictionaryField.cs" />
     <Compile Include="FieldTypes\IFieldMappingProvider.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="InstanceType.cs" />
     <Compile Include="ItemExtensions.cs" />
     <Compile Include="ITemplateInitializer.cs" />
+    <Compile Include="MissingTemplateFieldException.cs" />
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />
     <Compile Include="Synchronization\SyncSource.cs" />

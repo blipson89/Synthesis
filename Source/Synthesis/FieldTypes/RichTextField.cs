@@ -1,6 +1,4 @@
-﻿using System;
-using Sitecore.Data.Fields;
-using Synthesis.FieldTypes.Interfaces;
+﻿using Synthesis.FieldTypes.Interfaces;
 using Synthesis.Utility;
 
 namespace Synthesis.FieldTypes
@@ -10,7 +8,7 @@ namespace Synthesis.FieldTypes
 	/// </summary>
 	public class RichTextField : TextField, IRichTextField
 	{
-		public RichTextField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public RichTextField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the raw value of the field with dynamic links expanded into friendly URLs. Unlike RenderedValue this does not support Page Editor, but neither does it require loading a search-based instance's underlying item like RenderedValue.

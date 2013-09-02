@@ -1,5 +1,4 @@
-﻿using System;
-using Sitecore.Data.Fields;
+﻿using Sitecore.Data.Fields;
 using Sitecore.Web.UI.WebControls;
 using Synthesis.FieldTypes.Interfaces;
 using Synthesis.Utility;
@@ -8,7 +7,7 @@ namespace Synthesis.FieldTypes
 {
 	public class HyperlinkField : FieldType, IHyperlinkField
 	{
-		public HyperlinkField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public HyperlinkField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Checks if the field has a non-empty Href value

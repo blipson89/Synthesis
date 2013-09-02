@@ -9,7 +9,7 @@ namespace Synthesis.FieldTypes
 {
 	public class DateTimeField : FieldType, IDateTimeField
 	{
-		public DateTimeField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public DateTimeField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the value of the field. If no value exists, returns DateTime.MinValue

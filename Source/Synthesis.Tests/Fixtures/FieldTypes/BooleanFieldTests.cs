@@ -30,7 +30,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes.FieldTypes
 			{
 				item.SetField(TestFields.BOOLEAN, "1");
 
-				var field = new BooleanField(new Lazy<Field>(() => item[TestFields.BOOLEAN]), null);
+				var field = new BooleanField(new LazyField(() => item[TestFields.BOOLEAN], "TEST", TestFields.BOOLEAN), null);
 				
 				Assert.IsTrue(field.Value);
 			}
@@ -43,7 +43,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes.FieldTypes
 			{
 				item.SetField(TestFields.BOOLEAN, "");
 
-				var field = new BooleanField(new Lazy<Field>(() => item[TestFields.BOOLEAN]), null);
+				var field = new BooleanField(new LazyField(() => item[TestFields.BOOLEAN], "TEST", TestFields.BOOLEAN), null);
 
 				Assert.IsFalse(field.Value);
 			}
@@ -56,7 +56,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes.FieldTypes
 			{
 				item.SetField(TestFields.BOOLEAN, "0");
 
-				var field = new BooleanField(new Lazy<Field>(() => item[TestFields.BOOLEAN]), null);
+				var field = new BooleanField(new LazyField(() => item[TestFields.BOOLEAN], "TEST", TestFields.BOOLEAN), null);
 
 				Assert.IsFalse(field.Value);
 			}
@@ -67,7 +67,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes.FieldTypes
 		{
 			using (var item = new TestItemContext())
 			{
-				var field = new BooleanField(new Lazy<Field>(() => item[TestFields.BOOLEAN]), null);
+				var field = new BooleanField(new LazyField(() => item[TestFields.BOOLEAN], "TEST", TestFields.BOOLEAN), null);
 
 				using (new SecurityDisabler())
 				{
@@ -85,7 +85,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes.FieldTypes
 		{
 			using (var item = new TestItemContext())
 			{
-				var field = new BooleanField(new Lazy<Field>(() => item[TestFields.BOOLEAN]), null);
+				var field = new BooleanField(new LazyField(() => item[TestFields.BOOLEAN], "TEST", TestFields.BOOLEAN), null);
 
 				using (new SecurityDisabler())
 				{

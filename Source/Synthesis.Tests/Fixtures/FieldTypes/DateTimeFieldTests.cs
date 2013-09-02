@@ -31,7 +31,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 			{
 				item.SetField(TestFields.DATETIME, string.Empty);
 
-				var field = new DateTimeField(new Lazy<Field>(() => item[TestFields.DATETIME]), null);
+				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 
 				Assert.AreEqual(field.Value, DateTime.MinValue);
 			}
@@ -45,7 +45,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 				var dateSet = DateUtil.IsoDateToDateTime(DateUtil.ToIsoDate(DateTime.Now)); // convert now to sitecore format and back to make sure the rounding is correct - sitecore doesn't have quite the same precision (no msec) as DateTime.Now
 				item.SetField(TestFields.DATETIME, DateUtil.ToIsoDate(dateSet));
 
-				var field = new DateTimeField(new Lazy<Field>(() => item[TestFields.DATETIME]), null);
+				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 
 				Assert.AreEqual(field.Value, dateSet);
 			}
@@ -56,7 +56,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 		{
 			using (var item = new TestItemContext())
 			{
-				var field = new DateTimeField(new Lazy<Field>(() => item[TestFields.DATETIME]), null);
+				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 				var dateSet = DateUtil.IsoDateToDateTime(DateUtil.ToIsoDate(DateTime.Now)); // convert now to sitecore format and back to make sure the rounding is correct - sitecore doesn't have quite the same precision (no msec) as DateTime.Now
 				
 				using (new SecurityDisabler())
@@ -75,7 +75,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 		{
 			using (var item = new TestItemContext())
 			{
-				var field = new DateTimeField(new Lazy<Field>(() => item[TestFields.DATETIME]), null);
+				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 				var dateSet = DateUtil.IsoDateToDateTime(DateUtil.ToIsoDate(DateTime.MaxValue)); // convert maxvalue to sitecore format and back to make sure the rounding is correct - sitecore doesn't have quite the same precision (no msec) as DateTime.Now
 				
 				using (new SecurityDisabler())
@@ -94,7 +94,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 		{
 			using (var item = new TestItemContext())
 			{
-				var field = new DateTimeField(new Lazy<Field>(() => item[TestFields.DATETIME]), null);
+				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 
 				using (new SecurityDisabler())
 				{
@@ -114,7 +114,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 			{
 				item.SetField(TestFields.DATETIME, DateUtil.IsoNow);
 
-				var field = new DateTimeField(new Lazy<Field>(() => item[TestFields.DATETIME]), null);
+				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 
 				Assert.IsTrue(field.HasValue);
 			}
@@ -127,7 +127,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 			{
 				item.SetField(TestFields.DATETIME, string.Empty);
 
-				var field = new DateTimeField(new Lazy<Field>(() => item[TestFields.DATETIME]), null);
+				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 
 				Assert.IsFalse(field.HasValue);
 			}

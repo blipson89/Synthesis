@@ -9,7 +9,7 @@ namespace Synthesis.FieldTypes
 	/// </summary>
 	public class BooleanField : FieldType, IBooleanField
 	{
-		public BooleanField(Lazy<Field> field, string indexValue) : base(field, indexValue) { }
+		public BooleanField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the value of the field. If called when HasValue is false, returns false.
