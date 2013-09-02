@@ -51,17 +51,18 @@ namespace Synthesis
 			var count = result.Count(x => !x.IsSynchronized);
 
 			if (result.AreTemplatesSynchronized)
-				sb.Append("<p>Templates and model are currently synchronized.</p>");
+				sb.Append("<p>Templates and model are currently synchronized. (Note: if Synthesis configuration file changes are made you should regenerate anyway)");
 			else
 			{
 				sb.AppendFormat("<p>{0} template{1} not synchronized. ", count, count == 1 ? " is" : "s are");
 				sb.Append("<a href=\"?synthesis-syncstatus=1\">Details</a>");
-				if (DebugUtility.IsDynamicDebugEnabled)
-				{
-					sb.Append(" | <a href=\"?synthesis-regenerate=1\">Regenerate Now</a>");
-				}
-				sb.Append("</p>");
 			}
+
+			if (DebugUtility.IsDynamicDebugEnabled)
+			{
+				sb.Append(" | <a href=\"?synthesis-regenerate=1\">Regenerate Now</a>");
+			}
+			sb.Append("</p>");
 
 			return sb.ToString();
 		}
@@ -75,7 +76,7 @@ namespace Synthesis
 			ProviderResolver.Current.TemplateInputProvider.Refresh();
 
 			var sync = ProviderResolver.CreateSyncEngine();
-			
+
 			var result = sync.AreTemplatesSynchronized();
 			var sco = result.Where(x => x.Locations == SyncSource.Sitecore).ToList();
 			var mo = result.Where(x => x.Locations == SyncSource.Model).ToList();
@@ -103,7 +104,7 @@ namespace Synthesis
 			results.AppendLine("</tr></thead>");
 
 			results.AppendLine("<tbody>");
-			foreach (var item in result.OrderBy(x=>x.SitecoreTemplateName??x.ModelTypeName))
+			foreach (var item in result.OrderBy(x => x.SitecoreTemplateName ?? x.ModelTypeName))
 			{
 				results.AppendLine("<tr>");
 
@@ -128,7 +129,7 @@ namespace Synthesis
 			ProviderResolver.Current.TemplateInputProvider.Refresh();
 			ProviderResolver.CreateGenerator().GenerateToDisk();
 			timer.Stop();
-			
+
 			string result = string.Format("<p>Generation complete in {0} ms. You will want to rebuild to pick up the changes.</p>", timer.ElapsedMilliseconds);
 			context.Response.Write(WrapReport("Regenerating Model", result));
 
@@ -143,29 +144,29 @@ namespace Synthesis
 			sb.AppendLine("<html>");
 
 			sb.AppendLine("<head>");
-				sb.AppendLine("<style type=\"text/css\">");
-					sb.AppendLine("h1, p, td, th, li { font-family: Helvetica, Arial, Sans-serif; list-style-type: none; }");
-					sb.AppendLine("#container { margin: 0 auto; width: 650px; border: 1px solid gray; }");
-					sb.AppendLine("h1 { padding: 10px; margin: 0; border-bottom: 1px solid gray; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEE', endColorstr='#CCC'); /* for IE */ background: -webkit-gradient(linear, left top, left bottom, from(#EEE), to(#CCC)); /* for webkit browsers */ background: -moz-linear-gradient(top,  #EEE,  #CCC); /* for firefox 3.6+ */ }");
-					sb.AppendLine("table, p, h2, ul { margin: 10px; padding: 0 }");
-					sb.AppendLine("li { margin: 0px; padding: 3px 0; }");
-					sb.AppendLine("th { text-align: left; }");
-					sb.AppendLine("th.flag { width: 75px; }");
-					sb.AppendLine("tr:nth-child(even) { background-color:#eee; }");
-					sb.AppendLine("td { font-size: 0.7em; }");
-				sb.AppendLine("</style>");
-				sb.AppendLine("<title>" + HttpUtility.HtmlEncode(title) + "</title>");
+			sb.AppendLine("<style type=\"text/css\">");
+			sb.AppendLine("h1, p, td, th, li { font-family: Helvetica, Arial, Sans-serif; list-style-type: none; }");
+			sb.AppendLine("#container { margin: 0 auto; width: 650px; border: 1px solid gray; }");
+			sb.AppendLine("h1 { padding: 10px; margin: 0; border-bottom: 1px solid gray; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEE', endColorstr='#CCC'); /* for IE */ background: -webkit-gradient(linear, left top, left bottom, from(#EEE), to(#CCC)); /* for webkit browsers */ background: -moz-linear-gradient(top,  #EEE,  #CCC); /* for firefox 3.6+ */ }");
+			sb.AppendLine("table, p, h2, ul { margin: 10px; padding: 0 }");
+			sb.AppendLine("li { margin: 0px; padding: 3px 0; }");
+			sb.AppendLine("th { text-align: left; }");
+			sb.AppendLine("th.flag { width: 75px; }");
+			sb.AppendLine("tr:nth-child(even) { background-color:#eee; }");
+			sb.AppendLine("td { font-size: 0.7em; }");
+			sb.AppendLine("</style>");
+			sb.AppendLine("<title>" + HttpUtility.HtmlEncode(title) + "</title>");
 			sb.AppendLine("</head>");
 
 			sb.AppendLine("<body>");
-				sb.AppendLine("<div id=\"container\">");
-					sb.AppendLine("<h1>" + HttpUtility.HtmlEncode(title) + "</h1>");
-					sb.Append(contents);
-				sb.AppendLine("</div>");
+			sb.AppendLine("<div id=\"container\">");
+			sb.AppendLine("<h1>" + HttpUtility.HtmlEncode(title) + "</h1>");
+			sb.Append(contents);
+			sb.AppendLine("</div>");
 			sb.AppendLine("</body>");
 			sb.AppendLine("</html>");
 
 			return sb.ToString();
-		}	
+		}
 	}
 }

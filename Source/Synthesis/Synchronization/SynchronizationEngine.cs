@@ -17,9 +17,9 @@ namespace Synthesis.Synchronization
 		Dictionary<string, ModelTemplateReference> _typeLookup;
 		Dictionary<string, TemplateItem> _templateLookup;
 
-		ITemplateSignatureProvider _signatureProvider;
-		ITemplateInputProvider _templateProvider;
-		ITypeListProvider _typeListProvider;
+		readonly ITemplateSignatureProvider _signatureProvider;
+		readonly ITemplateInputProvider _templateProvider;
+		readonly ITypeListProvider _typeListProvider;
 
 		public SynchronizationEngine(ITemplateSignatureProvider signatureProvider, ITemplateInputProvider templateProvider, ITypeListProvider typeListProvider)
 		{
@@ -135,14 +135,13 @@ namespace Synthesis.Synchronization
 			{
 				if (_templateLookup == null)
 				{
-					var templates = _templateProvider.CreateTemplateList();
+					var templates = _templateProvider.CreateTemplateList().ToArray();
 					_templateLookup = templates.ToDictionary(x => x.ID.ToString());
 
 					// add any dependent templates of the main template list
-					IEnumerable<TemplateInfo> baseTemplates;
 					foreach (var template in templates)
 					{
-						baseTemplates = new TemplateInfo(template).AllNonstandardBaseTemplates;
+						IEnumerable<TemplateInfo> baseTemplates = new TemplateInfo(template).AllNonstandardBaseTemplates;
 
 						foreach (var baseTemplate in baseTemplates)
 						{

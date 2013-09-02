@@ -303,7 +303,7 @@ namespace Synthesis.Generation
 		}
 
 		#region Code Snippet Generation
-		private static CodeConstructor[] CreateItemConstructors()
+		private static CodeTypeMember[] CreateItemConstructors()
 		{
 			var itemConstructor = new CodeConstructor();
 			itemConstructor.Attributes = MemberAttributes.Public;
