@@ -64,7 +64,6 @@
     <Compile Include="Fixtures\FieldTypes\ImageFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\IntegerFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\TextFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\WordDocumentFieldTests.cs" />
     <Compile Include="Fixtures\ItemExtensionsTests.cs" />
     <Compile Include="Fixtures\TemplateSignatureProviderTests.cs" />
     <Compile Include="IFakeTemplateItem.cs" />

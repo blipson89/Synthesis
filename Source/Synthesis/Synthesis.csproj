@@ -148,7 +148,6 @@
     <Compile Include="FieldTypes\TextField.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FieldTypes\WordDocumentField.cs" />
     <Compile Include="Templates\Sha1TemplateSignatureProvider.cs" />
     <Compile Include="Synchronization\RepresentsSitecoreTemplateAttribute.cs" />
     <Compile Include="StronglyTypedItemAxes.cs" />

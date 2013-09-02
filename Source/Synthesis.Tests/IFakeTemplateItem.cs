@@ -15,6 +15,5 @@ namespace Synthesis.Tests
 		NumericField AccountBalance { get; }
 		ItemReferenceField RelatedFolder { get; }
 		TextField Title { get; }
-		WordDocumentField BadlyDoneHtml { get; }
 	}
 }

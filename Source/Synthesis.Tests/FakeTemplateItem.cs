@@ -7,7 +7,6 @@ using Synthesis.FieldTypes;
 using FileField = Synthesis.FieldTypes.FileField;
 using ImageField = Synthesis.FieldTypes.ImageField;
 using TextField = Synthesis.FieldTypes.TextField;
-using WordDocumentField = Synthesis.FieldTypes.WordDocumentField;
 
 namespace Synthesis.Tests
 {
@@ -96,11 +95,6 @@ namespace Synthesis.Tests
 		public TextField Title
 		{
 			get { return new TextField(new Lazy<Field>(() => InnerItem.Fields["Title"]), null); }
-		}
-
-		public WordDocumentField BadlyDoneHtml
-		{
-			get { return new WordDocumentField(new Lazy<Field>(() => InnerItem.Fields["Badly Done HTML"]), null); }
 		}
 
 		#endregion
