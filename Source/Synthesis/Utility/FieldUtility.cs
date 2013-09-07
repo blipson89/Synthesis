@@ -29,7 +29,7 @@ namespace Synthesis.Utility
 			Assert.ArgumentNotNull(field, "field");
 
 			// so Sitecore, why isn't this encapsulated into the LinkField class again?
-			string url = string.Empty;
+			string url;
 
 			switch (field.LinkType)
 			{
@@ -77,11 +77,11 @@ namespace Synthesis.Utility
 		/// </summary>
 		public static string ExpandDynamicLinks(string fieldContent)
 		{
-			string containsFriendlyLinks = LinkManager.ExpandDynamicLinks(fieldContent, global::Sitecore.Configuration.Settings.Rendering.SiteResolving);
+			string containsFriendlyLinks = LinkManager.ExpandDynamicLinks(fieldContent, Sitecore.Configuration.Settings.Rendering.SiteResolving);
 			string mediaPrefix = string.Empty;
 			foreach (string currentPrefix in MediaManager.Provider.Config.MediaPrefixes)
 			{
-				if (containsFriendlyLinks.IndexOf(currentPrefix, 0) > 0)
+				if (containsFriendlyLinks.IndexOf(currentPrefix, 0, StringComparison.Ordinal) > 0)
 				{
 					mediaPrefix = currentPrefix;
 					break;

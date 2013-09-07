@@ -68,11 +68,14 @@ namespace Synthesis.Generation
 		public string GetNamespace(string rootNamespace)
 		{
 			var relativeNamespace = RelativeNamespace;
+			
 			if (!string.IsNullOrEmpty(relativeNamespace) && !string.IsNullOrEmpty(rootNamespace))
 				return rootNamespace + "." + relativeNamespace;
-			else if (!string.IsNullOrEmpty(rootNamespace))
+			
+			if (!string.IsNullOrEmpty(rootNamespace))
 				return rootNamespace;
-			else return relativeNamespace;
+			
+			return relativeNamespace;
 		}
 
 		/// <summary>

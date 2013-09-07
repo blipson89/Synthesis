@@ -317,7 +317,7 @@ namespace Synthesis.Generation
 			indexConstructor.Parameters.Add(new CodeParameterDeclarationExpression(new CodeTypeReference(typeof(IDictionary<string, string>), CodeTypeReferenceOptions.GlobalReference), "searchFields"));
 			indexConstructor.BaseConstructorArgs.Add(new CodeVariableReferenceExpression("searchFields"));
 
-			return new[] {itemConstructor, indexConstructor};
+			return new CodeTypeMember[] {itemConstructor, indexConstructor};
 		}
 
 		private bool CreateItemProperty(string propertyName, TemplateFieldItem sitecoreField, CodeTypeMemberCollection members)
@@ -571,7 +571,7 @@ namespace Synthesis.Generation
 		{
 			var namespaces = new CodeNamespace[unit.Namespaces.Count];
 			unit.Namespaces.CopyTo(namespaces, 0);
-			Array.Sort(namespaces, (ns, codeNamespace) => ns.Name.CompareTo(codeNamespace.Name));
+			Array.Sort(namespaces, (ns, codeNamespace) => string.Compare(ns.Name, codeNamespace.Name, StringComparison.Ordinal));
 			unit.Namespaces.Clear();
 			unit.Namespaces.AddRange(namespaces);
 
@@ -579,7 +579,7 @@ namespace Synthesis.Generation
 			{
 				var types = new CodeTypeDeclaration[ns.Types.Count];
 				ns.Types.CopyTo(types, 0);
-				Array.Sort(types, (declaration, typeDeclaration) => declaration.Name.CompareTo(typeDeclaration.Name));
+				Array.Sort(types, (declaration, typeDeclaration) => string.Compare(declaration.Name, typeDeclaration.Name, StringComparison.Ordinal));
 				ns.Types.Clear();
 				ns.Types.AddRange(types);
 			}

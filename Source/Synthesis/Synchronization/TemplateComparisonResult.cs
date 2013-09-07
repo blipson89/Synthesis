@@ -71,11 +71,14 @@ namespace Synthesis.Synchronization
 		{
 			if (Locations == SyncSource.Both)
 				return string.Format("{0}, represented by {1}, found in both, {2}synchronized", SitecoreTemplateName, ModelTypeName, (IsSynchronized) ? string.Empty : "not ");
-			else if (Locations == SyncSource.Sitecore)
+			
+			if (Locations == SyncSource.Sitecore)
 				return string.Format("{0}, found only in Sitecore", SitecoreTemplateName);
-			else if (Locations == SyncSource.Model)
+			
+			if (Locations == SyncSource.Model)
 				return string.Format("{0}, found only in Model", ModelTypeName);
-			else return string.Empty;
+			
+			return string.Empty;
 		}
 	}
 }

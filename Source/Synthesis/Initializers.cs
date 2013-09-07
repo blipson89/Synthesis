@@ -22,9 +22,7 @@ namespace Synthesis
 			timer.Start();
 
 			var initializers = new Dictionary<ID, ITemplateInitializer>();
-			var foo = ProviderResolver.Current;
-			var bar = ProviderResolver.Current.TypeListProvider;
-			var baz = bar.CreateTypeList();
+	
 			var initializerTypes = ProviderResolver.Current.TypeListProvider.CreateTypeList().ImplementingInterface(typeof(ITemplateInitializer));
 
 			foreach (var initializer in initializerTypes)

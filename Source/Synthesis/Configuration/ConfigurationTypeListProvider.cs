@@ -12,30 +12,30 @@ namespace Synthesis.Configuration
 	/// Provides a list of all types present in specified assembly names. This provider is appropriate when Synthesis classes and presenters are in a known set of places.
 	/// It is also much faster than AppDomainTypeListProvider.
 	/// </summary>
-	public class ConfigurationTypeListProvider  : ITypeListProvider
+	public class ConfigurationTypeListProvider : ITypeListProvider
 	{
-		private static List<Type> _types;
+		private static volatile List<Type> _types;
 		private readonly List<Assembly> _assemblies = new List<Assembly>();
 
 		private static readonly object SyncRoot = new object();
 
-		[SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification="We want to ignore all load errors on assembly types")]
+		[SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We want to ignore all load errors on assembly types")]
 		public IEnumerable<Type> CreateTypeList()
 		{
-			if(_types == null)
+			if (_types == null)
 			{
-				lock(SyncRoot)
+				lock (SyncRoot)
 				{
-					if(_types == null)
+					if (_types == null)
 					{
-						Stopwatch timer = new Stopwatch();
+						var timer = new Stopwatch();
 						timer.Start();
 
-                        IEnumerable<Assembly> assemblies;
+						IEnumerable<Assembly> assemblies;
 
-                        if (_assemblies.Count > 0)
-                            assemblies = _assemblies;
-                        else assemblies = AppDomain.CurrentDomain.GetAssemblies();
+						if (_assemblies.Count > 0)
+							assemblies = _assemblies;
+						else assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
 						_types = assemblies.SelectMany(delegate(Assembly x)
 							{
@@ -45,11 +45,11 @@ namespace Synthesis.Configuration
 							}).ToList();
 
 						timer.Stop();
-						Log.Info(string.Format("Synthesis: Loaded types from {0} in {1}ms", (_assemblies.Count == 0)?"AppDomain":"assemblies", timer.ElapsedMilliseconds), this);
+						Log.Info(string.Format("Synthesis: Loaded types from {0} in {1}ms", (_assemblies.Count == 0) ? "AppDomain" : "assemblies", timer.ElapsedMilliseconds), this);
 					}
 				}
 			}
-			 
+
 			return _types;
 		}
 

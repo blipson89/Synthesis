@@ -33,7 +33,7 @@ namespace Synthesis.Utility
 		/// <returns>True if the project compiled successfully</returns>
 		public static bool BuildProject(string projectFileName, string configuration, string logFilePath)
 		{
-			return BuildProject(projectFileName, configuration, logFilePath, "Build");
+			return BuildProject(projectFileName, configuration, logFilePath, new [] {"Build"});
 		}
 
 		/// <summary>
@@ -44,11 +44,11 @@ namespace Synthesis.Utility
 		/// <param name="logFilePath">Physical path to write a build log file to</param>
 		/// <param name="targets">The build target(s) to build. Usually "Build," "Rebuild," "Clean," etc</param>
 		/// <returns>True if the project compiled successfully</returns>
-		public static bool BuildProject(string projectFileName, string configuration, string logFilePath, params string[] targets)
+		public static bool BuildProject(string projectFileName, string configuration, string logFilePath, string[] targets)
 		{
-			ProjectCollection projects = new ProjectCollection(ToolsetDefinitionLocations.Registry);
+			var projects = new ProjectCollection(ToolsetDefinitionLocations.Registry);
 
-			FileLogger logger = new FileLogger();
+			var logger = new FileLogger();
 
 			logger.Parameters = @"logfile=" + logFilePath;
 

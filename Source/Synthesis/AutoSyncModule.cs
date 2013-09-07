@@ -68,7 +68,7 @@ namespace Synthesis
 
 			var mode = config.SelectSingleNode("setting[@name='StartupCheckMode']");
 
-			if (mode == null || mode.Attributes["value"] == null)
+			if (mode == null || mode.Attributes == null || mode.Attributes["value"] == null)
 			{
 				Log.Warn("The StartupCheckMode setting was not specified for model synchronization; not performing any synchronization checks.", this);
 				return;
@@ -110,7 +110,8 @@ namespace Synthesis
 
 			var projectPathNode = config.SelectSingleNode("setting[@name='StartupRegenerateProjectPath']");
 
-			if (projectPathNode == null || projectPathNode.Attributes["value"] == null) throw new InvalidOperationException("The StartupRegenerateProjectPath setting must be specified when Synthesis Sync StartupCheckMode is set to Regenerate");
+			if (projectPathNode == null || projectPathNode.Attributes == null || projectPathNode.Attributes["value"] == null) 
+				throw new InvalidOperationException("The StartupRegenerateProjectPath setting must be specified when Synthesis Sync StartupCheckMode is set to Regenerate");
 
 			var projectPathValue = projectPathNode.Attributes["value"].InnerText;
 
@@ -118,10 +119,12 @@ namespace Synthesis
 			{
 				projectPathValue = ResolveAutoProjectPath();
 
-				if (projectPathValue == null) throw new InvalidOperationException("Unable to automatically find a valid project file to build. I looked at sibling and parent folders to the concrete file output path for *proj.");
+				if (projectPathValue == null) 
+					throw new InvalidOperationException("Unable to automatically find a valid project file to build. I looked at sibling and parent folders to the concrete file output path for *proj.");
 			}
 
-			if (!File.Exists(projectPathValue)) throw new InvalidOperationException("The auto-rebuild project file \"" + projectPathValue + "\" did not exist.");
+			if (!File.Exists(projectPathValue)) 
+				throw new InvalidOperationException("The auto-rebuild project file \"" + projectPathValue + "\" did not exist.");
 
 			ProviderResolver.CreateGenerator().GenerateToDisk();
 

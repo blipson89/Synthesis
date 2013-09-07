@@ -8,40 +8,40 @@ namespace Synthesis.Utility
 	/// </summary>
 	internal class SingleFieldEditor : IDisposable
 	{
-		private bool initiatedEdit = false;
-		private Item _item;
+		private bool _initiatedEdit;
+		private readonly Item _item;
 
 		public SingleFieldEditor(Item item)
 		{
 			_item = item;
-			ensureEditMode();
+			EnsureEditMode();
 		}
 
 		public void Dispose()
 		{
-			ensureEndEdit();
+			EnsureEndEdit();
 		}
 
 		/// <summary>
 		/// Ends edit mode if we initiated it, otherwise leaves it alone
 		/// </summary>
-		private void ensureEndEdit()
+		private void EnsureEndEdit()
 		{
-			if (initiatedEdit && _item.Editing.IsEditing)
+			if (_initiatedEdit && _item.Editing.IsEditing)
 				_item.Editing.EndEdit();
 		}
 
 		/// <summary>
 		/// Ensures that the item is in edit mode. Does not handle any security changes.
 		/// </summary>
-		public void ensureEditMode()
+		public void EnsureEditMode()
 		{
 			if (!_item.Editing.IsEditing)
 			{
 				_item.Editing.BeginEdit();
-				initiatedEdit = true;
+				_initiatedEdit = true;
 			}
-			else initiatedEdit = false;
+			else _initiatedEdit = false;
 		}
 	}
 }

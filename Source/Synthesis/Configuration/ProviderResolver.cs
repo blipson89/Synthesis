@@ -1,5 +1,4 @@
 ﻿using Sitecore.Configuration;
-using Sitecore.ContentSearch;
 using Synthesis.ContentSearch;
 using Synthesis.FieldTypes;
 using Synthesis.Generation;

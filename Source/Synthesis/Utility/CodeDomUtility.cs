@@ -4,7 +4,6 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
 using System.Text;
 using Microsoft.CSharp;
 
@@ -29,9 +28,9 @@ namespace Synthesis.Utility
 		public static CodeTypeDeclaration CreateType(this CodeNamespace @namespace, MemberAttributes attributes, string name)
 		{
 			var type = new CodeTypeDeclaration(name)
-			           	{
-			           		Attributes = attributes
-			           	};
+						{
+							Attributes = attributes
+						};
 
 			@namespace.Types.Add(type);
 
@@ -45,8 +44,12 @@ namespace Synthesis.Utility
 		{
 			var method = new CodeMemberMethod();
 			method.Name = name;
-			if(returnType != null) method.ReturnType = new CodeTypeReference(returnType);
+
+			if (returnType != null) 
+				method.ReturnType = new CodeTypeReference(returnType);
+
 			method.Attributes = attributes;
+
 			if (parameters != null)
 				method.Parameters.AddRange(parameters);
 
@@ -61,12 +64,12 @@ namespace Synthesis.Utility
 		public static CompilerResults CompileCSharp(this CodeCompileUnit code, string outputPath)
 		{
 			var providerOptions = new Dictionary<string, string>();
-			if(System.Environment.Version.Major < 4) providerOptions.Add("CompilerVersion", "v3.5");
+			if (Environment.Version.Major < 4) providerOptions.Add("CompilerVersion", "v3.5");
 
 			var compiler = new CSharpCodeProvider(providerOptions);
 
 			CompilerResults results = compiler.CompileAssemblyFromDom(GetCompilerParameters(outputPath), code);
-			
+
 			if (results.Errors.Count > 0)
 			{
 				// Display compilation errors.
@@ -88,12 +91,12 @@ namespace Synthesis.Utility
 		public static string CompileToCSharpSourceCode(this CodeCompileUnit code)
 		{
 			var providerOptions = new Dictionary<string, string>();
-			if (System.Environment.Version.Major < 4) providerOptions.Add("CompilerVersion", "v3.5");
+			if (Environment.Version.Major < 4) providerOptions.Add("CompilerVersion", "v3.5");
 
 			var compiler = new CSharpCodeProvider(providerOptions);
 			string result;
 
-			using(var sourceStream = new MemoryStream())
+			using (var sourceStream = new MemoryStream())
 			{
 				var tw = new IndentedTextWriter(new StreamWriter(sourceStream), "\t");
 
@@ -110,12 +113,14 @@ namespace Synthesis.Utility
 
 		public static CompilerParameters GetCompilerParameters(string outputPath)
 		{
-			var parameters = new CompilerParameters();
+			var parameters = new CompilerParameters
+				{
+					GenerateInMemory = true, 
+					GenerateExecutable = false, 
+					IncludeDebugInformation = false, 
+					OutputAssembly = outputPath
+				};
 
-			parameters.GenerateInMemory = true;
-			parameters.GenerateExecutable = false;
-			parameters.IncludeDebugInformation = false;
-			parameters.OutputAssembly = outputPath;
 			return parameters;
 		}
 	}
@@ -126,7 +131,7 @@ namespace Synthesis.Utility
 	[Serializable]
 	public class CompileException : Exception
 	{
-		public CompileException() : base() { }
+		public CompileException() { }
 		public CompileException(string message) : base(message) { }
 		public CompileException(string message, Exception innerException) : base(message, innerException) { }
 		protected CompileException(SerializationInfo info, StreamingContext context) : base(info, context) { }
@@ -134,11 +139,6 @@ namespace Synthesis.Utility
 			: base(message)
 		{
 			CompilerErrors = errors;
-		}
-
-		public override void GetObjectData(SerializationInfo info, StreamingContext context)
-		{
-			base.GetObjectData(info, context);
 		}
 
 		public CompilerErrorCollection CompilerErrors { get; private set; }
