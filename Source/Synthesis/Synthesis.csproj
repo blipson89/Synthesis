@@ -81,6 +81,15 @@
     <Compile Include="ContentSearch\Lucene\SynthesisLuceneIndexFieldNameTranslator.cs" />
     <Compile Include="FieldDictionary.cs" />
     <Compile Include="FieldExtensions.cs" />
+    <Compile Include="FieldTypes\Adapters\DatabaseAdapter.cs" />
+    <Compile Include="FieldTypes\Adapters\EditingAdapter.cs" />
+    <Compile Include="FieldTypes\Adapters\IAxesAdapter.cs" />
+    <Compile Include="FieldTypes\Adapters\IDatabaseAdapter.cs" />
+    <Compile Include="FieldTypes\Adapters\IEditingAdapter.cs" />
+    <Compile Include="FieldTypes\Adapters\IPathAdapter.cs" />
+    <Compile Include="FieldTypes\Adapters\IStatisticsAdapter.cs" />
+    <Compile Include="FieldTypes\Adapters\PathAdapter.cs" />
+    <Compile Include="FieldTypes\Adapters\StatisticsAdapter.cs" />
     <Compile Include="FieldTypes\FieldMapping.cs" />
     <Compile Include="FieldTypes\Interfaces\INumericField.cs" />
     <Compile Include="FieldTypes\Interfaces\ITristateField.cs" />
@@ -170,7 +179,7 @@
     </Compile>
     <Compile Include="Templates\Sha1TemplateSignatureProvider.cs" />
     <Compile Include="Synchronization\RepresentsSitecoreTemplateAttribute.cs" />
-    <Compile Include="StronglyTypedItemAxes.cs" />
+    <Compile Include="FieldTypes\Adapters\AxesAdapter.cs" />
     <Compile Include="IStandardTemplateItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StandardTemplateItem.cs" />

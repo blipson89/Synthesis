@@ -7,6 +7,7 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Globalization;
 using Sitecore.Links;
+using Synthesis.FieldTypes.Adapters;
 using Synthesis.Utility;
 using Synthesis.FieldTypes;
 using Sitecore.Configuration;
@@ -63,7 +64,7 @@ namespace Synthesis
 
 					System.Diagnostics.Debug.WriteLine("Synthesis: {0} ({1}) instance promoted from search to database item.", Name, Id);
 
-					_innerItem = Database.GetItem(Uri);
+					_innerItem = Sitecore.Data.Database.GetItem(Uri);
 					if (_innerItem == null) throw new InvalidItemException("The item URI " + Uri + " did not result in a usable item. Couldn't ensure the item was loaded.");
 				}
 
@@ -193,6 +194,7 @@ namespace Synthesis
 				{
 					var searchTemplate = GetSearchFieldValue("_templatesimplemented");
 
+					// TODO: this looks busted?
 					return new ID[0];
 				}
 
@@ -206,11 +208,11 @@ namespace Synthesis
 		/// <summary>
 		/// The database this item resides in
 		/// </summary>
-		public Database Database
+		public IDatabaseAdapter Database
 		{
 			get
 			{
-				return Factory.GetDatabase(Uri.DatabaseName);
+				return new DatabaseAdapter(Factory.GetDatabase(Uri.DatabaseName));
 			}
 		}
 
@@ -253,34 +255,34 @@ namespace Synthesis
 		/// Item statistics, i.e. created date
 		/// Loads the Sitecore item if this is a search-driven instance
 		/// </summary>
-		public virtual ItemStatistics Statistics
+		public virtual IStatisticsAdapter Statistics
 		{
-			get { return InnerItem.Statistics; }
+			get { return new StatisticsAdapter(InnerItem.Statistics); }
 		}
 
 		/// <summary>
 		/// Gets a strongly typed version of the item's axes for relative querying
 		/// </summary>
-		public virtual StronglyTypedItemAxes Axes
+		public virtual IAxesAdapter Axes
 		{
-			get { return new StronglyTypedItemAxes(InnerItem); }
+			get { return new AxesAdapter(InnerItem); }
 		}
 
 		/// <summary>
 		/// Source path data for the item
 		/// </summary>
-		public virtual ItemPath Paths
+		public virtual IPathAdapter Paths
 		{
-			get { return InnerItem.Paths; }
+			get { return new PathAdapter(InnerItem.Paths); }
 		}
 
 		/// <summary>
 		/// Provides access to the publishing framework
 		/// Loads the Sitecore item if this is a search-driven instance
 		/// </summary>
-		public virtual ItemEditing Editing
+		public virtual IEditingAdapter Editing
 		{
-			get { return InnerItem.Editing; }
+			get { return new EditingAdapter(InnerItem.Editing); }
 		}
 
 		/// <summary>
@@ -294,7 +296,7 @@ namespace Synthesis
 
 				if (_url == null)
 				{
-					if (InnerItem.Paths.FullPath.StartsWith("/sitecore/media library"))
+					if (Paths.IsMediaItem)
 						_url = Sitecore.Resources.Media.MediaManager.GetMediaUrl(InnerItem);
 					else
 						_url = LinkManager.GetItemUrl(InnerItem);

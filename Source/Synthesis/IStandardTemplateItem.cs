@@ -3,6 +3,7 @@ using Sitecore.ContentSearch;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Globalization;
+using Synthesis.FieldTypes.Adapters;
 
 namespace Synthesis
 {
@@ -44,7 +45,7 @@ namespace Synthesis
 		/// <summary>
 		/// Item source database. If not yet created, returns null.
 		/// </summary>
-		Database Database { get; }
+		IDatabaseAdapter Database { get; }
 
 		/// <summary>
 		/// Item version number
@@ -67,22 +68,22 @@ namespace Synthesis
 		/// <summary>
 		/// Source path data for the item
 		/// </summary>
-		ItemPath Paths { get; }
+		IPathAdapter Paths { get; }
 
 		/// <summary>
 		/// Item statistics, i.e. created date
 		/// </summary>
-		ItemStatistics Statistics { get; }
+		IStatisticsAdapter Statistics { get; }
 
 		/// <summary>
 		/// Provides access to the publishing framework
 		/// </summary>
-		ItemEditing Editing { get; }
+		IEditingAdapter Editing { get; }
 
 		/// <summary>
 		/// Gets a strongly typed version of the item's axes for relative querying
 		/// </summary>
-		StronglyTypedItemAxes Axes { get; }
+		IAxesAdapter Axes { get; }
 
 		/// <summary>
 		/// Gets the inner Sitecore Item. Avoid using this unless you absolutely have to.

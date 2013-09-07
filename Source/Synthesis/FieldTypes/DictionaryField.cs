@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Web;
-using Sitecore.Data.Fields;
 using System;
 using Synthesis.FieldTypes.Interfaces;
 

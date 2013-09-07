@@ -1,5 +1,4 @@
-﻿using System;
-using Sitecore.Data.Fields;
+﻿using Sitecore.Data.Fields;
 using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
