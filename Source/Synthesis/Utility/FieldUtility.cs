@@ -18,7 +18,9 @@ namespace Synthesis.Utility
 		{
 			Assert.ArgumentNotNull(item, "item");
 
-			return StringUtil.EnsurePrefix('/', MediaManager.GetMediaUrl(item));
+			// the conditional here prevents URLs like /http://foo/bar from being generated if AlwaysIncludeServerUrl is enabled
+			// thanks to Dave Peterson for finding this.
+			return LinkManager.Provider.AlwaysIncludeServerUrl ? MediaManager.GetMediaUrl(item) : StringUtil.EnsurePrefix('/', MediaManager.GetMediaUrl(item));
 		}
 
 		/// <summary>
