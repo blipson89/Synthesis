@@ -89,7 +89,7 @@ namespace Synthesis.Generation
 			{
 				// setup concrete model object
 				CodeNamespace templateNamespace = GetTemplateNamespace(concreteUnit, template.Template.ID, Parameters.ItemNamespace);
-				CodeTypeDeclaration concrete = templateNamespace.CreateType(MemberAttributes.Public, template.TypeName);
+				CodeTypeDeclaration concrete = templateNamespace.CreateType(MemberAttributes.Public, template.TypeName.AsIdentifier());
 				concrete.IsClass = true;
 				concrete.IsPartial = true;
 				concrete.BaseTypes.Add(new CodeTypeReference(Parameters.ItemBaseClass, CodeTypeReferenceOptions.GlobalReference));
@@ -102,7 +102,7 @@ namespace Synthesis.Generation
 				AddCommentsToItem(concrete, template.Template); // adds XML comments based on Sitecore Help fields
 
 				HashSet<string> fieldKeys = GetBaseFieldSet();
-				fieldKeys.Add(concrete.Name.AsIdentifier()); // member names cannot be the same as their enclosing type so we add the type name to the fields collection
+				fieldKeys.Add(concrete.Name); // member names cannot be the same as their enclosing type so we add the type name to the fields collection
 				foreach (var baseTemplate in template.AllNonstandardBaseTemplates) // similarly names can't be the same as any of their base templates' names (this would cause an incompletely implemented interface)
 					fieldKeys.Add(baseTemplate.Template.Name.AsIdentifier());		// NOTE: you could break this if you have a base template called Foo and a field called Foo that IS NOT on the Foo template (but why would you have that?)
 				
@@ -207,7 +207,7 @@ namespace Synthesis.Generation
 			// the check against standard template breaks the recursion chain
 			if (string.IsNullOrEmpty(info.InterfaceFullName) && template.Name.ToUpperInvariant() != StandardTemplate)
 			{
-				string interfaceTypeName = string.Concat("I", info.TypeName, Parameters.InterfaceSuffix);
+				string interfaceTypeName = string.Concat("I", info.TypeName.AsIdentifier(), Parameters.InterfaceSuffix);
 				CodeTypeDeclaration interfaceType = GetTemplateNamespace(codeUnit, template.ID, interfaceNamespace.Name).CreateType(MemberAttributes.Public, interfaceTypeName);
 				interfaceType.IsInterface = true;
 				interfaceType.IsPartial = true;

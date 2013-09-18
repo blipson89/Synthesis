@@ -9,7 +9,6 @@ using Sitecore.Globalization;
 using Sitecore.Links;
 using Synthesis.FieldTypes.Adapters;
 using Synthesis.Utility;
-using Synthesis.FieldTypes;
 using Sitecore.Configuration;
 using System.Collections.Generic;
 using Sitecore.Exceptions;

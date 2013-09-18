@@ -10,6 +10,10 @@ namespace Synthesis.Generation
 		/// </summary>
 		public static string AsIdentifier(this string identifier)
 		{
+			// allow for fields that start with a number
+			if (char.IsDigit(identifier[0]))
+				identifier = "_" + identifier;
+
 			return Regex.Replace(identifier, "[^a-zA-Z0-9_\\.]+", string.Empty);
 		}
 
