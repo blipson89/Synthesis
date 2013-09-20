@@ -24,5 +24,6 @@
   </metadata>
   <files>
 	<file src="..\..\Source\Synthesis.Blade\Synthesis.Blade.config" target="content\App_Config\Include" />
+	<file src="web.config.install.xdt" target="content" />
   </files>
 </package>
