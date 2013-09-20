@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using Synthesis.FieldTypes;
 using System.Web;
 using Sitecore.Web.UI.WebControls;
-using RazorEngine.Text;
 using Synthesis;
 using Synthesis.FieldTypes.Interfaces;
 
@@ -13,17 +12,17 @@ namespace Blade.Razor.Helpers
 {
 	public static class SynthesisHtmlHelper
 	{
-		public static IEncodedString DateTimeFor<T>(this HtmlHelper<T> helper, Func<T, IDateTimeField> selector)
+		public static IHtmlString DateTimeFor<T>(this HtmlHelper<T> helper, Func<T, IDateTimeField> selector)
 		{
 			return DateTimeFor(helper, selector, "g");
 		}
 
-		public static IEncodedString DateTimeFor<T>(this HtmlHelper<T> helper, Func<T, IDateTimeField> selector, string format)
+		public static IHtmlString DateTimeFor<T>(this HtmlHelper<T> helper, Func<T, IDateTimeField> selector, string format)
 		{
 			return DateTimeFor(helper, selector, x => { x.Format = format; });
 		}
 
-		public static IEncodedString DateTimeFor<T>(this HtmlHelper<T> helper, Func<T, IDateTimeField> selector, Action<Date> parameters)
+		public static IHtmlString DateTimeFor<T>(this HtmlHelper<T> helper, Func<T, IDateTimeField> selector, Action<Date> parameters)
 		{
 			var field = selector(helper.ViewData.Model);
 
@@ -33,23 +32,23 @@ namespace Blade.Razor.Helpers
 				date.AttachToDateTimeField(field);
 				parameters(date);
 
-				return new RawString(date.RenderAsText());
+				return new MvcHtmlString(date.RenderAsText());
 			}
 
-			return new RawString(string.Empty);
+			return new MvcHtmlString(string.Empty);
 		}
 
-		public static IEncodedString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector)
+		public static IHtmlString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector)
 		{
 			return FileLinkFor(helper, selector, null);
 		}
 
-		public static IEncodedString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector, string linkText)
+		public static IHtmlString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector, string linkText)
 		{
 			return FileLinkFor(helper, selector, linkText, new { });
 		}
 
-		public static IEncodedString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector, string linkText, object attributes)
+		public static IHtmlString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector, string linkText, object attributes)
 		{
 			var field = selector(helper.ViewData.Model);
 
@@ -69,23 +68,23 @@ namespace Blade.Razor.Helpers
 				sb.Append(linkText ?? field.Url);
 				sb.Append("</a>");
 
-				return new RawString(sb.ToString());
+				return new MvcHtmlString(sb.ToString());
 			}
 
-			return new RawString(string.Empty);
+			return new MvcHtmlString(string.Empty);
 		}
 
-		public static IEncodedString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector)
+		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector)
 		{
 			return ImageFor(helper, selector, x => { });
 		}
 
-		public static IEncodedString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, string cssClass)
+		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, string cssClass)
 		{
 			return ImageFor(helper, selector, x => { x.CssClass = cssClass; });
 		}
 
-		public static IEncodedString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int maxWidth, int maxHeight)
+		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int maxWidth, int maxHeight)
 		{
 			return ImageFor(helper, selector, x =>
 			{
@@ -94,7 +93,7 @@ namespace Blade.Razor.Helpers
 			});
 		}
 
-		public static IEncodedString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int maxWidth, int maxHeight, string cssClass)
+		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int maxWidth, int maxHeight, string cssClass)
 		{
 			return ImageFor(helper, selector, x =>
 			{
@@ -104,7 +103,7 @@ namespace Blade.Razor.Helpers
 			});
 		}
 
-		public static IEncodedString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, Action<Image> parameters)
+		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, Action<Image> parameters)
 		{
 			var field = selector(helper.ViewData.Model);
 
@@ -114,42 +113,42 @@ namespace Blade.Razor.Helpers
 				imageRenderer.AttachToImageField(field);
 				parameters(imageRenderer);
 
-				return new RawString(imageRenderer.RenderAsText());
+				return new MvcHtmlString(imageRenderer.RenderAsText());
 			}
 
-			return new RawString(string.Empty);
+			return new MvcHtmlString(string.Empty);
 		}
 
-		public static IEncodedString TextFor<T>(this HtmlHelper<T> helper, Func<T, ITextField> selector)
+		public static IHtmlString TextFor<T>(this HtmlHelper<T> helper, Func<T, ITextField> selector)
 		{
 			return TextFor(helper, selector, true);
 		}
 
-		public static IEncodedString TextFor<T>(this HtmlHelper<T> helper, Func<T, ITextField> selector, bool editable)
+		public static IHtmlString TextFor<T>(this HtmlHelper<T> helper, Func<T, ITextField> selector, bool editable)
 		{
 			var field = selector(helper.ViewData.Model);
 
 			if (field.HasTextValue || Sitecore.Context.PageMode.IsPageEditor)
 			{
 				if (editable)
-					return new RawString(field.RenderedValue);
+					return new MvcHtmlString(field.RenderedValue);
 
 				var richText = field as RichTextField;
-				
-				if (richText != null) return new RawString(richText.ExpandedLinksValue);
-				
-				return new RawString(field.RawValue);
+
+				if (richText != null) return new MvcHtmlString(richText.ExpandedLinksValue);
+
+				return new MvcHtmlString(field.RawValue);
 			}
 
-			return new RawString(string.Empty);
+			return new MvcHtmlString(string.Empty);
 		}
 
-		public static IEncodedString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector)
+		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector)
 		{
 			return HyperlinkFor(helper, selector, x => { });
 		}
 
-		public static IEncodedString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string linkText)
+		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string linkText)
 		{
 			return HyperlinkFor(helper, selector, x =>
 			{
@@ -157,7 +156,7 @@ namespace Blade.Razor.Helpers
 			});
 		}
 
-		public static IEncodedString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string linkText, string cssClass)
+		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string linkText, string cssClass)
 		{
 			return HyperlinkFor(helper, selector, x =>
 			{
@@ -166,7 +165,7 @@ namespace Blade.Razor.Helpers
 			});
 		}
 
-		public static IEncodedString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, Action<Link> parameters)
+		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, Action<Link> parameters)
 		{
 			var field = selector(helper.ViewData.Model);
 
@@ -176,10 +175,10 @@ namespace Blade.Razor.Helpers
 				link.AttachToLinkField(field);
 				parameters(link);
 
-				return new RawString(link.RenderAsText());
+				return new MvcHtmlString(link.RenderAsText());
 			}
 
-			return new RawString(string.Empty);
+			return new MvcHtmlString(string.Empty);
 		}
 	}
 }
