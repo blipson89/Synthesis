@@ -28,28 +28,9 @@ namespace Synthesis.ContentSearch.Hacks
 				return base.VisitMemberAccess(expression);
 
 			if (expression.Expression.NodeType == ExpressionType.Constant ||
-				expression.Expression.NodeType == ExpressionType.Parameter)
+				expression.Expression.NodeType == ExpressionType.Parameter ||
+				expression.Expression.NodeType == ExpressionType.Convert)
 				return base.VisitMemberAccess(expression);
-
-			// PATCH: support for generic LINQ extensions (strips the cast LINQ adds to the expression)
-			if (expression.Expression.NodeType == ExpressionType.Convert)
-			{
-				var unaryExpression = expression.Expression as UnaryExpression;
-
-				if(unaryExpression == null) throw new NotSupportedException("Invalid cast.");
-
-				Type type = unaryExpression.Type;
-
-				var parameterExpression = (ParameterExpression)unaryExpression.Operand;
-
-				if (!parameterExpression.Type.IsAssignableTo(ItemType)) throw new NotSupportedException(string.Format("Unsupported cast: {0}. Expected: {1}", parameterExpression.Type, ItemType));		
-				if (!parameterExpression.Type.IsAssignableTo(type)) throw new NotSupportedException(string.Format("Invalid cast: {0} cannot be assigned to type: {1}", parameterExpression.Type.FullName, type));
-				
-				if (expression.Member.MemberType == MemberTypes.Property) return VisitItemProperty(expression);
-				
-				throw new NotSupportedException(string.Format("Unsupported member access. Expression type: {0}. Member name: {1}.", expression.Expression.NodeType, expression.Member.Name));
-			}
-
 		
 			if (!(expression.Expression is MemberExpression))
 				throw new NotSupportedException(string.Format("Unsupported member access. Expression type: {0}. Member name: {1}.", expression.Expression.NodeType, expression.Member.Name));

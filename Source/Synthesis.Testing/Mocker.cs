@@ -132,7 +132,7 @@ namespace Synthesis.Testing
 			return mock.Object;
 		}
 
-		private IStatisticsAdapter CreateStatisticsAdapter(Action<Mock<IStatisticsAdapter>> setup = null)
+		public virtual IStatisticsAdapter CreateStatisticsAdapter(Action<Mock<IStatisticsAdapter>> setup = null)
 		{
 			var mock = new Mock<IStatisticsAdapter>();
 
