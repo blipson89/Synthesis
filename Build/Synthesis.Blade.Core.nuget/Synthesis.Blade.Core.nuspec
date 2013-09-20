@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Synthesis.Blade.Core</id>
-    <version>5.0.2</version>
+    <version>7.0.0</version>
     <authors>Kam Figy</authors>
     <owners>ISITE Design</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -13,12 +13,12 @@
 
 		This package is designed to be installed on a library project, and does not include configuration files. Use the Synthesis.Blade package for web projects.
 	</description>
-    <releaseNotes>Initial public release</releaseNotes>
+    <releaseNotes>Support for Blade 2.0</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>sitecore</tags>
     <dependencies>
-		<dependency id="Synthesis.Core" version="5.0.2" />
-		<dependency id="Blade.Core" version="1.5.6" />
+		<dependency id="Synthesis.Core" version="7.0.0" />
+		<dependency id="Blade.Core" version="2.0.0" />
     </dependencies>
   </metadata>
   <files>
