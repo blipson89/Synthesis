@@ -16,6 +16,6 @@ namespace Synthesis.Blade
 			return GetModel(view, dataSource.As<TItem>());
 		}
 
-		protected abstract TModel GetModel(IView view, TItem item);
+		public abstract TModel GetModel(IView view, TItem item);
 	}
 }
