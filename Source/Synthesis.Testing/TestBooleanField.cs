@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using Synthesis.FieldTypes.Interfaces;
 
-namespace Synthesis.Testing.Fields
+namespace Synthesis.Testing
 {
 	/// <summary>
-	/// Encapsulates a boolean (checkbox) field from Sitecore
+	///     Encapsulates a boolean (checkbox) field from Sitecore
 	/// </summary>
 	public class TestBooleanField : TestFieldType, IBooleanField
 	{

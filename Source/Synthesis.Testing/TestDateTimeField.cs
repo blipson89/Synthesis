@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System;
+﻿using System;
+using System.Linq;
 using Sitecore.Data.Fields;
 using Synthesis.FieldTypes.Interfaces;
 
-namespace Synthesis.Testing.Fields
+namespace Synthesis.Testing
 {
 	public class TestDateTimeField : TestFieldType, IDateTimeField
 	{
@@ -13,23 +13,20 @@ namespace Synthesis.Testing.Fields
 		}
 
 		/// <summary>
-		/// Gets the value of the field. If no value exists, returns DateTime.MinValue
+		///     Gets the value of the field. If no value exists, returns DateTime.MinValue
 		/// </summary>
 		public DateTime Value { get; private set; }
 
 		/// <summary>
-		/// Checks if the field has a value. For a DateTime, this checks if it equals default(DateTime).
+		///     Checks if the field has a value. For a DateTime, this checks if it equals default(DateTime).
 		/// </summary>
 		public override bool HasValue
 		{
-			get
-			{
-				return Value != DateTime.MinValue;
-			}
+			get { return Value != DateTime.MinValue; }
 		}
 
 		/// <summary>
-		/// Renders the field using a Sitecore FieldRenderer and returns the result
+		///     Renders the field using a Sitecore FieldRenderer and returns the result
 		/// </summary>
 		public virtual string RenderedValue
 		{

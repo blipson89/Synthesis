@@ -2,7 +2,7 @@
 using Sitecore.Data;
 using Synthesis.FieldTypes.Interfaces;
 
-namespace Synthesis.Testing.Fields
+namespace Synthesis.Testing
 {
 	public abstract class TestFieldType : IFieldType
 	{

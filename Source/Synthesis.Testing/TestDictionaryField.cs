@@ -1,15 +1,15 @@
-﻿using System.Linq;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
+using System.Linq;
 using Synthesis.FieldTypes.Interfaces;
 
-namespace Synthesis.Testing.Fields
+namespace Synthesis.Testing
 {
 	/// <summary>
-	/// Represents a field that is a logical dictionary (i.e. a Key Value List)
+	///     Represents a field that is a logical dictionary (i.e. a Key Value List)
 	/// </summary>
 	public class TestDictionaryField : TestFieldType, IDictionaryField
 	{
-		NameValueCollection _values;
+		private NameValueCollection _values;
 
 		public TestDictionaryField(NameValueCollection values)
 		{
@@ -17,7 +17,7 @@ namespace Synthesis.Testing.Fields
 		}
 
 		/// <summary>
-		/// Gets the set of IDs that make up the relationships
+		///     Gets the set of IDs that make up the relationships
 		/// </summary>
 		public string this[string key]
 		{
@@ -26,14 +26,11 @@ namespace Synthesis.Testing.Fields
 		}
 
 		/// <summary>
-		/// Checks if the field has at least one key
+		///     Checks if the field has at least one key
 		/// </summary>
 		public override bool HasValue
 		{
-			get
-			{
-				return _values.Count > 0;
-			}
+			get { return _values.Count > 0; }
 		}
 
 		public void Add(string key, string value)

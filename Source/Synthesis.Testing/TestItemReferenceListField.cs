@@ -9,16 +9,16 @@ using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using Synthesis.FieldTypes.Interfaces;
 
-namespace Synthesis.Testing.Fields
+namespace Synthesis.Testing
 {
 	/// <summary>
-	/// Represents a field that has a list of item ID references (a multilist, treelist, etc)
+	///     Represents a field that has a list of item ID references (a multilist, treelist, etc)
 	/// </summary>
 	[SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Collection suffix would be confusing here")]
 	public class TestItemReferenceListField : TestFieldType, IItemReferenceListField
 	{
-		private readonly List<ID> _targetIds;
 		private readonly List<IStandardTemplateItem> _standardTemplateItems;
+		private readonly List<ID> _targetIds;
 
 		public TestItemReferenceListField(ID[] targetsIds = null, IStandardTemplateItem[] targets = null)
 		{
@@ -27,7 +27,7 @@ namespace Synthesis.Testing.Fields
 		}
 
 		/// <summary>
-		/// Gets the set of IDs that make up the relationships
+		///     Gets the set of IDs that make up the relationships
 		/// </summary>
 		public ReadOnlyCollection<ID> TargetIds
 		{
@@ -35,24 +35,24 @@ namespace Synthesis.Testing.Fields
 		}
 
 		/// <summary>
-		/// Gets the items that make up the relationships
+		///     Gets the items that make up the relationships
 		/// </summary>
-		public ReadOnlyCollection<IStandardTemplateItem> TargetItems { get { return _standardTemplateItems.AsReadOnly(); } }
+		public ReadOnlyCollection<IStandardTemplateItem> TargetItems
+		{
+			get { return _standardTemplateItems.AsReadOnly(); }
+		}
 
 		/// <summary>
-		/// Checks if the relationship has one or more relations
+		///     Checks if the relationship has one or more relations
 		/// </summary>
 		public override bool HasValue
 		{
-			get
-			{
-				return TargetIds.Count > 0;
-			}
+			get { return TargetIds.Count > 0; }
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable)TargetIds).GetEnumerator();
+			return ((IEnumerable) TargetIds).GetEnumerator();
 		}
 
 		public IEnumerator<ID> GetEnumerator()
