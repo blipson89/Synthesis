@@ -10,7 +10,7 @@ namespace Synthesis.Templates
 	/// </summary>
 	public class TemplateInfo
 	{
-		private TemplateItem _template;
+		private readonly TemplateItem _template;
 		public TemplateInfo(TemplateItem templateItem)
 		{
 			_template = templateItem;

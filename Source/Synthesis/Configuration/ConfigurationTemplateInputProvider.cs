@@ -192,12 +192,11 @@ namespace Synthesis.Configuration
 				var templates = ResolveSpecToItems(pieces[0], GetAllTemplates());
 				var fields = ResolveSpecToItems(pieces[1], GetAllFields()).ToArray();
 
-				TemplateItem templateItem;
 				foreach (var template in templates)
 				{
 					if (template == null) continue;
 
-					templateItem = template;
+					TemplateItem templateItem = template;
 					foreach (var field in fields)
 					{
 						if (field == null) continue;

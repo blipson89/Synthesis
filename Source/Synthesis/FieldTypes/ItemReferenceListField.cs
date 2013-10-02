@@ -39,13 +39,12 @@ namespace Synthesis.FieldTypes
 				if (_targets == null)
 				{
 					var list = new List<IStandardTemplateItem>();
-					IStandardTemplateItem item;
 
 					if (HasValue)
 					{
 						foreach (var target in TargetIds)
 						{
-							item = InnerItem.Database.GetItem(target).AsStronglyTyped();
+							IStandardTemplateItem item = InnerItem.Database.GetItem(target).AsStronglyTyped();
 
 							if (item != null)
 								list.Add(item);

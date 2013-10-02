@@ -1,6 +1,5 @@
 ﻿using Sitecore.ContentSearch.Linq;
 using Sitecore.ContentSearch.Linq.Common;
-using Sitecore.ContentSearch.Linq.Extensions;
 using Sitecore.ContentSearch.Linq.Helpers;
 using Sitecore.ContentSearch.Linq.Nodes;
 using System;

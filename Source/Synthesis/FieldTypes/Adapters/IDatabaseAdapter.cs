@@ -41,7 +41,7 @@ namespace Synthesis.FieldTypes.Adapters
 		/// </summary>
 		/// <param name="itemId">The item id.</param><param name="language">The language.</param><param name="version">The version.</param>
 		/// <returns/>
-		IStandardTemplateItem GetItem(ID itemId, Language language, Sitecore.Data.Version version);
+		IStandardTemplateItem GetItem(ID itemId, Language language, Version version);
 
 		/// <summary>
 		/// Gets an item from a path.
@@ -69,7 +69,7 @@ namespace Synthesis.FieldTypes.Adapters
 		/// <returns>
 		/// The item.
 		/// </returns>
-		IStandardTemplateItem GetItem(string path, Language language, Sitecore.Data.Version version);
+		IStandardTemplateItem GetItem(string path, Language language, Version version);
 
 		/// <summary>
 		/// Gets the item.
