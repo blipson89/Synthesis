@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Sitecore.Data.Fields;
 using Synthesis.FieldTypes.Interfaces;
@@ -30,7 +31,7 @@ namespace Synthesis.Testing
 		/// </summary>
 		public virtual string RenderedValue
 		{
-			get { return Value.ToString(); }
+			get { return Value.ToString(CultureInfo.InvariantCulture); }
 		}
 
 		public DateField ToDateField()
