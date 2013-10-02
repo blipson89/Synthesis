@@ -79,7 +79,7 @@ namespace Synthesis
 			where TResult : IStandardTemplateItem
 		{
 			// once the hacks in the Hacks namespace are fixed (around update 2, I hear), the commented line below can be used instead of BugFixIndex
-			// in fact once Update 2 is released, this class may become largely irrelevant as interface support is coming natively
+			// in fact once Update 3? is released, this class may become largely irrelevant as interface support is coming natively
 			//var linqToLuceneIndex = (executionContext == null) ? new LinqToLuceneIndex<TResult>(context) : new LinqToLuceneIndex<TResult>(context, executionContext);
 			var linqToLuceneIndex = (executionContext == null)
 										? new BugFixIndex<TResult>(context)
