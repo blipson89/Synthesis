@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Synthesis.Blade</id>
-    <version>7.0.0</version>
+    <version>7.0.1</version>
     <authors>Kam Figy</authors>
     <owners>ISITE Design</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -13,7 +13,7 @@
 
 		This package is designed to be installed on a web project, and includes configuration files.
 	</description>
-    <releaseNotes>Support for Blade 2.0</releaseNotes>
+    <releaseNotes>Fixes configuration bug</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>sitecore</tags>
     <dependencies>

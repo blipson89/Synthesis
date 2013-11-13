@@ -13,6 +13,9 @@
 
 		This package is designed to be installed on a library project, and does not include configuration files. Use the Synthesis.Blade package for web projects.
 	</description>
+	<summary>
+		Integrates Blade with Synthesis objects
+	</summary>
     <releaseNotes>Support for Blade 2.0</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>sitecore</tags>
