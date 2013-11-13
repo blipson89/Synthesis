@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Synthesis</id>
-    <version>7.0.0</version>
+    <version>7.0.1</version>
     <authors>Kam Figy</authors>
     <owners>ISITE Design</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -16,7 +16,7 @@
 	<summary>
 		Synthesis is a universal object mapper with LINQ support for Sitecore 7 Update 1. This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
 	</summary>
-    <releaseNotes>This release contains numerous bug fixes and upgrades to enhance testability and configuration</releaseNotes>
+    <releaseNotes>Certain field interface types now correctly contain setters</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>sitecore</tags>
     <dependencies>

@@ -16,7 +16,7 @@ namespace Synthesis.Testing
 		/// <summary>
 		///     Gets the value of the field. If no value exists, returns DateTime.MinValue
 		/// </summary>
-		public DateTime Value { get; private set; }
+		public DateTime Value { get; set; }
 
 		/// <summary>
 		///     Checks if the field has a value. For a DateTime, this checks if it equals default(DateTime).

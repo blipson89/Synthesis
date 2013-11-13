@@ -13,7 +13,7 @@ namespace Synthesis.Testing
 			Value = value;
 		}
 
-		public bool Value { get; private set; }
+		public bool Value { get; set; }
 
 		public override bool HasValue
 		{

@@ -2,8 +2,8 @@
 
 namespace Synthesis.FieldTypes.Interfaces
 {
-	public interface IFieldRenderableValuedFieldType<out TValue> : IFieldType, IFieldRenderableFieldType
+	public interface IFieldRenderableValuedFieldType<TValue> : IFieldType, IFieldRenderableFieldType
 	{
-		TValue Value { get; }
+		TValue Value { get; set; }
 	}
 }

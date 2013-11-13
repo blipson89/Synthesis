@@ -2,8 +2,8 @@
 
 namespace Synthesis.FieldTypes.Interfaces
 {
-	public interface IValuedFieldType<out TValue> : IFieldType
+	public interface IValuedFieldType<TValue> : IFieldType
 	{
-		TValue Value { get; }
+		TValue Value { get; set; }
 	}
 }
