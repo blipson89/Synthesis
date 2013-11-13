@@ -15,4 +15,6 @@ SET msbuild=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
 
 "%scriptRoot%\..\.nuget\NuGet.exe" pack "%scriptRoot%\Synthesis.Blade.Core.nuget\Synthesis.Blade.Core.nuspec" -Symbols
 
+"%scriptRoot%\..\.nuget\NuGet.exe" pack "%scriptRoot%\Synthesis.Blade.Ninject.nuget\Synthesis.Blade.Ninject.nuspec" -Symbols
+
 PAUSE

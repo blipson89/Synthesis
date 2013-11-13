@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Synthesis.Blade.Ninject</id>
+    <version>7.0.0</version>
+    <authors>Kam Figy</authors>
+    <owners>ISITE Design</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/kamsar/Synthesis</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+		Extends Synthesis.Blade to enable constructor dependency injection in presenters using the Ninject IoC container
+		
+		This package is designed to be installed on a web project, and includes configuration files.
+	</description>
+	<summary>
+		Ninject bindings for Synthesis.Blade
+	</summary>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>sitecore</tags>
+    <dependencies>
+		<dependency id="Synthesis.Blade.Core" version="2.0" />
+		<dependency id="Blade.Core" version="2.0" />
+		<dependency id="Ninject" version="3.0" />
+		<dependency id="Ninject.Web.Common" version="3.0" />
+    </dependencies>
+  </metadata>
+  <files>
+	<file src="..\..\Source\Synthesis.Blade.Ninject\Synthesis.Blade.Ninject.config" target="content\App_Config\Include" />
+	<file src="..\..\Source\Synthesis.Blade.Ninject\bin\release\Synthesis.Blade.Ninject*" target="lib\net45" />
+	<file src="..\..\Source\Synthesis.Blade.Ninject\**\*.cs" target="src" />
+  </files>
+</package>

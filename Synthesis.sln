@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis", "Source\Synthesis\Synthesis.csproj", "{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Tests", "Source\Synthesis.Tests\Synthesis.Tests.csproj", "{CC01C529-5740-4827-A544-918CE0F327F0}"
@@ -15,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C24728
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Testing", "Source\Synthesis.Testing\Synthesis.Testing.csproj", "{3482B71D-81B1-4643-815E-342318CE9FCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Blade.Ninject", "Source\Synthesis.Blade.Ninject\Synthesis.Blade.Ninject.csproj", "{34664BD8-E823-40E0-956B-C225567C3A85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +42,10 @@ Global
 		{3482B71D-81B1-4643-815E-342318CE9FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3482B71D-81B1-4643-815E-342318CE9FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3482B71D-81B1-4643-815E-342318CE9FCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34664BD8-E823-40E0-956B-C225567C3A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34664BD8-E823-40E0-956B-C225567C3A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34664BD8-E823-40E0-956B-C225567C3A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34664BD8-E823-40E0-956B-C225567C3A85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
