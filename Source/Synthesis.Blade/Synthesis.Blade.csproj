@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration\SynthesisPresenterFactory.cs" />
     <Compile Include="SynthesisPresenter.cs" />
+    <Compile Include="SynthesisRazorTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synthesis\Synthesis.csproj">
