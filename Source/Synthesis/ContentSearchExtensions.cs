@@ -54,7 +54,11 @@ namespace Synthesis
 
 			if (luceneContext != null)
 			{
-				return GetLuceneQueryable<TResult>(luceneContext, null).ApplyStandardFilters();
+				var queryable = GetLuceneQueryable<TResult>(luceneContext, null);
+				
+				if(applyStandardFilters) queryable = queryable.ApplyStandardFilters();
+
+				return queryable;
 			}
 
 			throw new NotSupportedException("At present Synthesis only supports the Lucene provider");
