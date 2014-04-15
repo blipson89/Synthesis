@@ -5,6 +5,7 @@ using System.Reflection;
 using Sitecore;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Converters;
+using Sitecore.ContentSearch.LuceneProvider.Converters;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Globalization;
@@ -17,6 +18,7 @@ using Sitecore.Exceptions;
 using Sitecore.Diagnostics;
 using System.Collections.ObjectModel;
 using Sitecore.Data.Managers;
+using IndexFieldDateTimeValueConverter = Sitecore.ContentSearch.Converters.IndexFieldDateTimeValueConverter;
 
 namespace Synthesis
 {
@@ -112,10 +114,7 @@ namespace Synthesis
 		{
 			get
 			{
-				if (InstanceType == InstanceType.Search)
-					return GetSearchFieldValue("_name") ?? InnerItem.Name;
-
-				return InnerItem.Name;
+				return GetSearchBackedStringPropertyValue("_name", () => InnerItem.Name);
 			}
 			set
 			{
@@ -177,34 +176,18 @@ namespace Synthesis
 		}
 
 		/// <summary>
-		/// The name of the item's template.
-		/// </summary>
-		[IndexField("_templatename")]
-		public virtual string TemplateName
-		{
-			get { return GetSearchBackedStringPropertyValue("_templatename", () => InnerItem.TemplateName); }
-		}
-
-		/// <summary>
 		/// Gets all base templates that this item's template inherits from
 		/// </summary>
 		[IndexField("_templatesimplemented")]
+		[TypeConverter(typeof(IndexFieldEnumerableConverter))]
 		public virtual ID[] TemplateIds
 		{
 			get
 			{
-				if (InstanceType == InstanceType.Search)
-				{
-					var searchTemplate = GetSearchFieldValue("_templatesimplemented");
-
-					// TODO: this looks busted?
-					return new ID[0];
-				}
-
-				return TemplateManager.GetTemplate(InnerItem.TemplateID, InnerItem.Database)
+				return GetSearchBackedEnumerableIdPropertyValue("_templatesimplemented",
+								() => TemplateManager.GetTemplate(InnerItem.TemplateID, InnerItem.Database)
 									.GetBaseTemplates()
-									.Select(x => x.ID)
-									.ToArray();
+									.Select(x => x.ID)).ToArray();
 			}
 		}
 
@@ -299,11 +282,13 @@ namespace Synthesis
 		}
 
 		/// <summary>
-		/// Source path data for the item
+		/// Gets the full path of the item
 		/// </summary>
-		public virtual IPathAdapter Paths
+		[IndexField("_fullpath")]
+		public virtual string Path
 		{
-			get { return new PathAdapter(InnerItem.Paths); }
+			get { return GetSearchBackedStringPropertyValue("_fullpath", () => InnerItem.Paths.FullPath); }
+		}
 		}
 
 		/// <summary>
@@ -326,7 +311,7 @@ namespace Synthesis
 
 				if (_url == null)
 				{
-					if (Paths.IsMediaItem)
+					if (InnerItem.Paths.IsMediaItem)
 						_url = Sitecore.Resources.Media.MediaManager.GetMediaUrl(InnerItem);
 					else
 						_url = LinkManager.GetItemUrl(InnerItem);
@@ -458,6 +443,22 @@ namespace Synthesis
 				var converter = new IndexFieldGuidValueConverter();
 				// ReSharper disable once PossibleNullReferenceException
 				return (ID)converter.ConvertTo(searchValue, typeof(ID));
+			}
+
+			return getFromItemAction();
+		}
+
+		protected virtual IEnumerable<ID> GetSearchBackedEnumerableIdPropertyValue(string searchFieldKey, Func<IEnumerable<ID>> getFromItemAction)
+		{
+			if (InstanceType == InstanceType.Search)
+			{
+				var searchValue = GetSearchFieldValue(searchFieldKey);
+
+				if (searchValue == null) return getFromItemAction();
+
+				var converter = new IndexFieldEnumerableConverter(new LuceneIndexFieldStorageValueFormatter());
+				// ReSharper disable once PossibleNullReferenceException
+				return (IEnumerable<ID>)converter.ConvertTo(searchValue, typeof(IEnumerable<ID>));
 			}
 
 			return getFromItemAction();

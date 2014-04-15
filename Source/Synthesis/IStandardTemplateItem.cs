@@ -48,6 +48,18 @@ namespace Synthesis
 		ID TemplateId { get; }
 
 		/// <summary>
+		/// Gets all base templates that this item's template inherits from
+		/// </summary>
+		[IndexField("_templatesimplemented")]
+		[TypeConverter(typeof(IndexFieldEnumerableConverter))]
+		ID[] TemplateIds { get; }
+		/// <summary>
+		/// Gets the full path of the item
+		/// </summary>
+		[IndexField("_fullpath")]
+		string Path { get; }
+
+		/// <summary>
 		/// Item source database.
 		/// </summary>
 		IDatabaseAdapter Database { get; }
@@ -94,11 +106,6 @@ namespace Synthesis
 		string UpdatedBy { get; }
 
 		/// <summary>
-		/// Source path data for the item
-		/// </summary>
-		IPathAdapter Paths { get; }
-
-		/// <summary>
 		/// Provides access to the publishing framework
 		/// </summary>
 		IEditingAdapter Editing { get; }
@@ -114,26 +121,10 @@ namespace Synthesis
 		Item InnerItem { get; }
 
 		/// <summary>
-		/// Gets all base templates that this item's template inherits from
-		/// </summary>
-		[IndexField("_templatesimplemented")]
-		ID[] TemplateIds { get; }
-
-		/// <summary>
-		/// The name of the item's template.
-		/// </summary>
-		[IndexField("_templatename")]
-		string TemplateName { get; }
-
-		/// <summary>
 		/// Gets the URL to this item using the default LinkManager options. Returns null if not yet created.
 		/// </summary>
 		[SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Sitecore API convention")]
-		string Url
-		{
-			get;
-			set;
-		}
+		string Url { get; set; }
 
 		/// <summary>
 		/// Adds a new item as a child of this item
