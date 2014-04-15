@@ -119,9 +119,10 @@ namespace Synthesis
 			{
 				projectPathValue = ResolveAutoProjectPath();
 
-				if (projectPathValue == null) 
+				if (projectPathValue == null)
 					throw new InvalidOperationException("Unable to automatically find a valid project file to build. I looked at sibling and parent folders to the concrete file output path for *proj.");
 			}
+			else projectPathValue = ConfigurationUtility.ResolveConfigurationPath(projectPathValue);
 
 			if (!File.Exists(projectPathValue)) 
 				throw new InvalidOperationException("The auto-rebuild project file \"" + projectPathValue + "\" did not exist.");
