@@ -289,6 +289,14 @@ namespace Synthesis
 		{
 			get { return GetSearchBackedStringPropertyValue("_fullpath", () => InnerItem.Paths.FullPath); }
 		}
+
+		/// <summary>
+		/// The item's parent ID
+		/// </summary>
+		[IndexField("_parent")]
+		public virtual ID ParentId
+		{
+			get { return GetSearchBackedIdPropertyValue("_parent", () => InnerItem.ParentID); }
 		}
 
 		/// <summary>

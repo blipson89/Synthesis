@@ -35,6 +35,12 @@ namespace Synthesis
 		ID Id { get; }
 
 		/// <summary>
+		/// The item's parent ID
+		/// </summary>
+		[IndexField("_parent")]
+		ID ParentId { get; }
+
+		/// <summary>
 		/// The unique URI to the item, comprised of ID, language, database, and version.
 		/// </summary>
 		[IndexField("_uniqueid")]
