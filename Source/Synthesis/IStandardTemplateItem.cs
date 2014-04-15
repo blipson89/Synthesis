@@ -29,6 +29,13 @@ namespace Synthesis
 		string DisplayName { get; set; }
 
 		/// <summary>
+		/// The searchable content of the item (e.g. all text field values in the index).
+		/// It is an error to read this field or use it outside of a search filter context.
+		/// </summary>
+		[IndexField("_content")]
+		string SearchableContent { get; }
+
+		/// <summary>
 		/// The item's ID. If not yet created, returns ID.Null.
 		/// </summary>
 		[IndexField("_group")]

@@ -162,6 +162,19 @@ namespace Synthesis
 		}
 
 		/// <summary>
+		/// The searchable content of the item (e.g. all text field values in the index).
+		/// It is an error to read this field or use it outside of a search filter context.
+		/// </summary>
+		[IndexField("_content")]
+		public virtual string SearchableContent
+		{
+			get
+			{
+				throw new NotImplementedException("You cannot directly access searchable content. This property can only be used to query on during search.");
+			}
+		}
+
+		/// <summary>
 		/// Item Template ID.
 		/// </summary>
 		/// <remarks>Overridden by generated classes to be hard-coded</remarks>
