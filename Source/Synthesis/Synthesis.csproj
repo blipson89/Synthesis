@@ -72,6 +72,7 @@
     <Compile Include="Configuration\IProviderConfiguration.cs" />
     <Compile Include="Configuration\ProviderResolver.cs" />
     <Compile Include="ContentSearchExtensions.cs" />
+    <Compile Include="ContentSearchQueryExtensions.cs" />
     <Compile Include="ContentSearch\ComputedFields\InheritedTemplates.cs" />
     <Compile Include="ContentSearch\Lucene\SynthesisLuceneFieldNameTranslator.cs" />
     <Compile Include="ContentSearch\ISynthesisIndexFieldNameTranslator.cs" />
