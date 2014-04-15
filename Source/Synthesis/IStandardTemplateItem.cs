@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Converters;
@@ -69,14 +70,33 @@ namespace Synthesis
 		Language Language { get; }
 
 		/// <summary>
+		/// When this version was created
+		/// </summary>
+		[IndexField("__smallcreateddate")]
+		DateTime CreatedDate { get; }
+
+		/// <summary>
+		/// Who created this version
+		/// </summary>
+		[IndexField("parsedcreatedby")]
+		string CreatedBy { get; }
+
+		/// <summary>
+		/// When this version was last updated
+		/// </summary>
+		[IndexField("__smallupdateddate")]
+		DateTime Updated { get; }
+
+		/// <summary>
+		/// Who last updated this version
+		/// </summary>
+		[IndexField("parsedupdatedby")]
+		string UpdatedBy { get; }
+
+		/// <summary>
 		/// Source path data for the item
 		/// </summary>
 		IPathAdapter Paths { get; }
-
-		/// <summary>
-		/// Item statistics, i.e. created date
-		/// </summary>
-		IStatisticsAdapter Statistics { get; }
 
 		/// <summary>
 		/// Provides access to the publishing framework

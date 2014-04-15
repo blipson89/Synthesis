@@ -172,16 +172,7 @@ namespace Synthesis
 		{
 			get
 			{
-				if (InstanceType == InstanceType.Search)
-				{
-					var searchTemplate = GetSearchFieldValue("_template");
-					ShortID templateId;
-
-					if (searchTemplate != null && ShortID.TryParse(searchTemplate, out templateId))
-						return templateId.ToID();
-				}
-
-				return InnerItem.TemplateID;
+				return GetSearchBackedIdPropertyValue("_template", () => InnerItem.TemplateID);
 			}
 		}
 
@@ -237,7 +228,8 @@ namespace Synthesis
 			{
 				if (InstanceType == InstanceType.Search)
 				{
-					return GetSearchFieldValue("_latestversion") != null;
+					var indexValue = GetSearchFieldValue("_latestversion");
+					return indexValue != null && indexValue.Equals("1");
 				}
 
 				return InnerItem.Versions.IsLatestVersion();
@@ -254,12 +246,39 @@ namespace Synthesis
 		}
 
 		/// <summary>
-		/// Item statistics, i.e. created date
-		/// Loads the Sitecore item if this is a search-driven instance
+		/// When this version was created
 		/// </summary>
-		public virtual IStatisticsAdapter Statistics
+		[IndexField("__smallcreateddate")]
+		public virtual DateTime CreatedDate
 		{
-			get { return new StatisticsAdapter(InnerItem.Statistics); }
+			get { return GetSearchBackedDateTimePropertyValue("__smallcreateddate", () => InnerItem.Statistics.Created); }
+		}
+
+		/// <summary>
+		/// Who created this version
+		/// </summary>
+		[IndexField("parsedcreatedby")]
+		public virtual string CreatedBy
+		{
+			get { return GetSearchBackedStringPropertyValue("parsedcreatedby", () => InnerItem.Statistics.CreatedBy); }
+		}
+
+		/// <summary>
+		/// When this version was last updated
+		/// </summary>
+		[IndexField("__smallupdateddate")]
+		public virtual DateTime Updated
+		{
+			get { return GetSearchBackedDateTimePropertyValue("__smallupdateddate", () => InnerItem.Statistics.Updated); }
+		}
+
+		/// <summary>
+		/// Who last updated this version
+		/// </summary>
+		[IndexField("parsedupdatedby")]
+		public virtual string UpdatedBy
+		{
+			get { return GetSearchBackedStringPropertyValue("parsedupdatedby", () => InnerItem.Statistics.UpdatedBy); }
 		}
 
 		/// <summary>
@@ -387,6 +406,52 @@ namespace Synthesis
 			if (!_searchFields.TryGetValue(fieldName, out result)) return null;
 
 			return result;
+		}
+
+		protected virtual string GetSearchBackedStringPropertyValue(string searchFieldKey, Func<string> getFromItemAction)
+		{
+			if (InstanceType == InstanceType.Search)
+			{
+				var searchValue = GetSearchFieldValue(searchFieldKey);
+
+				if (searchValue == null) return getFromItemAction();
+
+				return searchValue;
+			}
+
+			return getFromItemAction();
+		}
+
+		protected virtual DateTime GetSearchBackedDateTimePropertyValue(string searchFieldKey, Func<DateTime> getFromItemAction)
+		{
+			if (InstanceType == InstanceType.Search)
+			{
+				var searchValue = GetSearchFieldValue(searchFieldKey);
+
+				if (searchValue == null) return getFromItemAction();
+
+				var converter = new IndexFieldDateTimeValueConverter();
+				// ReSharper disable once PossibleNullReferenceException
+				return (DateTime)converter.ConvertTo(searchValue, typeof(DateTime));
+			}
+
+			return getFromItemAction();
+		}
+
+		protected virtual ID GetSearchBackedIdPropertyValue(string searchFieldKey, Func<ID> getFromItemAction)
+		{
+			if (InstanceType == InstanceType.Search)
+			{
+				var searchValue = GetSearchFieldValue(searchFieldKey);
+
+				if (searchValue == null) return getFromItemAction();
+
+				var converter = new IndexFieldGuidValueConverter();
+				// ReSharper disable once PossibleNullReferenceException
+				return (ID)converter.ConvertTo(searchValue, typeof(ID));
+			}
+
+			return getFromItemAction();
 		}
 	}
 }

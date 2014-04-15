@@ -84,9 +84,7 @@
     <Compile Include="FieldTypes\Adapters\IDatabaseAdapter.cs" />
     <Compile Include="FieldTypes\Adapters\IEditingAdapter.cs" />
     <Compile Include="FieldTypes\Adapters\IPathAdapter.cs" />
-    <Compile Include="FieldTypes\Adapters\IStatisticsAdapter.cs" />
     <Compile Include="FieldTypes\Adapters\PathAdapter.cs" />
-    <Compile Include="FieldTypes\Adapters\StatisticsAdapter.cs" />
     <Compile Include="FieldTypes\FieldMapping.cs" />
     <Compile Include="FieldTypes\Interfaces\INumericField.cs" />
     <Compile Include="FieldTypes\Interfaces\ITristateField.cs" />
