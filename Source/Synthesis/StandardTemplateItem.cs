@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Sitecore;
 using Sitecore.ContentSearch;
+using Sitecore.ContentSearch.Converters;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Globalization;
@@ -57,14 +59,14 @@ namespace Synthesis
 		{
 			get
 			{
-				Assert.IsNotNull(Uri, "uri");
+				Assert.IsNotNull(ItemUri, "uri");
 				if (_innerItem == null)
 				{
 
 					System.Diagnostics.Debug.WriteLine("Synthesis: {0} ({1}) instance promoted from search to database item.", Name, Id);
 
-					_innerItem = Sitecore.Data.Database.GetItem(Uri);
-					if (_innerItem == null) throw new InvalidItemException("The item URI " + Uri + " did not result in a usable item. Couldn't ensure the item was loaded.");
+					_innerItem = Sitecore.Data.Database.GetItem(ItemUri);
+					if (_innerItem == null) throw new InvalidItemException("The item URI " + ItemUri + " did not result in a usable item. Couldn't ensure the item was loaded.");
 				}
 
 				return _innerItem;
@@ -75,7 +77,7 @@ namespace Synthesis
 		/// The unique Item URI that defines the item, version, and language this instance represents
 		/// </summary>
 		[IndexField("_uniqueid")]
-		public ItemUri Uri
+		public ItemUri ItemUri
 		{
 			get
 			{
@@ -99,7 +101,8 @@ namespace Synthesis
 		/// ID of the item
 		/// </summary>
 		[IndexField("_group")]
-		public ID Id { get { return Uri.ItemID; } }
+		[TypeConverter(typeof(IndexFieldIDValueConverter))]
+		public ID Id { get { return ItemUri.ItemID; } }
 
 		/// <summary>
 		/// Name of the item
@@ -164,6 +167,7 @@ namespace Synthesis
 		/// </summary>
 		/// <remarks>Overridden by generated classes to be hard-coded</remarks>
 		[IndexField("_template")]
+		[TypeConverter(typeof(IndexFieldIDValueConverter))]
 		public virtual ID TemplateId
 		{
 			get
@@ -211,17 +215,16 @@ namespace Synthesis
 		{
 			get
 			{
-				return new DatabaseAdapter(Factory.GetDatabase(Uri.DatabaseName));
+				return new DatabaseAdapter(Factory.GetDatabase(ItemUri.DatabaseName));
 			}
 		}
 
 		/// <summary>
 		/// Item version number
 		/// </summary>
-		[IndexField("_version")]
 		public virtual int Version
 		{
-			get { return Uri.Version.Number; }
+			get { return ItemUri.Version.Number; }
 		}
 
 		/// <summary>
@@ -247,7 +250,7 @@ namespace Synthesis
 		[IndexField("_language")]
 		public virtual Language Language
 		{
-			get { return Uri.Language; }
+			get { return ItemUri.Language; }
 		}
 
 		/// <summary>
@@ -350,14 +353,14 @@ namespace Synthesis
 		public TItem Add<TItem>(string name)
 			where TItem : class, IStandardTemplateItem
 		{
-			var type = typeof (TItem);
+			var type = typeof(TItem);
 			var property = type.GetProperty("ItemTemplateId", BindingFlags.Static | BindingFlags.Public);
 
-			if(property == null) throw new ArgumentException(type.FullName + " does not seem to be a generated item type (no ItemTemplateId property was present)");
+			if (property == null) throw new ArgumentException(type.FullName + " does not seem to be a generated item type (no ItemTemplateId property was present)");
 
 			var propertyValue = property.GetValue(null) as ID;
 
-			if(propertyValue == (ID)null) throw new ArgumentException("ItemTemplateId property was not of the expected Sitecore.Data.ID type");
+			if (propertyValue == (ID)null) throw new ArgumentException("ItemTemplateId property was not of the expected Sitecore.Data.ID type");
 
 			Item newItem = InnerItem.Add(name, new TemplateID(propertyValue));
 

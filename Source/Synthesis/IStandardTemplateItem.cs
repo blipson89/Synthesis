@@ -1,5 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Sitecore.ContentSearch;
+using Sitecore.ContentSearch.Converters;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Globalization;
@@ -28,29 +30,30 @@ namespace Synthesis
 		/// The item's ID. If not yet created, returns ID.Null.
 		/// </summary>
 		[IndexField("_group")]
+		[TypeConverter(typeof(IndexFieldIDValueConverter))]
 		ID Id { get; }
 
 		/// <summary>
 		/// The unique URI to the item, comprised of ID, language, database, and version.
 		/// </summary>
 		[IndexField("_uniqueid")]
-		ItemUri Uri { get; }
+		ItemUri ItemUri { get; }
 
 		/// <summary>
-		/// Item Template ID. If not yet created, returns ID.Null.
+		/// Item Template ID.
 		/// </summary>
 		[IndexField("_template")]
+		[TypeConverter(typeof(IndexFieldIDValueConverter))]
 		ID TemplateId { get; }
 
 		/// <summary>
-		/// Item source database. If not yet created, returns null.
+		/// Item source database.
 		/// </summary>
 		IDatabaseAdapter Database { get; }
 
 		/// <summary>
 		/// Item version number
 		/// </summary>
-		[IndexField("_version")]
 		int Version { get; }
 
 		/// <summary>
