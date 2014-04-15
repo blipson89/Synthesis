@@ -120,6 +120,12 @@ namespace Synthesis
 		ID[] TemplateIds { get; }
 
 		/// <summary>
+		/// The name of the item's template.
+		/// </summary>
+		[IndexField("_templatename")]
+		string TemplateName { get; }
+
+		/// <summary>
 		/// Gets the URL to this item using the default LinkManager options. Returns null if not yet created.
 		/// </summary>
 		[SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Sitecore API convention")]

@@ -177,6 +177,15 @@ namespace Synthesis
 		}
 
 		/// <summary>
+		/// The name of the item's template.
+		/// </summary>
+		[IndexField("_templatename")]
+		public virtual string TemplateName
+		{
+			get { return GetSearchBackedStringPropertyValue("_templatename", () => InnerItem.TemplateName); }
+		}
+
+		/// <summary>
 		/// Gets all base templates that this item's template inherits from
 		/// </summary>
 		[IndexField("_templatesimplemented")]
