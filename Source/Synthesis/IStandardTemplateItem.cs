@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Sitecore.ContentSearch;
@@ -59,6 +60,14 @@ namespace Synthesis
 		[IndexField("_templatesimplemented")]
 		[TypeConverter(typeof(IndexFieldEnumerableConverter))]
 		ID[] TemplateIds { get; }
+
+		/// <summary>
+		/// Gets an enumerable of the IDs of all ancestors. Generally used to filter by path when using search.
+		/// </summary>
+		[IndexField("_path")]
+		[TypeConverter(typeof(IndexFieldEnumerableConverter))]
+		IEnumerable<ID> AncestorIds { get; }
+
 		/// <summary>
 		/// Gets the full path of the item
 		/// </summary>

@@ -291,6 +291,16 @@ namespace Synthesis
 		}
 
 		/// <summary>
+		/// Gets an enumerable of the IDs of all ancestors. Generally used to filter by path when using search.
+		/// </summary>
+		[IndexField("_path")]
+		[TypeConverter(typeof(IndexFieldEnumerableConverter))]
+		public virtual IEnumerable<ID> AncestorIds
+		{
+			get { return GetSearchBackedEnumerableIdPropertyValue("_path", () => InnerItem.Axes.GetAncestors().Select(x => x.ID).ToArray()); }
+		}
+
+		/// <summary>
 		/// The item's parent ID
 		/// </summary>
 		[IndexField("_parent")]
