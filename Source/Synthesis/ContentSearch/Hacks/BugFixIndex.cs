@@ -16,7 +16,7 @@ namespace Synthesis.ContentSearch.Hacks
 			
 		}
 
-		public BugFixIndex(LuceneSearchContext context, IExecutionContext executionContext) : base(context, executionContext)
+		public BugFixIndex(LuceneSearchContext context, params IExecutionContext[] executionContext) : base(context, executionContext)
 		{
 		}
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Lucene.Net.Search;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Diagnostics;
 using Sitecore.ContentSearch.Linq.Common;
@@ -47,14 +48,14 @@ namespace Synthesis
 		/// <param name="applyStandardFilters">Controls whether results will be auto-filtered to context language, correct template, and latest version</param>
 		/// <param name="executionContext">The execution context to run the query under</param>
 		/// <returns>A queryable item that standard Sitecore LINQ can be used on</returns>
-		public static IQueryable<TResult> GetSynthesisQueryable<TResult>(this IProviderSearchContext context, bool applyStandardFilters, IExecutionContext executionContext)
+		public static IQueryable<TResult> GetSynthesisQueryable<TResult>(this IProviderSearchContext context, bool applyStandardFilters, params IExecutionContext[] executionContext)
 			where TResult : IStandardTemplateItem
 		{
 			var luceneContext = context as LuceneSearchContext;
 
 			if (luceneContext != null)
 			{
-				var queryable = GetLuceneQueryable<TResult>(luceneContext, null);
+				var queryable = GetLuceneQueryable<TResult>(luceneContext, executionContext);
 				
 				if(applyStandardFilters) queryable = queryable.ApplyStandardFilters();
 
@@ -79,7 +80,7 @@ namespace Synthesis
 			return query.Where(x => x.TemplateIds.Contains(templateId) && x.Language == language && x.IsLatestVersion);
 		}
 
-		private static IQueryable<TResult> GetLuceneQueryable<TResult>(LuceneSearchContext context, IExecutionContext executionContext)
+		private static IQueryable<TResult> GetLuceneQueryable<TResult>(LuceneSearchContext context, IExecutionContext[] executionContext)
 			where TResult : IStandardTemplateItem
 		{
 			// once the hacks in the Hacks namespace are fixed (around update 2, I hear), the commented line below can be used instead of BugFixIndex
@@ -89,7 +90,7 @@ namespace Synthesis
 										? new BugFixIndex<TResult>(context)
 										: new BugFixIndex<TResult>(context, executionContext);
 
-			if (ContentSearchConfigurationSettings.EnableSearchDebug)
+			if (context.Index.Locator.GetInstance<IContentSearchConfigurationSettings>().EnableSearchDebug())
 				((IHasTraceWriter)linqToLuceneIndex).TraceWriter = new LoggingTraceWriter(SearchLog.Log);
 
 			return linqToLuceneIndex.GetQueryable();
