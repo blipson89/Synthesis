@@ -80,6 +80,12 @@ namespace Synthesis
 		IDatabaseAdapter Database { get; }
 
 		/// <summary>
+		/// The name of the item source database
+		/// </summary>
+		[IndexField("_database")]
+		string DatabaseName { get; }
+
+		/// <summary>
 		/// Item version number
 		/// </summary>
 		int Version { get; }

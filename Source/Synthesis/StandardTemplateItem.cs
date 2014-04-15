@@ -203,6 +203,15 @@ namespace Synthesis
 		}
 
 		/// <summary>
+		/// The name of the item source database
+		/// </summary>
+		[IndexField("_database")]
+		public string DatabaseName
+		{
+			get { return GetSearchBackedStringPropertyValue("_database", () => InnerItem.Database.Name); }
+		}
+
+		/// <summary>
 		/// Item version number
 		/// </summary>
 		public virtual int Version
