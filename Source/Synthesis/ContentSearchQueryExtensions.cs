@@ -41,7 +41,7 @@ namespace Synthesis
 			// Ensure the body of the selector is a MemberExpression
 			if (!(keySelector.Body is MemberExpression))
 			{
-				throw new InvalidOperationException("Fortis: Expression must be a member expression");
+				throw new InvalidOperationException("Expression must be a member expression");
 			}
 
 			var typeofTSource = typeof(TSource);

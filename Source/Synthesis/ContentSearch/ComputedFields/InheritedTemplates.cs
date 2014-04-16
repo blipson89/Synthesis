@@ -12,6 +12,10 @@ namespace Synthesis.ContentSearch.ComputedFields
 	/// A computed field that correctly recurses all templates, unlike the default.
 	/// 
 	/// Code is courtesy of http://mikael.com/2013/05/sitecore-7-query-items-that-inherits-a-template/
+	/// 
+	/// Note that the default Sitecore.ContentSearch.ComputedFields.AllTemplates field does NOT do the same thing
+	/// as this implementation. That one will get all _immediate_ base templates, whereas this one is
+	/// recursive and gets ALL base templates, even of grandparent and above templates.
 	/// </summary>
 	public class InheritedTemplates : IComputedIndexField
 	{
