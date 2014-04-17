@@ -1,0 +1,12 @@
+﻿To run these tests you must be in a web context, with Sitecore present.
+
+Setup instructions:
+1. Add a reference to this project in your Sitecore site
+2. Add references to all of the assemblies in Dependencies/Libraries/WebTestRunner to your Sitecore site
+3. Add the Synthesis.TestRunnerConfig.config to your App_Config\Include folder
+4. Hit /synthesistests on your Sitecore site
+
+The web test runner is Jorge Lusar's work: https://github.com/jorgelusar/sctestrunner
+You can change the test running URL in the config file.
+
+Any NUnit web test runner will also work, if you have one you prefer.
