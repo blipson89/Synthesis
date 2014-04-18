@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Lucene.Net.Search;
+using Lucene.Net.Documents;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Diagnostics;
 using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.ContentSearch.LuceneProvider;
 using Sitecore.ContentSearch.Utilities;
 using Sitecore.Data;
+using Synthesis.ContentSearch;
 using Synthesis.ContentSearch.Hacks;
 using Synthesis.Synchronization;
 
@@ -51,18 +53,29 @@ namespace Synthesis
 		public static IQueryable<TResult> GetSynthesisQueryable<TResult>(this IProviderSearchContext context, bool applyStandardFilters, params IExecutionContext[] executionContext)
 			where TResult : IStandardTemplateItem
 		{
-			var luceneContext = context as LuceneSearchContext;
+			var overrideMapper = new SynthesisDocumentTypeMapper();
+			overrideMapper.Initialize(context.Index);
+			var mapperExecutionContext = new OverrideExecutionContext<IIndexDocumentPropertyMapper<Document>>(overrideMapper);
+			var executionContexts = new List<IExecutionContext>();
+			if(executionContext != null) executionContexts.AddRange(executionContext);
+			executionContexts.Add(mapperExecutionContext);
 
-			if (luceneContext != null)
-			{
-				var queryable = GetLuceneQueryable<TResult>(luceneContext, executionContext);
-				
-				if(applyStandardFilters) queryable = queryable.ApplyStandardFilters();
+			var queryable = context.GetQueryable<TResult>(executionContexts.ToArray());
+			if (applyStandardFilters) queryable = queryable.ApplyStandardFilters();
 
-				return queryable;
-			}
+			return queryable;
+			//var luceneContext = context as LuceneSearchContext;
 
-			throw new NotSupportedException("At present Synthesis only supports the Lucene provider");
+			//if (luceneContext != null)
+			//{
+			//	var queryable = GetLuceneQueryable<TResult>(luceneContext, executionContext);
+
+			//	if(applyStandardFilters) queryable = queryable.ApplyStandardFilters();
+
+			//	return queryable;
+			//}
+
+			//throw new NotSupportedException("At present Synthesis only supports the Lucene provider");
 		}
 
 		/// <summary>
