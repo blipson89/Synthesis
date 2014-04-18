@@ -497,9 +497,15 @@ namespace Synthesis
 
 				if (searchValue == null) return getFromItemAction();
 
-				var converter = new IndexFieldEnumerableConverter(new LuceneIndexFieldStorageValueFormatter());
-				// ReSharper disable once PossibleNullReferenceException
-				return (IEnumerable<ID>)converter.ConvertFrom(searchValue);
+				return searchValue.Split('|')
+					.Select(x =>
+					{
+						ShortID id;
+						if (!ShortID.TryParse(x, out id)) return null;
+						return id.ToID();
+					})
+					.Where(x => x != (ID)null)
+					.ToArray();
 			}
 
 			return getFromItemAction();
