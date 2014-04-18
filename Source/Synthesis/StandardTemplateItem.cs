@@ -326,6 +326,7 @@ namespace Synthesis
 		/// The item's parent ID
 		/// </summary>
 		[IndexField("_parent")]
+		[TypeConverter(typeof(IndexFieldIDValueConverter))]
 		public virtual ID ParentId
 		{
 			get { return GetSearchBackedIdPropertyValue("_parent", () => InnerItem.ParentID); }
@@ -466,7 +467,7 @@ namespace Synthesis
 
 				var converter = new IndexFieldDateTimeValueConverter();
 				// ReSharper disable once PossibleNullReferenceException
-				return (DateTime)converter.ConvertTo(searchValue, typeof(DateTime));
+				return (DateTime)converter.ConvertFrom(searchValue);
 			}
 
 			return getFromItemAction();
@@ -480,9 +481,9 @@ namespace Synthesis
 
 				if (searchValue == null) return getFromItemAction();
 
-				var converter = new IndexFieldGuidValueConverter();
+				var converter = new IndexFieldIDValueConverter();
 				// ReSharper disable once PossibleNullReferenceException
-				return (ID)converter.ConvertTo(searchValue, typeof(ID));
+				return (ID)converter.ConvertFrom(searchValue);
 			}
 
 			return getFromItemAction();
@@ -498,7 +499,7 @@ namespace Synthesis
 
 				var converter = new IndexFieldEnumerableConverter(new LuceneIndexFieldStorageValueFormatter());
 				// ReSharper disable once PossibleNullReferenceException
-				return (IEnumerable<ID>)converter.ConvertTo(searchValue, typeof(IEnumerable<ID>));
+				return (IEnumerable<ID>)converter.ConvertFrom(searchValue);
 			}
 
 			return getFromItemAction();
