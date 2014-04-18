@@ -40,6 +40,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.ContentSearch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.ContentSearch.Linq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.Kernel.dll</HintPath>
     </Reference>
@@ -55,6 +63,10 @@
   <ItemGroup>
     <Compile Include="FakeTemplateItem.cs" />
     <Compile Include="Fixtures\Configuration\TemplateInputProviderTests.cs" />
+    <Compile Include="Fixtures\ContentSearch\ContentSearchTestFixture.cs" />
+    <Compile Include="Fixtures\ContentSearch\FieldTypeTests.cs" />
+    <Compile Include="Fixtures\ContentSearch\ContentSearchQueryExtensionTests.cs" />
+    <Compile Include="Fixtures\ContentSearch\StandardTemplateTests.cs" />
     <Compile Include="Fixtures\FieldTypes\BooleanFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\ItemReferenceFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\ItemReferenceListFieldTests.cs" />

@@ -1,11 +1,10 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Sitecore.Data.Fields;
 using Sitecore.SecurityModel;
 using Synthesis.FieldTypes;
 using Synthesis.Tests.Utility;
 
-namespace Synthesis.Tests.Fixtures.FieldTypes.FieldTypes
+namespace Synthesis.Tests.Fixtures.FieldTypes
 {
 	[TestFixture]
 	[Category("FieldType Tests")]
