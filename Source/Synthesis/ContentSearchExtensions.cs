@@ -74,10 +74,19 @@ namespace Synthesis
 		public static IQueryable<TResult> ApplyStandardFilters<TResult>(this IQueryable<TResult> query)
 			where TResult : IStandardTemplateItem
 		{
-			var templateId = GetTemplateId(typeof(TResult));
+			
 			var language = (Sitecore.Context.Item != null) ? Sitecore.Context.Item.Language : Sitecore.Context.Language;
 
-			return query.Where(x => x.TemplateIds.Contains(templateId) && x.Language == language && x.IsLatestVersion);
+			var subquery = query.Where(x => x.Language == language && x.IsLatestVersion);
+
+			// if the type is IStandardTemplateItem proper, we do not want to filter template ID as that is 'anything'
+			if (typeof (TResult) != typeof (IStandardTemplateItem))
+			{
+				var templateId = GetTemplateId(typeof(TResult));
+				return subquery.Where(x => x.TemplateIds.Contains(templateId));
+			}
+
+			return subquery;
 		}
 
 		private static IQueryable<TResult> GetLuceneQueryable<TResult>(LuceneSearchContext context, IExecutionContext[] executionContext)
