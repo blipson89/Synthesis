@@ -46,6 +46,7 @@ namespace Synthesis
 		/// The item's parent ID
 		/// </summary>
 		[IndexField("_parent")]
+		[TypeConverter(typeof(IndexFieldIDValueConverter))]
 		ID ParentId { get; }
 
 		/// <summary>
