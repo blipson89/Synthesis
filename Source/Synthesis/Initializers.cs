@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
+using Sitecore.StringExtensions;
 using Synthesis.Configuration;
 using Synthesis.Utility;
 
@@ -28,6 +29,14 @@ namespace Synthesis
 			foreach (var initializer in initializerTypes)
 			{
 				var instance = (ITemplateInitializer)Activator.CreateInstance(initializer);
+
+				if (initializers.ContainsKey(instance.InitializesTemplateId))
+				{
+					throw new InvalidOperationException("Synthesis: Multiple initializers were found for template {0} ({1}, {2}).".FormatWith(instance.InitializesTemplateId, initializers[instance.InitializesTemplateId].GetType().FullName, instance.GetType().FullName));
+				}
+
+				// ignore test and standard template initializers
+				if (instance.InitializesTemplateId == ID.Null) continue;
 
 				initializers.Add(instance.InitializesTemplateId, instance);
 			}
