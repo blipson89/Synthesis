@@ -74,9 +74,10 @@
     <Compile Include="ContentSearchExtensions.cs" />
     <Compile Include="ContentSearchQueryExtensions.cs" />
     <Compile Include="ContentSearch\ComputedFields\InheritedTemplates.cs" />
-    <Compile Include="ContentSearch\Lucene\SynthesisLuceneFieldNameTranslator.cs" />
-    <Compile Include="ContentSearch\ISynthesisIndexFieldNameTranslator.cs" />
-    <Compile Include="ContentSearch\Lucene\SynthesisLuceneIndexFieldNameTranslator.cs" />
+    <Compile Include="ContentSearch\DocumentMappingResult.cs" />
+    <Compile Include="ContentSearch\Lucene\SynthesisLinqToLuceneIndex.cs" />
+    <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
+    <Compile Include="ContentSearch\SynthesisFieldNameTranslator.cs" />
     <Compile Include="FieldDictionary.cs" />
     <Compile Include="FieldExtensions.cs" />
     <Compile Include="FieldTypes\Adapters\DatabaseAdapter.cs" />
@@ -132,7 +133,7 @@
     <Compile Include="Synchronization\TemplateComparisonResult.cs" />
     <Compile Include="Synchronization\TemplateComparisonResultCollection.cs" />
     <Compile Include="Templates\TemplateInfo.cs" />
-    <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
+    <Compile Include="ContentSearch\Lucene\SynthesisLuceneDocumentTypeMapper.cs" />
     <Compile Include="Utility\BuildUtility.cs" />
     <Compile Include="Utility\CodeDomUtility.cs" />
     <Compile Include="Configuration\ITypeListProvider.cs" />

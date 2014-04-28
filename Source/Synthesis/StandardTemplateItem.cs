@@ -68,7 +68,7 @@ namespace Synthesis
 					System.Diagnostics.Debug.WriteLine("Synthesis: {0} ({1}) instance promoted from search to database item.", Name, Id);
 
 					_innerItem = Sitecore.Data.Database.GetItem(ItemUri);
-					if (_innerItem == null) throw new InvalidItemException("The item URI " + ItemUri + " did not result in a usable item. Couldn't ensure the item was loaded.");
+					if (_innerItem == null) throw new InvalidItemException("The item URI " + ItemUri + " did not result in a usable item. Couldn't ensure the item was loaded. This could mean the index is out of date and referencing a deleted item, or you do not have access to the item.");
 				}
 
 				return _innerItem;

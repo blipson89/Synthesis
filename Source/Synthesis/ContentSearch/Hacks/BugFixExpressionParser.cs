@@ -4,7 +4,6 @@ using Sitecore.ContentSearch.Linq.Helpers;
 using Sitecore.ContentSearch.Linq.Nodes;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -85,56 +84,6 @@ namespace Synthesis.ContentSearch.Hacks
 			}
 
 			return EvaluateMethodCall(methodCall);
-		}
-
-		private QueryNode VisitLinqEnumerableExtensionMethod(MethodCallExpression methodCall)
-		{
-			MethodInfo method = methodCall.Method;
-			switch (method.Name)
-			{
-				case "Contains":
-					return VisitLinqEnumerableContainsMethod(methodCall);
-				default:
-					throw new NotSupportedException(string.Format("The method '{0}' is not supported. Declaring type: {1}", method.Name, method.DeclaringType != (Type)null ? method.DeclaringType.FullName : "[unknown]"));
-			}
-		}
-
-		private QueryNode VisitLinqEnumerableContainsMethod(MethodCallExpression methodCall)
-		{
-			if (methodCall.Arguments.Count != 2)
-				throw new NotSupportedException(string.Format("The method '{0}' is not supported. Declaring type: {1}", methodCall.Method.Name, methodCall.Method.DeclaringType != (Type)null ? methodCall.Method.DeclaringType.FullName : "[unknown]"));
-			
-			return new EqualNode(GetMethodArgument(methodCall, 0), GetMethodArgument(methodCall, 1));
-		}
-
-		private QueryNode VisitICollectionMethod(MethodCallExpression methodCall)
-		{
-			MethodInfo method = methodCall.Method;
-			switch (method.Name)
-			{
-				case "Contains":
-					return VisitICollectionContainsMethod(methodCall);
-				default:
-					throw new NotSupportedException(string.Format("The method '{0}' is not supported. Declaring type: {1}", method.Name, method.DeclaringType != (Type)null ? method.DeclaringType.FullName : "[unknown]"));
-			}
-		}
-
-		private Expression GetArgument(ReadOnlyCollection<Expression> arguments, int index)
-		{
-			if (arguments.Count < index)
-				throw new InvalidOperationException(string.Format("Too few arguments ({0}). Tried to access index: {1}", arguments.Count, index));
-			
-			return arguments[index];
-		}
-
-		private QueryNode GetMethodArgument(MethodCallExpression methodCall, int index)
-		{
-			if (methodCall.Object != null)
-				--index;
-			if (index < 0)
-				return Visit(methodCall.Object);
-			
-			return Visit(GetArgument(methodCall.Arguments, index));
 		}
 	}
 }

@@ -9,8 +9,10 @@ using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.ContentSearch.LuceneProvider;
 using Sitecore.ContentSearch.Utilities;
 using Sitecore.Data;
+using Sitecore.Data.Items;
+using Sitecore.Exceptions;
 using Synthesis.ContentSearch;
-using Synthesis.ContentSearch.Hacks;
+using Synthesis.ContentSearch.Lucene;
 using Synthesis.Synchronization;
 
 namespace Synthesis
@@ -43,7 +45,7 @@ namespace Synthesis
 		}
 
 		/// <summary>
-		/// Gets a queryable for Synthesis items (supports querying on interfaces, unlike the standard method)
+		/// Gets a queryable for Synthesis items
 		/// </summary>
 		/// <typeparam name="TResult">The type of the result item to bind to.</typeparam>
 		/// <param name="context">The search context to use</param>
@@ -53,29 +55,31 @@ namespace Synthesis
 		public static IQueryable<TResult> GetSynthesisQueryable<TResult>(this IProviderSearchContext context, bool applyStandardFilters, params IExecutionContext[] executionContext)
 			where TResult : IStandardTemplateItem
 		{
-			var overrideMapper = new SynthesisDocumentTypeMapper();
-			overrideMapper.Initialize(context.Index);
-			var mapperExecutionContext = new OverrideExecutionContext<IIndexDocumentPropertyMapper<Document>>(overrideMapper);
-			var executionContexts = new List<IExecutionContext>();
-			if(executionContext != null) executionContexts.AddRange(executionContext);
-			executionContexts.Add(mapperExecutionContext);
+			IQueryable<TResult> queryable;
 
-			var queryable = context.GetQueryable<TResult>(executionContexts.ToArray());
+			var luceneContext = context as LuceneSearchContext;
+
+			if (luceneContext != null)
+			{
+				var overrideMapper = new SynthesisLuceneDocumentTypeMapper();
+				overrideMapper.Initialize(context.Index);
+
+				var mapperExecutionContext = new OverrideExecutionContext<IIndexDocumentPropertyMapper<Document>>(overrideMapper);
+				var executionContexts = new List<IExecutionContext>();
+				if (executionContext != null) executionContexts.AddRange(executionContext);
+				executionContexts.Add(mapperExecutionContext);
+
+				queryable = GetLuceneQueryable<TResult>(luceneContext, executionContexts.ToArray());
+			}
+			else
+			{
+				// TODO: possible SOLR support with different mapper
+				throw new NotImplementedException("At this time Synthesis only supports Lucene indexes.");
+			}
+
 			if (applyStandardFilters) queryable = queryable.ApplyStandardFilters();
 
 			return queryable;
-			//var luceneContext = context as LuceneSearchContext;
-
-			//if (luceneContext != null)
-			//{
-			//	var queryable = GetLuceneQueryable<TResult>(luceneContext, executionContext);
-
-			//	if(applyStandardFilters) queryable = queryable.ApplyStandardFilters();
-
-			//	return queryable;
-			//}
-
-			//throw new NotSupportedException("At present Synthesis only supports the Lucene provider");
 		}
 
 		/// <summary>
@@ -87,13 +91,13 @@ namespace Synthesis
 		public static IQueryable<TResult> ApplyStandardFilters<TResult>(this IQueryable<TResult> query)
 			where TResult : IStandardTemplateItem
 		{
-			
+
 			var language = (Sitecore.Context.Item != null) ? Sitecore.Context.Item.Language : Sitecore.Context.Language;
 
 			var subquery = query.Where(x => x.Language == language && x.IsLatestVersion);
 
 			// if the type is IStandardTemplateItem proper, we do not want to filter template ID as that is 'anything'
-			if (typeof (TResult) != typeof (IStandardTemplateItem))
+			if (typeof(TResult) != typeof(IStandardTemplateItem))
 			{
 				var templateId = GetTemplateId(typeof(TResult));
 				return subquery.Where(x => x.TemplateIds.Contains(templateId));
@@ -162,12 +166,7 @@ namespace Synthesis
 		private static IQueryable<TResult> GetLuceneQueryable<TResult>(LuceneSearchContext context, IExecutionContext[] executionContext)
 			where TResult : IStandardTemplateItem
 		{
-			// once the hacks in the Hacks namespace are fixed (around update 2, I hear), the commented line below can be used instead of BugFixIndex
-			// in fact once Update 3? is released, this class may become largely irrelevant as interface support is coming natively
-			//var linqToLuceneIndex = (executionContext == null) ? new LinqToLuceneIndex<TResult>(context) : new LinqToLuceneIndex<TResult>(context, executionContext);
-			var linqToLuceneIndex = (executionContext == null)
-										? new BugFixIndex<TResult>(context)
-										: new BugFixIndex<TResult>(context, executionContext);
+			var linqToLuceneIndex = new SynthesisLinqToLuceneIndex<TResult>(context, executionContext);
 
 			if (context.Index.Locator.GetInstance<IContentSearchConfigurationSettings>().EnableSearchDebug())
 				((IHasTraceWriter)linqToLuceneIndex).TraceWriter = new LoggingTraceWriter(SearchLog.Log);
