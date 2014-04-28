@@ -69,45 +69,28 @@ namespace Synthesis.Tests.Fixtures.ContentSearch.Data
 			get
 			{
 				const string fieldName = "__smallupdateddate";
-				return new DateTimeField(new LazyField(() => InnerItem.Fields[fieldName], "TEST", fieldName), GetSearchFieldValue(fieldName));
+				return new DateTimeField(new LazyField(() => InnerItem.Fields[fieldName], "Search Template", fieldName), GetSearchFieldValue(fieldName));
 			}
 		}
 
-		public IFileField File
+		[IndexField("_template")]
+		public IItemReferenceField Lookup
 		{
-			get { return new FileField(new LazyField(() => InnerItem.Fields[TestFields.FILE], "TEST", TestFields.FILE), null); }
+			get
+			{
+				const string fieldName = "_template";
+				return new ItemReferenceField(new LazyField(() => InnerItem.Fields[fieldName], "Search Template", fieldName), GetSearchFieldValue(fieldName));
+			}
 		}
 
-		public IHyperlinkField Link
+		[IndexField("_templatename")]
+		public ITextField Text
 		{
-			get { return new HyperlinkField(new LazyField(() => InnerItem.Fields[TestFields.HYPERLINK], "TEST", TestFields.HYPERLINK), null); }
-		}
-
-		public IImageField TerriblePicture
-		{
-			get { return new ImageField(new LazyField(() => InnerItem.Fields[TestFields.IMAGE], "TEST", TestFields.IMAGE), null); }
-		}
-
-		public IIntegerField DaysTillChristmas
-		{
-			get { return new IntegerField(new LazyField(() => InnerItem.Fields[TestFields.INTEGER], "TEST", TestFields.INTEGER), null); }
-		}
-
-
-
-		public INumericField AccountBalance
-		{
-			get { return new NumericField(new LazyField(() => InnerItem.Fields[TestFields.NUMERIC], "TEST", TestFields.NUMERIC), null); }
-		}
-
-		public IItemReferenceField RelatedFolder
-		{
-			get { return new ItemReferenceField(new LazyField(() => InnerItem.Fields[TestFields.SINGLE_RELATION], "TEST", TestFields.SINGLE_RELATION), null); }
-		}
-
-		public ITextField Title
-		{
-			get { return new TextField(new LazyField(() => InnerItem.Fields[TestFields.TEXT], "TEST", TestFields.TEXT), null); }
+			get
+			{
+				const string fieldName = "_templatename";
+				return new TextField(new LazyField(() => InnerItem.Fields[fieldName], "Search Template", fieldName), GetSearchFieldValue(fieldName));
+			}
 		}
 	}
 }

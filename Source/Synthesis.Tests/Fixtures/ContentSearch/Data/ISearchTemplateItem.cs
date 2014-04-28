@@ -13,13 +13,9 @@ namespace Synthesis.Tests.Fixtures.ContentSearch.Data
 		IItemReferenceListField MultilistField { get; }
 		[IndexField("__smallupdateddate")]
 		IDateTimeField Timestamp { get; }
-		IFileField File { get; }
-		IHyperlinkField Link { get; }
-		IImageField TerriblePicture { get; }
-		IIntegerField DaysTillChristmas { get; }
-		
-		INumericField AccountBalance { get; }
-		IItemReferenceField RelatedFolder { get; }
-		ITextField Title { get; }
+		[IndexField("_template")]
+		IItemReferenceField Lookup { get; }
+		[IndexField("_templatename")]
+		ITextField Text { get; }
 	}
 }
