@@ -74,6 +74,7 @@
     <Compile Include="ContentSearchExtensions.cs" />
     <Compile Include="ContentSearchQueryExtensions.cs" />
     <Compile Include="ContentSearch\ComputedFields\InheritedTemplates.cs" />
+    <Compile Include="ContentSearch\ContentSearchUtilities.cs" />
     <Compile Include="ContentSearch\DocumentMappingResult.cs" />
     <Compile Include="ContentSearch\Lucene\SynthesisLinqToLuceneIndex.cs" />
     <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />

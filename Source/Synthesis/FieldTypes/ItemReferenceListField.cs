@@ -7,6 +7,7 @@ using System.Linq;
 using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
+using Synthesis.ContentSearch;
 using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.FieldTypes
@@ -26,7 +27,14 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public virtual ReadOnlyCollection<ID> TargetIds
 		{
-			get { return new List<ID>(((MultilistField)InnerField).TargetIDs).AsReadOnly(); }
+			get
+			{
+				if (InnerSearchValue != null)
+				{
+					return ContentSearchUtilities.ParseIndexIdList(InnerSearchValue).ToList().AsReadOnly();
+				}
+				return new List<ID>(((MultilistField)InnerField).TargetIDs).AsReadOnly();
+			}
 		}
 
 		/// <summary>

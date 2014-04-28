@@ -10,6 +10,7 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Globalization;
 using Sitecore.Links;
+using Synthesis.ContentSearch;
 using Synthesis.FieldTypes.Adapters;
 using Synthesis.Utility;
 using Sitecore.Configuration;
@@ -497,15 +498,7 @@ namespace Synthesis
 
 				if (searchValue == null) return getFromItemAction();
 
-				return searchValue.Split('|')
-					.Select(x =>
-					{
-						ShortID id;
-						if (!ShortID.TryParse(x, out id)) return null;
-						return id.ToID();
-					})
-					.Where(x => x != (ID)null)
-					.ToArray();
+				return ContentSearchUtilities.ParseIndexIdList(searchValue);
 			}
 
 			return getFromItemAction();
