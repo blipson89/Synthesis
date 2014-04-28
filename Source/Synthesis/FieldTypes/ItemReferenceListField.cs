@@ -29,7 +29,7 @@ namespace Synthesis.FieldTypes
 		{
 			get
 			{
-				if (InnerSearchValue != null)
+				if (!IsFieldLoaded && InnerSearchValue != null)
 				{
 					return ContentSearchUtilities.ParseIndexIdList(InnerSearchValue).ToList().AsReadOnly();
 				}

@@ -67,6 +67,14 @@ namespace Synthesis.FieldTypes
 		}
 
 		/// <summary>
+		/// Checks to see if the inner field has been lazy-loaded (e.g. whether this instance is database or search-backed)
+		/// </summary>
+		protected bool IsFieldLoaded
+		{
+			get { return _innerField.IsLoaded; }
+		}
+
+		/// <summary>
 		/// Sets the field's value using a string value. Will enter edit mode if the item isn't already editing. Respects security context.
 		/// </summary>
 		protected void SetFieldValue(string fieldValue)

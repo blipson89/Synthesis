@@ -11,6 +11,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch.Data
 		IBooleanField BooleanField { get; }
 		[IndexField("_templatesimplemented")]
 		IItemReferenceListField MultilistField { get; }
+		[IndexField("__smallupdateddate")]
 		IDateTimeField Timestamp { get; }
 		IFileField File { get; }
 		IHyperlinkField Link { get; }

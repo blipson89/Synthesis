@@ -42,7 +42,6 @@ namespace Synthesis.Tests.Fixtures.ContentSearch.Data
 
 		public static ID ItemTemplateId { get { return TemplateIDs.StandardTemplate; } }
 
-// ReSharper disable once InconsistentNaming
 		[IndexField("__bucketable")]
 		public IBooleanField BooleanField
 		{
@@ -51,9 +50,8 @@ namespace Synthesis.Tests.Fixtures.ContentSearch.Data
 				const string readOnlyFieldName = "__bucketable";
 				return new BooleanField(new LazyField(() => InnerItem.Fields[readOnlyFieldName], "Search Template", readOnlyFieldName), GetSearchFieldValue(readOnlyFieldName));
 			}
-		}	
-		
-// ReSharper disable once InconsistentNaming
+		}
+
 		[IndexField("_templatesimplemented")]
 		public IItemReferenceListField MultilistField
 		{
@@ -64,9 +62,15 @@ namespace Synthesis.Tests.Fixtures.ContentSearch.Data
 			}
 		}
 
+		[IndexField("__smallupdateddate")]
 		public IDateTimeField Timestamp
 		{
-			get { return new DateTimeField(new LazyField(() => InnerItem.Fields[TestFields.DATETIME], "TEST", TestFields.DATETIME), null); }
+
+			get
+			{
+				const string fieldName = "__smallupdateddate";
+				return new DateTimeField(new LazyField(() => InnerItem.Fields[fieldName], "TEST", fieldName), GetSearchFieldValue(fieldName));
+			}
 		}
 
 		public IFileField File
@@ -89,7 +93,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch.Data
 			get { return new IntegerField(new LazyField(() => InnerItem.Fields[TestFields.INTEGER], "TEST", TestFields.INTEGER), null); }
 		}
 
-	
+
 
 		public INumericField AccountBalance
 		{

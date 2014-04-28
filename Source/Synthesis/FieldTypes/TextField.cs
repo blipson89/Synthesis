@@ -16,7 +16,7 @@ namespace Synthesis.FieldTypes
 		{
 			get
 			{
-				if( InnerSearchValue != null) return InnerSearchValue;
+				if(!IsFieldLoaded && InnerSearchValue != null) return InnerSearchValue;
 				if (InnerField == null) return null;
 				return InnerField.Value;
 			}

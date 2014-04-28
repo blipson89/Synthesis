@@ -17,6 +17,8 @@ namespace Synthesis.FieldTypes
 			_fieldName = fieldName;
 		}
 
+		public bool IsLoaded { get { return _innerLazyField.IsValueCreated; }}
+
 		public Field Value
 		{
 			get

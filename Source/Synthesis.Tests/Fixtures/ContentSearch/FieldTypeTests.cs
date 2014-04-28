@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Sitecore;
 using Sitecore.ContentSearch;
@@ -59,6 +60,21 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 
 					Assert.IsTrue(query.Length > 0, "Query for multilist items returned no results");
 					Assert.IsTrue(query.All(x => x.MultilistField.Contains(TemplateIDs.Template)), "Query included results without the specified multilist value!");
+				}
+			}
+		}
+
+		[Test]
+		public void DateField_SearchByGreaterThan_FindsItems()
+		{
+			using (var context = CreateTestSearchContext())
+			{
+				using (new InitializerForcer(new SearchTemplateItemInitializer()))
+				{
+					var query = context.GetSynthesisQueryable<ISearchTemplateItem>(false).Where(x => x.Timestamp.Value > new DateTime(1971, 1, 1)).Take(10).ToArray();
+
+					Assert.IsTrue(query.Length > 0, "Query for date items returned no results");
+					Assert.IsTrue(query.All(x => x.Timestamp.Value > new DateTime(1971, 1, 1)), "Query included results without the specified date value!");
 				}
 			}
 		}

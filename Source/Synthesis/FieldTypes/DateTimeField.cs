@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Sitecore;
+using Sitecore.ContentSearch.Converters;
 using Sitecore.Data.Fields;
 using Sitecore.Web.UI.WebControls;
 using Synthesis.FieldTypes.Interfaces;
@@ -16,7 +17,17 @@ namespace Synthesis.FieldTypes
 		/// </summary>
 		public virtual DateTime Value
 		{
-			get { return ((DateField)InnerField).DateTime; }
+			get
+			{
+				if (!IsFieldLoaded && InnerSearchValue != null)
+				{
+					var converter = new IndexFieldDateTimeValueConverter();
+					// ReSharper disable once PossibleNullReferenceException
+					return (DateTime)converter.ConvertFrom(InnerSearchValue);
+				}
+
+				return ((DateField)InnerField).DateTime;
+			}
 			set { SetFieldValue(DateUtil.ToIsoDate(value)); }
 		}
 
