@@ -102,6 +102,63 @@ namespace Synthesis
 			return subquery;
 		}
 
+		/// <summary>
+		/// Filters a queryable by all items that have valid database representations. Do not use on monster result sets!
+		/// This is useful when you're planning to access database data for all results, and want to filter out any out of date index items
+		/// that will throw exceptions when promoted to database later.
+		/// 
+		/// Note that the queryable will be enumerated and the result of this operation is IEnumerable, not IQueryable.
+		/// </summary>
+		public static IEnumerable<TResult> WhereResultIsValidDatabaseItem<TResult>(this IQueryable<TResult> queryable)
+			where TResult : IStandardTemplateItem
+		{
+			foreach (var result in queryable)
+			{
+				Item currentItem = null;
+				try
+				{
+					currentItem = result.InnerItem;
+				}
+				catch (InvalidItemException)
+				{
+				}
+
+				if (currentItem != null) yield return result;
+			}
+		}
+
+		/// <summary>
+		/// Takes the first n valid database-based items in a queryable.
+		/// This is useful when you're planning to access database data for all results, and want to filter out any out of date index items
+		/// that will throw exceptions when promoted to database later.
+		/// 
+		/// Note that the queryable will be enumerated until sufficient items are found, and the result of this operation is IEnumerable not IQueryable.
+		/// </summary>
+		public static IEnumerable<TResult> TakeValidDatabaseItems<TResult>(this IQueryable<TResult> queryable, int numberToTake)
+			where TResult : IStandardTemplateItem
+		{
+			int taken = 0;
+			foreach (var result in queryable)
+			{
+				Item currentItem = null;
+				try
+				{
+					currentItem = result.InnerItem;
+				}
+				catch (InvalidItemException)
+				{
+				}
+
+				if (currentItem != null)
+				{
+					taken++;
+					yield return result;
+				}
+
+				if (taken == numberToTake) break;
+			}
+		}
+
 		private static IQueryable<TResult> GetLuceneQueryable<TResult>(LuceneSearchContext context, IExecutionContext[] executionContext)
 			where TResult : IStandardTemplateItem
 		{
