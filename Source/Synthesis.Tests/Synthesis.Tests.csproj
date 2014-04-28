@@ -64,8 +64,11 @@
     <Compile Include="FakeTemplateItem.cs" />
     <Compile Include="Fixtures\Configuration\TemplateInputProviderTests.cs" />
     <Compile Include="Fixtures\ContentSearch\ContentSearchTestFixture.cs" />
+    <Compile Include="Fixtures\ContentSearch\Data\SearchTemplateItem.cs" />
+    <Compile Include="Fixtures\ContentSearch\Data\ISearchTemplateItem.cs" />
     <Compile Include="Fixtures\ContentSearch\FieldTypeTests.cs" />
     <Compile Include="Fixtures\ContentSearch\ContentSearchQueryExtensionTests.cs" />
+    <Compile Include="Fixtures\ContentSearch\InitializerForcer.cs" />
     <Compile Include="Fixtures\ContentSearch\StandardTemplateTests.cs" />
     <Compile Include="Fixtures\FieldTypes\BooleanFieldTests.cs" />
     <Compile Include="Fixtures\FieldTypes\ItemReferenceFieldTests.cs" />
