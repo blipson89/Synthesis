@@ -116,9 +116,6 @@
     <Compile Include="Generation\NamingUtility.cs" />
     <Compile Include="Generation\TemplateGenerationInfo.cs" />
     <Compile Include="Generation\TemplateGenerationInfoCollection.cs" />
-    <Compile Include="ContentSearch\Hacks\BugFixExpressionParser.cs" />
-    <Compile Include="ContentSearch\Hacks\BugFixGenericQueryable.cs" />
-    <Compile Include="ContentSearch\Hacks\BugFixIndex.cs" />
     <Compile Include="HtmlTextWriterExtensions.cs" />
     <Compile Include="HttpHandler.cs" />
     <Compile Include="Initializers.cs" />
