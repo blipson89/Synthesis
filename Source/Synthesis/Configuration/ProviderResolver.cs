@@ -1,5 +1,7 @@
 ﻿using Sitecore.Configuration;
-using Synthesis.ContentSearch;
+using Sitecore.ContentSearch;
+using Sitecore.ContentSearch.Linq.Common;
+using Sitecore.Diagnostics;
 using Synthesis.FieldTypes;
 using Synthesis.Generation;
 using Synthesis.Synchronization;
@@ -79,7 +81,7 @@ namespace Synthesis.Configuration
 		/// <summary>
 		/// Gets the currently configured FieldNameTranslator (converts Sitecore template field names to index field names)
 		/// </summary>
-		public ISynthesisIndexFieldNameTranslator IndexFieldNameTranslator { get; private set; }
+		public FieldNameTranslator IndexFieldNameTranslator { get; private set; }
 
 		/// <summary>
 		/// Gets an instance of the Synthesis Generator pre-configured to use the current provider set
@@ -124,9 +126,16 @@ namespace Synthesis.Configuration
 			return (ITypeListProvider)Factory.CreateObject("/sitecore/synthesis/providers/typeListProvider", true);
 		}
 
-		private static ISynthesisIndexFieldNameTranslator LoadFieldNameTranslatorFromConfig()
+		private static FieldNameTranslator LoadFieldNameTranslatorFromConfig()
 		{
-			return (ISynthesisIndexFieldNameTranslator)Factory.CreateObject("/sitecore/synthesis/providers/indexFieldNameTranslator", true);
+			var indexConfiguration = Factory.GetConfigNode("/sitecore/synthesis/providers/indexConfiguration", true);
+
+// ReSharper disable once PossibleNullReferenceException
+			var nameAttribute = indexConfiguration.Attributes["name"];
+
+			Assert.IsNotNull(nameAttribute, "The index name was missing on the Synthesis index configuration.");
+
+			return ContentSearchManager.GetIndex(nameAttribute.InnerText).FieldNameTranslator;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using Synthesis.ContentSearch;
+﻿using Sitecore.ContentSearch.Linq.Common;
 using Synthesis.Templates;
 using Synthesis.Generation;
 using Synthesis.FieldTypes;
@@ -12,6 +12,6 @@ namespace Synthesis.Configuration
 		ITemplateInputProvider TemplateInputProvider { get; }
 		ITemplateSignatureProvider TemplateSignatureProvider { get; }
 		ITypeListProvider TypeListProvider { get; }
-		ISynthesisIndexFieldNameTranslator IndexFieldNameTranslator { get; }
+		FieldNameTranslator IndexFieldNameTranslator { get; }
 	}
 }

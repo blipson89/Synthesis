@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
@@ -15,7 +16,6 @@ using Synthesis.Utility;
 using System.CodeDom.Compiler;
 using System.Reflection;
 using Sitecore.ContentSearch;
-using Synthesis.ContentSearch;
 
 namespace Synthesis.Generation
 {
@@ -27,16 +27,16 @@ namespace Synthesis.Generation
 		private readonly IFieldMappingProvider _fieldMappingProvider;
 		private readonly ITemplateInputProvider _templateInputProvider;
 		private readonly ITemplateSignatureProvider _templateSignatureProvider;
-		private readonly ISynthesisIndexFieldNameTranslator _indexFieldNameTranslator;
+		private readonly FieldNameTranslator _indexFieldNameTranslator;
 
 		const string StandardTemplate = "STANDARD TEMPLATE";
 
-		public Generator(IGeneratorParametersProvider parameterProvider, ITemplateInputProvider templateProvider, ITemplateSignatureProvider templateSignatureProvider, IFieldMappingProvider fieldMappingProvider, ISynthesisIndexFieldNameTranslator indexFieldNameTranslator) 
+		public Generator(IGeneratorParametersProvider parameterProvider, ITemplateInputProvider templateProvider, ITemplateSignatureProvider templateSignatureProvider, IFieldMappingProvider fieldMappingProvider, FieldNameTranslator indexFieldNameTranslator) 
 			:this(parameterProvider.CreateParameters(), templateProvider, templateSignatureProvider, fieldMappingProvider, indexFieldNameTranslator)
 		{
 		}
 
-		public Generator(GeneratorParameters parameters, ITemplateInputProvider templateProvider, ITemplateSignatureProvider templateSignatureProvider, IFieldMappingProvider fieldMappingProvider, ISynthesisIndexFieldNameTranslator indexFieldNameTranslator)
+		public Generator(GeneratorParameters parameters, ITemplateInputProvider templateProvider, ITemplateSignatureProvider templateSignatureProvider, IFieldMappingProvider fieldMappingProvider, FieldNameTranslator indexFieldNameTranslator)
 		{
 			parameters.Validate();
 			Parameters = parameters;
