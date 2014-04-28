@@ -1,4 +1,5 @@
-﻿using Sitecore.Data;
+﻿using Sitecore.ContentSearch.Converters;
+using Sitecore.Data;
 using Sitecore.Data.Fields;
 using System.Diagnostics.CodeAnalysis;
 using Synthesis.FieldTypes.Interfaces;
@@ -18,7 +19,17 @@ namespace Synthesis.FieldTypes
 		[SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ID", Justification = "Coherent with Sitecore convention")]
 		public virtual ID TargetId
 		{
-			get { return ((ReferenceField)InnerField).TargetID; }
+			get
+			{
+				if (!IsFieldLoaded && InnerSearchValue != null)
+				{
+					var converter = new IndexFieldIDValueConverter();
+					// ReSharper disable once PossibleNullReferenceException
+					return (ID)converter.ConvertFrom(InnerSearchValue);
+				}
+
+				return ((ReferenceField)InnerField).TargetID;
+			}
 			set { SetFieldValue(value.ToString()); }
 		}
 
