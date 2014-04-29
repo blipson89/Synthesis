@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Synthesis.Core</id>
-    <version>7.0.1</version>
+    <version>$version$</version>
     <authors>Kam Figy</authors>
     <owners>ISITE Design</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -18,9 +18,7 @@
     </dependencies>
   </metadata>
   <files>
-	<file src="..\..\Source\Synthesis\bin\release\Synthesis.*" target="lib\net45" />
-	<file src="..\..\Source\Synthesis\**\*.cs" target="src" />
 	<!-- this prevents issues if dependencies Sitecore NuGet before a build occurs and the http module can't be loaded that the install configured -->
-	<file src="..\..\Source\Synthesis\bin\release\Synthesis.*" target="content\bin" />
+	<file src="bin\release\Synthesis.*" target="content\bin" />
   </files>
 </package>

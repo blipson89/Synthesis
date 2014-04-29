@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Synthesis.Blade.Ninject</id>
-    <version>7.0.0</version>
+    <version>$version$</version>
     <authors>Kam Figy</authors>
     <owners>ISITE Design</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -16,19 +16,14 @@
 	<summary>
 		Ninject bindings for Synthesis.Blade
 	</summary>
-    <releaseNotes>Initial release</releaseNotes>
-    <copyright>Copyright 2013</copyright>
-    <tags>sitecore</tags>
-    <dependencies>
-		<dependency id="Synthesis.Blade.Core" version="2.0" />
-		<dependency id="Blade.Core" version="2.0" />
-		<dependency id="Ninject" version="3.0" />
-		<dependency id="Ninject.Web.Common" version="3.0" />
-    </dependencies>
+  <releaseNotes></releaseNotes>
+  <copyright>Copyright 2013</copyright>
+  <tags>sitecore</tags>
+  <dependencies>
+		<dependency id="Synthesis.Blade.Core" version="$version$" />
+  </dependencies>
   </metadata>
   <files>
 	<file src="..\..\Source\Synthesis.Blade.Ninject\Synthesis.Blade.Ninject.config" target="content\App_Config\Include" />
-	<file src="..\..\Source\Synthesis.Blade.Ninject\bin\release\Synthesis.Blade.Ninject*" target="lib\net45" />
-	<file src="..\..\Source\Synthesis.Blade.Ninject\**\*.cs" target="src" />
   </files>
 </package>

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Synthesis.Testing</id>
-    <version>7.0.1</version>
+    <version>$version$</version>
     <authors>Kam Figy</authors>
     <owners>ISITE Design</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -11,15 +11,13 @@
     <description>
 		Utilities to assist in unit testing with Synthesis
 	</description>
-    <releaseNotes>Modifications to work with Synthesis 7.0.1</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2014</copyright>
     <tags>sitecore</tags>
     <dependencies>
-		<dependency id="Synthesis.Core" version="7.0.1" />
+		<dependency id="Synthesis.Core" version="$version$" />
     </dependencies>
   </metadata>
   <files>
-	<file src="..\..\Source\Synthesis.Testing\bin\release\Synthesis.Testing*" target="lib\net45" />
-	<file src="..\..\Source\Synthesis.Testing\**\*.cs" target="src" />
   </files>
 </package>

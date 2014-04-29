@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Synthesis.Blade.Core</id>
-    <version>7.0.0</version>
+    <version>$version$</version>
     <authors>Kam Figy</authors>
     <owners>ISITE Design</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -20,12 +20,10 @@
     <copyright>Copyright 2013</copyright>
     <tags>sitecore</tags>
     <dependencies>
-		<dependency id="Synthesis.Core" version="7.0.0" />
-		<dependency id="Blade.Core" version="2.0.0" />
+		<dependency id="Synthesis.Core" version="$version$" />
+		<dependency id="Blade.Core" version="2.1.0" />
     </dependencies>
   </metadata>
   <files>
-	<file src="..\..\Source\Synthesis.Blade\bin\release\Synthesis.Blade*" target="lib\net45" />
-	<file src="..\..\Source\Synthesis.Blade\**\*.cs" target="src" />
   </files>
 </package>

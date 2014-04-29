@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<package >
+<package>
   <metadata>
     <id>Synthesis.Blade</id>
-    <version>7.0.1</version>
+    <version>$version$</version>
     <authors>Kam Figy</authors>
     <owners>ISITE Design</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -17,9 +17,8 @@
     <copyright>Copyright 2013</copyright>
     <tags>sitecore</tags>
     <dependencies>
-		<dependency id="Synthesis.Blade.Core" version="2.0.0" />
-		<dependency id="Synthesis" version="7.0.0" />
-		<dependency id="Blade" version="2.0.0" />
+		<dependency id="Synthesis.Blade.Core" version="$version$" />
+		<dependency id="Synthesis" version="$version$" />
     </dependencies>
   </metadata>
   <files>

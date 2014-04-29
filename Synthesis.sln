@@ -1,20 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis", "Source\Synthesis\Synthesis.csproj", "{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Tests", "Source\Synthesis.Tests\Synthesis.Tests.csproj", "{CC01C529-5740-4827-A544-918CE0F327F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Blade", "Source\Synthesis.Blade\Synthesis.Blade.csproj", "{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C24728E9-F703-41FA-8B2B-4A44F25B57F0}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Testing", "Source\Synthesis.Testing\Synthesis.Testing.csproj", "{3482B71D-81B1-4643-815E-342318CE9FCD}"
 EndProject

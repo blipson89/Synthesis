@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Sitecore.Data.Fields;
 using Synthesis.FieldTypes.Interfaces;
 

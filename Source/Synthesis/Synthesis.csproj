@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AutoSyncModule.cs" />
     <Compile Include="Configuration\ConfigurationFieldMappingProvider.cs" />
     <Compile Include="Configuration\ConfigurationGeneratorParametersProvider.cs" />
@@ -182,9 +185,9 @@
     <Compile Include="WebControlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Synthesis.config">
+    <None Include="Synthesis.config">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
