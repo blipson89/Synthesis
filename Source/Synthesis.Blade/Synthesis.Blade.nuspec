@@ -17,7 +17,7 @@
 		Integrates Blade with Synthesis objects
 	</summary>
     <releaseNotes>Support for Blade 2.0</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright 2014 Kam Figy/ISITE Design</copyright>
     <tags>sitecore</tags>
     <dependencies>
 		<dependency id="Synthesis.Core" version="$version$" />
@@ -25,5 +25,6 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="web.config.install.xdt" target="content" />
   </files>
 </package>

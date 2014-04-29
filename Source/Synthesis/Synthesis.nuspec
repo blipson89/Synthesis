@@ -12,7 +12,7 @@
 		Synthesis is a universal object mapper with LINQ support for Sitecore 7 Update 1. This package contains only the core library, and is suitable for installing to class libraries. For installing to a web project, use the Synthesis package, which comes with configuration files as well.
 	</description>
     <releaseNotes>Certain field interface types now correctly contain setters</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright 2014 Kam Figy/ISITE Design</copyright>
     <tags>sitecore</tags>
     <dependencies>
     </dependencies>

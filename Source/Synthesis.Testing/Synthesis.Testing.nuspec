@@ -12,7 +12,7 @@
 		Utilities to assist in unit testing with Synthesis
 	</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2014</copyright>
+    <copyright>Copyright 2014 Kam Figy/ISITE Design</copyright>
     <tags>sitecore</tags>
     <dependencies>
 		<dependency id="Synthesis.Core" version="$version$" />

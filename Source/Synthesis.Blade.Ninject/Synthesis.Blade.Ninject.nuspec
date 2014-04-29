@@ -17,7 +17,7 @@
 		Ninject bindings for Synthesis.Blade
 	</summary>
   <releaseNotes></releaseNotes>
-  <copyright>Copyright 2013</copyright>
+  <copyright>Copyright 2014 Kam Figy/ISITE Design</copyright>
   <tags>sitecore</tags>
   <dependencies>
 		<dependency id="Synthesis.Blade.Core" version="$version$" />
