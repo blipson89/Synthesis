@@ -21,6 +21,7 @@
   <tags>sitecore</tags>
   <dependencies>
 		<dependency id="Synthesis.Blade.Core" version="$version$" />
+    <dependency id="Ninject.Web.Common.WebHost" version="3.2.1.0" />
   </dependencies>
   </metadata>
   <files>

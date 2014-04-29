@@ -35,9 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Blade, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Blade, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Blade.Core.2.1.0\lib\net45\Blade.dll</HintPath>
+      <HintPath>..\..\packages\Blade.Core.2.1.1.0\lib\net45\Blade.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.Kernel, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -32,9 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Blade, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Blade, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Blade.Core.2.1.0\lib\net45\Blade.dll</HintPath>
+      <HintPath>..\..\packages\Blade.Core.2.1.1.0\lib\net45\Blade.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -47,10 +47,6 @@
     <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Ninject.Web.Common.3.2.1.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Synthesis, Version=7.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Synthesis.Core.7.0.1\lib\net45\Synthesis.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -87,18 +83,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synthesis.Blade\Synthesis.Blade.csproj">
-      <Project>{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}</Project>
-      <Name>Synthesis.Blade</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Synthesis.Blade.Ninject.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synthesis.Blade\Synthesis.Blade.csproj">
+      <Project>{af64a302-2d5d-4c2b-9b99-7dbf4b6fb9f9}</Project>
+      <Name>Synthesis.Blade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synthesis\Synthesis.csproj">
+      <Project>{ebae2c10-079d-4eb1-9e46-82cec35d7f4b}</Project>
+      <Name>Synthesis</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
