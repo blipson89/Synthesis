@@ -38,14 +38,9 @@ namespace Blade.Razor.Helpers
 			return new MvcHtmlString(string.Empty);
 		}
 
-		public static IHtmlString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector)
+		public static IHtmlString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector, string linkText = null, string cssClass = null)
 		{
-			return FileLinkFor(helper, selector, null);
-		}
-
-		public static IHtmlString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector, string linkText)
-		{
-			return FileLinkFor(helper, selector, linkText, new { });
+			return FileLinkFor(helper, selector, linkText, new { @class = cssClass });
 		}
 
 		public static IHtmlString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector, string linkText, object attributes)
@@ -61,7 +56,11 @@ namespace Blade.Razor.Helpers
 
 				foreach (var attribute in attributes.GetType().GetProperties().Where(x => x.CanRead))
 				{
-					sb.AppendFormat(" {0}=\"{1}\"", attribute.Name.Replace('_', '-'), HttpUtility.HtmlEncode(attribute.GetValue(attributes, null)));
+					var value = attribute.GetValue(attributes, null);
+
+					if (value == null) continue;
+
+					sb.AppendFormat(" {0}=\"{1}\"", attribute.Name.Replace('_', '-'), HttpUtility.HtmlEncode(value));
 				}
 
 				sb.Append(">");
@@ -74,31 +73,21 @@ namespace Blade.Razor.Helpers
 			return new MvcHtmlString(string.Empty);
 		}
 
-		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector)
-		{
-			return ImageFor(helper, selector, x => { });
-		}
-
 		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, string cssClass)
 		{
 			return ImageFor(helper, selector, x => { x.CssClass = cssClass; });
 		}
 
-		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int maxWidth, int maxHeight)
+		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int? maxWidth = null, int? maxHeight = null, string cssClass = null)
 		{
 			return ImageFor(helper, selector, x =>
 			{
-				x.MaxWidth = maxWidth;
-				x.MaxHeight = maxHeight;
-			});
-		}
+				if (maxWidth.HasValue)
+					x.MaxWidth = maxWidth.Value;
 
-		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int maxWidth, int maxHeight, string cssClass)
-		{
-			return ImageFor(helper, selector, x =>
-			{
-				x.MaxWidth = maxWidth;
-				x.MaxHeight = maxHeight;
+				if (maxHeight.HasValue)
+					x.MaxHeight = maxHeight.Value;
+
 				x.CssClass = cssClass;
 			});
 		}
@@ -143,25 +132,15 @@ namespace Blade.Razor.Helpers
 			return new MvcHtmlString(string.Empty);
 		}
 
-		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector)
-		{
-			return HyperlinkFor(helper, selector, x => { });
-		}
-
-		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string linkText)
+		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string linkText = null, string cssClass = null)
 		{
 			return HyperlinkFor(helper, selector, x =>
 			{
-				x.Text = linkText;
-			});
-		}
+				if (linkText != null)
+					x.Text = linkText;
 
-		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string linkText, string cssClass)
-		{
-			return HyperlinkFor(helper, selector, x =>
-			{
-				x.Text = linkText;
-				x.CssClass = cssClass;
+				if (cssClass != null)
+					x.CssClass = cssClass;
 			});
 		}
 
