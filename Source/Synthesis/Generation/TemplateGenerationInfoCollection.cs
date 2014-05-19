@@ -78,6 +78,22 @@ namespace Synthesis.Generation
 			{
 				name = template.InnerItem.Paths.FullPath.Replace(NamespaceRoot, string.Empty).Trim('/').Replace('/', '.');
 
+                var nameParts = name.Split('/');
+
+                for (int cnt = 0; cnt < nameParts.Length; cnt++)
+                {
+                    string namePart = nameParts[cnt];
+                    int v;
+                    if (int.TryParse(namePart.Substring(0, 1), out v))
+                    {
+                        namePart = "_" + namePart;
+                    }
+
+                    nameParts[cnt] = namePart;
+                }
+
+                name = string.Join(".", nameParts);
+
 				if (name.Contains("."))
 				{
 					// we need to make sure the namespace and full type name are both unique
