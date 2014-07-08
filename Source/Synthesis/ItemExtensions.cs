@@ -42,6 +42,8 @@ namespace Synthesis
 		public static IEnumerable<TTemplate> AsStronglyTypedCollectionOf<TTemplate>(this IEnumerable<Item> items)
 			where TTemplate : class, IStandardTemplateItem
 		{
+			if (items == null) return Enumerable.Empty<TTemplate>();
+
 			return items.Select(item => item.As<TTemplate>()).Where(result => result != null);
 		}
 
@@ -52,6 +54,8 @@ namespace Synthesis
 		/// <remarks>If a conversion exception occurs, it can be found in the Sitecore log</remarks>
 		public static IEnumerable<IStandardTemplateItem> AsStronglyTypedCollection(this IEnumerable<Item> items)
 		{
+			if (items == null) return Enumerable.Empty<IStandardTemplateItem>();
+
 			return items.Select(item => item.AsStronglyTyped()).Where(result => result != null);
 		}
 	}
