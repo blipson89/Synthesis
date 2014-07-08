@@ -53,7 +53,7 @@ namespace Synthesis.Generation
 		/// <summary>
 		/// Gets a template in the collection by ID
 		/// </summary>
-		[SuppressMessage("Microsoft.Design", "CA1043:UseIntegralOrStringArgumentForIndexers", Justification="It makes sense here to index by ID")]
+		[SuppressMessage("Microsoft.Design", "CA1043:UseIntegralOrStringArgumentForIndexers", Justification = "It makes sense here to index by ID")]
 		public TemplateGenerationInfo this[ID templateId]
 		{
 			get { return _templateLookup[templateId]; }
@@ -78,21 +78,21 @@ namespace Synthesis.Generation
 			{
 				name = template.InnerItem.Paths.FullPath.Replace(NamespaceRoot, string.Empty).Trim('/').Replace('/', '.');
 
-                var nameParts = name.Split('/');
+				var nameParts = name.Split('/');
 
-                for (int cnt = 0; cnt < nameParts.Length; cnt++)
-                {
-                    string namePart = nameParts[cnt];
-                    int v;
-                    if (int.TryParse(namePart.Substring(0, 1), out v))
-                    {
-                        namePart = "_" + namePart;
-                    }
+				for (int cnt = 0; cnt < nameParts.Length; cnt++)
+				{
+					string namePart = nameParts[cnt];
+					int v;
+					if (int.TryParse(namePart.Substring(0, 1), out v))
+					{
+						namePart = "_" + namePart;
+					}
 
-                    nameParts[cnt] = namePart;
-                }
+					nameParts[cnt] = namePart;
+				}
 
-                name = string.Join(".", nameParts);
+				name = string.Join(".", nameParts);
 
 				if (name.Contains("."))
 				{
