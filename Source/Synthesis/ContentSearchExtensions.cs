@@ -11,7 +11,6 @@ using Sitecore.ContentSearch.Utilities;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Exceptions;
-using Synthesis.ContentSearch;
 using Synthesis.ContentSearch.Lucene;
 using Synthesis.Synchronization;
 
@@ -118,6 +117,8 @@ namespace Synthesis
 		{
 			foreach (var result in queryable)
 			{
+				if (result == null) continue;
+
 				Item currentItem = null;
 				try
 				{
@@ -144,6 +145,8 @@ namespace Synthesis
 			int taken = 0;
 			foreach (var result in queryable)
 			{
+				if (result == null) continue;
+
 				Item currentItem = null;
 				try
 				{
