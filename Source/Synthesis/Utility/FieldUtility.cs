@@ -40,7 +40,7 @@ namespace Synthesis.Utility
 					if (Regex.IsMatch(field.Url, "^https?://"))
 						return field.Url;
 
-					if (field.TargetItem == null) return string.Empty;
+					if (field.TargetItem == null) return field.Url ?? string.Empty;
 					url = LinkManager.GetItemUrl(field.TargetItem);
 					break;
 				case "external":
