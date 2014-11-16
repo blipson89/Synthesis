@@ -42,46 +42,83 @@ namespace Synthesis.Configuration
 			}
 		}
 
-		// default instance reads values from XML configuration
-		private ProviderResolver()
-		{
-			FieldMappingProvider = LoadFieldMappingProviderFromConfig();
-			GeneratorParametersProvider = LoadGeneratorParametersProviderFromConfig();
-			TemplateInputProvider = LoadTemplateInputProviderFromConfig();
-			TemplateSignatureProvider = LoadTemplateSignatureProviderFromConfig();
-			TypeListProvider = LoadTypeListProviderFromConfig();
-			IndexFieldNameTranslator = LoadFieldNameTranslatorFromConfig();
-		}
-
 		/// <summary>
 		/// Gets the currently configured Field Mapping Provider (maps a Sitecore field type to an implementing .NET class)
 		/// </summary>
-		public IFieldMappingProvider FieldMappingProvider { get; private set; }
+		public IFieldMappingProvider FieldMappingProvider
+		{
+			get
+			{
+				if (_fieldMappingProvider == null) _fieldMappingProvider = LoadFieldMappingProviderFromConfig();
+				return _fieldMappingProvider;
+			}
+		}
+		private IFieldMappingProvider _fieldMappingProvider;
 
 		/// <summary>
 		/// Gets the currently configured Generator Parameters Provider (configures the Synthesis Generator's parameters)
 		/// </summary>
-		public IGeneratorParametersProvider GeneratorParametersProvider { get; private set; }
+		public IGeneratorParametersProvider GeneratorParametersProvider
+		{
+			get
+			{
+				if (_generatorParametersProvider == null) _generatorParametersProvider = LoadGeneratorParametersProviderFromConfig();
+				return _generatorParametersProvider;
+			}
+		}
+		private IGeneratorParametersProvider _generatorParametersProvider;
 
 		/// <summary>
 		/// Gets the currently configured Template Input Provider (configures the set of templates and fields that should be acted upon)
 		/// </summary>
-		public ITemplateInputProvider TemplateInputProvider { get; private set; }
+		public ITemplateInputProvider TemplateInputProvider
+		{
+			get
+			{
+				if (_templateInputProvider == null) _templateInputProvider = LoadTemplateInputProviderFromConfig();
+				return _templateInputProvider;
+			}
+		}
+		private ITemplateInputProvider _templateInputProvider;
 
 		/// <summary>
 		/// Gets the currently configured Template Signature Provider (provides a unique signature for a template's state for later comparison)
 		/// </summary>
-		public ITemplateSignatureProvider TemplateSignatureProvider { get; private set; }
+		public ITemplateSignatureProvider TemplateSignatureProvider
+		{
+			get
+			{
+				if (_templateSignatureProvider == null) _templateSignatureProvider = LoadTemplateSignatureProviderFromConfig();
+				return _templateSignatureProvider;
+			}
+		}
+		private ITemplateSignatureProvider _templateSignatureProvider;
 
 		/// <summary>
 		/// Gets the currently configured Type List Provider (configures where Synthesis looks for Synthesis types to be defined and for presenters)
 		/// </summary>
-		public ITypeListProvider TypeListProvider { get; private set; }
-		
+		public ITypeListProvider TypeListProvider
+		{
+			get
+			{
+				if (_typeListProvider == null) _typeListProvider = LoadTypeListProviderFromConfig();
+				return _typeListProvider;
+			}
+		}
+		private ITypeListProvider _typeListProvider;
+
 		/// <summary>
 		/// Gets the currently configured FieldNameTranslator (converts Sitecore template field names to index field names)
 		/// </summary>
-		public FieldNameTranslator IndexFieldNameTranslator { get; private set; }
+		public FieldNameTranslator IndexFieldNameTranslator
+		{
+			get
+			{
+				if (_fieldNameTranslator == null) _fieldNameTranslator = LoadFieldNameTranslatorFromConfig();
+				return _fieldNameTranslator;
+			}
+		}
+		private FieldNameTranslator _fieldNameTranslator;
 
 		/// <summary>
 		/// Gets an instance of the Synthesis Generator pre-configured to use the current provider set
@@ -130,7 +167,7 @@ namespace Synthesis.Configuration
 		{
 			var indexConfiguration = Factory.GetConfigNode("/sitecore/synthesis/providers/indexConfiguration", true);
 
-// ReSharper disable once PossibleNullReferenceException
+			// ReSharper disable once PossibleNullReferenceException
 			var nameAttribute = indexConfiguration.Attributes["name"];
 
 			Assert.IsNotNull(nameAttribute, "The index name was missing on the Synthesis index configuration.");
