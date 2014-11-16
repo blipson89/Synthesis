@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Sitecore.Collections;
+﻿using Sitecore.Collections;
 using Sitecore.Data;
 using Sitecore.Globalization;
 

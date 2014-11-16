@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Synthesis.FieldTypes.Interfaces;
+﻿using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.Testing
 {

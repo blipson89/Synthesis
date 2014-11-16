@@ -25,10 +25,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		{
 			TemplateCreateUtility.CleanUpTestTemplatesFolder(); // make sure we only have our templates here so counts are accurate
 
-			Item section;
-
 			AliceTemplate = TemplateCreateUtility.CreateTestTemplate("Alice" + Guid.NewGuid().ToString("N"));
-			section = AliceTemplate.CreateTemplateSection("Test");
+			Item section = AliceTemplate.CreateTemplateSection("Test");
 			AliceField = section.CreateTemplateField("Hello" + Guid.NewGuid().ToString("N"), TemplateFieldTypes.TEXT_FIELD);
 
 			BobTemplate = TemplateCreateUtility.CreateTestTemplate("Bob" + Guid.NewGuid().ToString("N"));
@@ -67,10 +65,10 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		[Test]
 		public void TemplateInputProvider_GetTemplates_IncludesExpectedTemplatesByFolderID()
 		{
-			var tempTemplatesFolderID = TemplateCreateUtility.TestTemplateFolder.ID.ToString();
+			var tempTemplatesFolderId = TemplateCreateUtility.TestTemplateFolder.ID.ToString();
 
 			var provider = new ConfigurationTemplateInputProvider();
-			provider.AddTemplatePath(tempTemplatesFolderID);
+			provider.AddTemplatePath(tempTemplatesFolderId);
 
 			var templates = provider.CreateTemplateList();
 
@@ -133,7 +131,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		[Test]
 		public void TemplateInputProvider_GetTemplates_IncludesExpectedTemplatesByWildcardName()
 		{
-			var wildcard = "*Alice*"; // NOTE: this will fail if you have templates called "Alice." But why would you have that?
+			const string wildcard = "*Alice*"; // NOTE: this will fail if you have templates called "Alice." But why would you have that?
 
 			var provider = new ConfigurationTemplateInputProvider();
 			provider.AddTemplatePath(wildcard);
@@ -184,8 +182,6 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		[Test]
 		public void TemplateInputProvider_GetTemplates_ExcludesExpectedTemplatesByFolderID()
 		{
-			var tempTemplatesFolderID = TemplateCreateUtility.TestTemplateFolder.ID.ToString();
-
 			var provider = GetExclusionTestProvider();
 			provider.AddTemplateExclusion(TemplateCreateUtility.TestTemplateFolder.ID.ToString());
 
@@ -250,7 +246,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		[Test]
 		public void TemplateInputProvider_GetTemplates_ExcludesExpectedTemplatesByWildcardName()
 		{
-			var wildcard = "*Alice*"; // NOTE: this will fail if you have templates called "Alice." But why would you have that?
+			const string wildcard = "*Alice*"; // NOTE: this will fail if you have templates called "Alice." But why would you have that?
 
 			var provider = GetExclusionTestProvider();
 			provider.AddTemplateExclusion(wildcard);
@@ -343,7 +339,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedByPath()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(AliceTemplate.ID.ToString() + "::" + AliceField.Paths.FullPath);
+			provider.AddFieldExclusion(AliceTemplate.ID + "::" + AliceField.Paths.FullPath);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -353,7 +349,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedByPath_WhenInherited()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(FlowerChildTemplate.ID.ToString() + "::" + AliceField.Paths.FullPath);
+			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + AliceField.Paths.FullPath);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -363,7 +359,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedByName()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(AlicesonTemplate.ID.ToString() + "::" + AlicesonField.Name);
+			provider.AddFieldExclusion(AlicesonTemplate.ID + "::" + AlicesonField.Name);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -373,7 +369,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedByName_WhenInherited()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(FlowerChildTemplate.ID.ToString() + "::" + AlicesonField.Name);
+			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + AlicesonField.Name);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -383,7 +379,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedById()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(AliceTemplate.ID.ToString() + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion(AliceTemplate.ID + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -393,7 +389,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedById_WhenInherited()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(FlowerChildTemplate.ID.ToString() + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -403,7 +399,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedByNameWildcard()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(AliceTemplate.ID.ToString() + "::" + "*" + AliceField.Name.Substring(5));
+			provider.AddFieldExclusion(AliceTemplate.ID + "::" + "*" + AliceField.Name.Substring(5));
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -413,7 +409,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedByNameWildcard_WhenInherited()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(FlowerChildTemplate.ID.ToString() + "::" + "*" + AliceField.Name.Substring(5));
+			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + "*" + AliceField.Name.Substring(5));
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -423,7 +419,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedByPathWildcard()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(AliceTemplate.ID.ToString() + "::" + AliceField.Parent.Paths.FullPath + "*");
+			provider.AddFieldExclusion(AliceTemplate.ID + "::" + AliceField.Parent.Paths.FullPath + "*");
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -433,7 +429,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByID_ExcludedByPathWildcard_WhenInherited()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(FlowerChildTemplate.ID.ToString() + "::" + AliceField.Parent.Paths.FullPath + "*");
+			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + AliceField.Parent.Paths.FullPath + "*");
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -485,7 +481,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByName_ExcludedById()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(AliceTemplate.Name + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion(AliceTemplate.Name + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -495,7 +491,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByName_ExcludedById_WhenInherited()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(FlowerChildTemplate.Name + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion(FlowerChildTemplate.Name + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -587,7 +583,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByPath_ExcludedById()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(AliceTemplate.Paths.FullPath + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion(AliceTemplate.Paths.FullPath + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -597,7 +593,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByPath_ExcludedById_WhenInherited()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(FlowerChildTemplate.Paths.FullPath + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion(FlowerChildTemplate.Paths.FullPath + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -689,7 +685,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByNameWildcard_ExcludedById()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion("*" + AliceTemplate.Name.Substring(5) + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion("*" + AliceTemplate.Name.Substring(5) + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -699,7 +695,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByNameWildcard_ExcludedById_WhenInherited()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion("*" + FlowerChildTemplate.Name.Substring(5) + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion("*" + FlowerChildTemplate.Name.Substring(5) + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -790,7 +786,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByPathWildcard_ExcludedById()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(AliceTemplate.Parent.Paths.FullPath + "*" + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion(AliceTemplate.Parent.Paths.FullPath + "*" + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
@@ -800,7 +796,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		public void TemplateInputProvider_ShouldGeneratePropertyForField_TemplateByPathWildcard_ExcludedById_WhenInherited()
 		{
 			var provider = GetExclusionTestProvider();
-			provider.AddFieldExclusion(FlowerChildTemplate.Parent.Paths.FullPath + "*" + "::" + AliceField.ID.ToString());
+			provider.AddFieldExclusion(FlowerChildTemplate.Parent.Paths.FullPath + "*" + "::" + AliceField.ID);
 
 			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
 			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");

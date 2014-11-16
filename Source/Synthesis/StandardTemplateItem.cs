@@ -410,7 +410,7 @@ namespace Synthesis
 		{
 			var type = typeof(TItem);
 
-			ID templateId = null;
+			ID templateId;
 
 			if (type.IsInterface)
 			{

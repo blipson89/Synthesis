@@ -9,6 +9,7 @@ using Sitecore.Diagnostics;
 using Synthesis.Configuration;
 using Synthesis.Synchronization;
 using Synthesis.Utility;
+using Debug = System.Diagnostics.Debug;
 
 namespace Synthesis
 {
@@ -156,6 +157,8 @@ namespace Synthesis
 			var outputPath = ProviderResolver.Current.GeneratorParametersProvider.CreateParameters().ItemOutputPath;
 
 			outputPath = Path.GetDirectoryName(outputPath);
+
+			Debug.Assert(outputPath != null, "outputPath != null");
 
 			return ResolveProject(new DirectoryInfo(outputPath));
 		}

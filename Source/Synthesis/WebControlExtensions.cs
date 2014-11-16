@@ -1,6 +1,5 @@
 ﻿using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
-using System.Linq;
 using Sitecore.Web.UI.WebControls;
 using System.Web.UI.WebControls;
 using System.Diagnostics.CodeAnalysis;

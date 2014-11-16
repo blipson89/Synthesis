@@ -1,7 +1,6 @@
 ﻿namespace Synthesis
 {
 	using System;
-	using System.Linq;
 	using System.Web.UI;
 	using Sitecore.Web.UI.WebControls;
 	using FieldTypes.Interfaces;

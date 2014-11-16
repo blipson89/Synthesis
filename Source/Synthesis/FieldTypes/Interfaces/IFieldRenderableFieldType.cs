@@ -1,6 +1,4 @@
 ﻿
-using System.Linq;
-
 namespace Synthesis.FieldTypes.Interfaces
 {
 	/// <summary>

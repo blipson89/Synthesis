@@ -13,7 +13,7 @@ namespace Synthesis.Tests.Utility
 		
 		internal TestItemContext()
 		{
-			var testName = "test-" + ID.NewID.ToShortID().ToString();
+			var testName = "test-" + ID.NewID.ToShortID();
 			var database = Factory.GetDatabase("master");
 
 			using (new SecurityDisabler())

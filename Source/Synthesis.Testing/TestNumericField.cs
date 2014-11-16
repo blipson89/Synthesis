@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Linq;
 using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.Testing

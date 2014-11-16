@@ -16,6 +16,7 @@ namespace Synthesis.Blade
 	{
         protected override TModel GetModel(IView view, Item[] dataSource)
         {
+// ReSharper disable once RedundantCast
 	        return (TModel)(IEnumerable<TElement>)dataSource.AsStronglyTypedCollectionOf<TElement>().ToArray();
         }
     }

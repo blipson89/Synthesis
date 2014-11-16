@@ -1,7 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using Sitecore.Data.Fields;
-using Synthesis.FieldTypes;
+﻿using NUnit.Framework;
 using Synthesis.Tests.Utility;
 
 namespace Synthesis.Tests.Fixtures.FieldTypes

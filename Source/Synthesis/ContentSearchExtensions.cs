@@ -113,7 +113,7 @@ namespace Synthesis
 		/// Note that the queryable will be enumerated and the result of this operation is IEnumerable, not IQueryable.
 		/// </summary>
 		public static IEnumerable<TResult> WhereResultIsValidDatabaseItem<TResult>(this IQueryable<TResult> queryable)
-			where TResult : IStandardTemplateItem
+			where TResult : class, IStandardTemplateItem
 		{
 			foreach (var result in queryable)
 			{
@@ -140,7 +140,7 @@ namespace Synthesis
 		/// Note that the queryable will be enumerated until sufficient items are found, and the result of this operation is IEnumerable not IQueryable.
 		/// </summary>
 		public static IEnumerable<TResult> TakeValidDatabaseItems<TResult>(this IQueryable<TResult> queryable, int numberToTake)
-			where TResult : IStandardTemplateItem
+			where TResult : class, IStandardTemplateItem
 		{
 			int taken = 0;
 			foreach (var result in queryable)

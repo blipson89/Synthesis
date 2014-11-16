@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Synthesis.FieldTypes.Interfaces;

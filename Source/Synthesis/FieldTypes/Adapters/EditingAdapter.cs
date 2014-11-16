@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Sitecore.Data.Items;
+﻿using Sitecore.Data.Items;
 
 namespace Synthesis.FieldTypes.Adapters
 {

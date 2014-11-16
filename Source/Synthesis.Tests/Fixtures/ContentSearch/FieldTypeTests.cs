@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using NUnit.Framework;
 using Sitecore;
-using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Linq;
 using Synthesis.Tests.Fixtures.ContentSearch.Data;
 

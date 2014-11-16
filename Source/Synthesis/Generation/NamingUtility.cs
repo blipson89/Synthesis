@@ -31,16 +31,16 @@ namespace Synthesis.Generation
 		/// <returns>The novel name</returns>
 		public static string AsNovel(this string identifier, ICollection<string> existingValues)
 		{
-			string fixedID = identifier;
+			string fixedId = identifier;
 			int index = 1;
 
-			while (existingValues.Contains(fixedID))
+			while (existingValues.Contains(fixedId))
 			{
-				fixedID = identifier + index;
+				fixedId = identifier + index;
 				index++;
 			}
 
-			return fixedID;
+			return fixedId;
 		}
 	}
 }

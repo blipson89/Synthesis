@@ -1,8 +1,5 @@
-﻿using System;
-using NUnit.Framework;
-using Sitecore.Data.Fields;
+﻿using NUnit.Framework;
 using Synthesis.Tests.Utility;
-using TextField = Synthesis.FieldTypes.TextField;
 
 namespace Synthesis.Tests.Fixtures.FieldTypes
 {
