@@ -5,13 +5,13 @@ using System.Reflection;
 using Sitecore;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Converters;
-using Sitecore.ContentSearch.LuceneProvider.Converters;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Globalization;
 using Sitecore.Links;
 using Synthesis.ContentSearch;
 using Synthesis.FieldTypes.Adapters;
+using Synthesis.Synchronization;
 using Synthesis.Utility;
 using Sitecore.Configuration;
 using System.Collections.Generic;
@@ -409,15 +409,31 @@ namespace Synthesis
 			where TItem : class, IStandardTemplateItem
 		{
 			var type = typeof(TItem);
-			var property = type.GetProperty("ItemTemplateId", BindingFlags.Static | BindingFlags.Public);
 
-			if (property == null) throw new ArgumentException(type.FullName + " does not seem to be a generated item type (no ItemTemplateId property was present)");
+			ID templateId = null;
 
-			var propertyValue = property.GetValue(null) as ID;
+			if (type.IsInterface)
+			{
+				var attribute = type.GetCustomAttribute<RepresentsSitecoreTemplateAttribute>(false);
 
-			if (propertyValue == (ID)null) throw new ArgumentException("ItemTemplateId property was not of the expected Sitecore.Data.ID type");
+				if(attribute == null) throw new ArgumentException("Item interface did not have the requisite [RepresentsSitecoreTemplate] attribute.");
 
-			Item newItem = InnerItem.Add(name, new TemplateID(propertyValue));
+				if(!ID.TryParse(attribute.TemplateID, out templateId)) throw new ArgumentException("Item interface's [RepresentsSitecoreTemplate] attribute had an invalid template ID format.");
+			}
+			else
+			{
+				var property = type.GetProperty("ItemTemplateId", BindingFlags.Static | BindingFlags.Public);
+
+				if (property == null) throw new ArgumentException(type.FullName + " does not seem to be a generated item type (no ItemTemplateId property was present)");
+
+				var propertyValue = property.GetValue(null) as ID;
+
+				if (propertyValue == (ID) null) throw new ArgumentException("ItemTemplateId property was not of the expected Sitecore.Data.ID type");
+
+				templateId = propertyValue;
+			}
+
+			Item newItem = InnerItem.Add(name, new TemplateID(templateId));
 
 			return newItem.As<TItem>();
 		}
