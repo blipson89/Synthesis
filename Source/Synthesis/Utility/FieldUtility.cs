@@ -16,10 +16,9 @@ namespace Synthesis.Utility
 		/// </summary>
 		public static string GetMediaUrl(MediaItem item)
 		{
-			Assert.ArgumentNotNull(item, "item");
+		    Assert.ArgumentNotNull(item, "item");
 
-			// If Media.AlwaysIncludeServerUrl is set, it should override the LinkManager setting for
-            // media links.
+		    // If Media.AlwaysIncludeServerUrl is set, it should override the LinkManager setting for media links.
 		    bool includeServerUrl = LinkManager.Provider.AlwaysIncludeServerUrl;
 		    string mediaAlwaysIncludeServerUrl = Sitecore.Configuration.Settings.GetSetting("Media.AlwaysIncludeServerUrl", string.Empty);
 		    if (!string.IsNullOrEmpty(mediaAlwaysIncludeServerUrl))
