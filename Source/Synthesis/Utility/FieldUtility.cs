@@ -29,7 +29,7 @@ namespace Synthesis.Utility
 
 			// the conditional here prevents URLs like /http://foo/bar from being generated if AlwaysIncludeServerUrl is enabled
 			// thanks to Dave Peterson for finding this.
-			return includeServerUrl ? HttpUtility.UrlPathEncode(MediaManager.GetMediaUrl(item)) : StringUtil.EnsurePrefix('/', HttpUtility.UrlPathEncode(MediaManager.GetMediaUrl(item)));
+			return includeServerUrl ? MediaManager.GetMediaUrl(item) : StringUtil.EnsurePrefix('/', HttpUtility.UrlPathEncode(MediaManager.GetMediaUrl(item)));
 		}
 
 		/// <summary>
