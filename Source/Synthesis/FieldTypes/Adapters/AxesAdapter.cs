@@ -65,7 +65,7 @@ namespace Synthesis.FieldTypes.Adapters
 		[SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Following Sitecore Axes naming")]
 		public IStandardTemplateItem GetPreviousSibling()
 		{
-			return _axes.GetNextSibling().AsStronglyTyped();
+			return _axes.GetPreviousSibling().AsStronglyTyped();
 		}
 
 		public bool IsAncestorOf(IStandardTemplateItem item)
