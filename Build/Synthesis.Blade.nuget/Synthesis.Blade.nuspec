@@ -14,7 +14,7 @@
 		This package is designed to be installed on a web project, and includes configuration files.
 	</description>
     <releaseNotes>Fixes configuration bug</releaseNotes>
-    <copyright>Copyright 2014 Kam Figy/ISITE Design</copyright>
+    <copyright>Copyright 2015 Kam Figy/ISITE Design</copyright>
     <tags>sitecore</tags>
     <dependencies>
 		<dependency id="Synthesis.Blade.Core" version="$version$" />

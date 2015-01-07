@@ -17,7 +17,7 @@
 		Integrates Blade with Synthesis objects
 	</summary>
     <releaseNotes>Support for Blade 2.0</releaseNotes>
-    <copyright>Copyright 2014 Kam Figy/ISITE Design</copyright>
+    <copyright>Copyright 2015 Kam Figy/ISITE Design</copyright>
     <tags>sitecore</tags>
     <dependencies>
 		<dependency id="Synthesis.Core" version="$version$" />
