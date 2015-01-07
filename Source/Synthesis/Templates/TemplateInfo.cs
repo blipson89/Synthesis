@@ -24,7 +24,7 @@ namespace Synthesis.Templates
 		/// <summary>
 		/// Gets immediate ancestor base templates
 		/// </summary>
-		public ReadOnlyCollection<TemplateInfo> BaseTemplates 
+		public ReadOnlyCollection<TemplateInfo> BaseTemplates
 		{
 			get
 			{
@@ -47,9 +47,13 @@ namespace Synthesis.Templates
 		{
 			var parentBases = parent.BaseTemplates.Where(x => x.Template.Name.ToUpperInvariant() != "STANDARD TEMPLATE").ToList(); // we just want NON-standard base templates
 			var bases = new List<TemplateInfo>(parentBases); // we instance this collection off as it gets modified during the enumeration of parentBases (thus we couldn't enumerate it)
-		
+
 			foreach (var baseTemplate in parentBases)
 			{
+				// if the bases already have this template we've got a cycle or a duplicate inheritance across a tree
+				// in which case we should ignore it.
+				if (bases.Any(x => x.Template.ID.Equals(baseTemplate.Template.ID))) continue;
+
 				bases.AddRange(GetRecursiveBaseTemplates(baseTemplate));
 			}
 
