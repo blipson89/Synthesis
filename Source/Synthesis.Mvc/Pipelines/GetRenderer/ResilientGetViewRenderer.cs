@@ -42,7 +42,11 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 						{
 							NullModelHelper.RenderNullModelMessage(new HtmlTextWriter(writer), ViewPath, Rendering.DataSource, new ViewModelTypeResolver().GetViewModelType(ViewPath), Rendering.Model);
 						}
+						
+						return;
 					}
+
+					throw;
 				}
 			}
 		}
