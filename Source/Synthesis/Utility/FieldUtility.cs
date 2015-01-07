@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Sitecore;
+using Sitecore.Configuration;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
@@ -18,9 +18,10 @@ namespace Synthesis.Utility
 		{
 			Assert.ArgumentNotNull(item, "item");
 
-			// the conditional here prevents URLs like /http://foo/bar from being generated if AlwaysIncludeServerUrl is enabled
-			// thanks to Dave Peterson for finding this.
-			return LinkManager.Provider.AlwaysIncludeServerUrl ? MediaManager.GetMediaUrl(item) : StringUtil.EnsurePrefix('/', MediaManager.GetMediaUrl(item));
+			// per J-Dub: http://www.sitecore.net/Learn/Blogs/Technical-Blogs/John-West-Sitecore-Blog/Posts/2012/12/Sitecore-Idiosyncrasies-Media-URLs.aspx
+			// the previous code here that referenced the Sitecore Cookbook's recommendation to construct media URLs with prefixing /
+			// is no longer required as of Sitecore 6.6+. Given that current versions of Synthesis target > v7, this simple form is enough.
+			return MediaManager.GetMediaUrl(item);
 		}
 
 		/// <summary>
@@ -79,7 +80,7 @@ namespace Synthesis.Utility
 		/// </summary>
 		public static string ExpandDynamicLinks(string fieldContent)
 		{
-			string containsFriendlyLinks = LinkManager.ExpandDynamicLinks(fieldContent, Sitecore.Configuration.Settings.Rendering.SiteResolving);
+			string containsFriendlyLinks = LinkManager.ExpandDynamicLinks(fieldContent, Settings.Rendering.SiteResolving);
 			string mediaPrefix = string.Empty;
 			foreach (string currentPrefix in MediaManager.Provider.Config.MediaPrefixes)
 			{
