@@ -40,7 +40,8 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 					{
 						if (Context.PageMode.IsPreview || Context.PageMode.IsPageEditor)
 						{
-							NullModelHelper.RenderNullModelMessage(new HtmlTextWriter(writer), ViewPath, Rendering.DataSource, new ViewModelTypeResolver().GetViewModelType(ViewPath), Rendering.Model);
+							var absolutePath = GetAbsoluteViewPath();
+							NullModelHelper.RenderNullModelMessage(new HtmlTextWriter(writer), absolutePath, Rendering.DataSource, new ViewModelTypeResolver().GetViewModelType(absolutePath), Rendering.Model);
 						}
 						
 						return;
