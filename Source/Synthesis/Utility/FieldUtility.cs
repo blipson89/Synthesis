@@ -18,9 +18,17 @@ namespace Synthesis.Utility
 		{
 			Assert.ArgumentNotNull(item, "item");
 
+			// If Media.AlwaysIncludeServerUrl is set, it should override the LinkManager setting for media links.
+			bool includeServerUrl = LinkManager.Provider.AlwaysIncludeServerUrl;
+			string mediaAlwaysIncludeServerUrl = Sitecore.Configuration.Settings.GetSetting("Media.AlwaysIncludeServerUrl", string.Empty);
+			if (!string.IsNullOrEmpty(mediaAlwaysIncludeServerUrl))
+			{
+				includeServerUrl = (mediaAlwaysIncludeServerUrl.ToLower() == "true");
+			}
+
 			// the conditional here prevents URLs like /http://foo/bar from being generated if AlwaysIncludeServerUrl is enabled
 			// thanks to Dave Peterson for finding this.
-			return LinkManager.Provider.AlwaysIncludeServerUrl ? MediaManager.GetMediaUrl(item) : StringUtil.EnsurePrefix('/', MediaManager.GetMediaUrl(item));
+			return includeServerUrl ? MediaManager.GetMediaUrl(item) : StringUtil.EnsurePrefix('/', HttpUtility.UrlPathEncode(MediaManager.GetMediaUrl(item)));
 		}
 
 		/// <summary>
