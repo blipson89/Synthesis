@@ -9,7 +9,7 @@ namespace Synthesis.Mvc
 	/// </summary>
 	public class ViewModelTypeResolver
 	{
-		public Type GetViewModelType(string viewPath)
+		public virtual Type GetViewModelType(string viewPath)
 		{
 			if (string.IsNullOrWhiteSpace(viewPath)) return typeof(object);
 

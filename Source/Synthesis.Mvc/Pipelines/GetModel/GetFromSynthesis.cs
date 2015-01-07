@@ -1,4 +1,7 @@
-﻿using Sitecore.Mvc.Pipelines.Response.GetModel;
+﻿using System;
+using System.Collections.Concurrent;
+using Sitecore.Diagnostics;
+using Sitecore.Mvc.Pipelines.Response.GetModel;
 using Sitecore.Mvc.Presentation;
 using Synthesis.Mvc.Pipelines.GetRenderer;
 
@@ -7,31 +10,51 @@ namespace Synthesis.Mvc.Pipelines.GetModel
 	
 	public class GetFromSynthesis : GetModelProcessor
 	{
+		private readonly ViewModelTypeResolver _typeResolver;
+
+		public GetFromSynthesis() : this(new ViewModelTypeResolver())
+		{
+			
+		}
+
+		public GetFromSynthesis(ViewModelTypeResolver typeResolver)
+		{
+			Assert.ArgumentNotNull(typeResolver, "typeResolver");
+
+			_typeResolver = typeResolver;
+		}
+
+		protected static ConcurrentDictionary<Guid, bool> SynthesisRenderingCache = new ConcurrentDictionary<Guid, bool>(); 
+
 		protected virtual object GetFromViewPath(Rendering rendering, GetModelArgs args)
 		{
 			var viewPath = rendering.ToString().Replace("View: ", string.Empty);
 
-			var renderer = rendering.Renderer;
+			// it's from Synthesis and it's in cache
+			if (SynthesisRenderingCache.ContainsKey(rendering.UniqueId) && SynthesisRenderingCache[rendering.UniqueId]) return rendering.Item.AsStronglyTyped();
 
-			var diagnosticRenderer = renderer as RenderingDiagnosticsInjector.DiagnosticsRenderer;
-			if (diagnosticRenderer != null) renderer = diagnosticRenderer.InnerRenderer;
+			SynthesisRenderingCache.AddOrUpdate(rendering.UniqueId, true, (key, value) =>
+			{
+				var renderer = rendering.Renderer;
 
-			var viewRenderer = renderer as ViewRenderer;
-			if (viewRenderer != null) viewPath = viewRenderer.ViewPath;
+				var diagnosticRenderer = renderer as RenderingDiagnosticsInjector.DiagnosticsRenderer;
+				if (diagnosticRenderer != null) renderer = diagnosticRenderer.InnerRenderer;
 
-			var modelType = new ViewModelTypeResolver().GetViewModelType(viewPath);
+				var viewRenderer = renderer as ViewRenderer;
+				if (viewRenderer != null) viewPath = viewRenderer.ViewPath;
 
-			// Check to see if no model has been set
-			if (modelType == typeof(object)) return null;
+				var modelType = _typeResolver.GetViewModelType(viewPath);
 
-			// Check that the model is a Synthesis type (if not, we ignore it)
-			if (!typeof(IStandardTemplateItem).IsAssignableFrom(modelType)) return null;
+				// Check to see if no model has been set
+				if (modelType == typeof (object)) return false;
 
-			// if we got here we know that the view requested a model of a Synthesis type. We'll give it one.
-			// note that we're not validating that the item IS of the correct template, but that's because reflection
-			// is slow, and the validation of Synthesis typing here is pretty much to avoid typing models for components
-			// that are built into Sitecore.
-			return rendering.Item.AsStronglyTyped();
+				// Check that the model is a Synthesis type (if not, we ignore it)
+				if (!typeof (IStandardTemplateItem).IsAssignableFrom(modelType)) return false;
+
+				return true;
+			});
+
+			return SynthesisRenderingCache[rendering.UniqueId] ? rendering.Item.AsStronglyTyped() : null;
 		}
 
 		public override void Process(GetModelArgs args)
