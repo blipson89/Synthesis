@@ -43,6 +43,16 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 					_innerRenderer.Render(writer);
 				}
 			}
+
+			public override string ToString()
+			{
+				return InnerRenderer != null ? InnerRenderer.ToString() : base.ToString();
+			}
+
+			public override string CacheKey
+			{
+				get { return InnerRenderer != null ? InnerRenderer.CacheKey : base.CacheKey; }
+			}
 		}
 
 	}
