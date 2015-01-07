@@ -75,7 +75,7 @@ namespace Synthesis.Mvc.Utility
 		{
 			if (!DiagnosticsEnabled) return;
 
-			//<!-- Begin Rendering "~/bar/Foo.ascx" -->
+			//<!-- Begin Rendering "~/bar/Foo.cshtml" -->
 			//<!-- Rendering was output cached at {datetime}, VaryByData, CachingID = "loremipsum" -->
 
 			var comment = new StringBuilder();
@@ -118,7 +118,7 @@ namespace Synthesis.Mvc.Utility
 
 			// <!-- End Rendering "~/bar/Foo.ascx" -->
 			_timer.Stop();
-			_writer.Write("<!-- End Rendering {0}, render took {1}ms -->", _renderingName, _timer.ElapsedMilliseconds);
+			_writer.Write("<!-- End Rendering {0}, render took {1:N1}ms{2} -->", _renderingName, _timer.Elapsed.TotalMilliseconds, _cacheable ? " (timing is without output cache as this text is cached)" : string.Empty);
 		}
 
 		protected virtual void Dispose(bool disposing)
