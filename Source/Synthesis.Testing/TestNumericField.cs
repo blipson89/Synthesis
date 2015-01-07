@@ -7,7 +7,7 @@ namespace Synthesis.Testing
 	{
 		private decimal? _value;
 
-		public TestNumericField(int? value)
+		public TestNumericField(decimal? value)
 		{
 			_value = value;
 		}
