@@ -1,8 +1,9 @@
-﻿using Sitecore.Data.Items;
+﻿using Synthesis.Templates;
+
 namespace Synthesis.FieldTypes
 {
 	public interface IFieldMappingProvider
 	{
-		FieldMapping GetFieldType(TemplateFieldItem templateField);
+		FieldMapping GetFieldType(ITemplateFieldInfo templateField);
 	}
 }

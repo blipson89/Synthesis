@@ -1,16 +1,20 @@
-﻿using Sitecore.Data.Items;
-using Synthesis.Templates;
+﻿using Synthesis.Templates;
 
 namespace Synthesis.Generation
 {
 	/// <summary>
 	/// Stores state data about a template that's undergoing the generation process, and manages its namespaces, type names, etc
 	/// </summary>
-	internal class TemplateGenerationInfo : TemplateInfo
+	internal class TemplateGenerationInfo
 	{
-		public TemplateGenerationInfo(TemplateItem template) : base(template)
+		private readonly ITemplateInfo _templateInfo;
+
+		public TemplateGenerationInfo(ITemplateInfo templateInfo)
 		{
+			_templateInfo = templateInfo;
 		}
+
+		public ITemplateInfo Template { get { return _templateInfo; } }
 
 		/// <summary>
 		/// Full name of the concrete type, including relative namespace and type (no assembly)
@@ -57,7 +61,7 @@ namespace Synthesis.Generation
 			get
 			{
 				if (FullName.Contains(".")) return FullName.Substring(0, FullName.LastIndexOf('.'));
-				
+
 				return string.Empty;
 			}
 		}
@@ -68,13 +72,13 @@ namespace Synthesis.Generation
 		public string GetNamespace(string rootNamespace)
 		{
 			var relativeNamespace = RelativeNamespace;
-			
+
 			if (!string.IsNullOrEmpty(relativeNamespace) && !string.IsNullOrEmpty(rootNamespace))
 				return rootNamespace + "." + relativeNamespace;
-			
+
 			if (!string.IsNullOrEmpty(rootNamespace))
 				return rootNamespace;
-			
+
 			return relativeNamespace;
 		}
 

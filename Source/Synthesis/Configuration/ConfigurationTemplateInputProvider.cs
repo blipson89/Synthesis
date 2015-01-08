@@ -35,7 +35,7 @@ namespace Synthesis.Configuration
 		/// <summary>
 		/// Gets all templates that match the set of include and exclude specs
 		/// </summary>
-		public virtual IEnumerable<TemplateItem> CreateTemplateList()
+		public virtual IEnumerable<ITemplateInfo> CreateTemplateList()
 		{
 			if (_templates == null)
 			{
@@ -54,18 +54,19 @@ namespace Synthesis.Configuration
 				_templates = acceptableTemplates;
 			}
 
+			// TODO: create implementation of ITemplateInfo from TemplateItem
 			return _templates;
 		}
 
 		/// <summary>
 		/// Determine if a field is not present in the excluded field set
 		/// </summary>
-		public bool IsFieldIncluded(TemplateFieldItem field)
+		public bool IsFieldIncluded(ID fieldId)
 		{
 			if (_excludedFields == null) RefreshSpecTargets();
 
 // ReSharper disable PossibleNullReferenceException
-			return !_excludedFields.Contains(field.ID);
+			return !_excludedFields.Contains(fieldId);
 // ReSharper restore PossibleNullReferenceException
 		}
 

@@ -88,7 +88,7 @@ namespace Synthesis.Generation
 			foreach (var template in templatesToGenerate)
 			{
 				// setup concrete model object
-				CodeNamespace templateNamespace = GetTemplateNamespace(concreteUnit, template.Template.ID, Parameters.ItemNamespace);
+				CodeNamespace templateNamespace = GetTemplateNamespace(concreteUnit, template.Template.TemplateId, Parameters.ItemNamespace);
 				CodeTypeDeclaration concrete = templateNamespace.CreateType(MemberAttributes.Public, template.TypeName.AsIdentifier());
 				concrete.IsClass = true;
 				concrete.IsPartial = true;
@@ -103,13 +103,13 @@ namespace Synthesis.Generation
 
 				HashSet<string> fieldKeys = GetBaseFieldSet();
 				fieldKeys.Add(concrete.Name); // member names cannot be the same as their enclosing type so we add the type name to the fields collection
-				foreach (var baseTemplate in template.AllNonstandardBaseTemplates) // similarly names can't be the same as any of their base templates' names (this would cause an incompletely implemented interface)
-					fieldKeys.Add(baseTemplate.Template.Name.AsIdentifier());		// NOTE: you could break this if you have a base template called Foo and a field called Foo that IS NOT on the Foo template (but why would you have that?)
+				foreach (var baseTemplate in template.Template.AllNonstandardBaseTemplates) // similarly names can't be the same as any of their base templates' names (this would cause an incompletely implemented interface)
+					fieldKeys.Add(baseTemplate.Name.AsIdentifier());		// NOTE: you could break this if you have a base template called Foo and a field called Foo that IS NOT on the Foo template (but why would you have that?)
 				
 				// generate item properties
 				foreach (var field in template.Template.Fields)
 				{
-					if (_templateInputProvider.IsFieldIncluded(field)) // query the template input provider and make sure we generate
+					if (_templateInputProvider.IsFieldIncluded(field.Id)) // query the template input provider and make sure we generate
 					{
 						string propertyName = field.Name.AsNovelIdentifier(fieldKeys);
 						bool propertyAdded = CreateItemProperty(propertyName, field, concrete.Members);
@@ -128,7 +128,7 @@ namespace Synthesis.Generation
 					concrete.BaseTypes.Add(new CodeTypeReference(baseInterface, CodeTypeReferenceOptions.GlobalReference)); // implement the base type interface
 
 				// create initializer class
-				CreateInitializer(templateNamespace, concrete, template.Template.ID);
+				CreateInitializer(templateNamespace, concrete, template.Template.TemplateId);
 			}
 		}
 
@@ -194,21 +194,21 @@ namespace Synthesis.Generation
 		/// <summary>
 		/// Generates an interface for each template that the current template derives from, recursively.
 		/// </summary>
-		private string GenerateInheritedInterfaces(TemplateItem template, CodeCompileUnit codeUnit, CodeNamespace interfaceNamespace)
+		private string GenerateInheritedInterfaces(ITemplateInfo template, CodeCompileUnit codeUnit, CodeNamespace interfaceNamespace)
 		{
 			// some interfaces may come from outside the valid-for-generation template paths. In that case, we want to make them referenceable for unique naming
-			if (!Templates.Contains(template.ID))
+			if (!Templates.Contains(template.TemplateId))
 			{
 				Templates.Add(template);
 			}
 
-			TemplateGenerationInfo info = Templates[template.ID];
+			TemplateGenerationInfo info = Templates[template.TemplateId];
 			// note: the info.InterfaceFullName causes generation to be skipped if we already generated this interface (as this is a recursive method and several templates can derive from the same base)
 			// the check against standard template breaks the recursion chain
 			if (string.IsNullOrEmpty(info.InterfaceFullName) && template.Name.ToUpperInvariant() != StandardTemplate)
 			{
 				string interfaceTypeName = string.Concat("I", info.TypeName.AsIdentifier(), Parameters.InterfaceSuffix);
-				CodeTypeDeclaration interfaceType = GetTemplateNamespace(codeUnit, template.ID, interfaceNamespace.Name).CreateType(MemberAttributes.Public, interfaceTypeName);
+				CodeTypeDeclaration interfaceType = GetTemplateNamespace(codeUnit, template.TemplateId, interfaceNamespace.Name).CreateType(MemberAttributes.Public, interfaceTypeName);
 				interfaceType.IsInterface = true;
 				interfaceType.IsPartial = true;
 
@@ -226,7 +226,7 @@ namespace Synthesis.Generation
 				// generate interface properties
 				foreach (var field in template.OwnFields)
 				{
-					if (_templateInputProvider.IsFieldIncluded(field))
+					if (_templateInputProvider.IsFieldIncluded(field.Id))
 					{
 						string propertyName = field.Name.AsNovelIdentifier(fieldKeys);
 						CodeMemberProperty property = CreateInterfaceProperty(propertyName, field);
@@ -272,11 +272,11 @@ namespace Synthesis.Generation
 		/// Adds the versioning control attribute to the interface
 		/// </summary>
 		/// <example>[RepresentsSitecoreTemplate("{76036F5E-CBCE-46D1-AF0A-4143F9B557AA}", "Dn8cOiiO0ckeD/NPjd9Q8nJuPSk=")]</example>
-		private void AddVersionAttributeToInterface(CodeTypeDeclaration interfaceType, TemplateItem template)
+		private void AddVersionAttributeToInterface(CodeTypeDeclaration interfaceType, ITemplateInfo template)
 		{
 			var attribute = new CodeAttributeDeclaration(new CodeTypeReference(typeof(RepresentsSitecoreTemplateAttribute)));
 			
-			attribute.Arguments.Add(new CodeAttributeArgument(new CodePrimitiveExpression(template.ID.ToString())));
+			attribute.Arguments.Add(new CodeAttributeArgument(new CodePrimitiveExpression(template.TemplateId.ToString())));
 			attribute.Arguments.Add(new CodeAttributeArgument(new CodePrimitiveExpression(_templateSignatureProvider.GenerateTemplateSignature(template))));
 
 			interfaceType.CustomAttributes.Add(attribute);
@@ -320,13 +320,13 @@ namespace Synthesis.Generation
 			return new CodeTypeMember[] {itemConstructor, indexConstructor};
 		}
 
-		private bool CreateItemProperty(string propertyName, TemplateFieldItem sitecoreField, CodeTypeMemberCollection members)
+		private bool CreateItemProperty(string propertyName, ITemplateFieldInfo sitecoreField, CodeTypeMemberCollection members)
 		{
 			var type = _fieldMappingProvider.GetFieldType(sitecoreField);
 
 			if(type == null)
 			{
-				Log.Warn("Synthesis: Field type resolution for " + sitecoreField.InnerItem.Parent.Parent.Name + "::" + sitecoreField.Name + " failed; no mapping found for field type " + sitecoreField.Type, this);
+				Log.Warn("Synthesis: Field type resolution for " + sitecoreField.Template.Name + "::" + sitecoreField.Name + " failed; no mapping found for field type " + sitecoreField.Type, this);
 				return false;
 			}
 
@@ -351,7 +351,7 @@ namespace Synthesis.Generation
 			// if(backingField == null)
 			//	backingField = new SynthesisFieldType(new Lazy<Field>(() => InnerItem.Fields["xxx"], GetSearchFieldValue("index-field-name"));
 
-			var initializerLambda = new CodeSnippetExpression(string.Format("new global::Synthesis.FieldTypes.LazyField(() => InnerItem.Fields[\"{0}\"], \"{1}\", \"{2}\")", sitecoreField.ID, sitecoreField.Template.InnerItem.Paths.FullPath, sitecoreField.Name));
+			var initializerLambda = new CodeSnippetExpression(string.Format("new global::Synthesis.FieldTypes.LazyField(() => InnerItem.Fields[\"{0}\"], \"{1}\", \"{2}\")", sitecoreField.Id, sitecoreField.FullPath, sitecoreField.Name));
 			var initializerSearchReference = new CodeMethodInvokeExpression(new CodeThisReferenceExpression(),
 																			"GetSearchFieldValue",
 																			new CodePrimitiveExpression(_indexFieldNameTranslator.GetIndexFieldName(sitecoreField.Name)));
@@ -372,13 +372,13 @@ namespace Synthesis.Generation
 			return true;
 		}
 
-		private CodeMemberProperty CreateInterfaceProperty(string propertyName, TemplateFieldItem sitecoreField)
+		private CodeMemberProperty CreateInterfaceProperty(string propertyName, ITemplateFieldInfo sitecoreField)
 		{
 			var type = _fieldMappingProvider.GetFieldType(sitecoreField);
 
 			if (type == null)
 			{
-				Log.Warn("Synthesis: Field type resolution (interface) for " + sitecoreField.InnerItem.Parent.Parent.Name + "::" + sitecoreField.Name + " failed; no mapping found for field type " + sitecoreField.Type, this);
+				Log.Warn("Synthesis: Field type resolution (interface) for " + sitecoreField.Template.Name + "::" + sitecoreField.Name + " failed; no mapping found for field type " + sitecoreField.Type, this);
 				return null;
 			}
 
@@ -408,7 +408,7 @@ namespace Synthesis.Generation
 		/// <summary>
 		/// Adds static and instance properties to an entity type to allow access to its TemplateID programmatically
 		/// </summary>
-		private static void AddTemplateIdPropertiesToEntity(CodeTypeDeclaration entity, TemplateItem template)
+		private static void AddTemplateIdPropertiesToEntity(CodeTypeDeclaration entity, ITemplateInfo template)
 		{
 			var templateNameStaticProperty = new CodeMemberProperty
 			{
@@ -438,7 +438,7 @@ namespace Synthesis.Generation
 // ReSharper restore BitwiseOperatorOnEnumWithoutFlags
 			};
 
-			templateIdStaticProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("new Sitecore.Data.ID(\"" + template.ID + "\")")));
+			templateIdStaticProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("new Sitecore.Data.ID(\"" + template.TemplateId + "\")")));
 
 			templateIdStaticProperty.Comments.Add(new CodeCommentStatement("<summary>The ID of the Sitecore Template that this class represents</summary>", true));
 
@@ -462,18 +462,18 @@ namespace Synthesis.Generation
 			entity.Members.Add(templateIdInstanceProperty);
 		}
 
-		private static void AddCommentsToItem(CodeTypeDeclaration entity, TemplateItem template)
+		private static void AddCommentsToItem(CodeTypeDeclaration entity, ITemplateInfo template)
 		{
-			if (!string.IsNullOrEmpty(template.InnerItem.Help.Text))
-				entity.Comments.Add(new CodeCommentStatement("<summary>" + template.InnerItem.Help.Text + "</summary>", true));
+			if (!string.IsNullOrEmpty(template.HelpText))
+				entity.Comments.Add(new CodeCommentStatement("<summary>" + template.HelpText + "</summary>", true));
 			else
-				entity.Comments.Add(new CodeCommentStatement(string.Format("<summary>Represents the {0} template</summary>", template.InnerItem.Paths.FullPath), true));
+				entity.Comments.Add(new CodeCommentStatement(string.Format("<summary>Represents the {0} template</summary>", template.FullPath), true));
 		}
 
-		private static void AddCommentsToFieldProperty(CodeMemberProperty property, TemplateFieldItem field)
+		private static void AddCommentsToFieldProperty(CodeMemberProperty property, ITemplateFieldInfo field)
 		{
-			if (!string.IsNullOrEmpty(field.Description))
-				property.Comments.Add(new CodeCommentStatement("<summary>" + field.Description + "</summary>", true));
+			if (!string.IsNullOrEmpty(field.HelpText))
+				property.Comments.Add(new CodeCommentStatement("<summary>" + field.HelpText + "</summary>", true));
 			else
 				property.Comments.Add(new CodeCommentStatement(string.Format("<summary>Represents the {0} field</summary>", field.DisplayName), true));
 		}

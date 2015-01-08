@@ -129,10 +129,13 @@
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />
     <Compile Include="Synchronization\SyncSource.cs" />
+    <Compile Include="Templates\ITemplateFieldInfo.cs" />
+    <Compile Include="Templates\ITemplateInfo.cs" />
     <Compile Include="Templates\ITemplateInputProvider.cs" />
     <Compile Include="Templates\ITemplateSignatureProvider.cs" />
     <Compile Include="Synchronization\TemplateComparisonResult.cs" />
     <Compile Include="Synchronization\TemplateComparisonResultCollection.cs" />
+    <Compile Include="Templates\ItemTemplateFieldInfo.cs" />
     <Compile Include="Templates\TemplateInfo.cs" />
     <Compile Include="ContentSearch\Lucene\SynthesisLuceneDocumentTypeMapper.cs" />
     <Compile Include="Utility\BuildUtility.cs" />

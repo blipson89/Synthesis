@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using System.Text;
-using Sitecore.Data.Items;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Synthesis.Templates
 {
@@ -14,23 +13,23 @@ namespace Synthesis.Templates
 	[SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sha", Justification="It's a hash algorithm name")]
 	public class Sha1TemplateSignatureProvider : ITemplateSignatureProvider
 	{
-		public virtual string GenerateTemplateSignature(TemplateItem templateItem)
+		public virtual string GenerateTemplateSignature(ITemplateInfo templateItem)
 		{
 			string signatureText = GenerateTextSignature(templateItem);
 			return HashTextSignature(signatureText);
 		}
 
-		protected virtual string GenerateTextSignature(TemplateItem templateItem)
+		protected virtual string GenerateTextSignature(ITemplateInfo templateItem)
 		{
 			List<string> keyElements = new List<string>();
 
-			keyElements.Add(templateItem.InnerItem.Paths.FullPath); // full path will cover us for namespace changes
-			keyElements.Add(templateItem.ID.ToString()); // ID is used for creating new items and syncing
+			keyElements.Add(templateItem.FullPath); // full path will cover us for namespace changes
+			keyElements.Add(templateItem.TemplateId.ToString()); // ID is used for creating new items and syncing
 
 			foreach (var field in templateItem.OwnFields)
 			{
 				keyElements.Add(field.Name); // name determines property names
-				keyElements.Add(field.ID.ToString()); // ID determines internal property lookups for speed
+				keyElements.Add(field.Id.ToString()); // ID determines internal property lookups for speed
 				keyElements.Add(field.Type); // type determines property Type
 			}
 
