@@ -55,6 +55,17 @@ namespace Synthesis.Configuration
 
 		public void AddAssembly(string name)
 		{
+			if (name.Contains("*"))
+			{
+				var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+				foreach (var assembly in assemblies)
+				{
+					if (WildcardUtility.IsWildcardMatch(assembly.FullName, name)) AddAssembly(assembly.FullName);
+				}
+
+				return;
+			}
+
 			Assembly a = Assembly.Load(name);
 			if (a == null) throw new ArgumentException("The assembly name was not valid");
 

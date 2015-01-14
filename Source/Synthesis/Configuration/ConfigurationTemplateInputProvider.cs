@@ -250,18 +250,10 @@ namespace Synthesis.Configuration
 		/// </summary>
 		private static bool MatchesWildcardSpec(Item item, string spec)
 		{
-			if (IsWildcardMatch(item.Name, spec)) return true;
-			if (IsWildcardMatch(item.Paths.FullPath, spec)) return true;
+			if (WildcardUtility.IsWildcardMatch(item.Name, spec)) return true;
+			if (WildcardUtility.IsWildcardMatch(item.Paths.FullPath, spec)) return true;
 
 			return false;
-		}
-
-		/// <summary>
-		/// Checks if a string matches a wildcard argument (using regex)
-		/// </summary>
-		private static bool IsWildcardMatch(string input, string wildcards)
-		{
-			return Regex.IsMatch(input, "^" + Regex.Escape(wildcards).Replace("\\*", ".*").Replace("\\?", ".") + "$", RegexOptions.IgnoreCase);
 		}
 
 		/// <summary>

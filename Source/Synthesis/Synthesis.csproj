@@ -182,6 +182,7 @@
     <Compile Include="Synchronization\SynchronizationEngine.cs" />
     <Compile Include="Utility\FieldUtility.cs" />
     <Compile Include="Utility\SingleFieldEditor.cs" />
+    <Compile Include="Utility\WildcardUtility.cs" />
     <Compile Include="WebControlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
