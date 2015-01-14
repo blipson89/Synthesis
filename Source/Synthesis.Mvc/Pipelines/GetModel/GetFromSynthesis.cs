@@ -4,6 +4,7 @@ using Sitecore.Diagnostics;
 using Sitecore.Mvc.Pipelines.Response.GetModel;
 using Sitecore.Mvc.Presentation;
 using Synthesis.Mvc.Pipelines.GetRenderer;
+using Synthesis.Mvc.Utility;
 
 namespace Synthesis.Mvc.Pipelines.GetModel
 {
@@ -29,6 +30,8 @@ namespace Synthesis.Mvc.Pipelines.GetModel
 		protected virtual object GetFromViewPath(Rendering rendering, GetModelArgs args)
 		{
 			var viewPath = rendering.ToString().Replace("View: ", string.Empty);
+
+			if(!SiteHelper.IsValidSite()) return null;
 
 			// it's from Synthesis and it's in cache
 			if (SynthesisRenderingCache.ContainsKey(rendering.UniqueId) && SynthesisRenderingCache[rendering.UniqueId]) return rendering.Item.AsStronglyTyped();

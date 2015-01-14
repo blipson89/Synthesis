@@ -85,6 +85,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\RenderingDiagnostics.cs" />
     <Compile Include="Utility\RenderingDiagnosticsDisabler.cs" />
+    <Compile Include="Utility\SiteHelper.cs" />
     <Compile Include="ViewModelTypeResolver.cs" />
   </ItemGroup>
   <ItemGroup>
