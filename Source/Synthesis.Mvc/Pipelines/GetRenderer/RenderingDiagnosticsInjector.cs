@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Web;
 using System.Web.UI;
 using Sitecore.Mvc.Pipelines.Response.GetRenderer;
 using Sitecore.Mvc.Presentation;
@@ -12,7 +14,33 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 		{
 			if (args.Result == null) return;
 
-			args.Result = new DiagnosticsRenderer(args.Result, args.Rendering);
+			if(DiagnosticsEnabled)
+				args.Result = new DiagnosticsRenderer(args.Result, args.Rendering);
+		}
+
+		private static readonly Lazy<bool> DebugEnabled = new Lazy<bool>(() => HttpContext.Current.IsDebuggingEnabled);
+		public static bool DiagnosticsEnabledForThisRequest
+		{
+			get
+			{
+				var value = HttpContext.Current.Items["RENDERING_DIAGNOSTICS_ENABLED"];
+				if (value == null || value.ToString() == bool.TrueString) return true;
+
+				return false;
+			}
+			set { HttpContext.Current.Items["RENDERING_DIAGNOSTICS_ENABLED"] = value; }
+		}
+
+		protected virtual bool DiagnosticsEnabled
+		{
+			get
+			{
+				if (!DiagnosticsEnabledForThisRequest) return false;
+				if (!DebugEnabled.Value) return false;
+				if (!SiteHelper.IsValidSite()) return false;
+
+				return true;
+			}
 		}
 
 		internal class DiagnosticsRenderer : Renderer
