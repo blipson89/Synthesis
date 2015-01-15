@@ -203,7 +203,8 @@ namespace Synthesis.ControlPanel
 			{
 				var configName = configuration.Name.IsNullOrEmpty() ? "Unnamed Configuration" : configuration.Name;
 				configuration.TemplateInputProvider.Refresh();
-				configuration.CreateGenerator().GenerateToDisk();
+				var metadata = configuration.CreateMetadataGenerator().GenerateMetadata();
+				configuration.CreateCodeGenerator().Generate(metadata);
 				result += "<p>Regenerated <strong>{0}</strong></p>".FormatWith(configName);
 			}
 			timer.Stop();

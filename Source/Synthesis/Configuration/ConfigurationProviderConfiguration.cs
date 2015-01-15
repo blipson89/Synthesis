@@ -4,6 +4,7 @@ using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.Diagnostics;
 using Synthesis.FieldTypes;
 using Synthesis.Generation;
+using Synthesis.Generation.CodeDom;
 using Synthesis.Initializers;
 using Synthesis.Synchronization;
 using Synthesis.Templates;
@@ -17,7 +18,7 @@ namespace Synthesis.Configuration
 			Name = "Default Configuration";
 		}
 
-		public string Name { get; set; }
+		public virtual string Name { get; set; }
 
 		/// <summary>
 		/// Gets the currently configured Field Mapping Provider (maps a Sitecore field type to an implementing .NET class)
@@ -114,9 +115,14 @@ namespace Synthesis.Configuration
 		/// <summary>
 		/// Gets an instance of the Synthesis Generator pre-configured to use the current provider set
 		/// </summary>
-		public virtual Generator CreateGenerator()
+		public virtual IMetadataGenerator CreateMetadataGenerator()
 		{
-			return new Generator(GeneratorParametersProvider, TemplateInputProvider, TemplateSignatureProvider, FieldMappingProvider, IndexFieldNameTranslator);
+			return new MetadataGenerator(GeneratorParametersProvider, TemplateInputProvider, FieldMappingProvider, IndexFieldNameTranslator);
+		}
+
+		public virtual ITemplateCodeGenerator CreateCodeGenerator()
+		{
+			return new CodeDomGenerator(TemplateSignatureProvider);
 		}
 
 		/// <summary>

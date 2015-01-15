@@ -145,7 +145,9 @@ namespace Synthesis
 				if (!File.Exists(projectPathValue))
 					throw new InvalidOperationException("The auto-rebuild project file \"" + projectPathValue + "\" did not exist.");
 
-				configuration.CreateGenerator().GenerateToDisk();
+				var metadata = configuration.CreateMetadataGenerator().GenerateMetadata();
+
+				configuration.CreateCodeGenerator().Generate(metadata);
 
 				var outputLogPath = Path.GetDirectoryName(projectPathValue) + Path.DirectorySeparatorChar + "synthesis-autobuild.log";
 

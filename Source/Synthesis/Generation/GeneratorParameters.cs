@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using Sitecore.Diagnostics;
+using Synthesis.Configuration;
 
 namespace Synthesis.Generation
 {
 	public class GeneratorParameters
 	{
+		private List<IProviderConfiguration> _friendConfigurations = new List<IProviderConfiguration>(); 
+
 		public GeneratorParameters()
 		{
 			// ReSharper disable DoNotCallOverridableMethodsInConstructor
@@ -134,5 +139,18 @@ namespace Synthesis.Generation
 		/// Sets the number of backup copies the generator should keep of previous generated items
 		/// </summary>
 		public virtual uint MaxBackupCopies { get; set; }
+
+		public virtual void AddFriendConfiguration(string configurationName)
+		{
+			var configuration = ProviderResolver.GetConfiguration(configurationName);
+			Assert.IsNotNull(configuration, "Friend configuration " + configurationName + " did not exist.");
+
+			_friendConfigurations.Add(configuration);
+		}
+
+		internal IEnumerable<IProviderConfiguration> GetFriendConfigurations()
+		{
+			return _friendConfigurations.AsReadOnly();
+		} 
 	}
 }

@@ -17,7 +17,8 @@ namespace Synthesis.Configuration
 		ITypeListProvider TypeListProvider { get; }
 		IInitializerProvider InitializerProvider { get; }
 		FieldNameTranslator IndexFieldNameTranslator { get; }
-		Generator CreateGenerator();
+		IMetadataGenerator CreateMetadataGenerator();
+		ITemplateCodeGenerator CreateCodeGenerator();
 		SynchronizationEngine CreateSyncEngine();
 	}
 }
