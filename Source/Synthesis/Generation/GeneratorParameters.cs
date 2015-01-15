@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using Sitecore.Diagnostics;
 using Synthesis.Configuration;
+using Synthesis.Generation.Model;
 
 namespace Synthesis.Generation
 {
 	public class GeneratorParameters
 	{
-		private List<IProviderConfiguration> _friendConfigurations = new List<IProviderConfiguration>(); 
+		private List<TemplateGenerationMetadata> _friendMetadata = new List<TemplateGenerationMetadata>();
 
 		public GeneratorParameters()
 		{
@@ -140,17 +141,15 @@ namespace Synthesis.Generation
 		/// </summary>
 		public virtual uint MaxBackupCopies { get; set; }
 
-		public virtual void AddFriendConfiguration(string configurationName)
+		public virtual void AddFriendMetadata(TemplateGenerationMetadata metadata)
 		{
-			var configuration = ProviderResolver.GetConfiguration(configurationName);
-			Assert.IsNotNull(configuration, "Friend configuration " + configurationName + " did not exist.");
-
-			_friendConfigurations.Add(configuration);
+			Assert.ArgumentNotNull(metadata, "metadata");
+			_friendMetadata.Add(metadata);
 		}
 
-		internal IEnumerable<IProviderConfiguration> GetFriendConfigurations()
+		internal IEnumerable<TemplateGenerationMetadata> GetFriendMetadata()
 		{
-			return _friendConfigurations.AsReadOnly();
-		} 
+			return _friendMetadata.AsReadOnly();
+		}
 	}
 }

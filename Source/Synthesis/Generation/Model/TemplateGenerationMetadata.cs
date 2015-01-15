@@ -9,20 +9,20 @@ namespace Synthesis.Generation.Model
 	/// <summary>
 	/// Collects and maintains data about a set of templates undergoing generation. Handles naming, uniqueness, and other state.
 	/// </summary>
-	public class TemplateGenerationData
+	public class TemplateGenerationMetadata
 	{
 		private readonly GeneratorParameters _parameters;
-		private readonly List<ConcreteTemplateInfo> _templates = new List<ConcreteTemplateInfo>();
-		private readonly Dictionary<ID, ConcreteTemplateInfo> _templateLookup = new Dictionary<ID, ConcreteTemplateInfo>();
+		private readonly List<TemplateInfo> _templates = new List<TemplateInfo>();
+		private readonly Dictionary<ID, TemplateInfo> _templateLookup = new Dictionary<ID, TemplateInfo>();
 		private readonly TypeNovelizer _templateNovelizer;
 
-		private readonly List<InterfaceTemplateInfo> _interfaces = new List<InterfaceTemplateInfo>();
-		private readonly Dictionary<ID, InterfaceTemplateInfo> _interfaceLookup = new Dictionary<ID, InterfaceTemplateInfo>();
+		private readonly List<TemplateInfo> _interfaces = new List<TemplateInfo>();
+		private readonly Dictionary<ID, TemplateInfo> _interfaceLookup = new Dictionary<ID, TemplateInfo>();
 		private readonly TypeNovelizer _interfaceNovelizer;
 
-		private readonly Dictionary<ID, InterfaceTemplateInfo> _friendInterfaceLookup = new Dictionary<ID, InterfaceTemplateInfo>();
+		private readonly Dictionary<ID, TemplateInfo> _friendInterfaceLookup = new Dictionary<ID, TemplateInfo>();
 
-		public TemplateGenerationData(bool useRelativeNamespaces, string namespaceRoot, GeneratorParameters parameters)
+		public TemplateGenerationMetadata(bool useRelativeNamespaces, string namespaceRoot, GeneratorParameters parameters)
 		{
 			_parameters = parameters;
 			_templateNovelizer = new TypeNovelizer(useRelativeNamespaces, namespaceRoot);
@@ -32,9 +32,9 @@ namespace Synthesis.Generation.Model
 		/// <summary>
 		/// Adds a concrete template to the state collection
 		/// </summary>
-		public ConcreteTemplateInfo AddConcrete(ITemplateInfo item)
+		public TemplateInfo AddConcrete(ITemplateInfo item)
 		{
-			var templateInfo = new ConcreteTemplateInfo(item);
+			var templateInfo = new TemplateInfo(item, _parameters.ItemNamespace);
 
 			templateInfo.FullName = _templateNovelizer.GetNovelFullTypeName(item.Name, item.FullPath);
 
@@ -47,16 +47,16 @@ namespace Synthesis.Generation.Model
 		/// <summary>
 		/// Adds a interface template to the state collection
 		/// </summary>
-		public InterfaceTemplateInfo AddInterface(ITemplateInfo item, string interfaceSuffix)
+		public TemplateInfo AddInterface(ITemplateInfo item, string interfaceSuffix)
 		{
 			if (_friendInterfaceLookup.ContainsKey(item.TemplateId)) throw new InvalidOperationException("The template " + item.FullPath + " is already added as a friend interface and cannot be added again.");
 
-			var templateInfo = new InterfaceTemplateInfo(item);
+			var templateInfo = new TemplateInfo(item, _parameters.InterfaceNamespace);
 
 			string interfaceName = "I" + item.Name.AsIdentifier() + interfaceSuffix;
 			string interfaceFullPath = item.FullPath.Substring(0, item.FullPath.LastIndexOf('/') + 1) + interfaceName;
 
-			templateInfo.InterfaceFullName = _interfaceNovelizer.GetNovelFullTypeName(interfaceName, interfaceFullPath);
+			templateInfo.FullName = _interfaceNovelizer.GetNovelFullTypeName(interfaceName, interfaceFullPath);
 
 			_interfaceLookup.Add(item.TemplateId, templateInfo);
 			_interfaces.Add(templateInfo);
@@ -67,20 +67,10 @@ namespace Synthesis.Generation.Model
 		/// <summary>
 		/// Adds a friend interface template to the state collection. Friend interfaces may be used as base interfaces for the same template locally.
 		/// </summary>
-		public void AddFriendInterface(InterfaceTemplateInfo item)
+		public void AddFriendInterface(TemplateInfo item)
 		{
 			_friendInterfaceLookup.Add(item.Template.TemplateId, item);
 		}
-
-		/// <summary>
-		/// Gets the number of concrete templates in the collection
-		/// </summary>
-		public int ConcreteCount { get { return _templateLookup.Count; } }
-
-		/// <summary>
-		/// Gets the number of interface templates in the collection
-		/// </summary>
-		public int InterfaceCount { get { return _interfaceLookup.Count; } }
 
 		/// <summary>
 		/// Determines if the state collection has an concrete template that matches the template ID
@@ -105,7 +95,7 @@ namespace Synthesis.Generation.Model
 		/// Gets a template in the collection by ID
 		/// </summary>
 		[SuppressMessage("Microsoft.Design", "CA1043:UseIntegralOrStringArgumentForIndexers", Justification = "It makes sense here to index by ID")]
-		public ConcreteTemplateInfo this[ID templateId]
+		public TemplateInfo this[ID templateId]
 		{
 			get { return _templateLookup[templateId]; }
 		}
@@ -113,7 +103,7 @@ namespace Synthesis.Generation.Model
 		/// <summary>
 		/// Gets all concrete types that should be generated.
 		/// </summary>
-		public IEnumerable<ConcreteTemplateInfo> Templates
+		public IReadOnlyCollection<TemplateInfo> Templates
 		{
 			get { return _templates.AsReadOnly(); }
 		}
@@ -121,14 +111,14 @@ namespace Synthesis.Generation.Model
 		/// <summary>
 		/// Gets all interfaces that should be generated. Does not include friend interfaces.
 		/// </summary>
-		public IEnumerable<InterfaceTemplateInfo> Interfaces
+		public IReadOnlyCollection<TemplateInfo> Interfaces
 		{
 			get { return _interfaces.AsReadOnly(); }
 		}
 
-		public InterfaceTemplateInfo GetInterface(ID templateId)
+		public TemplateInfo GetInterface(ID templateId)
 		{
-			InterfaceTemplateInfo iface;
+			TemplateInfo iface;
 
 			if (_interfaceLookup.TryGetValue(templateId, out iface)) return iface;
 			if (_friendInterfaceLookup.TryGetValue(templateId, out iface)) return iface;

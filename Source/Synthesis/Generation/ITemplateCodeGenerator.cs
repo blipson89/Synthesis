@@ -4,6 +4,6 @@ namespace Synthesis.Generation
 {
 	public interface ITemplateCodeGenerator
 	{
-		void Generate(TemplateGenerationData metadata);
+		void Generate(TemplateGenerationMetadata metadata);
 	}
 }

@@ -4,6 +4,6 @@ namespace Synthesis.Generation
 {
 	public interface IMetadataGenerator
 	{
-		TemplateGenerationData GenerateMetadata();
+		TemplateGenerationMetadata GenerateMetadata();
 	}
 }

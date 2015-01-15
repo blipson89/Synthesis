@@ -20,7 +20,7 @@ namespace Synthesis.Generation.CodeDom
 {
 	public class CodeDomGenerator : ITemplateCodeGenerator
 	{
-		private TemplateGenerationData _metadata;
+		private TemplateGenerationMetadata _metadata;
 		private GeneratorParameters _parameters;
 		private readonly ITemplateSignatureProvider _signatureProvider;
 
@@ -32,7 +32,7 @@ namespace Synthesis.Generation.CodeDom
 		/// <summary>
 		/// Generates source code files and writes them to disk
 		/// </summary>
-		public void Generate(TemplateGenerationData metadata)
+		public void Generate(TemplateGenerationMetadata metadata)
 		{
 			// this is a hack hack hack. Use parameters, lazybones.
 			_metadata = metadata;
@@ -60,7 +60,7 @@ namespace Synthesis.Generation.CodeDom
 			foreach (var template in _metadata.Templates)
 			{
 				// setup concrete model object
-				CodeNamespace templateNamespace = GetNamespaceWithCreate(concreteUnit, template.GetNamespace(_parameters.ItemNamespace));
+				CodeNamespace templateNamespace = GetNamespaceWithCreate(concreteUnit, template.Namespace);
 				CodeTypeDeclaration concrete = templateNamespace.CreateType(MemberAttributes.Public, template.TypeName.AsIdentifier());
 				concrete.IsClass = true;
 				concrete.IsPartial = true;
@@ -83,7 +83,7 @@ namespace Synthesis.Generation.CodeDom
 				// generates interfaces to represent the Sitecore template inheritance hierarchy
 				foreach (var baseType in template.InterfacesImplemented)
 				{
-					concrete.BaseTypes.Add(new CodeTypeReference(baseType.GetFullInterfaceTypeName(_parameters.InterfaceNamespace), CodeTypeReferenceOptions.GlobalReference)); // implement the base type interface
+					concrete.BaseTypes.Add(new CodeTypeReference(baseType.TypeFullName, CodeTypeReferenceOptions.GlobalReference)); // implement the base type interface
 				}
 
 				// create initializer class
@@ -98,8 +98,8 @@ namespace Synthesis.Generation.CodeDom
 		{
 			foreach (var template in _metadata.Interfaces)
 			{
-				CodeNamespace interfaceNamespace = GetNamespaceWithCreate(interfaceUnit, template.GetNamespace(_parameters.InterfaceNamespace));
-				CodeTypeDeclaration interfaceType = interfaceNamespace.CreateType(MemberAttributes.Public, template.InterfaceTypeName);
+				CodeNamespace interfaceNamespace = GetNamespaceWithCreate(interfaceUnit, template.Namespace);
+				CodeTypeDeclaration interfaceType = interfaceNamespace.CreateType(MemberAttributes.Public, template.TypeName);
 				interfaceType.IsInterface = true;
 				interfaceType.IsPartial = true;
 
@@ -116,7 +116,7 @@ namespace Synthesis.Generation.CodeDom
 				// add base interface inheritance
 				foreach (var baseTemplate in template.InterfacesImplemented)
 				{
-					interfaceType.BaseTypes.Add(new CodeTypeReference(baseTemplate.GetFullInterfaceTypeName(_parameters.InterfaceNamespace), CodeTypeReferenceOptions.GlobalReference)); // assign interface implementation
+					interfaceType.BaseTypes.Add(new CodeTypeReference(baseTemplate.TypeFullName, CodeTypeReferenceOptions.GlobalReference)); // assign interface implementation
 				}
 
 				// if this interface has no bases make sure we're deriving from the standard template

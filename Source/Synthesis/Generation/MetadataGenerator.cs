@@ -32,7 +32,7 @@ namespace Synthesis.Generation
 			_indexFieldNameTranslator = indexFieldNameTranslator;
 		}
 
-		public TemplateGenerationData GenerateMetadata()
+		public TemplateGenerationMetadata GenerateMetadata()
 		{
 			var timer = new Stopwatch();
 			timer.Start();
@@ -82,27 +82,26 @@ namespace Synthesis.Generation
 				}
 
 				// generates interfaces to represent the Sitecore template inheritance hierarchy
-				InterfaceTemplateInfo baseInterface = GenerateInheritedInterfaces(template.Template, templateData);
+				TemplateInfo baseInterface = GenerateInheritedInterfaces(template.Template, templateData);
 				if (baseInterface != null)
 					template.InterfacesImplemented.Add(baseInterface);
 			}
 
 			timer.Stop();
-			Log.Info(string.Format("Synthesis: Generated metadata for {0} concrete templates and {1} interface templates in {2} ms", templateData.ConcreteCount, templateData.InterfaceCount, timer.ElapsedMilliseconds), this);
+			Log.Info(string.Format("Synthesis: Generated metadata for {0} concrete templates and {1} interface templates in {2} ms", templateData.Templates.Count, templateData.Interfaces.Count, timer.ElapsedMilliseconds), this);
 
 			return templateData;
 		}
 
-		private TemplateGenerationData CreateTemplateData()
+		private TemplateGenerationMetadata CreateTemplateData()
 		{
 			var templates = _templateInputProvider.CreateTemplateList();
 
-			var templateData = new TemplateGenerationData(_parameters.UseTemplatePathForNamespace, _parameters.TemplatePathRoot, _parameters);
+			var templateData = new TemplateGenerationMetadata(_parameters.UseTemplatePathForNamespace, _parameters.TemplatePathRoot, _parameters);
 
-			foreach (var friendConfiguration in _parameters.GetFriendConfigurations())
+			foreach (var friendMetadata in _parameters.GetFriendMetadata())
 			{
-				var metadata = friendConfiguration.CreateMetadataGenerator().GenerateMetadata();
-				foreach (var iface in metadata.Interfaces)
+				foreach (var iface in friendMetadata.Interfaces)
 				{
 					templateData.AddFriendInterface(iface);
 				}
@@ -115,7 +114,7 @@ namespace Synthesis.Generation
 		/// <summary>
 		/// Generates an interface for each template that the current template derives from, recursively.
 		/// </summary>
-		private InterfaceTemplateInfo GenerateInheritedInterfaces(ITemplateInfo template, TemplateGenerationData templateData)
+		private TemplateInfo GenerateInheritedInterfaces(ITemplateInfo template, TemplateGenerationMetadata templateData)
 		{
 			var existingInterface = templateData.GetInterface(template.TemplateId);
 			if (existingInterface != null) return existingInterface;
@@ -123,7 +122,7 @@ namespace Synthesis.Generation
 			var interfaceInfo = templateData.AddInterface(template, _parameters.InterfaceSuffix);
 
 			var fieldKeys = GetBaseFieldSet();
-			fieldKeys.Add(interfaceInfo.InterfaceTypeName); // member names cannot be the same as their enclosing type
+			fieldKeys.Add(interfaceInfo.TypeName); // member names cannot be the same as their enclosing type
 			fieldKeys.Add(template.Name.AsIdentifier()); // prevent any fields from being generated that would conflict with a concrete item name as well as the interface name
 
 			// create interface properties

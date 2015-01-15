@@ -130,9 +130,8 @@
     <Compile Include="Generation\Model\TypeNovelizer.cs" />
     <Compile Include="Generation\NamingUtility.cs" />
     <Compile Include="Generation\Model\FieldPropertyInfo.cs" />
-    <Compile Include="Generation\Model\InterfaceTemplateInfo.cs" />
-    <Compile Include="Generation\Model\ConcreteTemplateInfo.cs" />
-    <Compile Include="Generation\Model\TemplateGenerationData.cs" />
+    <Compile Include="Generation\Model\TemplateInfo.cs" />
+    <Compile Include="Generation\Model\TemplateGenerationMetadata.cs" />
     <Compile Include="HtmlTextWriterExtensions.cs" />
     <Compile Include="Initializers\IInitializerProvider.cs" />
     <Compile Include="Initializers\StandardInitializerProvider.cs" />
