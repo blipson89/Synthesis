@@ -1,5 +1,6 @@
 ﻿using System;
 using Sitecore.Data.Fields;
+using Sitecore.Diagnostics;
 using Synthesis.Configuration;
 using FieldType = Synthesis.FieldTypes.FieldType;
 
@@ -24,7 +25,11 @@ namespace Synthesis
 			if (field == null) return null;
 
 			var templateField = field.Item.Template.GetField(field.ID);
-			var mapping = ProviderResolver.Current.FieldMappingProvider.GetFieldType(templateField);
+			var configuration = ProviderResolver.FindConfigurationWithTemplate(field.Item.TemplateID);
+
+			Assert.IsNotNull(configuration, "The template field was not part of any Synthesis template.");
+
+			var mapping = configuration.FieldMappingProvider.GetFieldType(templateField);
 
 			var lazy = new Lazy<Field>(() => field);
 

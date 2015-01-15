@@ -66,9 +66,9 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AutoSyncModule.cs" />
     <Compile Include="Configuration\ConfigurationFieldMappingProvider.cs" />
     <Compile Include="Configuration\ConfigurationGeneratorParametersProvider.cs" />
+    <Compile Include="Configuration\ConfigurationProviderConfiguration.cs" />
     <Compile Include="Configuration\ConfigurationTemplateInputProvider.cs" />
     <Compile Include="Configuration\ConfigurationUtility.cs" />
     <Compile Include="Configuration\ConfigurationTypeListProvider.cs" />
@@ -120,11 +120,12 @@
     <Compile Include="Generation\TemplateGenerationInfo.cs" />
     <Compile Include="Generation\TemplateGenerationInfoCollection.cs" />
     <Compile Include="HtmlTextWriterExtensions.cs" />
-    <Compile Include="HttpHandler.cs" />
-    <Compile Include="Initializers.cs" />
+    <Compile Include="Initializers\IInitializerProvider.cs" />
+    <Compile Include="Initializers\StandardInitializerProvider.cs" />
+    <Compile Include="Initializers\StandardTemplateInitializer.cs" />
     <Compile Include="InstanceType.cs" />
     <Compile Include="ItemExtensions.cs" />
-    <Compile Include="ITemplateInitializer.cs" />
+    <Compile Include="Initializers\ITemplateInitializer.cs" />
     <Compile Include="MissingTemplateFieldException.cs" />
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />

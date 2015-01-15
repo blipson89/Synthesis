@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Sitecore;
 using Sitecore.Configuration;
 using Sitecore.Data;
@@ -10,6 +9,7 @@ using Sitecore.Data.Managers;
 using Sitecore.Diagnostics;
 using Sitecore.Links;
 using Synthesis.Templates;
+using Synthesis.Utility;
 
 namespace Synthesis.Configuration
 {

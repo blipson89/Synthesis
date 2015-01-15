@@ -3,12 +3,16 @@ using System.IO;
 
 namespace Synthesis.Generation
 {
-	public class GeneratorParameters
+	public class GeneratorParameters : IGeneratorParametersProvider
 	{
 		public GeneratorParameters()
 		{
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
 			InterfaceSuffix = "Item";
+			SynthesisAssemblyPath = "~/bin/Synthesis.dll";
+			SitecoreKernelAssemblyPath = "~/bin/Sitecore.Kernel.dll";
+			MaxBackupCopies = 5;
+			UseTemplatePathForNamespace = true;
 // ReSharper restore DoNotCallOverridableMethodsInConstructor
 		}
 
@@ -131,5 +135,10 @@ namespace Synthesis.Generation
 		/// Sets the number of backup copies the generator should keep of previous generated items
 		/// </summary>
 		public virtual uint MaxBackupCopies { get; set; }
+
+		public virtual GeneratorParameters CreateParameters()
+		{
+			return this;
+		}
 	}
 }

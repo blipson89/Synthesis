@@ -1,5 +1,6 @@
 ﻿using System;
 using Synthesis.ContentSearch;
+using Synthesis.Initializers;
 
 namespace Synthesis.Tests.Fixtures.ContentSearch
 {

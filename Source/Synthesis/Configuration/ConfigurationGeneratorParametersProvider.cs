@@ -13,9 +13,9 @@ namespace Synthesis.Configuration
 	///		<!-- etc - more elements with names matching properties on the parameters object -->
 	///	</generatorParametersProvider>
 	/// </example>
-	public class ConfigurationGeneratorParametersProvider : GeneratorParameters, IGeneratorParametersProvider
+	public class ConfigurationGeneratorParametersProvider : GeneratorParameters
 	{
-		public GeneratorParameters CreateParameters()
+		public override GeneratorParameters CreateParameters()
 		{
 			return this;
 		}
@@ -28,7 +28,7 @@ namespace Synthesis.Configuration
 		{
 			set
 			{
-				base.ItemBaseClass = Type.GetType(value);
+				ItemBaseClass = Type.GetType(value);
 			}
 		}
 
@@ -40,7 +40,7 @@ namespace Synthesis.Configuration
 		{
 			set
 			{
-				base.ItemBaseInterface = Type.GetType(value);
+				ItemBaseInterface = Type.GetType(value);
 			}
 		}
 

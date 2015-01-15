@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Sitecore.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using Synthesis.Utility;
 
 namespace Synthesis.Configuration
 {

@@ -2,7 +2,7 @@
 using Sitecore.Data;
 using Sitecore.Data.Items;
 
-namespace Synthesis
+namespace Synthesis.Initializers
 {
 	/// <summary>
 	/// Represents the contract for a template initializer (a proxy class that allows fast, reflection-less creation of model objects)

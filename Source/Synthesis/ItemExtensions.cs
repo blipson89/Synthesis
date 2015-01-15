@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sitecore.Data.Items;
+using Synthesis.Configuration;
+using Synthesis.Initializers;
 
 namespace Synthesis
 {
@@ -28,7 +30,7 @@ namespace Synthesis
 			if (item == null)
 				return null;
 
-			ITemplateInitializer initializer = Initializers.GetInitializer(item.TemplateID);
+			ITemplateInitializer initializer = ProviderResolver.FindGlobalInitializer(item.TemplateID);
 
 			return initializer.CreateInstance(item);
 		}

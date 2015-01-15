@@ -5,6 +5,8 @@ using System.Reflection;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Linq.Methods;
 using Sitecore.Data;
+using Synthesis.Configuration;
+using Synthesis.Initializers;
 
 namespace Synthesis.ContentSearch
 {
@@ -33,7 +35,7 @@ namespace Synthesis.ContentSearch
 			if (!evaluatedFields.ContainsKey("_template") || !ShortID.TryParse(evaluatedFields["_template"], out templateId))
 				templateId = ID.Null.ToShortID();
 
-			var initializer = _overrideInitializer ?? Initializers.GetInitializer(templateId.ToID());
+			var initializer = _overrideInitializer ?? ProviderResolver.FindGlobalInitializer(templateId.ToID());
 
 			var result = initializer.CreateInstanceFromSearch(evaluatedFields);
 

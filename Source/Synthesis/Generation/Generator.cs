@@ -16,6 +16,7 @@ using Synthesis.Utility;
 using System.CodeDom.Compiler;
 using System.Reflection;
 using Sitecore.ContentSearch;
+using Synthesis.Initializers;
 
 namespace Synthesis.Generation
 {
