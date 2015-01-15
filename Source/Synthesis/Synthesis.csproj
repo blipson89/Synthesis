@@ -40,6 +40,10 @@
     </Reference>
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.ContentSearch">
       <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.dll</HintPath>
     </Reference>
@@ -61,6 +65,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
@@ -82,6 +89,7 @@
     <Compile Include="ContentSearch\Lucene\SynthesisLinqToLuceneIndex.cs" />
     <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
     <Compile Include="ContentSearch\SynthesisFieldNameTranslator.cs" />
+    <Compile Include="ControlPanel\ControlPanelPipelineProcessor.cs" />
     <Compile Include="FieldDictionary.cs" />
     <Compile Include="FieldExtensions.cs" />
     <Compile Include="FieldTypes\Adapters\DatabaseAdapter.cs" />
@@ -130,6 +138,7 @@
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />
     <Compile Include="Synchronization\SyncSource.cs" />
+    <Compile Include="App_Start\SynthesisStartup.cs" />
     <Compile Include="Templates\ITemplateInputProvider.cs" />
     <Compile Include="Templates\ITemplateSignatureProvider.cs" />
     <Compile Include="Synchronization\TemplateComparisonResult.cs" />
@@ -187,6 +196,7 @@
     <Compile Include="WebControlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Synthesis.config">
       <SubType>Designer</SubType>
     </None>
