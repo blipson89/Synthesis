@@ -9,11 +9,6 @@ namespace Synthesis.Configuration
 	{
 		private static volatile List<IProviderConfiguration> _configurations = new List<IProviderConfiguration>();
 
-		static ProviderResolver()
-		{
-			
-		}
-
 		/// <summary>
 		/// Registers a new dependency configuration with the provider resolver.
 		/// </summary>

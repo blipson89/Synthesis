@@ -9,6 +9,7 @@ using Sitecore.Data.Managers;
 using Sitecore.Diagnostics;
 using Sitecore.Links;
 using Synthesis.Templates;
+using Synthesis.Templates.Database;
 using Synthesis.Utility;
 
 namespace Synthesis.Configuration
@@ -30,7 +31,7 @@ namespace Synthesis.Configuration
 		private HashSet<ID> _excludedFields; // IDs of all excluded fields
 		private List<Item> _allTemplates; // cache of all templates in the database
 		private List<Item> _allFields; // cache of all fields in the database
-		private List<TemplateItem> _templates; // cache of all templates after filtering has been done
+		private List<ITemplateInfo> _templates; // cache of all templates after filtering has been done
 
 		/// <summary>
 		/// Gets all templates that match the set of include and exclude specs
@@ -51,10 +52,9 @@ namespace Synthesis.Configuration
 					if (acceptableIds.Contains(template.ID)) acceptableTemplates.Add(template);
 				}
 
-				_templates = acceptableTemplates;
+				_templates = acceptableTemplates.Select(x => (ITemplateInfo)new TemplateInfo(x)).ToList();
 			}
 
-			// TODO: create implementation of ITemplateInfo from TemplateItem
 			return _templates;
 		}
 
@@ -65,9 +65,9 @@ namespace Synthesis.Configuration
 		{
 			if (_excludedFields == null) RefreshSpecTargets();
 
-// ReSharper disable PossibleNullReferenceException
+			// ReSharper disable PossibleNullReferenceException
 			return !_excludedFields.Contains(fieldId);
-// ReSharper restore PossibleNullReferenceException
+			// ReSharper restore PossibleNullReferenceException
 		}
 
 		/// <summary>
@@ -181,7 +181,7 @@ namespace Synthesis.Configuration
 		{
 			if (!spec.Contains("::"))
 			{
-				foreach(var output in ResolveSpecToItems(spec, GetAllFields()))
+				foreach (var output in ResolveSpecToItems(spec, GetAllFields()))
 					yield return output;
 			}
 			else

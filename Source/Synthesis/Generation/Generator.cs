@@ -323,6 +323,9 @@ namespace Synthesis.Generation
 
 		private bool CreateItemProperty(string propertyName, ITemplateFieldInfo sitecoreField, CodeTypeMemberCollection members)
 		{
+			Assert.ArgumentNotNullOrEmpty(propertyName, "propertyName");
+			Assert.ArgumentNotNull(sitecoreField, "sitecoreField");
+
 			var type = _fieldMappingProvider.GetFieldType(sitecoreField);
 
 			if(type == null)

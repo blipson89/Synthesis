@@ -2,7 +2,7 @@
 using Sitecore.Data.Fields;
 using Sitecore.Diagnostics;
 using Synthesis.Configuration;
-using Synthesis.Templates;
+using Synthesis.Templates.Database;
 using FieldType = Synthesis.FieldTypes.FieldType;
 
 namespace Synthesis

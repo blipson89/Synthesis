@@ -3,17 +3,16 @@ using System.IO;
 
 namespace Synthesis.Generation
 {
-	public class GeneratorParameters : IGeneratorParametersProvider
+	public class GeneratorParameters
 	{
 		public GeneratorParameters()
 		{
-// ReSharper disable DoNotCallOverridableMethodsInConstructor
-			InterfaceSuffix = "Item";
-			SynthesisAssemblyPath = "~/bin/Synthesis.dll";
-			SitecoreKernelAssemblyPath = "~/bin/Sitecore.Kernel.dll";
+			// ReSharper disable DoNotCallOverridableMethodsInConstructor
 			MaxBackupCopies = 5;
 			UseTemplatePathForNamespace = true;
-// ReSharper restore DoNotCallOverridableMethodsInConstructor
+			ItemBaseClass = typeof(StandardTemplateItem);
+			ItemBaseInterface = typeof(IStandardTemplateItem);
+			// ReSharper restore DoNotCallOverridableMethodsInConstructor
 		}
 
 		/// <summary>
@@ -46,19 +45,19 @@ namespace Synthesis.Generation
 			if (string.IsNullOrEmpty(SitecoreKernelAssemblyPath) || !File.Exists(SitecoreKernelAssemblyPath))
 				throw new GeneratorParameterException("SitecoreKernelAssemblyPath was not provided, or did not exist at the specified path.");
 
-			if(string.IsNullOrEmpty(SynthesisAssemblyPath) || !File.Exists(SynthesisAssemblyPath))
+			if (string.IsNullOrEmpty(SynthesisAssemblyPath) || !File.Exists(SynthesisAssemblyPath))
 				throw new GeneratorParameterException("SynthesisAssemblyPath was not provided, or did not exist at the specified path.");
-			
-			if(ItemBaseClass == null)
+
+			if (ItemBaseClass == null)
 				throw new GeneratorParameterException("ItemBaseClass was not provided.");
 
-			if(!typeof(StandardTemplateItem).IsAssignableFrom(ItemBaseClass))
+			if (!typeof(StandardTemplateItem).IsAssignableFrom(ItemBaseClass))
 				throw new GeneratorParameterException("ItemBaseClass " + ItemBaseClass.FullName + " did not derive from Synthesis.StandardTemplateItem.");
 
-			if(ItemBaseInterface == null)
+			if (ItemBaseInterface == null)
 				throw new GeneratorParameterException("ItemBaseInterface was not provided.");
 
-			if(!typeof(IStandardTemplateItem).IsAssignableFrom(ItemBaseInterface))
+			if (!typeof(IStandardTemplateItem).IsAssignableFrom(ItemBaseInterface))
 				throw new GeneratorParameterException("ItemBaseInterface " + ItemBaseInterface.FullName + " did not derive from Synthesis.IStandardTemplateItem.");
 
 			if (!ItemBaseInterface.IsAssignableFrom(ItemBaseClass))
@@ -69,7 +68,7 @@ namespace Synthesis.Generation
 		/// Namespace for the generated items
 		/// </summary>
 		public virtual string ItemNamespace { get; set; }
-		
+
 		/// <summary>
 		/// Namespace of generated item interfaces
 		/// </summary>
@@ -135,10 +134,5 @@ namespace Synthesis.Generation
 		/// Sets the number of backup copies the generator should keep of previous generated items
 		/// </summary>
 		public virtual uint MaxBackupCopies { get; set; }
-
-		public virtual GeneratorParameters CreateParameters()
-		{
-			return this;
-		}
 	}
 }

@@ -2,7 +2,7 @@
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 
-namespace Synthesis.Templates
+namespace Synthesis.Templates.Database
 {
 	public class ItemTemplateFieldInfo : ITemplateFieldInfo
 	{
@@ -11,8 +11,15 @@ namespace Synthesis.Templates
 		public ItemTemplateFieldInfo(TemplateFieldItem field)
 		{
 			Assert.ArgumentNotNull(field, "field");
-
+			
 			_field = field;
+		}
+
+		public ItemTemplateFieldInfo(TemplateFieldItem field, ITemplateInfo template) : this(field)
+		{
+			Assert.ArgumentNotNull(template, "template");
+			
+			Template = template;
 		}
 
 		public string Name
@@ -45,6 +52,6 @@ namespace Synthesis.Templates
 			get { return _field.Type; }
 		}
 
-		public ITemplateInfo Template { get; set; }
+		public ITemplateInfo Template { get; private set; }
 	}
 }

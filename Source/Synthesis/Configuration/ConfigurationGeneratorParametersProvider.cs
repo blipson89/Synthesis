@@ -13,9 +13,16 @@ namespace Synthesis.Configuration
 	///		<!-- etc - more elements with names matching properties on the parameters object -->
 	///	</generatorParametersProvider>
 	/// </example>
-	public class ConfigurationGeneratorParametersProvider : GeneratorParameters
+	public class ConfigurationGeneratorParametersProvider : GeneratorParameters, IGeneratorParametersProvider
 	{
-		public override GeneratorParameters CreateParameters()
+		public ConfigurationGeneratorParametersProvider()
+		{
+			InterfaceSuffix = "Item";
+			SynthesisAssemblyPath = "~/bin/Synthesis.dll";
+			SitecoreKernelAssemblyPath = "~/bin/Sitecore.Kernel.dll";
+		}
+
+		public GeneratorParameters CreateParameters()
 		{
 			return this;
 		}

@@ -5,7 +5,7 @@ using System.Linq;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 
-namespace Synthesis.Templates
+namespace Synthesis.Templates.Database
 {
 	/// <summary>
 	/// Wraps a template item and provides some additional base-template-fu
@@ -20,15 +20,41 @@ namespace Synthesis.Templates
 
 		protected TemplateInfo()
 		{
-			
+
 		}
 
 		public virtual ID TemplateId { get { return _template.ID; } }
 		public virtual string Name { get { return _template.Name; } }
-		public virtual IList<ITemplateFieldInfo> Fields { get { throw new NotImplementedException(); } }
-		public virtual string HelpText { get { throw new NotImplementedException(); } }
-		public virtual string FullPath { get { throw new NotImplementedException(); } }
-		public virtual IList<ITemplateFieldInfo> OwnFields { get { throw new NotImplementedException(); } }
+		public virtual string HelpText { get { return _template.InnerItem.Help.Text; } }
+		public virtual string FullPath { get { return _template.InnerItem.Paths.FullPath; } }
+
+		private List<ITemplateFieldInfo> _fields;
+		public virtual IList<ITemplateFieldInfo> Fields
+		{
+			get
+			{
+				if (_fields == null)
+				{
+					_fields = _template.Fields.Select(x => (ITemplateFieldInfo)new ItemTemplateFieldInfo(x, this)).ToList();
+				}
+
+				return _fields.AsReadOnly();
+			}
+		}
+
+		private List<ITemplateFieldInfo> _ownFields;
+		public virtual IList<ITemplateFieldInfo> OwnFields
+		{
+			get
+			{
+				if (_ownFields == null)
+				{
+					_ownFields = _template.OwnFields.Select(x => (ITemplateFieldInfo)new ItemTemplateFieldInfo(x, this)).ToList();
+				}
+
+				return _ownFields.AsReadOnly();
+			}
+		}
 
 		/// <summary>
 		/// Gets immediate ancestor base templates
