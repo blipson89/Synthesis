@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Sitecore.Data.Items;
+using Sitecore.Data;
 
 namespace Synthesis.Templates
 {
@@ -12,12 +12,12 @@ namespace Synthesis.Templates
 		/// Gets all templates that should be used
 		/// </summary>
 		/// <returns></returns>
-		IEnumerable<TemplateItem> CreateTemplateList();
+		IEnumerable<ITemplateInfo> CreateTemplateList();
 
 		/// <summary>
 		/// Checks if a template field should be included
 		/// </summary>
-		bool IsFieldIncluded(TemplateFieldItem field);
+		bool IsFieldIncluded(ID fieldId);
 
 		/// <summary>
 		/// Forces the provider to invalidate any internal caches and retrieve the latest data from Sitecore

@@ -5,6 +5,7 @@ using Sitecore.Data.Items;
 using Synthesis.FieldTypes;
 using System.Diagnostics.CodeAnalysis;
 using Synthesis.FieldTypes.Interfaces;
+using Synthesis.Templates;
 
 namespace Synthesis.Configuration
 {
@@ -70,7 +71,7 @@ namespace Synthesis.Configuration
 			_templateMappings[templateNameOrId].Add(fieldName, new FieldMapping(interfaceType, type));
 		}
 
-		public FieldMapping GetFieldType(TemplateFieldItem templateField)
+		public FieldMapping GetFieldType(ITemplateFieldInfo templateField)
 		{
 			FieldMapping fieldType = GetTemplateMapping(templateField);
 
@@ -81,17 +82,17 @@ namespace Synthesis.Configuration
 			return new FieldMapping(typeof(ITextField), typeof(TextField)); // if no mapping, fall back to a text field
 		}
 
-		private FieldMapping GetTemplateMapping(TemplateFieldItem templateField)
+		private FieldMapping GetTemplateMapping(ITemplateFieldInfo templateField)
 		{
 			TemplateMapping templateMapping;
 			FieldMapping fieldMapping;
 
 			// template map by TID
-			_templateMappings.TryGetValue(templateField.Template.ID.ToString(), out templateMapping);
+			_templateMappings.TryGetValue(templateField.Template.TemplateId.ToString(), out templateMapping);
 
 			// template map by full path
 			if (templateMapping == null)
-				_templateMappings.TryGetValue(templateField.Template.InnerItem.Paths.FullPath, out templateMapping);
+				_templateMappings.TryGetValue(templateField.Template.FullPath, out templateMapping);
 
 			// template map by name
 			if (templateMapping == null)
@@ -99,7 +100,7 @@ namespace Synthesis.Configuration
 
 			if (templateMapping == null) return null;
 
-			if (templateMapping.TryGetValue(templateField.ID.ToString(), out fieldMapping))
+			if (templateMapping.TryGetValue(templateField.Id.ToString(), out fieldMapping))
 				return fieldMapping;
 
 			if (templateMapping.TryGetValue(templateField.Name, out fieldMapping))

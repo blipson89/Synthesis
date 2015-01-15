@@ -2,6 +2,7 @@
 using Sitecore.Data.Fields;
 using Sitecore.Diagnostics;
 using Synthesis.Configuration;
+using Synthesis.Templates;
 using FieldType = Synthesis.FieldTypes.FieldType;
 
 namespace Synthesis
@@ -29,7 +30,7 @@ namespace Synthesis
 
 			Assert.IsNotNull(configuration, "The template field was not part of any Synthesis template.");
 
-			var mapping = configuration.FieldMappingProvider.GetFieldType(templateField);
+			var mapping = configuration.FieldMappingProvider.GetFieldType(new ItemTemplateFieldInfo(templateField));
 
 			var lazy = new Lazy<Field>(() => field);
 

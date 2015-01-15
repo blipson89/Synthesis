@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Sitecore.Data.Items;
 using Synthesis.Configuration;
 using Synthesis.Templates;
 using Synthesis.Utility;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Synthesis.Synchronization
 {
@@ -15,7 +14,7 @@ namespace Synthesis.Synchronization
 	public class SynchronizationEngine
 	{
 		Dictionary<string, ModelTemplateReference> _typeLookup;
-		Dictionary<string, TemplateItem> _templateLookup;
+		Dictionary<string, ITemplateInfo> _templateLookup;
 
 		readonly ITemplateSignatureProvider _signatureProvider;
 		readonly ITemplateInputProvider _templateProvider;
@@ -31,20 +30,20 @@ namespace Synthesis.Synchronization
 		/// <summary>
 		/// Checks if a given Sitecore template has a corresponding interface. This method does NOT check any base templates this template may have for synchronization.
 		/// </summary>
-		public TemplateComparisonResult IsTemplateSynchronized(TemplateItem template)
+		public TemplateComparisonResult IsTemplateSynchronized(ITemplateInfo template)
 		{
 			var signature = _signatureProvider.GenerateTemplateSignature(template);
 			ModelTemplateReference reference;
 
-			if(ModelDictionary.TryGetValue(template.ID.ToString(), out reference)) 
+			if(ModelDictionary.TryGetValue(template.TemplateId.ToString(), out reference)) 
 				return new TemplateComparisonResult(
-					template.ID.ToString(), 
+					template.TemplateId.ToString(), 
 					GetTemplateName(template), 
 					GetModelName(reference), 
 					signature, 
 					reference.Metadata.VersionSignature);
 
-			return new TemplateComparisonResult(template.ID.ToString(), GetTemplateName(template), null, signature, null);
+			return new TemplateComparisonResult(template.TemplateId.ToString(), GetTemplateName(template), null, signature, null);
 		}
 
 		/// <summary>
@@ -57,10 +56,10 @@ namespace Synthesis.Synchronization
 
 		protected TemplateComparisonResult IsTemplateSynchronized(ModelTemplateReference reference)
 		{
-			TemplateItem template;
+			ITemplateInfo template;
 			if (TemplateDictionary.TryGetValue(reference.Metadata.TemplateID, out template)) 
 				return new TemplateComparisonResult(
-					template.ID.ToString(), 
+					template.TemplateId.ToString(), 
 					GetTemplateName(template), 
 					GetModelName(reference), 
 					_signatureProvider.GenerateTemplateSignature(template), 
@@ -98,9 +97,9 @@ namespace Synthesis.Synchronization
 		}
 
 		[SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification="Doesn't make semantic sense")]
-		protected static string GetTemplateName(TemplateItem template)
+		protected static string GetTemplateName(ITemplateInfo template)
 		{
-			return template.InnerItem.Paths.FullPath.Substring("/sitecore/templates".Length);
+			return template.FullPath.Substring("/sitecore/templates".Length);
 		}
 
 		protected static string GetModelName(ModelTemplateReference reference)
@@ -129,24 +128,24 @@ namespace Synthesis.Synchronization
 			}
 		}
 
-		protected Dictionary<string, TemplateItem> TemplateDictionary
+		protected Dictionary<string, ITemplateInfo> TemplateDictionary
 		{
 			get
 			{
 				if (_templateLookup == null)
 				{
 					var templates = _templateProvider.CreateTemplateList().ToArray();
-					_templateLookup = templates.ToDictionary(x => x.ID.ToString());
+					_templateLookup = templates.ToDictionary(x => x.TemplateId.ToString());
 
 					// add any dependent templates of the main template list
 					foreach (var template in templates)
 					{
-						IEnumerable<TemplateInfo> baseTemplates = new TemplateInfo(template).AllNonstandardBaseTemplates;
+						IEnumerable<ITemplateInfo> baseTemplates = template.AllNonstandardBaseTemplates;
 
 						foreach (var baseTemplate in baseTemplates)
 						{
-							if (!_templateLookup.ContainsKey(baseTemplate.Template.ID.ToString()))
-								_templateLookup.Add(baseTemplate.Template.ID.ToString(), baseTemplate.Template);
+							if (!_templateLookup.ContainsKey(baseTemplate.TemplateId.ToString()))
+								_templateLookup.Add(baseTemplate.TemplateId.ToString(), baseTemplate);
 						}
 					}
 				}

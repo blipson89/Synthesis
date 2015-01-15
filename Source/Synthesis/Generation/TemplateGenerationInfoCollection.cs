@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Sitecore.Data;
-using Sitecore.Data.Items;
+using Synthesis.Templates;
 
 namespace Synthesis.Generation
 {
@@ -28,14 +28,14 @@ namespace Synthesis.Generation
 		/// <summary>
 		/// Adds a template to the state collection
 		/// </summary>
-		public TemplateGenerationInfo Add(TemplateItem item)
+		public TemplateGenerationInfo Add(ITemplateInfo item)
 		{
 			var templateInfo = new TemplateGenerationInfo(item);
 
 			templateInfo.FullName = GetTemplateFullyQualifiedName(item);
 
 			_templateInfos.Add(templateInfo);
-			_templateLookup.Add(item.ID, templateInfo);
+			_templateLookup.Add(item.TemplateId, templateInfo);
 
 			return templateInfo;
 		}
@@ -70,13 +70,13 @@ namespace Synthesis.Generation
 		/// <summary>
 		/// Calculates a namespace and type name for a template that is unique among all templates in the collection
 		/// </summary>
-		private string GetTemplateFullyQualifiedName(TemplateItem template)
+		private string GetTemplateFullyQualifiedName(ITemplateInfo template)
 		{
 			string name;
 
 			if (UseRelativeNamespaces)
 			{
-				name = template.InnerItem.Paths.FullPath.Replace(NamespaceRoot, string.Empty).Trim('/').Replace('/', '.');
+				name = template.FullPath.Replace(NamespaceRoot, string.Empty).Trim('/').Replace('/', '.');
 
 				var nameParts = name.Split('/');
 
