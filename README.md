@@ -1,7 +1,7 @@
 Synthesis
 =========
 
-Synthesis is an object mapping framework for Sitecore CMS that enables developing more reliable and maintainable sites in less time than traditional Sitecore development. It is a strongly typed template object generator that is easily understandable for developers with either a Sitecore or traditional .NET background. It neatly integrates with [Blade](/isitedesign/Blade), a presentation framework that enables decoupled renderings and use of Razor syntax.
+Synthesis is an object mapping framework for Sitecore that enables developing more reliable and maintainable sites in less time than traditional Sitecore development. It is a strongly typed template object generator that is easily understandable for developers with either a Sitecore or traditional .NET background. It neatly integrates with Sitecore MVC (via the `Synthesis.Mvc` package) as a View rendering model provider.
 
 ### Show me the code!
 
@@ -68,7 +68,7 @@ Synthesis is an object mapping framework for Sitecore CMS that enables developin
 							// you can query on arbitrary index fields, or get their values, using the indexer on Synthesis items
 							.Where(x => x["_latestversion"] == "1")
 							.FacetOn(x => x.Name).FacetOn(x => x.Multilist.TargetIds)
-							.GetResults();
+							.ToList();
 		
 		ISampleItemItem exampleResult = results.Hits.First().Document;
 		
@@ -80,8 +80,6 @@ Synthesis is an object mapping framework for Sitecore CMS that enables developin
 	}
   
 Ready to try it? Get the package off NuGet and have fun! See the docs in the wiki for more information and a deeper dive into how it works.
-
-Synthesis also [works great with Blade](/kamsar/Synthesis/wiki/Using-Synthesis-with-Blade), a presentation framework it was designed alongside. When using Blade with it you practically forget you were even using an object mapper.
 
 ### Why "Synthesis"?
 
