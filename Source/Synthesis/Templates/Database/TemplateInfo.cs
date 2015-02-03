@@ -81,6 +81,8 @@ namespace Synthesis.Templates.Database
 
 		private List<ITemplateInfo> GetRecursiveBaseTemplates(ITemplateInfo parent)
 		{
+			// let's keep it our little secret that this is an iterative method, not recursive ;)
+
 			var parentBases = new Queue<ITemplateInfo>(parent.BaseTemplates.Where(x => x.Name.ToUpperInvariant() != "STANDARD TEMPLATE")); // we just want NON-standard base templates
 			var bases = new Dictionary<ID, ITemplateInfo>();
 			while (parentBases.Count > 0)
