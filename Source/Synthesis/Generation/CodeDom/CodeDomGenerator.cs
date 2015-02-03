@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using Sitecore.ContentSearch;
 using Sitecore.Data;
 using Sitecore.Data.Items;
@@ -406,8 +407,12 @@ namespace Synthesis.Generation.CodeDom
 				File.Move(path, path + ".1");
 			}
 
+			var rawCode = code.CompileToCSharpSourceCode();
+
+			rawCode = Regex.Replace(rawCode, "Runtime Version[^\r]+", string.Empty);
+
 			// write new file
-			File.WriteAllText(path, code.CompileToCSharpSourceCode());
+			File.WriteAllText(path, rawCode);
 		}
 
 		private CodeCompileUnit CreateCodeCompileUnit()
