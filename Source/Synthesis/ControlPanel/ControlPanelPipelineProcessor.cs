@@ -107,13 +107,15 @@ namespace Synthesis.ControlPanel
 				var count = result.Count(x => !x.IsSynchronized);
 
 				if (result.AreTemplatesSynchronized)
-					sb.AppendFormat("<p><strong>{0}</strong>: Templates and model are currently synchronized.</p> <p>Note: if Synthesis configuration file changes are made you should regenerate anyway</p>", configName);
+					sb.AppendFormat("<p><strong>{0}</strong>: Templates and model are currently synchronized.</p>", configName);
 				else
 				{
 					sb.AppendFormat("<p><strong>{0}</strong>: {1} template{2} not synchronized. ", configName, count, count == 1 ? " is" : "s are");
 					sb.Append("<a href=\"?synthesis-syncstatus=1\">Details</a>");
 				}
 			}
+
+			sb.Append("<p>Note: if Synthesis configuration file changes are made you should force a regenerate</p>");
 
 			if (DebugUtility.IsDynamicDebugEnabled)
 			{
@@ -129,13 +131,15 @@ namespace Synthesis.ControlPanel
 
 		private static void DoOnDemandSyncReport(HttpContext context)
 		{
-			var timer = new Stopwatch();
-			timer.Start();
-
 			var configurations = ProviderResolver.GetConfigurations();
+
+			var results = new StringBuilder();
 
 			foreach (var configuration in configurations)
 			{
+				var timer = new Stopwatch();
+				timer.Start();
+
 				var configName = configuration.Name.IsNullOrEmpty() ? "Unnamed Configuration" : configuration.Name;
 
 				// force getting the latest templates from sitecore
@@ -149,8 +153,6 @@ namespace Synthesis.ControlPanel
 				var ma = result.Where(x => x.Locations == SyncSource.Both).ToList();
 				var nonsyn = result.Where(x => !x.IsSynchronized).ToList();
 				timer.Stop();
-
-				var results = new StringBuilder();
 
 				results.AppendFormat("<h2>{0}</h2>", configName);
 
@@ -184,9 +186,9 @@ namespace Synthesis.ControlPanel
 					results.AppendLine("</tr>");
 				}
 				results.AppendLine("</tbody></table>");
-
-				context.Response.Write(WrapReport("Synthesis Template Status", results.ToString()));
 			}
+			
+			context.Response.Write(WrapReport("Synthesis Template Status", results.ToString()));
 
 			context.Response.End();
 		}
