@@ -1,9 +1,11 @@
-﻿using Sitecore.Data;
+﻿using System.Diagnostics;
+using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 
 namespace Synthesis.Templates.Database
 {
+	[DebuggerDisplay("{Name}")]
 	public class ItemTemplateFieldInfo : ITemplateFieldInfo
 	{
 		private readonly TemplateFieldItem _field;

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using Sitecore.Data;
 using Sitecore.Data.Items;
@@ -10,6 +10,7 @@ namespace Synthesis.Templates.Database
 	/// <summary>
 	/// Wraps a template item and provides some additional base-template-fu
 	/// </summary>
+	[DebuggerDisplay("{Name}")]
 	public class TemplateInfo : ITemplateInfo
 	{
 		private readonly TemplateItem _template;
@@ -80,19 +81,24 @@ namespace Synthesis.Templates.Database
 
 		private List<ITemplateInfo> GetRecursiveBaseTemplates(ITemplateInfo parent)
 		{
-			var parentBases = parent.BaseTemplates.Where(x => x.Name.ToUpperInvariant() != "STANDARD TEMPLATE").ToList(); // we just want NON-standard base templates
-			var bases = new List<ITemplateInfo>(parentBases); // we instance this collection off as it gets modified during the enumeration of parentBases (thus we couldn't enumerate it)
-
-			foreach (var baseTemplate in parentBases)
+			var parentBases = new Queue<ITemplateInfo>(parent.BaseTemplates.Where(x => x.Name.ToUpperInvariant() != "STANDARD TEMPLATE")); // we just want NON-standard base templates
+			var bases = new Dictionary<ID, ITemplateInfo>();
+			while (parentBases.Count > 0)
 			{
-				// if the bases already have this template we've got a cycle or a duplicate inheritance across a tree
-				// in which case we should ignore it.
-				if (bases.Any(x => x.TemplateId.Equals(baseTemplate.TemplateId))) continue;
+				var currentBase = parentBases.Dequeue();
+				
+				// already processed this template; skip it (e.g. a template cycle), or if it's the parent template
+				if (bases.ContainsKey(currentBase.TemplateId) || currentBase.TemplateId.Equals(parent.TemplateId)) continue;
 
-				bases.AddRange(GetRecursiveBaseTemplates(baseTemplate));
+				// add grandparent base templates to processing queue
+				var newBases = currentBase.BaseTemplates.Where(x => x.Name.ToUpperInvariant() != "STANDARD TEMPLATE");
+				foreach(var newBase in newBases) parentBases.Enqueue(newBase);
+
+				// add parent base template to bases
+				bases.Add(currentBase.TemplateId, currentBase);
 			}
-
-			return bases;
+			
+			return bases.Values.ToList();
 		}
 	}
 }
