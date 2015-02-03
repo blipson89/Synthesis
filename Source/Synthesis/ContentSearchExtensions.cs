@@ -187,7 +187,7 @@ namespace Synthesis
 
 			if (representsAttribute == null) throw new NotSupportedException("Type " + synthesisType.FullName + " did not have a RepresentsSitecoreTemplateAttribute on it. Try regenerating your model.");
 
-			return ID.Parse(representsAttribute.TemplateID);
+			return ID.Parse(representsAttribute.TemplateId);
 		}
 
 		private static ID GetIdFromConcreteType(Type synthesisConcreteType)

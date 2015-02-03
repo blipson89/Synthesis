@@ -418,7 +418,7 @@ namespace Synthesis
 
 				if(attribute == null) throw new ArgumentException("Item interface did not have the requisite [RepresentsSitecoreTemplate] attribute.");
 
-				if(!ID.TryParse(attribute.TemplateID, out templateId)) throw new ArgumentException("Item interface's [RepresentsSitecoreTemplate] attribute had an invalid template ID format.");
+				if(!ID.TryParse(attribute.TemplateId, out templateId)) throw new ArgumentException("Item interface's [RepresentsSitecoreTemplate] attribute had an invalid template ID format.");
 			}
 			else
 			{

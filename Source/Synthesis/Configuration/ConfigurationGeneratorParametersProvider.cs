@@ -17,13 +17,16 @@ namespace Synthesis.Configuration
 	{
 		public ConfigurationGeneratorParametersProvider()
 		{
+			// ReSharper disable DoNotCallOverridableMethodsInConstructor
 			InterfaceSuffix = "Item";
 			SynthesisAssemblyPath = "~/bin/Synthesis.dll";
 			SitecoreKernelAssemblyPath = "~/bin/Sitecore.Kernel.dll";
+			// ReSharper restore DoNotCallOverridableMethodsInConstructor
 		}
 
-		public GeneratorParameters CreateParameters()
+		public GeneratorParameters CreateParameters(string configurationName)
 		{
+			this.ConfigurationName = configurationName;
 			return this;
 		}
 

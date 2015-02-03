@@ -15,6 +15,7 @@ namespace Synthesis.Configuration
 	{
 		public ConfigurationProviderConfiguration()
 		{
+			// ReSharper disable once DoNotCallOverridableMethodsInConstructor
 			Name = "Default Configuration";
 		}
 
@@ -117,7 +118,7 @@ namespace Synthesis.Configuration
 		/// </summary>
 		public virtual IMetadataGenerator CreateMetadataGenerator()
 		{
-			return new MetadataGenerator(GeneratorParametersProvider, TemplateInputProvider, FieldMappingProvider, IndexFieldNameTranslator);
+			return new MetadataGenerator(GeneratorParametersProvider.CreateParameters(Name), TemplateInputProvider, FieldMappingProvider, IndexFieldNameTranslator);
 		}
 
 		public virtual ITemplateCodeGenerator CreateCodeGenerator()
@@ -131,7 +132,7 @@ namespace Synthesis.Configuration
 		/// <returns></returns>
 		public virtual SynchronizationEngine CreateSyncEngine()
 		{
-			return new SynchronizationEngine(TemplateSignatureProvider, TemplateInputProvider, TypeListProvider);
+			return new SynchronizationEngine(TemplateSignatureProvider, CreateMetadataGenerator().GenerateMetadata(), TypeListProvider, Name);
 		}
 
 		protected virtual IFieldMappingProvider LoadFieldMappingProviderFromConfig()

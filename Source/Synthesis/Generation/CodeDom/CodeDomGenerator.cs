@@ -375,6 +375,7 @@ namespace Synthesis.Generation.CodeDom
 
 			attribute.Arguments.Add(new CodeAttributeArgument(new CodePrimitiveExpression(template.TemplateId.ToString())));
 			attribute.Arguments.Add(new CodeAttributeArgument(new CodePrimitiveExpression(_signatureProvider.GenerateTemplateSignature(template))));
+			attribute.Arguments.Add(new CodeAttributeArgument(new CodePrimitiveExpression(_parameters.ConfigurationName)));
 
 			interfaceType.CustomAttributes.Add(attribute);
 		}

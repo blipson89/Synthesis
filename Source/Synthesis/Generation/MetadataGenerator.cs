@@ -17,11 +17,6 @@ namespace Synthesis.Generation
 		private readonly FieldNameTranslator _indexFieldNameTranslator;
 		const string StandardTemplate = "STANDARD TEMPLATE";
 
-		public MetadataGenerator(IGeneratorParametersProvider parameterProvider, ITemplateInputProvider templateProvider, IFieldMappingProvider fieldMappingProvider, FieldNameTranslator indexFieldNameTranslator)
-			: this(parameterProvider.CreateParameters(), templateProvider, fieldMappingProvider, indexFieldNameTranslator)
-		{
-		}
-
 		public MetadataGenerator(GeneratorParameters parameters, ITemplateInputProvider templateProvider, IFieldMappingProvider fieldMappingProvider, FieldNameTranslator indexFieldNameTranslator)
 		{
 			parameters.Validate();

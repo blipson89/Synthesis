@@ -135,7 +135,7 @@ namespace Synthesis
 
 				if (projectPathValue == "auto")
 				{
-					projectPathValue = ResolveAutoProjectPath(configuration.GeneratorParametersProvider);
+					projectPathValue = ResolveAutoProjectPath(configuration.GeneratorParametersProvider.CreateParameters(configuration.Name));
 
 					if (projectPathValue == null)
 						throw new InvalidOperationException("Unable to automatically find a valid project file to build. I looked at sibling and parent folders to the concrete file output path for *proj.");
@@ -158,9 +158,9 @@ namespace Synthesis
 			}
 		}
 
-		private static string ResolveAutoProjectPath(IGeneratorParametersProvider parametersProvider)
+		private static string ResolveAutoProjectPath(GeneratorParameters parameters)
 		{
-			var outputPath = parametersProvider.CreateParameters().ItemOutputPath;
+			var outputPath = parameters.ItemOutputPath;
 
 			outputPath = Path.GetDirectoryName(outputPath);
 

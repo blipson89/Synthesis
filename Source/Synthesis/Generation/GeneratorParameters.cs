@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using Sitecore.Diagnostics;
-using Synthesis.Configuration;
+using Sitecore.StringExtensions;
 using Synthesis.Generation.Model;
 
 namespace Synthesis.Generation
 {
 	public class GeneratorParameters
 	{
-		private List<TemplateGenerationMetadata> _friendMetadata = new List<TemplateGenerationMetadata>();
+		private readonly List<TemplateGenerationMetadata> _friendMetadata = new List<TemplateGenerationMetadata>();
 
 		public GeneratorParameters()
 		{
@@ -68,6 +68,9 @@ namespace Synthesis.Generation
 
 			if (!ItemBaseInterface.IsAssignableFrom(ItemBaseClass))
 				throw new GeneratorParameterException(string.Format("ItemBaseClass {0} did not implement ItemBaseInterface {1}", ItemBaseClass.FullName, ItemBaseInterface.FullName));
+
+			if(ConfigurationName.IsNullOrEmpty())
+				throw new GeneratorParameterException("The configuration name was null or empty.");
 		}
 
 		/// <summary>
@@ -141,6 +144,14 @@ namespace Synthesis.Generation
 		/// </summary>
 		public virtual uint MaxBackupCopies { get; set; }
 
+		/// <summary>
+		/// The name of the configuration being generated. Used to tag the generated classes.
+		/// </summary>
+		public virtual string ConfigurationName { get; set; }
+
+		/// <summary>
+		/// Adds friend metadata (e.g. a template built in a different configuration) which can be referenced by templates in this one as a base
+		/// </summary>
 		public virtual void AddFriendMetadata(TemplateGenerationMetadata metadata)
 		{
 			Assert.ArgumentNotNull(metadata, "metadata");
