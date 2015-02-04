@@ -16,4 +16,6 @@ $targetAssemblyVersion = $synthesisAssembly.ProductVersion
 
 & $nuGet pack "$scriptRoot\..\Source\Synthesis.Testing\Synthesis.Testing.csproj" -Symbols -Prop Configuration=Release
 
+& $nuGet pack "$scriptRoot\Synthesis.Mvc.nuget\Synthesis.Mvc.nuspec" -version $targetAssemblyVersion
+
 & $nuGet pack "$scriptRoot\..\Source\Synthesis.Mvc\Synthesis.Mvc.csproj" -Symbols -Prop Configuration=Release

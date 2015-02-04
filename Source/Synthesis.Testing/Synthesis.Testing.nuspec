@@ -11,7 +11,6 @@
     <description>
 		Utilities to assist in unit testing with Synthesis
 	</description>
-    <releaseNotes></releaseNotes>
     <copyright>Copyright 2015 Kam Figy/ISITE Design</copyright>
     <tags>sitecore</tags>
     <dependencies>
