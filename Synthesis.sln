@@ -7,11 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis", "Source\Synthes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Tests", "Source\Synthesis.Tests\Synthesis.Tests.csproj", "{CC01C529-5740-4827-A544-918CE0F327F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Blade", "Source\Synthesis.Blade\Synthesis.Blade.csproj", "{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Testing", "Source\Synthesis.Testing\Synthesis.Testing.csproj", "{3482B71D-81B1-4643-815E-342318CE9FCD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Blade.Ninject", "Source\Synthesis.Blade.Ninject\Synthesis.Blade.Ninject.csproj", "{34664BD8-E823-40E0-956B-C225567C3A85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Mvc", "Source\Synthesis.Mvc\Synthesis.Mvc.csproj", "{97C803D2-5E32-4D5C-8ECB-EE49D759A953}"
 EndProject
@@ -29,18 +25,10 @@ Global
 		{CC01C529-5740-4827-A544-918CE0F327F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC01C529-5740-4827-A544-918CE0F327F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC01C529-5740-4827-A544-918CE0F327F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF64A302-2D5D-4C2B-9B99-7DBF4B6FB9F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3482B71D-81B1-4643-815E-342318CE9FCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3482B71D-81B1-4643-815E-342318CE9FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3482B71D-81B1-4643-815E-342318CE9FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3482B71D-81B1-4643-815E-342318CE9FCD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34664BD8-E823-40E0-956B-C225567C3A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34664BD8-E823-40E0-956B-C225567C3A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34664BD8-E823-40E0-956B-C225567C3A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34664BD8-E823-40E0-956B-C225567C3A85}.Release|Any CPU.Build.0 = Release|Any CPU
 		{97C803D2-5E32-4D5C-8ECB-EE49D759A953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{97C803D2-5E32-4D5C-8ECB-EE49D759A953}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97C803D2-5E32-4D5C-8ECB-EE49D759A953}.Release|Any CPU.ActiveCfg = Release|Any CPU
