@@ -439,6 +439,14 @@ namespace Synthesis
 		}
 
 		/// <summary>
+		/// Gets children of the item. This is an alias to Axes.GetChildren() so it's in a familiar location.
+		/// </summary>
+		public IEnumerable<IStandardTemplateItem> Children
+		{
+			get { return Axes.GetChildren(); }
+		} 
+
+		/// <summary>
 		/// Creates an informational string about this item.
 		/// </summary>
 		public override string ToString()
