@@ -6,7 +6,7 @@ namespace Synthesis.Utility
 	/// <summary>
 	/// Caches the result of checking if dynamic debug is enabled, which seems to not cache its result in the BCL.
 	/// </summary>
-	internal static class DebugUtility
+	public static class DebugUtility
 	{
 		public static bool IsDynamicDebugEnabled { get { return DebugEnabled.Value; } }
 

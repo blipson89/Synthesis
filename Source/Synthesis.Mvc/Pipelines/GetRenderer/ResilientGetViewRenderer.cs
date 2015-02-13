@@ -48,7 +48,7 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 						if (Context.PageMode.IsPreview || Context.PageMode.IsPageEditor)
 						{
 							var absolutePath = GetAbsoluteViewPath();
-							NullModelHelper.RenderNullModelMessage(new HtmlTextWriter(writer), absolutePath, Rendering.DataSource, new ViewModelTypeResolver().GetViewModelType(absolutePath), Rendering.Model);
+							NullModelHelper.RenderNullModelMessage(new HtmlTextWriter(writer), absolutePath, Rendering.DataSource, new ViewModelTypeResolver().GetViewModelType(absolutePath), Rendering.Model, ioe.InnerException);
 						}
 						
 						return;
