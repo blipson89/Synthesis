@@ -25,7 +25,7 @@ namespace Synthesis.Mvc.Pipelines.GetModel
 			_typeResolver = typeResolver;
 		}
 
-		protected static ConcurrentDictionary<Guid, bool> SynthesisRenderingCache = new ConcurrentDictionary<Guid, bool>(); 
+		protected static ConcurrentDictionary<string, bool> SynthesisRenderingCache = new ConcurrentDictionary<string, bool>(); 
 
 		protected virtual object GetFromViewPath(Rendering rendering, GetModelArgs args)
 		{
@@ -33,10 +33,7 @@ namespace Synthesis.Mvc.Pipelines.GetModel
 
 			if(!SiteHelper.IsValidSite()) return null;
 
-			// it's from Synthesis and it's in cache
-			if (SynthesisRenderingCache.ContainsKey(rendering.UniqueId) && SynthesisRenderingCache[rendering.UniqueId]) return rendering.Item.AsStronglyTyped();
-
-			SynthesisRenderingCache.AddOrUpdate(rendering.UniqueId, true, (key, value) =>
+			var useSynthesisModelType = SynthesisRenderingCache.GetOrAdd(rendering.RenderingItemPath, key =>
 			{
 				var renderer = rendering.Renderer;
 
@@ -49,15 +46,15 @@ namespace Synthesis.Mvc.Pipelines.GetModel
 				var modelType = _typeResolver.GetViewModelType(viewPath);
 
 				// Check to see if no model has been set
-				if (modelType == typeof (object)) return false;
+				if (modelType == typeof(object)) return false;
 
 				// Check that the model is a Synthesis type (if not, we ignore it)
-				if (!typeof (IStandardTemplateItem).IsAssignableFrom(modelType)) return false;
+				if (!typeof(IStandardTemplateItem).IsAssignableFrom(modelType)) return false;
 
 				return true;
 			});
 
-			return SynthesisRenderingCache[rendering.UniqueId] ? rendering.Item.AsStronglyTyped() : null;
+			return useSynthesisModelType ? rendering.Item.AsStronglyTyped() : null;
 		}
 
 		public override void Process(GetModelArgs args)
