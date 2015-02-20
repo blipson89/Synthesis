@@ -198,7 +198,12 @@
     <Compile Include="WebControlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="Synthesis.Startup.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Synthesis.ControlPanel.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Synthesis.config">
       <SubType>Designer</SubType>
     </None>

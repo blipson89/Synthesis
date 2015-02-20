@@ -25,6 +25,8 @@
   </metadata>
   <files>
 	   <file src="..\..\Source\Synthesis\Synthesis.config" target="content\App_Config\Include" />
+	   <file src="..\..\Source\Synthesis\Synthesis.ControlPanel.config" target="content\App_Config\Include" />
+	   <file src="..\..\Source\Synthesis\Synthesis.Startup.config" target="content\App_Config\Include" />
 	   <file src="readme.txt" target="" />
   </files>
 </package>
