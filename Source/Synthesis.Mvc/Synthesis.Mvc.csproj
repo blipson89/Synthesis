@@ -77,7 +77,11 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Helpers\SynthesisMvcHtmlHelper.cs" />
+    <Compile Include="Helpers\HyperlinkHelper.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\DateHelper.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="NullModelHelper.cs" />
     <Compile Include="Pipelines\GetModel\GetFromSynthesis.cs" />
     <Compile Include="Pipelines\GetRenderer\ResilientGetViewRenderer.cs" />
