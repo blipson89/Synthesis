@@ -94,36 +94,47 @@ namespace Synthesis.ControlPanel
 
 			var configurations = ProviderResolver.GetConfigurations();
 
-			foreach (var configuration in configurations)
+			if (configurations.Any())
 			{
-				var configName = configuration.Name.IsNullOrEmpty() ? "Unnamed Configuration" : configuration.Name;
+				foreach (var configuration in configurations)
+				{
+					var configName = configuration.Name.IsNullOrEmpty() ? "Unnamed Configuration" : configuration.Name;
 
-				// force getting the latest templates from sitecore
-				configuration.TemplateInputProvider.Refresh();
+					// force getting the latest templates from sitecore
+					configuration.TemplateInputProvider.Refresh();
 
-				var sync = configuration.CreateSyncEngine();
+					var sync = configuration.CreateSyncEngine();
 
-				var result = sync.AreTemplatesSynchronized();
-				var count = result.Count(x => !x.IsSynchronized);
+					var result = sync.AreTemplatesSynchronized();
+					var count = result.Count(x => !x.IsSynchronized);
 
-				if (result.AreTemplatesSynchronized)
-					sb.AppendFormat("<p><strong>{0}</strong>: Templates and model are currently synchronized.</p>", configName);
+					if (result.AreTemplatesSynchronized)
+						sb.AppendFormat("<p><strong>{0}</strong>: Templates and model are currently synchronized.</p>", configName);
+					else
+					{
+						sb.AppendFormat("<p><strong>{0}</strong>: {1} template{2} not synchronized. ", configName, count,
+							count == 1 ? " is" : "s are");
+						sb.Append("<a href=\"?synthesis-syncstatus=1\">Details</a>");
+					}
+				}
+
+				sb.Append("<p>Note: if Synthesis configuration file changes are made you should force a regenerate</p>");
+
+				if (DebugUtility.IsDynamicDebugEnabled)
+				{
+					sb.Append("<p><a href=\"?synthesis-regenerate=1\">Regenerate Now</a></p>");
+				}
 				else
 				{
-					sb.AppendFormat("<p><strong>{0}</strong>: {1} template{2} not synchronized. ", configName, count, count == 1 ? " is" : "s are");
-					sb.Append("<a href=\"?synthesis-syncstatus=1\">Details</a>");
+					sb.Append("<p>(enable debug compilation if you want to regenerate)</p>");
 				}
-			}
-
-			sb.Append("<p>Note: if Synthesis configuration file changes are made you should force a regenerate</p>");
-
-			if (DebugUtility.IsDynamicDebugEnabled)
-			{
-				sb.Append("<p><a href=\"?synthesis-regenerate=1\">Regenerate Now</a></p>");
 			}
 			else
 			{
-				sb.Append("<p>(enable debug compilation if you want to regenerate)</p>");
+				sb.Append(@"<p><em>Synthesis currently has no model configurations registered.</em></p> 
+<p>This probably means you need to enable the <code>RegisterDefaultConfiguration</code> processor in the <code>initialize</code> pipeline, 
+or that you need to register your own configurations in separate initialize pipeline processors.</p>
+<p>Synthesis cannot run any generation or syncing until a configuration is registered</p>.");
 			}
 
 			return sb.ToString();
@@ -235,6 +246,7 @@ namespace Synthesis.ControlPanel
 			sb.AppendLine("th.flag { width: 75px; }");
 			sb.AppendLine("tr:nth-child(even) { background-color:#eee; }");
 			sb.AppendLine("td { font-size: 0.7em; }");
+			sb.AppendLine("code { font-family: Consolas, monospace; }");
 			sb.AppendLine("</style>");
 			sb.AppendLine("<title>" + HttpUtility.HtmlEncode(title) + "</title>");
 			sb.AppendLine("</head>");
