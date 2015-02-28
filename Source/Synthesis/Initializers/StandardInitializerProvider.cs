@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Sitecore.Data;
-using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.StringExtensions;
 using Synthesis.Configuration;
@@ -15,6 +14,7 @@ namespace Synthesis.Initializers
 	{
 		private readonly ITypeListProvider _typeListProvider;
 		private ReadOnlyDictionary<ID, ITemplateInitializer> _initializerCache;
+		private static readonly object _lock = new object();
 
 		public StandardInitializerProvider(ITypeListProvider typeListProvider)
 		{
@@ -25,32 +25,37 @@ namespace Synthesis.Initializers
 		{
 			if (_initializerCache != null) return;
 
-			var timer = new Stopwatch();
-			timer.Start();
-
-			var initializers = new Dictionary<ID, ITemplateInitializer>();
-	
-			var initializerTypes = _typeListProvider.CreateTypeList().ImplementingInterface(typeof(ITemplateInitializer));
-
-			foreach (var initializer in initializerTypes)
+			lock (_lock)
 			{
-				var instance = (ITemplateInitializer)Activator.CreateInstance(initializer);
+				if (_initializerCache != null) return;
 
-				if (initializers.ContainsKey(instance.InitializesTemplateId))
+				var timer = new Stopwatch();
+				timer.Start();
+
+				var initializers = new Dictionary<ID, ITemplateInitializer>();
+
+				var initializerTypes = _typeListProvider.CreateTypeList().ImplementingInterface(typeof (ITemplateInitializer));
+
+				foreach (var initializer in initializerTypes)
 				{
-					throw new InvalidOperationException("Synthesis: Multiple initializers were found for template {0} ({1}, {2}).".FormatWith(instance.InitializesTemplateId, initializers[instance.InitializesTemplateId].GetType().FullName, instance.GetType().FullName));
+					var instance = (ITemplateInitializer) Activator.CreateInstance(initializer);
+
+					if (initializers.ContainsKey(instance.InitializesTemplateId))
+					{
+						throw new InvalidOperationException("Synthesis: Multiple initializers were found for template {0} ({1}, {2}).".FormatWith(instance.InitializesTemplateId, initializers[instance.InitializesTemplateId].GetType().FullName, instance.GetType().FullName));
+					}
+
+					// ignore test and standard template initializers
+					if (instance.InitializesTemplateId == ID.Null) continue;
+
+					initializers.Add(instance.InitializesTemplateId, instance);
 				}
 
-				// ignore test and standard template initializers
-				if (instance.InitializesTemplateId == ID.Null) continue;
+				_initializerCache = new ReadOnlyDictionary<ID, ITemplateInitializer>(initializers);
 
-				initializers.Add(instance.InitializesTemplateId, instance);
+				timer.Stop();
+				Log.Info("Synthesis: Initialized template initializer cache (" + _initializerCache.Count + " templates) in " + timer.ElapsedMilliseconds + " ms", _initializerCache);
 			}
-
-			_initializerCache = new ReadOnlyDictionary<ID, ITemplateInitializer>(initializers);
-
-			timer.Stop();
-			Log.Info("Synthesis: Initialized template initializer cache (" + _initializerCache.Count + " templates) in " + timer.ElapsedMilliseconds + " ms", _initializerCache);
 		}
 
 		public ITemplateInitializer GetInitializer(ID templateId)
