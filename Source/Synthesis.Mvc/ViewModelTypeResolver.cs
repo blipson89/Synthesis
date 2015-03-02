@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Compilation;
+using Sitecore.Diagnostics;
 
 namespace Synthesis.Mvc
 {
@@ -14,13 +15,23 @@ namespace Synthesis.Mvc
 			if (string.IsNullOrWhiteSpace(viewPath)) return typeof(object);
 
 			// Retrieve the compiled view
-			var compiledViewType = BuildManager.GetCompiledType(viewPath);
-			var baseType = compiledViewType.BaseType;
+			try
+			{
+				var compiledViewType = BuildManager.GetCompiledType(viewPath);
+				var baseType = compiledViewType.BaseType;
 
-			// Check to see if the view has been found and that it is a generic type
-			if (baseType == null || !baseType.IsGenericType) return typeof(object);
+				// Check to see if the view has been found and that it is a generic type
+				if (baseType == null || !baseType.IsGenericType) return typeof (object);
 
-			return baseType.GetGenericArguments()[0];
+				return baseType.GetGenericArguments()[0];
+			}
+			catch (ArgumentException aex)
+			{
+				// this can occur if an invalid path (e.g. a relative path) is passed in; we ignore the error for now and let it pass
+				// down to the MVC machinery to show a regular error message later
+				Log.Error("Synthesis could not resolve the model type for view rendering " + viewPath, aex, this);
+				return typeof (object);
+			}
 		}
 	}
 }

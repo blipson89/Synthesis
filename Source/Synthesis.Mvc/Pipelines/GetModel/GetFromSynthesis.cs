@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using Sitecore.Diagnostics;
 using Sitecore.Mvc.Pipelines.Response.GetModel;
 using Sitecore.Mvc.Presentation;
@@ -33,7 +32,7 @@ namespace Synthesis.Mvc.Pipelines.GetModel
 
 			if(!SiteHelper.IsValidSite()) return null;
 
-			var useSynthesisModelType = SynthesisRenderingCache.GetOrAdd(rendering.RenderingItemPath, key =>
+			var useSynthesisModelType = SynthesisRenderingCache.GetOrAdd(rendering.ToString(), key =>
 			{
 				var renderer = rendering.Renderer;
 
