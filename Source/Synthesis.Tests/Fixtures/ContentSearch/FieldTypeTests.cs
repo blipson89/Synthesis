@@ -4,6 +4,8 @@ using NUnit.Framework;
 using Sitecore;
 using Sitecore.ContentSearch.Linq;
 using Synthesis.Tests.Fixtures.ContentSearch.Data;
+using Synthesis.Solr;
+using Sitecore.ContentSearch.LuceneProvider;
 
 namespace Synthesis.Tests.Fixtures.ContentSearch
 {
@@ -138,7 +140,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 				Assert.IsTrue(facets.Categories.Count > 0, "No valid facets found");
 				Assert.IsTrue(facets.Categories.First().Values.Count > 0, "No valid facet values found");
 
-				Assert.IsTrue(facets.Categories.SelectMany(x => x.Values).All(x => x.Name.StartsWith("T", StringComparison.OrdinalIgnoreCase)), "Facets had items without the specified text value!");
+				Assert.IsTrue(facets.Categories.SelectMany(x => x.Values).All(x => x.Name.StartsWith("T", StringComparison.OrdinalIgnoreCase) || x.AggregateCount == 0), "Facets had items without the specified text value!");
 			});
 		}
 
@@ -148,7 +150,10 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 			{
 				using (new InitializerForcer(new SearchTemplateItemInitializer()))
 				{
-					testBody(context.GetSynthesisQueryable<ISearchTemplateItem>(useStandardFilters));
+					if (context is LuceneSearchContext)
+						testBody(context.GetSynthesisQueryable<ISearchTemplateItem>(useStandardFilters));
+					else
+						testBody(context.GetSolrSynthesisQueryable<ISearchTemplateItem>(useStandardFilters));
 				}
 			}
 		}

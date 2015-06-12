@@ -72,8 +72,7 @@ namespace Synthesis
 			}
 			else
 			{
-				// TODO: possible SOLR support with different mapper
-				throw new NotImplementedException("At this time Synthesis only supports Lucene indexes.");
+				throw new NotImplementedException("Use GetSolrSynthesisQueryable in Synthesis.Solr to utilize SOLR indexes.");
 			}
 
 			if (applyStandardFilters) queryable = queryable.ApplyStandardFilters();

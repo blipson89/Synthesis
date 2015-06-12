@@ -48,6 +48,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.ContentSearch.LuceneProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.LuceneProvider.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.Kernel.dll</HintPath>
     </Reference>
@@ -95,6 +99,10 @@
     <Compile Include="Utility\FieldTestTemplateCreator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Synthesis.Solr\Synthesis.Solr.csproj">
+      <Project>{d76ce576-81d7-4bda-b6eb-7e5b72c0bcc5}</Project>
+      <Name>Synthesis.Solr</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Synthesis\Synthesis.csproj">
       <Project>{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}</Project>
       <Name>Synthesis</Name>
