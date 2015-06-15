@@ -21,9 +21,10 @@ namespace Synthesis.FieldTypes
 			{
 				if (!IsFieldLoaded && InnerSearchValue != null)
 				{
-					var converter = new IndexFieldDateTimeValueConverter();
-					// ReSharper disable once PossibleNullReferenceException
-					return (DateTime)converter.ConvertFrom(InnerSearchValue);
+					//var converter = new IndexFieldDateTimeValueConverter();
+					//// ReSharper disable once PossibleNullReferenceException
+					//return (DateTime)converter.ConvertFrom(InnerSearchValue);
+					return DateTime.Parse(InnerSearchValue);
 				}
 
 				return ((DateField)InnerField).DateTime;
