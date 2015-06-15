@@ -2,9 +2,8 @@
 using System.Runtime.InteropServices;
 using System;
 
-[assembly: AssemblyCompany("ISITE Design")]
+[assembly: AssemblyCompany("Connective DX")]
 [assembly: AssemblyProduct("Synthesis")]
-[assembly: AssemblyCopyright("Copyright © Kam Figy, ISITE Design")]
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("8.1.1.0")]
 [assembly: AssemblyFileVersion("8.1.1.0")]
