@@ -1,16 +1,11 @@
 ﻿using Sitecore.Data.Fields;
 using Synthesis.FieldTypes.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Synthesis.FieldTypes
 {
 	public class PathItemReferenceField : FieldType, IPathItemReferenceField
 	{
-				public PathItemReferenceField(LazyField field, string indexValue) : base(field, indexValue) { }
+		public PathItemReferenceField(LazyField field, string indexValue) : base(field, indexValue) { }
 
 		/// <summary>
 		/// Gets the item ID that the relationship refers to
@@ -26,7 +21,7 @@ namespace Synthesis.FieldTypes
 
 				return ((ReferenceField)InnerField).Path;
 			}
-			set { SetFieldValue(value.ToString()); }
+			set { SetFieldValue(value); }
 		}
 
 		/// <summary>
