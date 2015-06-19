@@ -4,8 +4,6 @@ using NUnit.Framework;
 using Sitecore;
 using Sitecore.ContentSearch.Linq;
 using Synthesis.Tests.Fixtures.ContentSearch.Data;
-using Synthesis.Solr;
-using Sitecore.ContentSearch.LuceneProvider;
 
 namespace Synthesis.Tests.Fixtures.ContentSearch
 {
@@ -150,10 +148,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 			{
 				using (new InitializerForcer(new SearchTemplateItemInitializer()))
 				{
-					if (context is LuceneSearchContext)
 						testBody(context.GetSynthesisQueryable<ISearchTemplateItem>(useStandardFilters));
-					else
-						testBody(context.GetSolrSynthesisQueryable<ISearchTemplateItem>(useStandardFilters));
 				}
 			}
 		}

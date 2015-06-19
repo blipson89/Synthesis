@@ -1,29 +1,22 @@
-﻿using Sitecore.ContentSearch.Linq.Common;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.ContentSearch.Linq.Solr;
 using Sitecore.ContentSearch.SolrProvider;
 using SolrNet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Synthesis.Solr.ContentSearch
 {
-	class SynthesisLinqToSolrIndex<T> : Sitecore.ContentSearch.SolrProvider.LinqToSolrIndex<T>
+	public class SynthesisLinqToSolrIndex<T> : LinqToSolrIndex<T>
 	{
 		private readonly FieldNameTranslator _fieldNameTranslator;
-		private SolrSearchContext _context;
 		public SynthesisLinqToSolrIndex(SolrSearchContext context) : this(context, null)
 		{
 		}
 		public SynthesisLinqToSolrIndex(SolrSearchContext context, params IExecutionContext[] executionContexts)
 			: base(context, executionContexts)
 		{
-			_fieldNameTranslator = new SynthesisSolrFieldNameTranslator(context);
-			_context = context;
+			_fieldNameTranslator = new SynthesisSolrFieldNameTranslator(context, context.Index.FieldNameTranslator); ;
 		}
 		protected override FieldNameTranslator FieldNameTranslator
 		{
@@ -45,9 +38,9 @@ namespace Synthesis.Solr.ContentSearch
 		 */
 		private TResult ApplyScalarMethods<TResult, TDocument>(SolrCompositeQuery compositeQuery, object processedResults, SolrQueryResults<Dictionary<string, object>> results)
 		{
-			var baseMethod = typeof(Sitecore.ContentSearch.SolrProvider.LinqToSolrIndex<T>).GetMethod("ApplyScalarMethods", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(typeof(TResult), typeof(TDocument));
+			var baseMethod = typeof(LinqToSolrIndex<T>).GetMethod("ApplyScalarMethods", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(typeof(TResult), typeof(TDocument));
 
-			return (TResult)baseMethod.Invoke(this, new object[] { compositeQuery, processedResults, results });
+			return (TResult)baseMethod.Invoke(this, new[] { compositeQuery, processedResults, results });
 		}
 	}
 }

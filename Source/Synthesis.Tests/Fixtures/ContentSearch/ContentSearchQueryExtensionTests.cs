@@ -2,8 +2,6 @@
 using System.Linq;
 using NUnit.Framework;
 using Sitecore;
-using Sitecore.ContentSearch.LuceneProvider;
-using Synthesis.Solr;
 
 namespace Synthesis.Tests.Fixtures.ContentSearch
 {
@@ -22,7 +20,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = ResolveSynthesisQueryable(context)
+				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
 					.ContainsOr(x => x.TemplateIds, new[] { TemplateIDs.Sublayout, TemplateIDs.WorkflowState })
 					.ToArray();
 
@@ -39,7 +37,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 			using (var context = CreateTestSearchContext())
 			{
 				var listOfNames = new List<string> {"Security folder", "Rendering Options"};
-				var query = ResolveSynthesisQueryable(context)
+				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
 					.ContainsOr(x => x.Name, listOfNames)
 					.ToArray();
 
@@ -49,11 +47,6 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 			}
 		}
 
-		private static IQueryable<IStandardTemplateItem> ResolveSynthesisQueryable(Sitecore.ContentSearch.IProviderSearchContext context)
-		{
-			if (context is LuceneSearchContext)
-				return context.GetSynthesisQueryable<IStandardTemplateItem>();
-			return context.GetSolrSynthesisQueryable<IStandardTemplateItem>();
-		}
+
 	}
 }
