@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
+using Sitecore;
 using Sitecore.ContentSearch;
-using Sitecore.ContentSearch.SolrProvider;
 using SolrNet.Schema;
 using Synthesis.ContentSearch;
 
@@ -33,10 +33,10 @@ namespace Synthesis.Solr.ContentSearch
 		/// <returns>field name with a dynamic field identifier on it</returns>
 		private string AppendSolrText(string fieldName)
 		{
-			if (Sitecore.Context.Site == null || Sitecore.Context.Language.Name == Sitecore.Context.Site.Language)
+			if (Context.Site == null || Context.Language.Name == Context.Site.Language)
 				fieldName += "_t";
 			else
-				fieldName += "_t_" + Sitecore.Context.Language;
+				fieldName += "_t_" + Context.Language;
 			return fieldName;
 		}
 
