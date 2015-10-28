@@ -9,9 +9,9 @@
     <projectUrl>https://github.com/kamsar/Synthesis</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-		Synthesis is a universal object mapper with LINQ support for Sitecore 7.2. This package contains only the core library, and is suitable for installing to class libraries. For installing to a web project, use the Synthesis package, which comes with configuration files as well.
+		Synthesis is a universal object mapper with LINQ support for Sitecore 8.1. This package contains only the core library, and is suitable for installing to class libraries. For installing to a web project, use the Synthesis package, which comes with configuration files as well.
 	</description>
-    <copyright>Copyright 2015 Kam Figy/ISITE Design</copyright>
+    <copyright>Copyright 2015 Kam Figy/Connective DX</copyright>
     <tags>sitecore</tags>
     <dependencies>
     </dependencies>

@@ -11,7 +11,7 @@
     <description>
     Automatic injection of Synthesis models for Sitecore MVC view renderings. This package contains the core library and configuration and is appropriate for the web project.
   </description>
-    <copyright>Copyright 2015 Kam Figy/ISITE Design</copyright>
+    <copyright>Copyright 2015 Kam Figy/Connective DX</copyright>
     <tags>sitecore</tags>
     <dependencies>
       <dependency id="Synthesis" version="$version$" />
