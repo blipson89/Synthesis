@@ -1,0 +1,1 @@
+gci *.nupkg -exclude *.symbols.nupkg | % { ..\dependencies\NuGet.exe push $_ }
