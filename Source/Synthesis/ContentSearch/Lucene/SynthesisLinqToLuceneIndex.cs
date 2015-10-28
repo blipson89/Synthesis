@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using Lucene.Net.Search;
 using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.ContentSearch.Linq.Lucene;
 using Sitecore.ContentSearch.LuceneProvider;
+using Sitecore.ContentSearch.LuceneProvider.Search;
 
 namespace Synthesis.ContentSearch.Lucene
 {
@@ -44,14 +44,14 @@ namespace Synthesis.ContentSearch.Lucene
 		 * 
 		 * The this.GetType() cause it to look for the private methods on any derived classes, where they do not exist.
 		 */
-		private object ApplySearchMethods<TElement>(LuceneQuery query, TopDocs searchHits)
+        private object ApplySearchMethods<TElement>(LuceneQuery query, ITopDocs searchHits)
 		{
 			var baseMethod = typeof(LinqToLuceneIndex<TItem>).GetMethod("ApplySearchMethods", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(typeof(TElement));
 
 			return baseMethod.Invoke(this, new object[] { query, searchHits });
 		}
 
-		private TResult ApplyScalarMethods<TResult, TDocument>(LuceneQuery query, object processedResults, TopDocs results)
+        private TResult ApplyScalarMethods<TResult, TDocument>(LuceneQuery query, object processedResults, ITopDocs results)
 		{
 			var baseMethod = typeof(LinqToLuceneIndex<TItem>).GetMethod("ApplyScalarMethods", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(typeof(TResult), typeof(TDocument));
 
