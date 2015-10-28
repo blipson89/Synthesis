@@ -31,7 +31,7 @@ namespace Synthesis.ContentSearch.Lucene
 
 		/*
 		 * THESE METHODS ARE A TOTAL HACK
-		 * They exist to work around a bug in Sitecore (7.x-8.0 at least) where it uses private reflection
+		 * They exist to work around a bug in Sitecore (7.x-8.1 at least) where it uses private reflection
 		 * in such a way that it breaks all derived classes of LinqToLuceneIndex when GetResults() is called
 		 * on the queryable (#4 on GitHub)
 		 * 
