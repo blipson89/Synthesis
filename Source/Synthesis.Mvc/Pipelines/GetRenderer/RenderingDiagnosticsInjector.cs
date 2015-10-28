@@ -43,32 +43,27 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 			}
 		}
 
-		internal class DiagnosticsRenderer : Renderer
+		public class DiagnosticsRenderer : Renderer
 		{
-			private readonly Renderer _innerRenderer;
 			private readonly Rendering _rendering;
+			private readonly RenderingDisplayPathResolver _displayPathResolver;
 
-			public DiagnosticsRenderer(Renderer innerRenderer, Rendering rendering)
+			public DiagnosticsRenderer(Renderer innerRenderer, Rendering rendering, RenderingDisplayPathResolver displayPathResolver)
 			{
-				_innerRenderer = innerRenderer;
+				InnerRenderer = innerRenderer;
 				_rendering = rendering;
+				_displayPathResolver = displayPathResolver;
 			}
 
-			public Renderer InnerRenderer { get { return _innerRenderer; } }
+			public Renderer InnerRenderer { get; private set; }
 
 			public override void Render(TextWriter writer)
 			{
-				string renderingPath = _rendering.RenderingItemPath;
-
-				var viewRendering = _innerRenderer as ViewRenderer;
-				if (viewRendering != null) renderingPath = viewRendering.ViewPath;
-
-				var controllerRendering = _innerRenderer as ControllerRenderer;
-				if (controllerRendering != null) renderingPath = controllerRendering.ControllerName + "::" + controllerRendering.ActionName;
+				string renderingPath = _displayPathResolver.ResolveRenderingPath(_rendering);
 
 				using (new RenderingDiagnostics(new HtmlTextWriter(writer), renderingPath, _rendering.Caching))
 				{
-					_innerRenderer.Render(writer);
+					InnerRenderer.Render(writer);
 				}
 			}
 
@@ -83,5 +78,9 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 			}
 		}
 
+		protected virtual RenderingDisplayPathResolver CreateRenderingDisplayPathResolver()
+		{
+			return new RenderingDisplayPathResolver();
+		}
 	}
 }
