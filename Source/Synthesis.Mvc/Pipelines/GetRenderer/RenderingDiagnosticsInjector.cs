@@ -14,8 +14,8 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 		{
 			if (args.Result == null) return;
 
-			if(DiagnosticsEnabled)
-				args.Result = new DiagnosticsRenderer(args.Result, args.Rendering);
+			if(DiagnosticsEnabled && !args.Rendering.RenderingType.Equals("Layout", StringComparison.OrdinalIgnoreCase))
+				args.Result = new DiagnosticsRenderer(args.Result, args.Rendering, CreateRenderingDisplayPathResolver());
 		}
 
 		private static readonly Lazy<bool> DebugEnabled = new Lazy<bool>(() => HttpContext.Current.IsDebuggingEnabled);
