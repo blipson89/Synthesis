@@ -2,11 +2,10 @@
 using System.Runtime.InteropServices;
 using System;
 
-[assembly: AssemblyCompany("ISITE Design")]
+[assembly: AssemblyCompany("Connective DX")]
 [assembly: AssemblyProduct("Synthesis")]
-[assembly: AssemblyCopyright("Copyright © Kam Figy, ISITE Design")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("7.3.3.0")]
-[assembly: AssemblyFileVersion("7.3.3.0")]
-[assembly: AssemblyInformationalVersion("7.3.3")]
+[assembly: AssemblyVersion("8.1.1.0")]
+[assembly: AssemblyFileVersion("8.1.1.0")]
+[assembly: AssemblyInformationalVersion("8.1.1")]
 [assembly: CLSCompliant(false)]

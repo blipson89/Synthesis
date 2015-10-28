@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using Sitecore.Diagnostics;
 using Sitecore.Mvc.Pipelines.Response.GetModel;
 using Sitecore.Mvc.Presentation;
 using Synthesis.Mvc.Pipelines.GetRenderer;
+using Synthesis.Mvc.Utility;
 
 namespace Synthesis.Mvc.Pipelines.GetModel
 {
@@ -24,16 +24,15 @@ namespace Synthesis.Mvc.Pipelines.GetModel
 			_typeResolver = typeResolver;
 		}
 
-		protected static ConcurrentDictionary<Guid, bool> SynthesisRenderingCache = new ConcurrentDictionary<Guid, bool>(); 
+		protected static ConcurrentDictionary<string, bool> SynthesisRenderingCache = new ConcurrentDictionary<string, bool>(); 
 
 		protected virtual object GetFromViewPath(Rendering rendering, GetModelArgs args)
 		{
 			var viewPath = rendering.ToString().Replace("View: ", string.Empty);
 
-			// it's from Synthesis and it's in cache
-			if (SynthesisRenderingCache.ContainsKey(rendering.UniqueId) && SynthesisRenderingCache[rendering.UniqueId]) return rendering.Item.AsStronglyTyped();
+			if(!SiteHelper.IsValidSite()) return null;
 
-			SynthesisRenderingCache.AddOrUpdate(rendering.UniqueId, true, (key, value) =>
+			var useSynthesisModelType = SynthesisRenderingCache.GetOrAdd(rendering.ToString(), key =>
 			{
 				var renderer = rendering.Renderer;
 
@@ -46,15 +45,15 @@ namespace Synthesis.Mvc.Pipelines.GetModel
 				var modelType = _typeResolver.GetViewModelType(viewPath);
 
 				// Check to see if no model has been set
-				if (modelType == typeof (object)) return false;
+				if (modelType == typeof(object)) return false;
 
 				// Check that the model is a Synthesis type (if not, we ignore it)
-				if (!typeof (IStandardTemplateItem).IsAssignableFrom(modelType)) return false;
+				if (!typeof(IStandardTemplateItem).IsAssignableFrom(modelType)) return false;
 
 				return true;
 			});
 
-			return SynthesisRenderingCache[rendering.UniqueId] ? rendering.Item.AsStronglyTyped() : null;
+			return useSynthesisModelType ? rendering.Item.AsStronglyTyped() : null;
 		}
 
 		public override void Process(GetModelArgs args)

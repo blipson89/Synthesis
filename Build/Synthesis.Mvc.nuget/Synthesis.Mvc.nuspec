@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Synthesis.Mvc</id>
+    <version>$version$</version>
+    <authors>Kam Figy</authors>
+    <owners>ISITE Design</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/kamsar/Synthesis</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+    Automatic injection of Synthesis models for Sitecore MVC view renderings. This package contains the core library and configuration and is appropriate for the web project.
+  </description>
+    <copyright>Copyright 2015 Kam Figy/ISITE Design</copyright>
+    <tags>sitecore</tags>
+    <dependencies>
+      <dependency id="Synthesis" version="$version$" />
+      <dependency id="Synthesis.Mvc.Core" version="$version$" />
+    </dependencies>
+  </metadata>
+  <files>
+       <file src="..\..\Source\Synthesis.Mvc\Synthesis.Mvc.config" target="content\App_Config\Include" />
+  </files>
+</package>

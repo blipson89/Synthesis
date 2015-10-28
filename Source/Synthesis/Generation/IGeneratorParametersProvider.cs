@@ -6,6 +6,6 @@ namespace Synthesis.Generation
 	/// </summary>
 	public interface IGeneratorParametersProvider
 	{
-		GeneratorParameters CreateParameters();
+		GeneratorParameters CreateParameters(string configurationName);
 	}
 }

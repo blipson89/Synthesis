@@ -66,9 +66,9 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AutoSyncModule.cs" />
     <Compile Include="Configuration\ConfigurationFieldMappingProvider.cs" />
     <Compile Include="Configuration\ConfigurationGeneratorParametersProvider.cs" />
+    <Compile Include="Configuration\ConfigurationProviderConfiguration.cs" />
     <Compile Include="Configuration\ConfigurationTemplateInputProvider.cs" />
     <Compile Include="Configuration\ConfigurationUtility.cs" />
     <Compile Include="Configuration\ConfigurationTypeListProvider.cs" />
@@ -82,6 +82,7 @@
     <Compile Include="ContentSearch\Lucene\SynthesisLinqToLuceneIndex.cs" />
     <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
     <Compile Include="ContentSearch\SynthesisFieldNameTranslator.cs" />
+    <Compile Include="ControlPanel\ControlPanelPipelineProcessor.cs" />
     <Compile Include="FieldDictionary.cs" />
     <Compile Include="FieldExtensions.cs" />
     <Compile Include="FieldTypes\Adapters\DatabaseAdapter.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="FieldTypes\Adapters\IEditingAdapter.cs" />
     <Compile Include="FieldTypes\FieldMapping.cs" />
     <Compile Include="FieldTypes\Interfaces\INumericField.cs" />
+    <Compile Include="FieldTypes\Interfaces\IPathItemReferenceField.cs" />
     <Compile Include="FieldTypes\Interfaces\ITristateField.cs" />
     <Compile Include="FieldTypes\Interfaces\IIntegerField.cs" />
     <Compile Include="FieldTypes\Interfaces\IDateTimeField.cs" />
@@ -108,24 +110,33 @@
     <Compile Include="FieldTypes\Interfaces\ITextField.cs" />
     <Compile Include="FieldTypes\Interfaces\IValuedFieldType.cs" />
     <Compile Include="FieldTypes\LazyField.cs" />
+    <Compile Include="FieldTypes\PathItemReferenceField.cs" />
     <Compile Include="FieldTypes\TristateField.cs" />
     <Compile Include="FieldTypes\DictionaryField.cs" />
     <Compile Include="FieldTypes\IFieldMappingProvider.cs" />
     <Compile Include="FieldTypes\RichTextField.cs" />
+    <Compile Include="Generation\CodeDom\CodeDomGenerator.cs" />
     <Compile Include="Generation\GeneratorParameterException.cs" />
+    <Compile Include="Generation\IMetadataGenerator.cs" />
+    <Compile Include="Generation\ITemplateCodeGenerator.cs" />
     <Compile Include="Generation\IGeneratorParametersProvider.cs" />
-    <Compile Include="Generation\Generator.cs" />
+    <Compile Include="Generation\MetadataGenerator.cs" />
     <Compile Include="Generation\GeneratorParameters.cs" />
+    <Compile Include="Generation\Model\TypeNovelizer.cs" />
     <Compile Include="Generation\NamingUtility.cs" />
-    <Compile Include="Generation\TemplateGenerationInfo.cs" />
-    <Compile Include="Generation\TemplateGenerationInfoCollection.cs" />
+    <Compile Include="Generation\Model\FieldPropertyInfo.cs" />
+    <Compile Include="Generation\Model\TemplateInfo.cs" />
+    <Compile Include="Generation\Model\TemplateGenerationMetadata.cs" />
     <Compile Include="HtmlTextWriterExtensions.cs" />
-    <Compile Include="HttpHandler.cs" />
-    <Compile Include="Initializers.cs" />
+    <Compile Include="Initializers\IInitializerProvider.cs" />
+    <Compile Include="Initializers\StandardInitializerProvider.cs" />
+    <Compile Include="Initializers\StandardTemplateInitializer.cs" />
     <Compile Include="InstanceType.cs" />
     <Compile Include="ItemExtensions.cs" />
-    <Compile Include="ITemplateInitializer.cs" />
+    <Compile Include="Initializers\ITemplateInitializer.cs" />
     <Compile Include="MissingTemplateFieldException.cs" />
+    <Compile Include="Pipelines\Initialize\CheckModelSynchronization.cs" />
+    <Compile Include="Pipelines\Initialize\RegisterDefaultConfiguration.cs" />
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />
     <Compile Include="Synchronization\SyncSource.cs" />
@@ -135,8 +146,8 @@
     <Compile Include="Templates\ITemplateSignatureProvider.cs" />
     <Compile Include="Synchronization\TemplateComparisonResult.cs" />
     <Compile Include="Synchronization\TemplateComparisonResultCollection.cs" />
-    <Compile Include="Templates\ItemTemplateFieldInfo.cs" />
-    <Compile Include="Templates\TemplateInfo.cs" />
+    <Compile Include="Templates\Database\ItemTemplateFieldInfo.cs" />
+    <Compile Include="Templates\Database\TemplateInfo.cs" />
     <Compile Include="ContentSearch\Lucene\SynthesisLuceneDocumentTypeMapper.cs" />
     <Compile Include="Utility\BuildUtility.cs" />
     <Compile Include="Utility\CodeDomUtility.cs" />
@@ -185,9 +196,16 @@
     <Compile Include="Synchronization\SynchronizationEngine.cs" />
     <Compile Include="Utility\FieldUtility.cs" />
     <Compile Include="Utility\SingleFieldEditor.cs" />
+    <Compile Include="Utility\WildcardUtility.cs" />
     <Compile Include="WebControlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Synthesis.Startup.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Synthesis.ControlPanel.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Synthesis.config">
       <SubType>Designer</SubType>
     </None>

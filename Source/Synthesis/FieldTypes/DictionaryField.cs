@@ -27,7 +27,7 @@ namespace Synthesis.FieldTypes
 		/// <summary>
 		/// Gets the keys and values in the field
 		/// </summary>
-		protected virtual NameValueCollection Values
+		public virtual NameValueCollection Values
 		{
 			get
 			{

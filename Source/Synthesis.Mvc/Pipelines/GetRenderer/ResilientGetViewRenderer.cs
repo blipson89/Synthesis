@@ -4,6 +4,7 @@ using System.Web.UI;
 using Sitecore;
 using Sitecore.Mvc.Pipelines.Response.GetRenderer;
 using Sitecore.Mvc.Presentation;
+using Synthesis.Mvc.Utility;
 
 namespace Synthesis.Mvc.Pipelines.GetRenderer
 {
@@ -16,12 +17,18 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 	{
 		protected override Renderer GetRenderer(Rendering rendering, GetRendererArgs args)
 		{
-			var baseResult = (ViewRenderer)base.GetRenderer(rendering, args);
+			var baseResult = base.GetRenderer(rendering, args);
+
+			if (!SiteHelper.IsValidSite()) return baseResult;
+
+			var viewRenderer = baseResult as ViewRenderer;
+
+			if (viewRenderer == null) return baseResult;
 
 			return new ResilientViewRenderer
 			{
-				ViewPath = baseResult.ViewPath,
-				Rendering = baseResult.Rendering
+				ViewPath = viewRenderer.ViewPath,
+				Rendering = viewRenderer.Rendering
 			};
 		}
 
@@ -41,7 +48,7 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 						if (Context.PageMode.IsPreview || Context.PageMode.IsPageEditor)
 						{
 							var absolutePath = GetAbsoluteViewPath();
-							NullModelHelper.RenderNullModelMessage(new HtmlTextWriter(writer), absolutePath, Rendering.DataSource, new ViewModelTypeResolver().GetViewModelType(absolutePath), Rendering.Model);
+							NullModelHelper.RenderNullModelMessage(new HtmlTextWriter(writer), absolutePath, Rendering.DataSource, new ViewModelTypeResolver().GetViewModelType(absolutePath), Rendering.Model, ioe.InnerException);
 						}
 						
 						return;

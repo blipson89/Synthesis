@@ -49,32 +49,8 @@ namespace Synthesis.Mvc.Utility
 			RenderingStartDiagnostics();
 		}
 
-		private static readonly Lazy<bool> DebugEnabled = new Lazy<bool>(() => HttpContext.Current.IsDebuggingEnabled);
-		public static bool DiagnosticsEnabledForThisRequest
-		{
-			get
-			{
-				var value = HttpContext.Current.Items["RENDERING_DIAGNOSTICS_ENABLED"];
-				if (value == null || value.ToString() == bool.TrueString) return true;
-
-				return false;
-			}
-			set { HttpContext.Current.Items["RENDERING_DIAGNOSTICS_ENABLED"] = value; }
-		}
-
-		protected virtual bool DiagnosticsEnabled
-		{
-			get
-			{
-				if (!DiagnosticsEnabledForThisRequest) return false;
-				return DebugEnabled.Value;
-			}
-		}
-
 		protected virtual void RenderingStartDiagnostics()
 		{
-			if (!DiagnosticsEnabled) return;
-
 			//<!-- Begin Rendering "~/bar/Foo.cshtml" -->
 			//<!-- Rendering was output cached at {datetime}, VaryByData, CachingID = "loremipsum" -->
 
@@ -114,8 +90,6 @@ namespace Synthesis.Mvc.Utility
 
 		protected virtual void RenderingEndDiagnostics()
 		{
-			if (!DiagnosticsEnabled) return;
-
 			// <!-- End Rendering "~/bar/Foo.ascx" -->
 			_timer.Stop();
 			_writer.Write("<!-- End Rendering {0}, render took {1:N1}ms{2} -->", _renderingName, _timer.Elapsed.TotalMilliseconds, _cacheable ? " (timing is without output cache as this text is cached)" : string.Empty);
@@ -123,7 +97,7 @@ namespace Synthesis.Mvc.Utility
 
 		protected virtual void Dispose(bool disposing)
 		{
-			if (disposing && DiagnosticsEnabled)
+			if (disposing)
 				RenderingEndDiagnostics();
 		}
 

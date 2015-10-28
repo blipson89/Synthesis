@@ -4,6 +4,7 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
+using Synthesis.Initializers;
 using FileField = Synthesis.FieldTypes.FileField;
 using ImageField = Synthesis.FieldTypes.ImageField;
 using TextField = Synthesis.FieldTypes.TextField;

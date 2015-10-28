@@ -15,8 +15,18 @@ namespace Synthesis.Configuration
 	/// </example>
 	public class ConfigurationGeneratorParametersProvider : GeneratorParameters, IGeneratorParametersProvider
 	{
-		public GeneratorParameters CreateParameters()
+		public ConfigurationGeneratorParametersProvider()
 		{
+			// ReSharper disable DoNotCallOverridableMethodsInConstructor
+			InterfaceSuffix = "Item";
+			SynthesisAssemblyPath = "~/bin/Synthesis.dll";
+			SitecoreKernelAssemblyPath = "~/bin/Sitecore.Kernel.dll";
+			// ReSharper restore DoNotCallOverridableMethodsInConstructor
+		}
+
+		public GeneratorParameters CreateParameters(string configurationName)
+		{
+			this.ConfigurationName = configurationName;
 			return this;
 		}
 
@@ -28,7 +38,7 @@ namespace Synthesis.Configuration
 		{
 			set
 			{
-				base.ItemBaseClass = Type.GetType(value);
+				ItemBaseClass = Type.GetType(value);
 			}
 		}
 
@@ -40,7 +50,7 @@ namespace Synthesis.Configuration
 		{
 			set
 			{
-				base.ItemBaseInterface = Type.GetType(value);
+				ItemBaseInterface = Type.GetType(value);
 			}
 		}
 

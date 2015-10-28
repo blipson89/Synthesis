@@ -4,6 +4,7 @@ using System.Xml;
 using Sitecore.Data.Items;
 using Synthesis.FieldTypes;
 using System.Diagnostics.CodeAnalysis;
+using Sitecore.Diagnostics;
 using Synthesis.FieldTypes.Interfaces;
 using Synthesis.Templates;
 
@@ -73,6 +74,8 @@ namespace Synthesis.Configuration
 
 		public FieldMapping GetFieldType(ITemplateFieldInfo templateField)
 		{
+			Assert.ArgumentNotNull(templateField, "templateField");
+
 			FieldMapping fieldType = GetTemplateMapping(templateField);
 
 			if (fieldType != null) return fieldType;
@@ -84,6 +87,8 @@ namespace Synthesis.Configuration
 
 		private FieldMapping GetTemplateMapping(ITemplateFieldInfo templateField)
 		{
+			Assert.ArgumentNotNull(templateField, "templateField");
+
 			TemplateMapping templateMapping;
 			FieldMapping fieldMapping;
 

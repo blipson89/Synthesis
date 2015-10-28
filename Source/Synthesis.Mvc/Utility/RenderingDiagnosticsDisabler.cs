@@ -1,4 +1,5 @@
 ﻿using System;
+using Synthesis.Mvc.Pipelines.GetRenderer;
 
 namespace Synthesis.Mvc.Utility
 {
@@ -7,13 +8,13 @@ namespace Synthesis.Mvc.Utility
 		private readonly bool _originalValue;
 		public RenderingDiagnosticsDisabler()
 		{
-			_originalValue = RenderingDiagnostics.DiagnosticsEnabledForThisRequest;
-			RenderingDiagnostics.DiagnosticsEnabledForThisRequest = false;
+			_originalValue = RenderingDiagnosticsInjector.DiagnosticsEnabledForThisRequest;
+			RenderingDiagnosticsInjector.DiagnosticsEnabledForThisRequest = false;
 		}
 
 		public void Dispose()
 		{
-			RenderingDiagnostics.DiagnosticsEnabledForThisRequest = _originalValue;
+			RenderingDiagnosticsInjector.DiagnosticsEnabledForThisRequest = _originalValue;
 		}
 	}
 }

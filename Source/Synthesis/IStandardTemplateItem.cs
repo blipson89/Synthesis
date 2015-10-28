@@ -164,6 +164,11 @@ namespace Synthesis
 		TItem Add<TItem>(string name) where TItem : class, IStandardTemplateItem;
 
 		/// <summary>
+		/// Gets children of the item. This is an alias to Axes.GetChildren() so it's in a familiar location.
+		/// </summary>
+		IEnumerable<IStandardTemplateItem> Children { get; }
+
+		/// <summary>
 		/// Search field indexer. Provides raw access to index field values for search-backed instances.
 		/// </summary>
 		/// <param name="searchFieldName">The index field name to get the value of.</param>

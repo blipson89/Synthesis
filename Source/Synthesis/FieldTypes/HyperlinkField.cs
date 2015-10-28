@@ -16,7 +16,7 @@ namespace Synthesis.FieldTypes
 		{
 			get
 			{
-				if (InnerField == null) return false; 
+				if (InnerField == null) return false;
 				return !string.IsNullOrEmpty(Href);
 			}
 		}
@@ -29,7 +29,8 @@ namespace Synthesis.FieldTypes
 			get { return ((LinkField)InnerField).Class; }
 			set
 			{
-				SetFieldValue(delegate {
+				SetFieldValue(delegate
+				{
 					((LinkField)InnerField).Class = value;
 				});
 			}
@@ -45,13 +46,15 @@ namespace Synthesis.FieldTypes
 			{
 				SetFieldValue(delegate
 					{
-					LinkField innerField = InnerField;
-					string[] splitValue = value.Split('?');
-					innerField.Url = splitValue[0];
+						LinkField innerField = InnerField;
+						string[] splitValue = value.Split('?');
+						innerField.Url = splitValue[0];
 
-					if (splitValue.Length > 1)
-						innerField.QueryString = splitValue[1];
-				});
+						if (splitValue.Length > 1)
+							innerField.QueryString = splitValue[1];
+
+						if (value.Contains("http")) innerField.LinkType = "external";
+					});
 			}
 		}
 
@@ -63,7 +66,8 @@ namespace Synthesis.FieldTypes
 			get { return ((LinkField)InnerField).Target; }
 			set
 			{
-				SetFieldValue(delegate {
+				SetFieldValue(delegate
+				{
 					((LinkField)InnerField).Target = value;
 				});
 			}
@@ -77,21 +81,23 @@ namespace Synthesis.FieldTypes
 			get { return ((LinkField)InnerField).Text; }
 			set
 			{
-				SetFieldValue(delegate {
+				SetFieldValue(delegate
+				{
 					((LinkField)InnerField).Text = value;
 				});
 			}
 		}
-		
+
 		/// <summary>
 		/// The title attribute of the link, if one was entered
 		/// </summary>
 		public virtual string Title
 		{
 			get { return ((LinkField)InnerField).Title; }
-			set 
+			set
 			{
-				SetFieldValue(delegate {
+				SetFieldValue(delegate
+				{
 					((LinkField)InnerField).Title = value;
 				});
 			}

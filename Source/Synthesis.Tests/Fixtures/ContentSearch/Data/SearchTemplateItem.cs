@@ -6,6 +6,7 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
+using Synthesis.Initializers;
 using TextField = Synthesis.FieldTypes.TextField;
 
 namespace Synthesis.Tests.Fixtures.ContentSearch.Data

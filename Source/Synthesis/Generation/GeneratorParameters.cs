@@ -1,15 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using Sitecore.Diagnostics;
+using Sitecore.StringExtensions;
+using Synthesis.Generation.Model;
 
 namespace Synthesis.Generation
 {
 	public class GeneratorParameters
 	{
+		private readonly List<TemplateGenerationMetadata> _friendMetadata = new List<TemplateGenerationMetadata>();
+
 		public GeneratorParameters()
 		{
-// ReSharper disable DoNotCallOverridableMethodsInConstructor
-			InterfaceSuffix = "Item";
-// ReSharper restore DoNotCallOverridableMethodsInConstructor
+			// ReSharper disable DoNotCallOverridableMethodsInConstructor
+			MaxBackupCopies = 5;
+			UseTemplatePathForNamespace = true;
+			ItemBaseClass = typeof(StandardTemplateItem);
+			ItemBaseInterface = typeof(IStandardTemplateItem);
+			// ReSharper restore DoNotCallOverridableMethodsInConstructor
 		}
 
 		/// <summary>
@@ -42,30 +51,33 @@ namespace Synthesis.Generation
 			if (string.IsNullOrEmpty(SitecoreKernelAssemblyPath) || !File.Exists(SitecoreKernelAssemblyPath))
 				throw new GeneratorParameterException("SitecoreKernelAssemblyPath was not provided, or did not exist at the specified path.");
 
-			if(string.IsNullOrEmpty(SynthesisAssemblyPath) || !File.Exists(SynthesisAssemblyPath))
+			if (string.IsNullOrEmpty(SynthesisAssemblyPath) || !File.Exists(SynthesisAssemblyPath))
 				throw new GeneratorParameterException("SynthesisAssemblyPath was not provided, or did not exist at the specified path.");
-			
-			if(ItemBaseClass == null)
+
+			if (ItemBaseClass == null)
 				throw new GeneratorParameterException("ItemBaseClass was not provided.");
 
-			if(!typeof(StandardTemplateItem).IsAssignableFrom(ItemBaseClass))
+			if (!typeof(StandardTemplateItem).IsAssignableFrom(ItemBaseClass))
 				throw new GeneratorParameterException("ItemBaseClass " + ItemBaseClass.FullName + " did not derive from Synthesis.StandardTemplateItem.");
 
-			if(ItemBaseInterface == null)
+			if (ItemBaseInterface == null)
 				throw new GeneratorParameterException("ItemBaseInterface was not provided.");
 
-			if(!typeof(IStandardTemplateItem).IsAssignableFrom(ItemBaseInterface))
+			if (!typeof(IStandardTemplateItem).IsAssignableFrom(ItemBaseInterface))
 				throw new GeneratorParameterException("ItemBaseInterface " + ItemBaseInterface.FullName + " did not derive from Synthesis.IStandardTemplateItem.");
 
 			if (!ItemBaseInterface.IsAssignableFrom(ItemBaseClass))
 				throw new GeneratorParameterException(string.Format("ItemBaseClass {0} did not implement ItemBaseInterface {1}", ItemBaseClass.FullName, ItemBaseInterface.FullName));
+
+			if(ConfigurationName.IsNullOrEmpty())
+				throw new GeneratorParameterException("The configuration name was null or empty.");
 		}
 
 		/// <summary>
 		/// Namespace for the generated items
 		/// </summary>
 		public virtual string ItemNamespace { get; set; }
-		
+
 		/// <summary>
 		/// Namespace of generated item interfaces
 		/// </summary>
@@ -131,5 +143,24 @@ namespace Synthesis.Generation
 		/// Sets the number of backup copies the generator should keep of previous generated items
 		/// </summary>
 		public virtual uint MaxBackupCopies { get; set; }
+
+		/// <summary>
+		/// The name of the configuration being generated. Used to tag the generated classes.
+		/// </summary>
+		public virtual string ConfigurationName { get; set; }
+
+		/// <summary>
+		/// Adds friend metadata (e.g. a template built in a different configuration) which can be referenced by templates in this one as a base
+		/// </summary>
+		public virtual void AddFriendMetadata(TemplateGenerationMetadata metadata)
+		{
+			Assert.ArgumentNotNull(metadata, "metadata");
+			_friendMetadata.Add(metadata);
+		}
+
+		internal IEnumerable<TemplateGenerationMetadata> GetFriendMetadata()
+		{
+			return _friendMetadata.AsReadOnly();
+		}
 	}
 }

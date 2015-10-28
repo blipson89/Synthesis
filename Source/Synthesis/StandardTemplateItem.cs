@@ -35,6 +35,7 @@ namespace Synthesis
 		readonly IReadOnlyDictionary<string, string> _searchFields;
 		private string _url;
 		private ItemUri _searchUri;
+		private static readonly bool LogSearchPromotions = Settings.GetBoolSetting("Synthesis.LogSearchPromotions", false);
 
 		public StandardTemplateItem()
 		{
@@ -65,8 +66,8 @@ namespace Synthesis
 				Assert.IsNotNull(ItemUri, "uri");
 				if (_innerItem == null)
 				{
-
-					System.Diagnostics.Debug.WriteLine("Synthesis: {0} ({1}) instance promoted from search to database item.", Name, Id);
+					if(LogSearchPromotions)
+						System.Diagnostics.Debug.WriteLine("Synthesis: {0} ({1}) instance promoted from search to database item.", Name, Id);
 
 					_innerItem = Sitecore.Data.Database.GetItem(ItemUri);
 					if (_innerItem == null) throw new InvalidItemException("The item URI " + ItemUri + " did not result in a usable item. Couldn't ensure the item was loaded. This could mean the index is out of date and referencing a deleted item, or you do not have access to the item.");
@@ -418,7 +419,7 @@ namespace Synthesis
 
 				if(attribute == null) throw new ArgumentException("Item interface did not have the requisite [RepresentsSitecoreTemplate] attribute.");
 
-				if(!ID.TryParse(attribute.TemplateID, out templateId)) throw new ArgumentException("Item interface's [RepresentsSitecoreTemplate] attribute had an invalid template ID format.");
+				if(!ID.TryParse(attribute.TemplateId, out templateId)) throw new ArgumentException("Item interface's [RepresentsSitecoreTemplate] attribute had an invalid template ID format.");
 			}
 			else
 			{
@@ -437,6 +438,14 @@ namespace Synthesis
 
 			return newItem.As<TItem>();
 		}
+
+		/// <summary>
+		/// Gets children of the item. This is an alias to Axes.GetChildren() so it's in a familiar location.
+		/// </summary>
+		public IEnumerable<IStandardTemplateItem> Children
+		{
+			get { return Axes.GetChildren(); }
+		} 
 
 		/// <summary>
 		/// Creates an informational string about this item.

@@ -280,7 +280,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 		{
 			var provider = GetExclusionTestProvider();
 
-			Assert.IsTrue(provider.IsFieldIncluded(FlowerChildField));
+			Assert.IsTrue(provider.IsFieldIncluded(FlowerChildField.ID));
 		}
 
 		[Test]
@@ -289,8 +289,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -299,8 +299,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -309,8 +309,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceField.ID.ToString());
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -319,8 +319,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -329,8 +329,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 		#endregion
 
@@ -341,8 +341,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.ID + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -351,8 +351,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -361,8 +361,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AlicesonTemplate.ID + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -371,8 +371,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -381,8 +381,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.ID + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -391,8 +391,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -401,8 +401,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.ID + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -411,8 +411,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -421,8 +421,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.ID + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -431,8 +431,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.ID + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 		#endregion
 
@@ -443,8 +443,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Name + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -453,8 +453,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Name + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -463,8 +463,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AlicesonTemplate.Name + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -473,8 +473,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Name + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -483,8 +483,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Name + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -493,8 +493,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Name + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -503,8 +503,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Name + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -513,8 +513,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Name + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -523,8 +523,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Name + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -533,8 +533,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Name + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 		#endregion
 
@@ -545,8 +545,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Paths.FullPath + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -555,8 +555,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Paths.FullPath + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -565,8 +565,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AlicesonTemplate.Paths.FullPath + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -575,8 +575,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Paths.FullPath + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -585,8 +585,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Paths.FullPath + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -595,8 +595,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Paths.FullPath + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -605,8 +605,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Paths.FullPath + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -615,8 +615,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Paths.FullPath + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -625,8 +625,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Paths.FullPath + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -635,8 +635,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Paths.FullPath + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 		#endregion
 
@@ -647,8 +647,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + AliceTemplate.Name.Substring(5) + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -657,8 +657,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + FlowerChildTemplate.Name.Substring(5) + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -667,8 +667,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + AlicesonTemplate.Name.Substring(5) + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -677,8 +677,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + FlowerChildTemplate.Name.Substring(5) + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -687,8 +687,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + AliceTemplate.Name.Substring(5) + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -697,8 +697,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + FlowerChildTemplate.Name.Substring(5) + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -707,7 +707,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + AliceTemplate.Name.Substring(5) + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
 		}
 
 		[Test]
@@ -716,8 +716,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + FlowerChildTemplate.Name.Substring(5) + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -726,8 +726,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + AliceTemplate.Name.Substring(5) + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -736,8 +736,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + FlowerChildTemplate.Name.Substring(5) + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 		#endregion
 
@@ -748,8 +748,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + AliceTemplate.Name.Substring(5) + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -758,8 +758,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion("*" + FlowerChildTemplate.Name.Substring(5) + "::" + AliceField.Paths.FullPath);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -768,8 +768,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AlicesonTemplate.Parent.Paths.FullPath + "*" + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -778,8 +778,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Parent.Paths.FullPath + "*" + "::" + AlicesonField.Name);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AlicesonField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -788,8 +788,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Parent.Paths.FullPath + "*" + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -798,8 +798,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Parent.Paths.FullPath + "*" + "::" + AliceField.ID);
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -808,7 +808,7 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Parent.Paths.FullPath + "*" + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
 		}
 
 		[Test]
@@ -817,8 +817,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Parent.Paths.FullPath + "*" + "::" + "*" + AliceField.Name.Substring(5));
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -827,8 +827,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(AliceTemplate.Parent.Paths.FullPath + "*" + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 
 		[Test]
@@ -837,8 +837,8 @@ namespace Synthesis.Tests.Fixtures.Configuration
 			var provider = GetExclusionTestProvider();
 			provider.AddFieldExclusion(FlowerChildTemplate.Parent.Paths.FullPath + "*" + "::" + AliceField.Parent.Paths.FullPath + "*");
 
-			Assert.IsFalse(provider.IsFieldIncluded(AliceField));
-			Assert.IsTrue(provider.IsFieldIncluded(BobField), "Sanity check - bob field should never be excluded");
+			Assert.IsFalse(provider.IsFieldIncluded(AliceField.ID));
+			Assert.IsTrue(provider.IsFieldIncluded(BobField.ID), "Sanity check - bob field should never be excluded");
 		}
 		#endregion
 		#endregion
