@@ -28,7 +28,7 @@ namespace Synthesis.FieldTypes
 			{
 				SetFieldValue(delegate
 				{
-					((Sitecore.Data.Fields.ImageField)InnerField).Width = (value == null) ? string.Empty : value.Value.ToString(CultureInfo.InvariantCulture);
+					((Sitecore.Data.Fields.ImageField)InnerField).Width = value?.ToString(CultureInfo.InvariantCulture) ?? string.Empty;
 					_width = null;
 				});
 			}
@@ -52,7 +52,7 @@ namespace Synthesis.FieldTypes
 			{
 				SetFieldValue(delegate
 				{
-					((Sitecore.Data.Fields.ImageField)InnerField).Height = (value == null) ? string.Empty : value.Value.ToString(CultureInfo.InvariantCulture);
+					((Sitecore.Data.Fields.ImageField)InnerField).Height = value?.ToString(CultureInfo.InvariantCulture) ?? string.Empty;
 					_height = null;
 				});
 			}
@@ -76,12 +76,6 @@ namespace Synthesis.FieldTypes
 		/// <summary>
 		/// Renders the field using a Sitecore FieldRenderer and returns the result
 		/// </summary>
-		public virtual string RenderedValue
-		{
-			get
-			{
-				return FieldRenderer.Render(InnerItem, InnerField.ID.ToString());
-			}
-		}
+		public virtual string RenderedValue => FieldRenderer.Render(InnerItem, InnerField.ID.ToString());
 	}
 }

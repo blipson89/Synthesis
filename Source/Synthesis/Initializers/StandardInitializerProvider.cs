@@ -14,7 +14,7 @@ namespace Synthesis.Initializers
 	{
 		private readonly ITypeListProvider _typeListProvider;
 		private ReadOnlyDictionary<ID, ITemplateInitializer> _initializerCache;
-		private static readonly object _lock = new object();
+		private static readonly object Lock = new object();
 
 		public StandardInitializerProvider(ITypeListProvider typeListProvider)
 		{
@@ -25,7 +25,7 @@ namespace Synthesis.Initializers
 		{
 			if (_initializerCache != null) return;
 
-			lock (_lock)
+			lock (Lock)
 			{
 				if (_initializerCache != null) return;
 

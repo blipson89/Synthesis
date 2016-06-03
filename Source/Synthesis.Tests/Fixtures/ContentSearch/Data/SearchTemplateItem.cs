@@ -37,9 +37,9 @@ namespace Synthesis.Tests.Fixtures.ContentSearch.Data
 		{
 		}
 
-		public override ID TemplateId { get { return ItemTemplateId; } }
+		public override ID TemplateId => ItemTemplateId;
 
-		public static ID ItemTemplateId { get { return TemplateIDs.StandardTemplate; } }
+		public static ID ItemTemplateId => TemplateIDs.StandardTemplate;
 
 		[IndexField("__bucketable")]
 		public IBooleanField BooleanField

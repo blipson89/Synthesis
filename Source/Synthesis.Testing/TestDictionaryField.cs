@@ -27,10 +27,7 @@ namespace Synthesis.Testing
 		/// <summary>
 		///     Checks if the field has at least one key
 		/// </summary>
-		public override bool HasValue
-		{
-			get { return _values.Count > 0; }
-		}
+		public override bool HasValue => _values.Count > 0;
 
 		public void Add(string key, string value)
 		{

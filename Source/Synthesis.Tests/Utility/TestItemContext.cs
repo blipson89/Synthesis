@@ -36,10 +36,7 @@ namespace Synthesis.Tests.Utility
 			}
 		}
 
-		internal Field this[string fieldname]
-		{
-			get { return TestItem.Fields[fieldname]; }
-		}
+		internal Field this[string fieldname] => TestItem.Fields[fieldname];
 
 		public void Dispose()
 		{

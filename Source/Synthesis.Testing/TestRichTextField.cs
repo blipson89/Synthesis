@@ -14,9 +14,6 @@ namespace Synthesis.Testing
 		/// <summary>
 		///     Gets the raw value of the field with dynamic links expanded into friendly URLs. Unlike RenderedValue this does not support Page Editor, but neither does it require loading a search-based instance's underlying item like RenderedValue.
 		/// </summary>
-		public virtual string ExpandedLinksValue
-		{
-			get { return RawValue; }
-		}
+		public virtual string ExpandedLinksValue => RawValue;
 	}
 }

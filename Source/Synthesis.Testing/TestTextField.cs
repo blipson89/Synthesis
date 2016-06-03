@@ -20,25 +20,16 @@ namespace Synthesis.Testing
 		///     Renders the field using a Sitecore FieldRenderer and returns the result
 		///     Getting this value will cause the underlying item to be loaded for search-based instances.
 		/// </summary>
-		public virtual string RenderedValue
-		{
-			get { return RawValue; }
-		}
+		public virtual string RenderedValue => RawValue;
 
 		/// <summary>
 		///     Checks if the field has a null or empty value
 		/// </summary>
-		public override bool HasValue
-		{
-			get { return !string.IsNullOrEmpty(RawValue); }
-		}
+		public override bool HasValue => !string.IsNullOrEmpty(RawValue);
 
 		/// <summary>
 		///     Checks if the field has a null, empty, or whitespace-only value
 		/// </summary>
-		public virtual bool HasTextValue
-		{
-			get { return !string.IsNullOrWhiteSpace(RawValue); }
-		}
+		public virtual bool HasTextValue => !string.IsNullOrWhiteSpace(RawValue);
 	}
 }

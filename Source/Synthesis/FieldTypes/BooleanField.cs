@@ -27,10 +27,7 @@ namespace Synthesis.FieldTypes
 		/// <summary>
 		/// Checks if this field has a value. Note that this is always true for a boolean field.
 		/// </summary>
-		public override bool HasValue
-		{
-			get { return true; }
-		}
+		public override bool HasValue => true;
 
 		public override string ToString()
 		{

@@ -41,13 +41,7 @@ namespace Synthesis.FieldTypes
 		/// <summary>
 		/// Checks if the relationship has a value. Does not check if the ID refers to a valid entity.
 		/// </summary>
-		public override bool HasValue
-		{
-			get
-			{
-				return !string.IsNullOrWhiteSpace(TargetPath);
-			}
-		}
+		public override bool HasValue => !string.IsNullOrWhiteSpace(TargetPath);
 
 		public ReferenceField ToReferenceField()
 		{

@@ -1,4 +1,5 @@
-﻿using Synthesis.FieldTypes;
+﻿using System;
+using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
 using Sitecore.Web.UI.WebControls;
 using System.Web.UI.WebControls;
@@ -6,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Synthesis
 {
+	[Obsolete("Hey you, you should be using Sitecore MVC not Web Forms.", false)]
 	public static class WebControlExtensions
 	{
 		/// <summary>
@@ -24,7 +26,7 @@ namespace Synthesis
 		/// </summary>
 		public static void AttachToFileField(this HyperLink link, IFileField field)
 		{
-			if (!field.HasValue && !Sitecore.Context.PageMode.IsPageEditor)
+			if (!field.HasValue && !Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				link.Visible = false;
 				return;
@@ -50,7 +52,7 @@ namespace Synthesis
 		[SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Doesn't make semantic sense")]
 		public static void AttachToImageField(this Sitecore.Web.UI.WebControls.Image image, IImageField field)
 		{
-			if (!field.HasValue && !Sitecore.Context.PageMode.IsPageEditor)
+			if (!field.HasValue && !Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				image.Visible = false;
 				return;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
-using Sitecore.Data.Items;
 using Synthesis.FieldTypes;
 using System.Diagnostics.CodeAnalysis;
 using Sitecore.Diagnostics;

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Sitecore.Web.UI.WebControls;
 using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
 
@@ -33,7 +30,7 @@ namespace Synthesis.Mvc.Helpers
 		{
 			var field = selector(helper.ViewData.Model);
 
-			if (field.HasTextValue || Sitecore.Context.PageMode.IsPageEditor)
+			if (field.HasTextValue || Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				if (editable)
 					return new MvcHtmlString(field.RenderedValue);

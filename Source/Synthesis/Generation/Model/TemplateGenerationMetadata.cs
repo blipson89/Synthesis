@@ -95,26 +95,17 @@ namespace Synthesis.Generation.Model
 		/// Gets a template in the collection by ID
 		/// </summary>
 		[SuppressMessage("Microsoft.Design", "CA1043:UseIntegralOrStringArgumentForIndexers", Justification = "It makes sense here to index by ID")]
-		public TemplateInfo this[ID templateId]
-		{
-			get { return _templateLookup[templateId]; }
-		}
+		public TemplateInfo this[ID templateId] => _templateLookup[templateId];
 
 		/// <summary>
 		/// Gets all concrete types that should be generated.
 		/// </summary>
-		public IReadOnlyCollection<TemplateInfo> Templates
-		{
-			get { return _templates.AsReadOnly(); }
-		}
+		public IReadOnlyCollection<TemplateInfo> Templates => _templates.AsReadOnly();
 
 		/// <summary>
 		/// Gets all interfaces that should be generated. Does not include friend interfaces.
 		/// </summary>
-		public IReadOnlyCollection<TemplateInfo> Interfaces
-		{
-			get { return _interfaces.AsReadOnly(); }
-		}
+		public IReadOnlyCollection<TemplateInfo> Interfaces => _interfaces.AsReadOnly();
 
 		public TemplateInfo GetInterface(ID templateId)
 		{
@@ -126,6 +117,6 @@ namespace Synthesis.Generation.Model
 			return null;
 		}
 
-		public GeneratorParameters Parameters { get { return _parameters; } }
+		public GeneratorParameters Parameters => _parameters;
 	}
 }

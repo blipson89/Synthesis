@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Sitecore.Web.UI.WebControls;
-using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.Mvc.Helpers
@@ -38,7 +35,7 @@ namespace Synthesis.Mvc.Helpers
 		{
 			var field = selector(helper.ViewData.Model);
 
-			if (field.HasValue || Sitecore.Context.PageMode.IsPageEditor)
+			if (field.HasValue || Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				var date = new Date();
 				date.AttachToDateTimeField(field);

@@ -83,7 +83,7 @@ namespace Synthesis.Generation
 			}
 
 			timer.Stop();
-			Log.Info(string.Format("Synthesis: Generated metadata for {0} concrete templates and {1} interface templates in {2} ms", templateData.Templates.Count, templateData.Interfaces.Count, timer.ElapsedMilliseconds), this);
+			Log.Info($"Synthesis: Generated metadata for {templateData.Templates.Count} concrete templates and {templateData.Interfaces.Count} interface templates in {timer.ElapsedMilliseconds} ms", this);
 
 			return templateData;
 		}

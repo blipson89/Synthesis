@@ -24,18 +24,12 @@ namespace Synthesis.Testing
 		/// <summary>
 		///     Renders the field using a Sitecore FieldRenderer and returns the result
 		/// </summary>
-		public virtual string RenderedValue
-		{
-			get { return Value.ToString(CultureInfo.InvariantCulture); }
-		}
+		public virtual string RenderedValue => Value.ToString(CultureInfo.InvariantCulture);
 
 		/// <summary>
 		///     Checks if the field has a valid integer value
 		/// </summary>
 		/// <remarks>Note that Value will always return a valid int (0) even if HasValue is false. So check this first :)</remarks>
-		public override bool HasValue
-		{
-			get { return _value.HasValue; }
-		}
+		public override bool HasValue => _value.HasValue;
 	}
 }

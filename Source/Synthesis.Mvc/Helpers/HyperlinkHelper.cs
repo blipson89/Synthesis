@@ -40,7 +40,7 @@ namespace Synthesis.Mvc.Helpers
 		{
 			var field = selector(helper.ViewData.Model);
 
-			if (field.HasValue || Sitecore.Context.PageMode.IsPageEditor)
+			if (field.HasValue || Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				var link = new Link();
 				link.AttachToLinkField(field);

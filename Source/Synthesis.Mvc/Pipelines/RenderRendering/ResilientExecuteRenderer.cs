@@ -59,13 +59,12 @@ namespace Synthesis.Mvc.Pipelines.RenderRendering
 		protected virtual bool DispatchPossibleModelException(RenderingErrorModel model, RequestContext context, TextWriter output)
 		{
 			var invalidOp = model.Exception as InvalidOperationException;
-			if (invalidOp == null) return false;
 
-			if (invalidOp.InnerException != null && invalidOp.InnerException.Message.StartsWith("The model item passed into the dictionary is of type"))
+			if (invalidOp?.InnerException != null && invalidOp.InnerException.Message.StartsWith("The model item passed into the dictionary is of type"))
 			{
 				model.Exception = invalidOp.InnerException;
 
-				if (Context.PageMode.IsPreview || Context.PageMode.IsPageEditor)
+				if (Context.PageMode.IsPreview || Context.PageMode.IsExperienceEditor)
 				{
 					var viewPath = ResolveModelErrorViewPath(model, context);
 

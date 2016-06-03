@@ -47,13 +47,7 @@ namespace Synthesis.FieldTypes
 		/// <summary>
 		/// Renders the field using a Sitecore FieldRenderer and returns the result
 		/// </summary>
-		public virtual string RenderedValue
-		{
-			get
-			{
-				return FieldRenderer.Render(InnerItem, InnerField.ID.ToString());
-			}
-		}
+		public virtual string RenderedValue => FieldRenderer.Render(InnerItem, InnerField.ID.ToString());
 
 		public override string ToString()
 		{

@@ -33,7 +33,7 @@
 		/// </summary>
 		public static void RenderLinkField(this HtmlTextWriter writer, IHyperlinkField linkField, Action<Link> parameters)
 		{
-			if (linkField.HasValue || Sitecore.Context.PageMode.IsPageEditor)
+			if (linkField.HasValue || Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				var link = new Link();
 				link.AttachToLinkField(linkField);

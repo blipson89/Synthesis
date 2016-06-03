@@ -13,10 +13,7 @@ namespace Synthesis.FieldTypes
 		/// <summary>
 		/// Gets the raw value of the field with dynamic links expanded into friendly URLs. Unlike RenderedValue this does not support Page Editor, but neither does it require loading a search-based instance's underlying item like RenderedValue.
 		/// </summary>
-		public virtual string ExpandedLinksValue
-		{
-			get { return FieldUtility.ExpandDynamicLinks(RawValue); }
-		}
+		public virtual string ExpandedLinksValue => FieldUtility.ExpandDynamicLinks(RawValue);
 
 		/// <summary>
 		/// Converts the field into it's string representation. Returns the same value as the ExpandedLinksValue property.

@@ -24,36 +24,18 @@ namespace Synthesis.Templates.Database
 			Template = template;
 		}
 
-		public string Name
-		{
-			get { return _field.Name; }
-		}
+		public string Name => _field.Name;
 
-		public string DisplayName
-		{
-			get { return _field.DisplayName; }
-		}
+		public string DisplayName => _field.DisplayName;
 
-		public string FullPath
-		{
-			get { return _field.InnerItem.Paths.FullPath; }
-		}
+		public string FullPath => _field.InnerItem.Paths.FullPath;
 
-		public ID Id
-		{
-			get { return _field.ID; }
-		}
+		public ID Id => _field.ID;
 
-		public string HelpText
-		{
-			get { return _field.Description; }
-		}
+		public string HelpText => _field.Description;
 
-		public string Type
-		{
-			get { return _field.Type; }
-		}
+		public string Type => _field.Type;
 
-		public ITemplateInfo Template { get; private set; }
+		public ITemplateInfo Template { get; }
 	}
 }

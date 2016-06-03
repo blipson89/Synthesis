@@ -207,7 +207,7 @@ namespace Synthesis.Generation.CodeDom
 			if (!string.IsNullOrEmpty(template.HelpText))
 				entity.Comments.Add(new CodeCommentStatement("<summary>" + template.HelpText + "</summary>", true));
 			else
-				entity.Comments.Add(new CodeCommentStatement(string.Format("<summary>Represents the {0} template</summary>", template.FullPath), true));
+				entity.Comments.Add(new CodeCommentStatement($"<summary>Represents the {template.FullPath} template</summary>", true));
 		}
 
 		private static void AddCommentsToFieldProperty(CodeMemberProperty property, ITemplateFieldInfo field)
@@ -215,7 +215,7 @@ namespace Synthesis.Generation.CodeDom
 			if (!string.IsNullOrEmpty(field.HelpText))
 				property.Comments.Add(new CodeCommentStatement("<summary>" + field.HelpText + "</summary>", true));
 			else
-				property.Comments.Add(new CodeCommentStatement(string.Format("<summary>Represents the {0} field</summary>", field.DisplayName), true));
+				property.Comments.Add(new CodeCommentStatement($"<summary>Represents the {field.DisplayName} field</summary>", true));
 		}
 
 		private void CreateItemProperty(FieldPropertyInfo propertyInfo, CodeTypeMemberCollection members)
@@ -243,13 +243,13 @@ namespace Synthesis.Generation.CodeDom
 			// if(backingField == null)
 			//	backingField = new SynthesisFieldType(new Lazy<Field>(() => InnerItem.Fields["xxx"], GetSearchFieldValue("index-field-name"));
 
-			var initializerLambda = new CodeSnippetExpression(string.Format("new global::Synthesis.FieldTypes.LazyField(() => InnerItem.Fields[\"{0}\"], \"{1}\", \"{2}\")", propertyInfo.Field.Id, propertyInfo.Field.Template.FullPath, propertyInfo.Field.Name));
+			var initializerLambda = new CodeSnippetExpression($"new global::Synthesis.FieldTypes.LazyField(() => InnerItem.Fields[\"{propertyInfo.Field.Id}\"], \"{propertyInfo.Field.Template.FullPath}\", \"{propertyInfo.Field.Name}\")");
 			var initializerSearchReference = new CodeMethodInvokeExpression(new CodeThisReferenceExpression(),
 																			"GetSearchFieldValue",
 																			new CodePrimitiveExpression(propertyInfo.SearchFieldName));
 
 			var backingFieldNullCheck = new CodeConditionStatement();
-			backingFieldNullCheck.Condition = new CodeSnippetExpression(string.Format("{0} == null", backingFieldName));
+			backingFieldNullCheck.Condition = new CodeSnippetExpression($"{backingFieldName} == null");
 			backingFieldNullCheck.TrueStatements.Add(new CodeAssignStatement(new CodeVariableReferenceExpression(backingFieldName), new CodeObjectCreateExpression(propertyInfo.FieldType.InternalFieldType, initializerLambda, initializerSearchReference)));
 			property.GetStatements.Add(backingFieldNullCheck);
 
@@ -398,7 +398,7 @@ namespace Synthesis.Generation.CodeDom
 					bool instanceExists = File.Exists(instanceFileName);
 
 					if (i == maxBackups && instanceExists) File.Delete(instanceFileName); // truncate a backup that's too old
-					if (i > 0 && i != maxBackups && instanceExists) File.Move(instanceFileName, string.Format("{0}.{1}", path, (i + 1).ToString(CultureInfo.InvariantCulture))); // move an existing backup up a number in the backups
+					if (i > 0 && i != maxBackups && instanceExists) File.Move(instanceFileName, $"{path}.{(i + 1).ToString(CultureInfo.InvariantCulture)}"); // move an existing backup up a number in the backups
 
 					i--;
 				} while (i > 0);

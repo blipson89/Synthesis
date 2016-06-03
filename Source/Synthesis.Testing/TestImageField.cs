@@ -34,7 +34,7 @@ namespace Synthesis.Testing
 		{
 			get
 			{
-				string tag = string.Format("<img src=\"{0}\" alt=\"{1}\"", Url ?? string.Empty, AlternateText ?? string.Empty);
+				string tag = $"<img src=\"{Url ?? string.Empty}\" alt=\"{AlternateText ?? string.Empty}\"";
 				if (Width.HasValue)
 					tag += " width=\"" + Width.Value + "\"";
 

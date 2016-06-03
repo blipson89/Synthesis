@@ -9,7 +9,6 @@ namespace Synthesis.Generation.Model
 	/// </summary>
 	public class TemplateInfo
 	{
-		private readonly ITemplateInfo _templateInfo;
 		private readonly string _rootNamespace;
 		private readonly List<FieldPropertyInfo> _fields = new List<FieldPropertyInfo>();
 		private readonly List<TemplateInfo> _implementedInterfaces = new List<TemplateInfo>();
@@ -19,11 +18,11 @@ namespace Synthesis.Generation.Model
 			Assert.ArgumentNotNull(templateInfo, "templateInfo");
 			Assert.ArgumentNotNullOrEmpty(rootNamespace, "rootNamespace");
 
-			_templateInfo = templateInfo;
+			Template = templateInfo;
 			_rootNamespace = rootNamespace;
 		}
 
-		public ITemplateInfo Template { get { return _templateInfo; } }
+		public ITemplateInfo Template { get; }
 
 		/// <summary>
 		/// Full name of the generated type, including RELATIVE namespace and type (no assembly)
@@ -34,12 +33,12 @@ namespace Synthesis.Generation.Model
 		/// <summary>
 		/// The fields to generate.
 		/// </summary>
-		public IList<FieldPropertyInfo> FieldsToGenerate { get { return _fields; } }
+		public IList<FieldPropertyInfo> FieldsToGenerate => _fields;
 
 		/// <summary>
 		/// All immediate interfaces implemented by this type
 		/// </summary>
-		public IList<TemplateInfo> InterfacesImplemented { get { return _implementedInterfaces; } }
+		public IList<TemplateInfo> InterfacesImplemented => _implementedInterfaces;
 
 		/// <summary>
 		/// Name of the type
@@ -73,10 +72,7 @@ namespace Synthesis.Generation.Model
 		/// <summary>
 		/// Gets the full type name for the type, including the complete namespace and type name
 		/// </summary>
-		public string TypeFullName
-		{
-			get { return Namespace + "." + TypeName.TrimStart('.'); }
-		}
+		public string TypeFullName => Namespace + "." + TypeName.TrimStart('.');
 
 		/// <summary>
 		/// Relative namespace from root for the concrete

@@ -17,8 +17,7 @@ namespace Synthesis.FieldTypes
 			get
 			{
 				if(!IsFieldLoaded && InnerSearchValue != null) return InnerSearchValue;
-				if (InnerField == null) return null;
-				return InnerField.Value;
+				return InnerField?.Value;
 			}
 			set { SetFieldValue(value); }
 		}
@@ -27,26 +26,17 @@ namespace Synthesis.FieldTypes
 		/// Renders the field using a Sitecore FieldRenderer and returns the result
 		/// Getting this value will cause the underlying item to be loaded for search-based instances.
 		/// </summary>
-		public virtual string RenderedValue
-		{
-			get { return FieldRenderer.Render(InnerItem, InnerField.ID.ToString()); }
-		}
+		public virtual string RenderedValue => FieldRenderer.Render(InnerItem, InnerField.ID.ToString());
 
 		/// <summary>
 		/// Checks if the field has a null or empty value
 		/// </summary>
-		public override bool HasValue
-		{
-			get { return !string.IsNullOrEmpty(RawValue); }
-		}
+		public override bool HasValue => !string.IsNullOrEmpty(RawValue);
 
 		/// <summary>
 		/// Checks if the field has a null, empty, or whitespace-only value
 		/// </summary>
-		public virtual bool HasTextValue
-		{
-			get { return !string.IsNullOrWhiteSpace(RawValue); }
-		}
+		public virtual bool HasTextValue => !string.IsNullOrWhiteSpace(RawValue);
 
 		/// <summary>
 		/// Converts the field into it's string representation. Returns the same value as the RawValue property.
