@@ -387,10 +387,10 @@ namespace Synthesis.Generation.CodeDom
 		/// <remarks>Backups are numbered i.e. .1, .2, .3, .4, etc and rotate up as new copies are made (i.e. if .1 exists, it will be renamed .2 and the current one renamed to .1, etc)</remarks>
 		private void WriteFileWithBackups(string path, CodeCompileUnit code)
 		{
-			if (File.Exists(path)) // existing version present; make backups as necessary
-			{
-				uint maxBackups = _parameters.MaxBackupCopies;
+			uint maxBackups = _parameters.MaxBackupCopies;
 
+			if (maxBackups > 0 && File.Exists(path)) // existing version present; make backups as necessary
+			{
 				uint i = maxBackups;
 				do // find and move existing backups if needed
 				{
