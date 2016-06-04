@@ -150,7 +150,6 @@
     <Compile Include="Templates\Database\ItemTemplateFieldInfo.cs" />
     <Compile Include="Templates\Database\TemplateInfo.cs" />
     <Compile Include="ContentSearch\Lucene\SynthesisLuceneDocumentTypeMapper.cs" />
-    <Compile Include="Utility\BuildUtility.cs" />
     <Compile Include="Utility\CodeDomUtility.cs" />
     <Compile Include="Configuration\ITypeListProvider.cs" />
     <Compile Include="Utility\DebugUtility.cs" />
