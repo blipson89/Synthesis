@@ -5,6 +5,7 @@ using Sitecore.Diagnostics;
 using Synthesis.FieldTypes;
 using Synthesis.Generation;
 using Synthesis.Generation.CodeDom;
+using Synthesis.Generation.Model;
 using Synthesis.Initializers;
 using Synthesis.Synchronization;
 using Synthesis.Templates;
@@ -186,9 +187,9 @@ namespace Synthesis.Configuration
 		/// <summary>
 		/// Gets an instance of the Synthesis Generator pre-configured to use the current provider set
 		/// </summary>
-		public virtual IMetadataGenerator CreateMetadataGenerator()
+		public virtual IMetadataGenerator CreateMetadataGenerator(GeneratorParameters parameters)
 		{
-			return new MetadataGenerator(GeneratorParametersProvider.CreateParameters(Name), TemplateInputProvider, FieldMappingProvider, IndexFieldNameTranslator);
+			return new MetadataGenerator(parameters, TemplateInputProvider, FieldMappingProvider, IndexFieldNameTranslator);
 		}
 
 		public virtual ITemplateCodeGenerator CreateCodeGenerator()
@@ -200,9 +201,9 @@ namespace Synthesis.Configuration
 		/// Gets an instance of the Synthesis Synchronization Engine pre-configured to use the current provider set
 		/// </summary>
 		/// <returns></returns>
-		public virtual SynchronizationEngine CreateSyncEngine()
+		public virtual SynchronizationEngine CreateSyncEngine(TemplateGenerationMetadata metadata)
 		{
-			return new SynchronizationEngine(TemplateSignatureProvider, CreateMetadataGenerator().GenerateMetadata(), TypeListProvider, Name);
+			return new SynchronizationEngine(TemplateSignatureProvider, metadata, TypeListProvider, Name);
 		}
 
 		protected virtual IFieldMappingProvider LoadFieldMappingProviderFromConfig()

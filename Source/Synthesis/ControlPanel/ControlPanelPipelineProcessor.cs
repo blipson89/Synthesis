@@ -92,20 +92,17 @@ namespace Synthesis.ControlPanel
 		{
 			var sb = new StringBuilder();
 
-			var configurations = ProviderResolver.GetConfigurations();
+			var syncStatus = SynthesisHelper.CheckSyncAll().ToArray();
 
-			if (configurations.Any())
+			if (syncStatus.Any())
 			{
-				foreach (var configuration in configurations)
+				foreach (var syncResult in syncStatus)
 				{
+					var configuration = syncResult.Key;
+					var result = syncResult.Value;
+
 					var configName = configuration.Name.IsNullOrEmpty() ? "Unnamed Configuration" : configuration.Name;
 
-					// force getting the latest templates from sitecore
-					configuration.TemplateInputProvider.Refresh();
-
-					var sync = configuration.CreateSyncEngine();
-
-					var result = sync.AreTemplatesSynchronized();
 					var count = result.Count(x => !x.IsSynchronized);
 
 					if (result.AreTemplatesSynchronized)
@@ -142,28 +139,22 @@ or that you need to register your own configurations in separate initialize pipe
 
 		private static void DoOnDemandSyncReport(HttpContext context)
 		{
-			var configurations = ProviderResolver.GetConfigurations();
+			var syncStatus = SynthesisHelper.CheckSyncAll();
 
 			var results = new StringBuilder();
 
-			foreach (var configuration in configurations)
+			foreach (var syncResult in syncStatus)
 			{
-				var timer = new Stopwatch();
-				timer.Start();
+				var configuration = syncResult.Key;
 
 				var configName = configuration.Name.IsNullOrEmpty() ? "Unnamed Configuration" : configuration.Name;
 
-				// force getting the latest templates from sitecore
-				configuration.TemplateInputProvider.Refresh();
+				var result = syncResult.Value;
 
-				var sync = configuration.CreateSyncEngine();
-
-				var result = sync.AreTemplatesSynchronized();
 				var sco = result.Where(x => x.Locations == SyncSource.Sitecore).ToList();
 				var mo = result.Where(x => x.Locations == SyncSource.Model).ToList();
 				var ma = result.Where(x => x.Locations == SyncSource.Both).ToList();
 				var nonsyn = result.Where(x => !x.IsSynchronized).ToList();
-				timer.Stop();
 
 				results.AppendFormat("<h2>{0}</h2>", configName);
 
@@ -175,7 +166,6 @@ or that you need to register your own configurations in separate initialize pipe
 				results.AppendLine("<li>Total Sitecore Only: <strong>" + sco.Count + "</strong></li>");
 				results.AppendLine("<li>Total Model Only: <strong>" + mo.Count + "</strong></li>");
 				results.AppendLine("<li>Total in Both: <strong>" + ma.Count + "</strong></li>");
-				results.AppendLine("<li>Sync time taken: <strong>" + timer.ElapsedMilliseconds + " ms</strong></li>");
 
 				results.AppendLine("</ul>");
 
@@ -209,20 +199,11 @@ or that you need to register your own configurations in separate initialize pipe
 			var timer = new Stopwatch();
 			timer.Start();
 
-			var configurations = ProviderResolver.GetConfigurations();
-			string result = string.Empty;
+			SynthesisHelper.RegenerateAll();
 
-			foreach (var configuration in configurations)
-			{
-				var configName = configuration.Name.IsNullOrEmpty() ? "Unnamed Configuration" : configuration.Name;
-				configuration.TemplateInputProvider.Refresh();
-				var metadata = configuration.CreateMetadataGenerator().GenerateMetadata();
-				configuration.CreateCodeGenerator().Generate(metadata);
-				result += "<p>Regenerated <strong>{0}</strong></p>".FormatWith(configName);
-			}
 			timer.Stop();
 
-			result += string.Format("<p>Generation complete in {0} ms. You will want to rebuild to pick up the changes.</p>", timer.ElapsedMilliseconds);
+			var result = $"<p>Generation complete in {timer.ElapsedMilliseconds} ms. You will want to rebuild to pick up the changes.</p>";
 			context.Response.Write(WrapReport("Regenerating Model", result));
 
 			context.Response.End();

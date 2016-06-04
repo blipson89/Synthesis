@@ -137,6 +137,7 @@
     <Compile Include="MissingTemplateFieldException.cs" />
     <Compile Include="Pipelines\Initialize\CheckModelSynchronization.cs" />
     <Compile Include="Pipelines\Initialize\RegisterDefaultConfiguration.cs" />
+    <Compile Include="SynthesisHelper.cs" />
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />
     <Compile Include="Synchronization\SyncSource.cs" />

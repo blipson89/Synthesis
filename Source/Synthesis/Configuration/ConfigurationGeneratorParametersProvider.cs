@@ -26,8 +26,22 @@ namespace Synthesis.Configuration
 
 		public GeneratorParameters CreateParameters(string configurationName)
 		{
-			this.ConfigurationName = configurationName;
-			return this;
+			return new GeneratorParameters
+			{
+				ConfigurationName = configurationName,
+				InterfaceNamespace = InterfaceNamespace,
+				InterfaceOutputPath = InterfaceOutputPath,
+				InterfaceSuffix = InterfaceSuffix,
+				ItemBaseClass = ItemBaseClass,
+				ItemBaseInterface = ItemBaseInterface,
+				ItemNamespace = ItemNamespace,
+				ItemOutputPath = ItemOutputPath,
+				MaxBackupCopies = MaxBackupCopies,
+				SitecoreKernelAssemblyPath = SitecoreKernelAssemblyPath,
+				SynthesisAssemblyPath = SynthesisAssemblyPath,
+				TemplatePathRoot = TemplatePathRoot,
+				UseTemplatePathForNamespace = UseTemplatePathForNamespace
+			};
 		}
 
 		/// <summary>

@@ -67,7 +67,7 @@ namespace Synthesis.Generation
 				throw new GeneratorParameterException("ItemBaseInterface " + ItemBaseInterface.FullName + " did not derive from Synthesis.IStandardTemplateItem.");
 
 			if (!ItemBaseInterface.IsAssignableFrom(ItemBaseClass))
-				throw new GeneratorParameterException(string.Format("ItemBaseClass {0} did not implement ItemBaseInterface {1}", ItemBaseClass.FullName, ItemBaseInterface.FullName));
+				throw new GeneratorParameterException($"ItemBaseClass {ItemBaseClass.FullName} did not implement ItemBaseInterface {ItemBaseInterface.FullName}");
 
 			if(ConfigurationName.IsNullOrEmpty())
 				throw new GeneratorParameterException("The configuration name was null or empty.");
