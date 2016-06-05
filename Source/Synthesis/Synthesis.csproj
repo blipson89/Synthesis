@@ -66,6 +66,10 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Configuration\Registration\DefaultConfigurationRegistration.cs" />
+    <Compile Include="Configuration\Registration\SynthesisConfigurationRegistration.cs" />
+    <Compile Include="Configuration\Registration\ISynthesisConfigurationRegistration.cs" />
+    <Compile Include="Configuration\Registration\ProxyGeneratorParametersProvider.cs" />
     <Compile Include="Configuration\ConfigurationFieldMappingProvider.cs" />
     <Compile Include="Configuration\ConfigurationGeneratorParametersProvider.cs" />
     <Compile Include="Configuration\ConfigurationProviderConfiguration.cs" />
@@ -136,7 +140,7 @@
     <Compile Include="Initializers\ITemplateInitializer.cs" />
     <Compile Include="MissingTemplateFieldException.cs" />
     <Compile Include="Pipelines\Initialize\CheckModelSynchronization.cs" />
-    <Compile Include="Pipelines\Initialize\RegisterDefaultConfiguration.cs" />
+    <Compile Include="Pipelines\Initialize\SynthesisConfigRegistrar.cs" />
     <Compile Include="SynthesisHelper.cs" />
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />
