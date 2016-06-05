@@ -21,6 +21,7 @@ namespace Synthesis.Configuration
 			InterfaceSuffix = "Item";
 			SynthesisAssemblyPath = "~/bin/Synthesis.dll";
 			SitecoreKernelAssemblyPath = "~/bin/Sitecore.Kernel.dll";
+			MaxBackupCopies = 0;
 			// ReSharper restore DoNotCallOverridableMethodsInConstructor
 		}
 
