@@ -57,6 +57,9 @@ namespace Synthesis.Pipelines.Initialize
 
 		public void AddAssembly(string name)
 		{
+			// ignore assemblies already added
+			if (_assemblies.Any(existing => existing.GetName().Name.Equals(name, StringComparison.Ordinal))) return;
+
 			if (name.Contains("*"))
 			{
 				var assemblies = AppDomain.CurrentDomain.GetAssemblies();
