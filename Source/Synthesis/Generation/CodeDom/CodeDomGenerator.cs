@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Sitecore.Configuration;
 using Sitecore.ContentSearch;
 using Sitecore.Data;
 using Sitecore.Data.Items;
@@ -49,14 +50,17 @@ namespace Synthesis.Generation.CodeDom
 			SortCodeCompileUnit(concreteUnit);
 			SortCodeCompileUnit(interfaceUnit);
 
-			if (_parameters.ItemOutputPath != _parameters.InterfaceOutputPath)
+			var itemOutputPath = ProcessOutputPath(_parameters.ItemOutputPath);
+			var interfaceOutputPath = ProcessOutputPath(_parameters.InterfaceOutputPath);
+
+			if (itemOutputPath != interfaceOutputPath)
 			{
-				WriteFileWithBackups(_parameters.ItemOutputPath, concreteUnit);
-				WriteFileWithBackups(_parameters.InterfaceOutputPath, interfaceUnit);
+				WriteFileWithBackups(itemOutputPath, concreteUnit);
+				WriteFileWithBackups(interfaceOutputPath, interfaceUnit);
 			}
 			else
 			{
-				WriteFileWithBackups(_parameters.ItemOutputPath, interfaceUnit, concreteUnit);
+				WriteFileWithBackups(itemOutputPath, interfaceUnit, concreteUnit);
 			}
 		}
 
@@ -386,6 +390,21 @@ namespace Synthesis.Generation.CodeDom
 			attribute.Arguments.Add(new CodeAttributeArgument(new CodePrimitiveExpression(_parameters.ConfigurationName)));
 
 			interfaceType.CustomAttributes.Add(attribute);
+		}
+
+		/// <summary>
+		/// Applies the global output base path, if one is set, to an output path.
+		/// </summary>
+		/// <remarks>
+		/// This is used so you can use sc.variable values in your output paths since those do not work in regular output paths.
+		/// </remarks>
+		private string ProcessOutputPath(string path)
+		{
+			var globalBasePath = Settings.GetSetting("Synthesis.ModelOutputBasePath", string.Empty);
+
+			if (string.IsNullOrWhiteSpace(globalBasePath)) return path;
+
+			return globalBasePath + path;
 		}
 
 		/// <summary>
