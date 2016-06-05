@@ -68,6 +68,15 @@ namespace Synthesis.Configuration
 			}
 		}
 
+		public virtual string ModelOutputPath
+		{
+			set
+			{
+				InterfaceOutputPath = value;
+				ItemOutputPath = value;
+			}
+		}
+
 		/// <summary>
 		/// Proxies the config path resolution to the base class
 		/// </summary>

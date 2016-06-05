@@ -49,8 +49,15 @@ namespace Synthesis.Generation.CodeDom
 			SortCodeCompileUnit(concreteUnit);
 			SortCodeCompileUnit(interfaceUnit);
 
-			WriteFileWithBackups(_parameters.ItemOutputPath, concreteUnit);
-			WriteFileWithBackups(_parameters.InterfaceOutputPath, interfaceUnit);
+			if (_parameters.ItemOutputPath != _parameters.InterfaceOutputPath)
+			{
+				WriteFileWithBackups(_parameters.ItemOutputPath, concreteUnit);
+				WriteFileWithBackups(_parameters.InterfaceOutputPath, interfaceUnit);
+			}
+			else
+			{
+				WriteFileWithBackups(_parameters.ItemOutputPath, interfaceUnit, concreteUnit);
+			}
 		}
 
 		/// <summary>
@@ -385,7 +392,7 @@ namespace Synthesis.Generation.CodeDom
 		/// Writes a file to disk and creates backup copies if a file with the same name already exists
 		/// </summary>
 		/// <remarks>Backups are numbered i.e. .1, .2, .3, .4, etc and rotate up as new copies are made (i.e. if .1 exists, it will be renamed .2 and the current one renamed to .1, etc)</remarks>
-		private void WriteFileWithBackups(string path, CodeCompileUnit code)
+		private void WriteFileWithBackups(string path, params CodeCompileUnit[] codes)
 		{
 			uint maxBackups = _parameters.MaxBackupCopies;
 
@@ -407,12 +414,15 @@ namespace Synthesis.Generation.CodeDom
 				File.Move(path, path + ".1");
 			}
 
-			var rawCode = code.CompileToCSharpSourceCode();
+			var rawCodes = codes.Select(code =>
+			{
+				var sourceCode = code.CompileToCSharpSourceCode();
 
-			rawCode = Regex.Replace(rawCode, "Runtime Version[^\r]+", string.Empty);
+				return Regex.Replace(sourceCode, "Runtime Version[^\r]+", string.Empty);
+			});
 
 			// write new file
-			File.WriteAllText(path, rawCode);
+			File.WriteAllText(path, string.Join(Environment.NewLine, rawCodes));
 		}
 
 		private CodeCompileUnit CreateCodeCompileUnit()
