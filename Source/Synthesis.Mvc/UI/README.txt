@@ -30,3 +30,5 @@ public class Foo : Controller
 This buys you stupidly easy unit tests on your controller renderings (without FakeDb!) because now you can speak entirely in Synthesis interfaces which you can fake in your favorite idiom.
 
 I like NSubstitute, myself.
+
+See this blog post for additional ideas: http://www.martywoods.nl/unit-testing-sitecore-mvc-its-easy-when-using-synthesis/

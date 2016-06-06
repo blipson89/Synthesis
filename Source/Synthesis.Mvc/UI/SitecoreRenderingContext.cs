@@ -8,16 +8,13 @@ namespace Synthesis.Mvc.UI
 	{
 		public TItem GetRenderingDatasource<TItem>() where TItem : class, IStandardTemplateItem
 		{
-			return RenderingContext.Current.Rendering.Item.As<TItem>();
+			return RenderingContext.CurrentOrNull?.Rendering?.Item.As<TItem>();
 		}
 
 		public TItem GetContextItem<TItem>() where TItem : class, IStandardTemplateItem
 		{
 			return Sitecore.Context.Item.As<TItem>();
 		}
-
-		public IStandardTemplateItem ContextItem => Sitecore.Context.Item.AsStronglyTyped();
-		public IStandardTemplateItem RenderingDatasource => RenderingContext.Current.Rendering.Item.AsStronglyTyped();
 
 		public bool IsEditing => Sitecore.Context.Site.DisplayMode == DisplayMode.Edit;
 		public bool IsPreview => Sitecore.Context.Site.DisplayMode == DisplayMode.Preview;
@@ -27,6 +24,9 @@ namespace Synthesis.Mvc.UI
 		public bool IsCompletelyNormal => IsNormal && !IsExperienceExplorer && !IsDebugging;
 
 		public SiteContext ContextSite => Sitecore.Context.Site;
+
 		public IDatabaseAdapter ContextDatabase => new DatabaseAdapter(Sitecore.Context.ContentDatabase ?? Sitecore.Context.Database);
+
+		public RenderingParameters Parameters => RenderingContext.CurrentOrNull?.Rendering?.Parameters ?? new RenderingParameters(string.Empty);
 	}
 }

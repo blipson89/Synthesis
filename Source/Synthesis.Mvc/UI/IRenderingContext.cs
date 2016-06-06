@@ -1,11 +1,21 @@
-﻿namespace Synthesis.Mvc.UI
+﻿using Sitecore.Mvc.Presentation;
+
+namespace Synthesis.Mvc.UI
 {
 	public interface IRenderingContext : IContextItem, IContextSite, IContextDatabase
 	{
+		/// <summary>
+		/// Gets the current rendering's datasource as an expected type
+		/// </summary>
+		/// <returns>The datasource, if it is set and of the correct template. Or null if not set or the wrong template.</returns>
 		TItem GetRenderingDatasource<TItem>()
 			where TItem : class, IStandardTemplateItem;
-	
-		IStandardTemplateItem RenderingDatasource { get; }
+
+		/// <summary>
+		/// Gets the current rendering's parameters.
+		/// Returns empty parameters if no rendering is in context.
+		/// </summary>
+		RenderingParameters Parameters { get; }
 
 		/// <summary>
 		/// Is Experience Editor enabled (exclusive of IsPreview, IsNormal)
