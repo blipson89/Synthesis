@@ -11,10 +11,14 @@ namespace Synthesis.Mvc.UI
 			return RenderingContext.CurrentOrNull?.Rendering?.Item.As<TItem>();
 		}
 
+		public IStandardTemplateItem RenderingDatasource => GetRenderingDatasource<IStandardTemplateItem>();
+
 		public TItem GetContextItem<TItem>() where TItem : class, IStandardTemplateItem
 		{
 			return Sitecore.Context.Item.As<TItem>();
 		}
+
+		public IStandardTemplateItem ContextItem => GetContextItem<IStandardTemplateItem>();
 
 		public bool IsEditing => Sitecore.Context.Site.DisplayMode == DisplayMode.Edit;
 		public bool IsPreview => Sitecore.Context.Site.DisplayMode == DisplayMode.Preview;

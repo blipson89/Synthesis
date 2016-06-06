@@ -7,9 +7,15 @@ namespace Synthesis.Mvc.UI
 		/// <summary>
 		/// Gets the current rendering's datasource as an expected type
 		/// </summary>
-		/// <returns>The datasource, if it is set and of the correct template. Or null if not set or the wrong template.</returns>
+		/// <returns>The datasource, if it is set and of the correct template. Or null if not set or the wrong template. Returns the context item if the datasource is not set.</returns>
 		TItem GetRenderingDatasource<TItem>()
 			where TItem : class, IStandardTemplateItem;
+
+		/// <summary>
+		/// Gets the current rendering's datasource
+		/// Returns the context item if the datasource is not set.
+		/// </summary>
+		IStandardTemplateItem RenderingDatasource { get; }
 
 		/// <summary>
 		/// Gets the current rendering's parameters.

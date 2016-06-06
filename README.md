@@ -1,7 +1,7 @@
 Synthesis
 =========
 
-Synthesis is an object mapping framework for Sitecore that enables developing more reliable and maintainable sites in less time than traditional Sitecore development. It is a strongly typed template object generator that is easily understandable for developers with either a Sitecore or traditional .NET background. It neatly integrates with Sitecore MVC (via the `Synthesis.Mvc` package) as a View rendering model provider.
+Synthesis is an object mapping framework for Sitecore that enables developing more reliable and maintainable sites in less time than traditional Sitecore development. It is a strongly typed template object generator that is easily understandable for developers with either a Sitecore or traditional .NET background. It neatly integrates with Sitecore MVC (via the `Synthesis.Mvc` package) as a View rendering model provider and IoC dependency for controller renderings.
 
 ## How is Synthesis different from say, [Glass](http://glass.lu/) or [Fortis](http://fortis.ws/)?
 

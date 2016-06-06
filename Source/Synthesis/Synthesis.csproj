@@ -204,6 +204,7 @@
     <Compile Include="WebControlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Synthesis.LocalConfig.config.example" />
     <None Include="Synthesis.Startup.config">
       <SubType>Designer</SubType>
     </None>
