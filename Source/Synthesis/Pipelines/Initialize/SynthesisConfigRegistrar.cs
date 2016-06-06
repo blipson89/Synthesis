@@ -65,7 +65,8 @@ namespace Synthesis.Pipelines.Initialize
 				var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 				foreach (var assembly in assemblies)
 				{
-					if (WildcardUtility.IsWildcardMatch(assembly.FullName, name)) AddAssembly(assembly.GetName().Name);
+					var assemblyName = assembly.GetName().Name;
+					if (WildcardUtility.IsWildcardMatch(assemblyName, name)) AddAssembly(assemblyName);
 				}
 
 				return;
