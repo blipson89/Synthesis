@@ -64,7 +64,7 @@ namespace Synthesis.Configuration
 				var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 				foreach (var assembly in assemblies)
 				{
-					if (WildcardUtility.IsWildcardMatch(assembly.FullName, name)) AddAssembly(assembly.FullName);
+					if (WildcardUtility.IsWildcardMatch(assembly.FullName, name)) AddAssembly(assembly.GetName().Name);
 				}
 
 				return;
