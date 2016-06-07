@@ -53,6 +53,15 @@ Synthesis uses smart 'auto friending' across module configurations. For example 
 	// add a new subitem with generics
 	var editing = foo.Add<ISampleItem>("Hello world");
 
+	// set text field values (automatically enters editing if not already there)
+	foo.Field.RawValue = "New value";
+
+	// set field values in a batch
+	foo.Editing.BeginEdit();
+	foo.Field.RawValue = "new value";
+	foo.DateField.Value = DateTime.Today;
+	foo.Editing.EndEdit();
+
 	// cast items to their base interfaces at will
 	var standardTemplate = (IStandardTemplateItem) foo;
 	
