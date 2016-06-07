@@ -7,5 +7,5 @@ using System;
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("8.2.1.0")]
 [assembly: AssemblyFileVersion("8.2.1.0")]
-[assembly: AssemblyInformationalVersion("8.2.1-RC01")]
+[assembly: AssemblyInformationalVersion("8.2.1")]
 [assembly: CLSCompliant(false)]
