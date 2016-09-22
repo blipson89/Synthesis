@@ -1,1 +1,1 @@
-gci *.nupkg -exclude *.symbols.nupkg | % { ..\dependencies\NuGet.exe push $_ }
+gci *.nupkg -exclude *.symbols.nupkg | % { ..\dependencies\NuGet.exe push $_ -Source https://www.nuget.org/api/v2/package }
