@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Sitecore.Mvc;
+using Sitecore.Mvc.Helpers;
+using Sitecore.Pipelines.ItemProvider.HasChildren;
 using Sitecore.Web.UI.WebControls;
 using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
@@ -50,6 +54,20 @@ namespace Synthesis.Mvc.Helpers
 			}
 
 			return new MvcHtmlString(string.Empty);
+		}
+
+		public static IDisposable BeginHyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string cssClass = null)
+		{
+			var field = (FieldType)selector(helper.ViewData.Model);
+
+			object parameters = new { haschildren = true };
+
+			if (cssClass != null)
+			{
+				parameters = new { haschildren = true, @class = cssClass };
+			}
+
+			return new TagRenderingContext<T>(helper, field, parameters);
 		}
 	}
 }

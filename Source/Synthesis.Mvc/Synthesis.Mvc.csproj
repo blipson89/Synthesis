@@ -86,6 +86,7 @@
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="RenderingDisplayPathResolver.cs" />
+    <Compile Include="TagRenderingContext.cs" />
     <Compile Include="UI\IContextDatabase.cs" />
     <Compile Include="UI\IContextItem.cs" />
     <Compile Include="UI\IContextSite.cs" />
