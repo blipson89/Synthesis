@@ -451,6 +451,9 @@ namespace Synthesis.Generation.CodeDom
 				if (existingFile.Equals(outputCodes)) return;
 			}
 
+			// create output directory if it doesn't exist
+			Directory.CreateDirectory(Path.GetDirectoryName(path));
+
 			// write new file
 			File.WriteAllText(path, outputCodes);
 		}
