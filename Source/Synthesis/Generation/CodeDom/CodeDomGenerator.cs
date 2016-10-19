@@ -440,8 +440,19 @@ namespace Synthesis.Generation.CodeDom
 				return Regex.Replace(sourceCode, "Runtime Version[^\r]+", string.Empty);
 			});
 
+			var outputCodes = string.Join(Environment.NewLine, rawCodes);
+
+			// check if our code generated is actually different before writing
+			// saves recompile time if we don't touch an unchanged code file
+			if (File.Exists(path))
+			{
+				var existingFile = File.ReadAllText(path);
+
+				if (existingFile.Equals(outputCodes)) return;
+			}
+
 			// write new file
-			File.WriteAllText(path, string.Join(Environment.NewLine, rawCodes));
+			File.WriteAllText(path, outputCodes);
 		}
 
 		private CodeCompileUnit CreateCodeCompileUnit()
