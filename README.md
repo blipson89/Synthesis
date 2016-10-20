@@ -21,7 +21,7 @@ What's the right tool for the job? That's about like [tabs vs spaces](https://ww
 
 ## I'm using modular architecture. Will Synthesis support models across projects?
 
-Yes! Synthesis actually works very well with modular architecture (e.g. Habitat). Synthesis supports the idea of multiple _configurations_ that have different sets of included templates, excluded fields, and output generated code files. Configurations are registered in code, quite similarly to MVC Areas. To register a configuration (you'd want one per module):
+Yes! Synthesis actually works very well with modular architecture (e.g. [Helix](http://helix.sitecore.net)/Habitat). Synthesis supports the idea of multiple _configurations_ that have different sets of included templates, excluded fields, and output generated code files. Configurations are registered in code, quite similarly to MVC Areas. To register a configuration (you'd want one per module):
 
 1) Add a class to your module that derives from the `SynthesisConfigurationRegistration` abstract class. Required elements must be implemented, and some optional ones are overridable.
 2) Add an instance of `SynthesisConfigRegistrar` to the `<initialize>` pipeline, and tell Synthesis to look for config registrations in your module assembl(ies), e.g.
@@ -34,7 +34,7 @@ Yes! Synthesis actually works very well with modular architecture (e.g. Habitat)
 		</assemblies>
 	</processor>
 
-If you are convention-based about where templates belong for a module (like Habitat is) then you can usually encode those conventions into a base registration class and implement even less code in each module registration. For an example of this, see the [Synthesis Habitat example implementation](https://github.com/kamsar/Habitat/tree/HabitatSynthesis/src/Foundation/Synthesis/code) which infers just about everything by convention.
+If you are convention-based about where templates belong for a module (like Helix is) then you can usually encode those conventions into a base registration class and implement even less code in each module registration. For an example of this, see the [Synthesis Habitat example implementation](https://github.com/kamsar/Habitat/tree/HabitatSynthesis/src/Foundation/Synthesis/code) which infers just about everything by convention.
 
 Synthesis uses smart 'auto friending' across module configurations. For example if module B has a template "Bar" that inherits from "Foo" defined in module A, the generated interface for IBarItem will inherit from _the interface generated for the module A configuration_ instead of making something new. This keeps your models representing your architecture and makes lines of dependency between modules very obvious, even if the dependency is only at a template level. For this to work make sure you register your configurations from least to most specific (in Habitat terms, you'd register configurations for Foundation then Feature then Project).
 
