@@ -1,4 +1,5 @@
 ﻿using Sitecore.ContentSearch.Linq.Common;
+using Synthesis.ContentSearch;
 using Synthesis.Templates;
 using Synthesis.Generation;
 using Synthesis.FieldTypes;
@@ -17,7 +18,7 @@ namespace Synthesis.Configuration
 		ITemplateSignatureProvider TemplateSignatureProvider { get; }
 		ITypeListProvider TypeListProvider { get; }
 		IInitializerProvider InitializerProvider { get; }
-		FieldNameTranslator IndexFieldNameTranslator { get; }
+		IndexFieldNameMapper IndexFieldNameMapper { get; }
 		IMetadataGenerator CreateMetadataGenerator(GeneratorParameters parameters);
 		ITemplateCodeGenerator CreateCodeGenerator();
 		SynchronizationEngine CreateSyncEngine(TemplateGenerationMetadata metadata);

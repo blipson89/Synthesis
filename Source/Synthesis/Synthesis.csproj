@@ -92,6 +92,7 @@
     <Compile Include="ContentSearch\ContentSearchUtilities.cs" />
     <Compile Include="ContentSearch\DocumentMappingResult.cs" />
     <Compile Include="ContentSearch\Lucene\SynthesisLinqToLuceneIndex.cs" />
+    <Compile Include="ContentSearch\IndexFieldNameMapper.cs" />
     <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
     <Compile Include="ContentSearch\SynthesisFieldNameTranslator.cs" />
     <Compile Include="ControlPanel\ControlPanelPipelineProcessor.cs" />

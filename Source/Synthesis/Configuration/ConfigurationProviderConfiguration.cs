@@ -2,6 +2,7 @@
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.Diagnostics;
+using Synthesis.ContentSearch;
 using Synthesis.FieldTypes;
 using Synthesis.Generation;
 using Synthesis.Generation.CodeDom;
@@ -141,24 +142,24 @@ namespace Synthesis.Configuration
 		/// <summary>
 		/// Gets the currently configured FieldNameTranslator (converts Sitecore template field names to index field names)
 		/// </summary>
-		public virtual FieldNameTranslator IndexFieldNameTranslator
+		public virtual IndexFieldNameMapper IndexFieldNameMapper
 		{
 			get
 			{
-				if (_fieldNameTranslator == null)
+				if (_fieldNameMapper == null)
 				{
 					lock (_fieldNameTranslatorInitLock)
 					{
-						if (_fieldNameTranslator == null)
+						if (_fieldNameMapper == null)
 						{
-							_fieldNameTranslator = LoadFieldNameTranslatorFromConfig();
+							_fieldNameMapper = LoadFieldNameMapperFromConfig();
 						}
 					}
 				}
-				return _fieldNameTranslator;
+				return _fieldNameMapper;
 			}
 		}
-		private FieldNameTranslator _fieldNameTranslator;
+		private IndexFieldNameMapper _fieldNameMapper;
 		private readonly object _fieldNameTranslatorInitLock = new object();
 
 		/// <summary>
@@ -189,7 +190,7 @@ namespace Synthesis.Configuration
 		/// </summary>
 		public virtual IMetadataGenerator CreateMetadataGenerator(GeneratorParameters parameters)
 		{
-			return new MetadataGenerator(parameters, TemplateInputProvider, FieldMappingProvider, IndexFieldNameTranslator);
+			return new MetadataGenerator(parameters, TemplateInputProvider, FieldMappingProvider, IndexFieldNameMapper);
 		}
 
 		public virtual ITemplateCodeGenerator CreateCodeGenerator()
@@ -232,16 +233,9 @@ namespace Synthesis.Configuration
 			return (ITypeListProvider)Factory.CreateObject("/sitecore/synthesis/providers/typeListProvider", true);
 		}
 
-		protected virtual FieldNameTranslator LoadFieldNameTranslatorFromConfig()
+		protected virtual IndexFieldNameMapper LoadFieldNameMapperFromConfig()
 		{
-			var indexConfiguration = Factory.GetConfigNode("/sitecore/synthesis/providers/indexConfiguration", true);
-
-			// ReSharper disable once PossibleNullReferenceException
-			var nameAttribute = indexConfiguration.Attributes["name"];
-
-			Assert.IsNotNull(nameAttribute, "The index name was missing on the Synthesis index configuration.");
-
-			return ContentSearchManager.GetIndex(nameAttribute.InnerText).FieldNameTranslator;
+			return (IndexFieldNameMapper)Factory.CreateObject("/sitecore/synthesis/providers/fieldNameMapper", true);
 		}
 	}
 }

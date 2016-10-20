@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.Diagnostics;
+using Synthesis.ContentSearch;
 using Synthesis.FieldTypes;
 using Synthesis.Generation.Model;
 using Synthesis.Templates;
@@ -14,18 +13,18 @@ namespace Synthesis.Generation
 		private readonly GeneratorParameters _parameters;
 		private HashSet<string> _baseClassFields;
 		private readonly IFieldMappingProvider _fieldMappingProvider;
+		private readonly IndexFieldNameMapper _indexFieldNameMapper;
 		private readonly ITemplateInputProvider _templateInputProvider;
-		private readonly FieldNameTranslator _indexFieldNameTranslator;
 		const string StandardTemplate = "STANDARD TEMPLATE";
 
-		public MetadataGenerator(GeneratorParameters parameters, ITemplateInputProvider templateProvider, IFieldMappingProvider fieldMappingProvider, FieldNameTranslator indexFieldNameTranslator)
+		public MetadataGenerator(GeneratorParameters parameters, ITemplateInputProvider templateProvider, IFieldMappingProvider fieldMappingProvider, IndexFieldNameMapper indexFieldNameMapper)
 		{
 			parameters.Validate();
 			_parameters = parameters;
 
 			_templateInputProvider = templateProvider;
 			_fieldMappingProvider = fieldMappingProvider;
-			_indexFieldNameTranslator = indexFieldNameTranslator;
+			_indexFieldNameMapper = indexFieldNameMapper;
 		}
 
 		public TemplateGenerationMetadata GenerateMetadata()
@@ -64,14 +63,7 @@ namespace Synthesis.Generation
 
 						if (_parameters.EnableContentSearch)
 						{
-							try
-							{
-								fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name);
-							}
-							catch (Exception exception)
-							{
-								Log.Warn($"[Synthesis] Unable to get index field name for {field.Name} on {template.Template.Name}. This commonly occurs with the Solr provider.", exception, this);
-							}
+							fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field);
 						}
 
 						fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
@@ -146,14 +138,7 @@ namespace Synthesis.Generation
 
 					if (_parameters.EnableContentSearch)
 					{
-						try
-						{
-							fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name);
-						}
-						catch (Exception exception)
-						{
-							Log.Warn($"[Synthesis] Unable to get index field name for {field.Name} on {template.Name}. This commonly occurs with the Solr provider.", exception, this);
-						}
+						fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field);
 					}
 
 					fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
