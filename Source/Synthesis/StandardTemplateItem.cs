@@ -423,6 +423,7 @@ namespace Synthesis
 		/// </summary>
 		protected virtual string GetSearchFieldValue(string fieldName)
 		{
+			if (fieldName == null) return null;
 			if (_searchFields == null) return null;
 
 			string result;

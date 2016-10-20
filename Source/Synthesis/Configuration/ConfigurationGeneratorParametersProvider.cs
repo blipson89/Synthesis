@@ -22,6 +22,7 @@ namespace Synthesis.Configuration
 			SynthesisAssemblyPath = "~/bin/Synthesis.dll";
 			SitecoreKernelAssemblyPath = "~/bin/Sitecore.Kernel.dll";
 			MaxBackupCopies = 0;
+			EnableContentSearch = true;
 			// ReSharper restore DoNotCallOverridableMethodsInConstructor
 		}
 
@@ -41,7 +42,8 @@ namespace Synthesis.Configuration
 				SitecoreKernelAssemblyPath = SitecoreKernelAssemblyPath,
 				SynthesisAssemblyPath = SynthesisAssemblyPath,
 				TemplatePathRoot = TemplatePathRoot,
-				UseTemplatePathForNamespace = UseTemplatePathForNamespace
+				UseTemplatePathForNamespace = UseTemplatePathForNamespace,
+				EnableContentSearch = EnableContentSearch
 			};
 		}
 

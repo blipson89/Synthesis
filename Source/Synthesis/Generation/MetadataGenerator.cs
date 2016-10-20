@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.Diagnostics;
@@ -58,8 +59,21 @@ namespace Synthesis.Generation
 						string propertyName = field.Name.AsNovelIdentifier(fieldKeys);
 
 						var fieldInfo = new FieldPropertyInfo(field);
+
 						fieldInfo.FieldPropertyName = propertyName;
-						fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name);
+
+						if (_parameters.EnableContentSearch)
+						{
+							try
+							{
+								fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name);
+							}
+							catch (Exception exception)
+							{
+								Log.Warn($"[Synthesis] Unable to get index field name for {field.Name} on {template.Template.Name}. This commonly occurs with the Solr provider.", exception, this);
+							}
+						}
+
 						fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
 
 						if (fieldInfo.FieldType == null)
@@ -129,7 +143,19 @@ namespace Synthesis.Generation
 
 					var fieldInfo = new FieldPropertyInfo(field);
 					fieldInfo.FieldPropertyName = propertyName;
-					fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name);
+
+					if (_parameters.EnableContentSearch)
+					{
+						try
+						{
+							fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name);
+						}
+						catch (Exception exception)
+						{
+							Log.Warn($"[Synthesis] Unable to get index field name for {field.Name} on {template.Name}. This commonly occurs with the Solr provider.", exception, this);
+						}
+					}
+
 					fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
 
 					if (fieldInfo.FieldType == null)

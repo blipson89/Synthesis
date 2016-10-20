@@ -249,10 +249,10 @@ namespace Synthesis.Generation.CodeDom
 			};
 
 			// add [IndexField] attribute
-			property.CustomAttributes.Add(GetIndexFieldAttribute(propertyInfo.SearchFieldName));
-
-			// if(backingField == null)
-			//	backingField = new SynthesisFieldType(new Lazy<Field>(() => InnerItem.Fields["xxx"], GetSearchFieldValue("index-field-name"));
+			if (_parameters.EnableContentSearch && propertyInfo.SearchFieldName != null)
+			{
+				property.CustomAttributes.Add(GetIndexFieldAttribute(propertyInfo.SearchFieldName));
+			}
 
 			var initializerLambda = new CodeSnippetExpression($"new global::Synthesis.FieldTypes.LazyField(() => InnerItem.Fields[\"{propertyInfo.Field.Id}\"], \"{propertyInfo.Field.Template.FullPath}\", \"{propertyInfo.Field.Name}\")");
 			var initializerSearchReference = new CodeMethodInvokeExpression(new CodeThisReferenceExpression(),
@@ -264,7 +264,6 @@ namespace Synthesis.Generation.CodeDom
 			backingFieldNullCheck.TrueStatements.Add(new CodeAssignStatement(new CodeVariableReferenceExpression(backingFieldName), new CodeObjectCreateExpression(propertyInfo.FieldType.InternalFieldType, initializerLambda, initializerSearchReference)));
 			property.GetStatements.Add(backingFieldNullCheck);
 
-			// return backingField;
 			property.GetStatements.Add(new CodeMethodReturnStatement(new CodeVariableReferenceExpression(backingFieldName)));
 
 			AddCommentsToFieldProperty(property, propertyInfo.Field);
@@ -285,7 +284,10 @@ namespace Synthesis.Generation.CodeDom
 			};
 
 			// add [IndexField] attribute
-			property.CustomAttributes.Add(GetIndexFieldAttribute(propertyInfo.SearchFieldName));
+			if (_parameters.EnableContentSearch && propertyInfo.SearchFieldName != null)
+			{
+				property.CustomAttributes.Add(GetIndexFieldAttribute(propertyInfo.SearchFieldName));
+			}
 
 			AddCommentsToFieldProperty(property, propertyInfo.Field);
 
