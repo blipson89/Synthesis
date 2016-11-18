@@ -19,6 +19,6 @@
     </dependencies>
   </metadata>
   <files>
-       <file src="..\..\Source\Synthesis.Mvc\Synthesis.Mvc.config" target="content\App_Config\Include" />
+       <file src="..\..\Source\Synthesis.Mvc\Synthesis.Mvc.config" target="content\App_Config\Include\Synthesis" />
   </files>
 </package>

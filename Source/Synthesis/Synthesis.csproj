@@ -214,14 +214,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Synthesis.LocalConfig.config.example" />
-    <None Include="Synthesis.Startup.config">
+    <None Include="Standard Config Files\Synthesis.AutoRegenerate.config" />
+    <None Include="Standard Config Files\Synthesis.LocalConfig.config.example" />
+    <None Include="Standard Config Files\Synthesis.Startup.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Synthesis.ControlPanel.config">
+    <None Include="Standard Config Files\Synthesis.ControlPanel.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Synthesis.config">
+    <None Include="Standard Config Files\Synthesis.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
