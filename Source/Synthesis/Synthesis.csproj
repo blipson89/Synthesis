@@ -96,6 +96,7 @@
     <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
     <Compile Include="ContentSearch\SynthesisFieldNameTranslator.cs" />
     <Compile Include="ControlPanel\ControlPanelPipelineProcessor.cs" />
+    <Compile Include="EventHandlers\AutomaticModelRebuilder.cs" />
     <Compile Include="FieldDictionary.cs" />
     <Compile Include="FieldExtensions.cs" />
     <Compile Include="FieldTypes\Adapters\DatabaseAdapter.cs" />
