@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Web;
+using System.Web.Configuration;
 
 namespace Synthesis.Utility
 {
@@ -10,6 +10,11 @@ namespace Synthesis.Utility
 	{
 		public static bool IsDynamicDebugEnabled => DebugEnabled.Value;
 
-		private static readonly Lazy<bool> DebugEnabled = new Lazy<bool>(() => HttpContext.Current.IsDebuggingEnabled);
+		private static readonly Lazy<bool> DebugEnabled = new Lazy<bool>(() =>
+		{
+			var config = WebConfigurationManager.GetSection("system.web/compilation") as CompilationSection;
+
+			return config?.Debug ?? false;
+		});
 	}
 }
