@@ -16,7 +16,7 @@ namespace Synthesis.FieldTypes
 			get
 			{
 				decimal value;
-				if (decimal.TryParse(InnerField.Value, out value)) return value;
+				if (decimal.TryParse(InnerField.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out value)) return value;
 
 				return default(decimal);	
 			}
