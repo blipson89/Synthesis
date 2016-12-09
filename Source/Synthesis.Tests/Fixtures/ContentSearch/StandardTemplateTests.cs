@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using Synthesis.Solr;
 using Sitecore;
 using Sitecore.ContentSearch.Linq;
 using Sitecore.Data;
 using Sitecore.Globalization;
+using Sitecore.ContentSearch.LuceneProvider;
 
 namespace Synthesis.Tests.Fixtures.ContentSearch
 {
@@ -29,7 +31,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.Id == _singleItemId);
 
 				Assert.AreEqual(1, query.Count(), "Could not find the leaf node item using content search by ID!");
@@ -41,7 +43,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.SearchableContent.Contains(SingleItemKeyword));
 
 				Assert.AreEqual(1, query.Count(), "Could not find the leaf node item using content search by keyword!");
@@ -53,7 +55,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.Name == SingleItemKeyword);
 
 				Assert.AreEqual(1, query.Count(), "Could not find the leaf node item using content search by Name!");
@@ -65,7 +67,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.AncestorIds.Contains(_parentItemId));
 
 				// should find 'Role' parent, and 'Data' and 'Roles' children/grandchildren
@@ -73,12 +75,14 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 			}
 		}
 
+
+
 		[Test]
 		public void ContentSearch_FindsChildren_ByParentId()
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.ParentId == _parentItemId)
 					.ToArray();
 
@@ -93,7 +97,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.TemplateId == TemplateIDs.TemplateField && x.AncestorIds.Contains(_parentItemId))
 					.ToArray();
 
@@ -130,11 +134,11 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 				// /sitecore/templates/System/Layout/Sections/Rendering Options (inherited by Sublayout)
 				var renderingOptionsTemplateId = new ID("{D1592226-3898-4CE2-B190-090FD5F84A4C}");
 
-				var allSublayouts = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var allSublayouts = ResolveSynthesisQueryable(context)
 					.Where(x => x.TemplateId == TemplateIDs.Sublayout)
 					.ToArray();
 
-				var allRenderingOptionsSublayouts = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var allRenderingOptionsSublayouts = ResolveSynthesisQueryable(context)
 					.Where(x => x.TemplateId == TemplateIDs.Sublayout && x.TemplateIds.Contains(renderingOptionsTemplateId))
 					.ToArray();
 
@@ -149,7 +153,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.DatabaseName == "master")
 					.GetResults();
 
@@ -162,7 +166,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.Id == _singleItemId && x.Language == Language.Parse("en"));
 
 				Assert.AreEqual(query.Count(), 1, "Could not find an item by en language!");
@@ -175,7 +179,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 			// note: test applies to UpdatedDate as well
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.Id == _singleItemId && x.CreatedDate > new DateTime(2000, 1, 1));
 
 				Assert.AreEqual(query.Count(), 1, "Could not find an item by created date after!");
@@ -188,7 +192,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 			// note: test applies to UpdatedDate as well
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.Id == _singleItemId && x.CreatedDate < new DateTime(2040, 1, 1));
 
 				Assert.AreEqual(query.Count(), 1, "Could not find an item by created date before!");
@@ -200,11 +204,18 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 		{
 			using (var context = CreateTestSearchContext())
 			{
-				var query = context.GetSynthesisQueryable<IStandardTemplateItem>()
+				var query = ResolveSynthesisQueryable(context)
 					.Where(x => x.TemplateId == TemplateIDs.Sublayout && x["placeholder"] == "content");
 
 				Assert.GreaterOrEqual(query.Count(), 1, "Could not find a sublayout item with placeholder set to 'content'!");
 			}
+		}
+
+		private static IQueryable<IStandardTemplateItem> ResolveSynthesisQueryable(Sitecore.ContentSearch.IProviderSearchContext context)
+		{
+			if (context is LuceneSearchContext)
+				return context.GetSynthesisQueryable<IStandardTemplateItem>();
+			return context.GetSolrSynthesisQueryable<IStandardTemplateItem>();
 		}
 	}
 }
