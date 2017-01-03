@@ -18,7 +18,7 @@ namespace Synthesis.Pipelines.Initialize
 	/// </summary>
 	public class SynthesisConfigRegistrar
 	{
-		private readonly List<Assembly> _assemblies = new List<Assembly>();
+		protected readonly List<Assembly> Assemblies = new List<Assembly>();
 
 		public virtual void Process(PipelineArgs args)
 		{
@@ -34,9 +34,9 @@ namespace Synthesis.Pipelines.Initialize
 		[SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We want to ignore all load errors on assembly types")]
 		protected virtual IEnumerable<Type> GetTypesInRegisteredAssemblies()
 		{
-			if (_assemblies.Count == 0) throw new InvalidOperationException("You must specify the assemblies to scan for Synthesis configurations, e.g. <assemblies hint=\"list: AddAssembly\"><default>Synthesis</default></assemblies>");
+			if (Assemblies.Count == 0) throw new InvalidOperationException("You must specify the assemblies to scan for Synthesis configurations, e.g. <assemblies hint=\"list: AddAssembly\"><default>Synthesis</default></assemblies>");
 
-			IEnumerable<Assembly> assemblies = _assemblies;
+			IEnumerable<Assembly> assemblies = Assemblies;
 
 			return assemblies.SelectMany(delegate (Assembly x)
 			{
@@ -55,10 +55,10 @@ namespace Synthesis.Pipelines.Initialize
 				.ToArray();
 		}
 
-		public void AddAssembly(string name)
+		public virtual void AddAssembly(string name)
 		{
 			// ignore assemblies already added
-			if (_assemblies.Any(existing => existing.GetName().Name.Equals(name, StringComparison.Ordinal))) return;
+			if (Assemblies.Any(existing => existing.GetName().Name.Equals(name, StringComparison.Ordinal))) return;
 
 			if (name.Contains("*"))
 			{
@@ -75,7 +75,7 @@ namespace Synthesis.Pipelines.Initialize
 			Assembly a = Assembly.Load(name);
 			if (a == null) throw new ArgumentException("The assembly name was not valid");
 
-			_assemblies.Add(a);
+			Assemblies.Add(a);
 		}
 	}
 }
