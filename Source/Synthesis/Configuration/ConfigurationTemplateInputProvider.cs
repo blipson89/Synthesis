@@ -22,100 +22,100 @@ namespace Synthesis.Configuration
 	/// </remarks>
 	public class ConfigurationTemplateInputProvider : ITemplateInputProvider
 	{
-		private readonly List<string> _includedTemplateSpecs = new List<string>();
-		private readonly List<string> _excludedTemplateSpecs = new List<string>();
-		private readonly List<string> _excludedFieldSpecs = new List<string>();
+		protected readonly List<string> IncludedTemplateSpecs = new List<string>();
+		protected readonly List<string> ExcludedTemplateSpecs = new List<string>();
+		protected readonly List<string> ExcludedFieldSpecs = new List<string>();
 
-		private HashSet<ID> _includedTemplates; // IDs of all included templates
-		private HashSet<ID> _excludedTemplates; // IDs of all excluded templates
-		private HashSet<ID> _excludedFields; // IDs of all excluded fields
-		private List<Item> _allTemplates; // cache of all templates in the database
-		private List<Item> _allFields; // cache of all fields in the database
-		private List<ITemplateInfo> _templates; // cache of all templates after filtering has been done
+		protected HashSet<ID> IncludedTemplates; // IDs of all included templates
+		protected HashSet<ID> ExcludedTemplates; // IDs of all excluded templates
+		protected HashSet<ID> ExcludedFields; // IDs of all excluded fields
+		protected List<Item> AllTemplates; // cache of all templates in the database
+		protected List<Item> AllFields; // cache of all fields in the database
+		protected List<ITemplateInfo> Templates; // cache of all templates after filtering has been done
 
 		/// <summary>
 		/// Gets all templates that match the set of include and exclude specs
 		/// </summary>
 		public virtual IEnumerable<ITemplateInfo> CreateTemplateList()
 		{
-			if (_templates == null)
+			if (Templates == null)
 			{
 				RefreshSpecTargets();
 
 				var allTemplates = GetAllTemplates();
 				var acceptableTemplates = new List<TemplateItem>();
-				var acceptableIds = new HashSet<ID>(_includedTemplates);
-				acceptableIds.RemoveWhere(x => _excludedTemplates.Contains(x));
+				var acceptableIds = new HashSet<ID>(IncludedTemplates);
+				acceptableIds.RemoveWhere(x => ExcludedTemplates.Contains(x));
 
 				foreach (var template in allTemplates)
 				{
 					if (acceptableIds.Contains(template.ID)) acceptableTemplates.Add(template);
 				}
 
-				_templates = acceptableTemplates.Select(x => (ITemplateInfo)new TemplateInfo(x)).ToList();
+				Templates = acceptableTemplates.Select(x => (ITemplateInfo)new TemplateInfo(x)).ToList();
 			}
 
-			return _templates;
+			return Templates;
 		}
 
 		/// <summary>
 		/// Determine if a field is not present in the excluded field set
 		/// </summary>
-		public bool IsFieldIncluded(ID fieldId)
+		public virtual bool IsFieldIncluded(ID fieldId)
 		{
-			if (_excludedFields == null) RefreshSpecTargets();
+			if (ExcludedFields == null) RefreshSpecTargets();
 
 			// ReSharper disable PossibleNullReferenceException
-			return !_excludedFields.Contains(fieldId);
+			return !ExcludedFields.Contains(fieldId);
 			// ReSharper restore PossibleNullReferenceException
 		}
 
 		/// <summary>
 		/// Clears the template cache, forcing a refresh with the latest Sitecore data.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
-			_templates = null;
-			_allFields = null;
-			_allTemplates = null;
-			_includedTemplates = null;
-			_excludedTemplates = null;
-			_excludedFields = null;
+			Templates = null;
+			AllFields = null;
+			AllTemplates = null;
+			IncludedTemplates = null;
+			ExcludedTemplates = null;
+			ExcludedFields = null;
 		}
 
 		/// <summary>
 		/// Recalculates the field and template IDs that match a given spec
 		/// Can be used to refresh the template list after a new template or field has been created
 		/// </summary>
-		protected void RefreshSpecTargets()
+		protected virtual void RefreshSpecTargets()
 		{
 			// calculate which templates match the include specs
-			_includedTemplates = new HashSet<ID>();
-			foreach (var templateSpec in _includedTemplateSpecs)
+			IncludedTemplates = new HashSet<ID>();
+			foreach (var templateSpec in IncludedTemplateSpecs)
 			{
 				foreach (var template in ResolveTemplateSpecToItems(templateSpec))
 				{
-					_includedTemplates.Add(template.ID);
+					IncludedTemplates.Add(template.ID);
 				}
 			}
 
 			// calculate which templates match the exclude specs
-			_excludedTemplates = new HashSet<ID>();
-			foreach (var templateExclusionSpec in _excludedTemplateSpecs)
+			ExcludedTemplates = new HashSet<ID>();
+			foreach (var templateExclusionSpec in ExcludedTemplateSpecs)
 			{
 				foreach (var template in ResolveTemplateSpecToItems(templateExclusionSpec))
 				{
-					_excludedTemplates.Add(template.ID);
+					ExcludedTemplates.Add(template.ID);
 				}
 			}
 
 			// calculate which fields match the include specs
-			_excludedFields = new HashSet<ID>();
-			foreach (var fieldExclusionSpec in _excludedFieldSpecs)
+			ExcludedFields = new HashSet<ID>();
+			foreach (var fieldExclusionSpec in ExcludedFieldSpecs)
 			{
 				foreach (var field in ResolveFieldSpecToItems(fieldExclusionSpec))
 				{
-					_excludedFields.Add(field.ID);
+					ExcludedFields.Add(field.ID);
 				}
 			}
 		}
@@ -124,36 +124,36 @@ namespace Synthesis.Configuration
 		/// Adds a template spec to the inclusion list.
 		/// </summary>
 		/// <param name="templateSpec">A spec to add to the templates list (name, ID, path, or wildcard)</param>
-		public void AddTemplatePath(string templateSpec)
+		public virtual void AddTemplatePath(string templateSpec)
 		{
-			_templates = null; // clear the template cache if it is set
-			_includedTemplateSpecs.Add(templateSpec);
+			Templates = null; // clear the template cache if it is set
+			IncludedTemplateSpecs.Add(templateSpec);
 		}
 
 		/// <summary>
 		/// Adds a template spec to the exclusion list. Any templates to be excluded must already be on the inclusion list.
 		/// </summary>
 		/// <param name="templateExclusionSpec">A spec to add to the template exclusion list (name, ID, path, or wildcard)</param>
-		public void AddTemplateExclusion(string templateExclusionSpec)
+		public virtual void AddTemplateExclusion(string templateExclusionSpec)
 		{
-			_templates = null; // clear the template cache if it is set
-			_excludedTemplateSpecs.Add(templateExclusionSpec);
+			Templates = null; // clear the template cache if it is set
+			ExcludedTemplateSpecs.Add(templateExclusionSpec);
 		}
 
 		/// <summary>
 		/// Adds a field spec to the field exclusion list.
 		/// </summary>
 		/// <param name="fieldExclusionSpec">A spec to add to the field exclusion list (name, ID, path, or wildcard, or templatespec::fieldspec using any combination of spec types)</param>
-		public void AddFieldExclusion(string fieldExclusionSpec)
+		public virtual void AddFieldExclusion(string fieldExclusionSpec)
 		{
-			_templates = null; // clear the template cache if it is set
-			_excludedFieldSpecs.Add(fieldExclusionSpec);
+			Templates = null; // clear the template cache if it is set
+			ExcludedFieldSpecs.Add(fieldExclusionSpec);
 		}
 
 		/// <summary>
 		/// Takes a template spec and resolves all templates that match the spec
 		/// </summary>
-		private IEnumerable<Item> ResolveTemplateSpecToItems(string spec)
+		protected virtual IEnumerable<Item> ResolveTemplateSpecToItems(string spec)
 		{
 			var items = ResolveSpecToItems(spec, GetAllTemplates());
 
@@ -177,7 +177,7 @@ namespace Synthesis.Configuration
 		/// </summary>
 		/// <param name="spec"></param>
 		/// <returns>Template Field Items that are selected by the input</returns>
-		private IEnumerable<Item> ResolveFieldSpecToItems(string spec)
+		protected virtual IEnumerable<Item> ResolveFieldSpecToItems(string spec)
 		{
 			if (!spec.Contains("::"))
 			{
@@ -212,7 +212,7 @@ namespace Synthesis.Configuration
 		/// Takes an individual spec and resolves all items that match the set spec, given a complete list of match possibilities
 		/// </summary>
 		/// <returns>Items that are selected by the input (templates or fields depending on the possibilities passed in)</returns>
-		private IEnumerable<Item> ResolveSpecToItems(string input, IEnumerable<Item> possibilities)
+		protected virtual IEnumerable<Item> ResolveSpecToItems(string input, IEnumerable<Item> possibilities)
 		{
 			// WILDCARD: Could match any possibility. Check em all and return any match(es).
 			if (input.Contains("*") || input.Contains("?"))
@@ -249,7 +249,7 @@ namespace Synthesis.Configuration
 		/// <summary>
 		/// Checks if an item matches a wildcard spec (by name or full path)
 		/// </summary>
-		private static bool MatchesWildcardSpec(Item item, string spec)
+		protected static bool MatchesWildcardSpec(Item item, string spec)
 		{
 			if (WildcardUtility.IsWildcardMatch(item.Name, spec)) return true;
 			if (WildcardUtility.IsWildcardMatch(item.Paths.FullPath, spec)) return true;
@@ -260,24 +260,24 @@ namespace Synthesis.Configuration
 		/// <summary>
 		/// Gets ALL templates that reside in the default database (master)
 		/// </summary>
-		private IEnumerable<Item> GetAllTemplates()
+		protected virtual IEnumerable<Item> GetAllTemplates()
 		{
 			/* NOTE: there may be an issue with the GetTemplates() method here modifying the enumerable. It's only intermittent and difficult to reproduce, but
 			 * the code below that causes the result of the call to be enumerated before the LINQ query on it will hopefully put a nail in the issue.
 			 */
-			if (_allTemplates == null)
+			if (AllTemplates == null)
 			{
 				if (Database != null)
 				{
 					var templates = Database.Templates.GetTemplates(LanguageManager.DefaultLanguage).ToList(); // force enumeration of result to load all
 
 					// grab the items of all templates except the standard template (which is implied by IStandardTemplateItem)
-					_allTemplates = templates.Where(x => x.Name.ToUpperInvariant() != "STANDARD TEMPLATE").Select(x => x.InnerItem).ToList();
+					AllTemplates = templates.Where(x => x.Name.ToUpperInvariant() != "STANDARD TEMPLATE").Select(x => x.InnerItem).ToList();
 				}
-				else _allTemplates = new List<Item>();
+				else AllTemplates = new List<Item>();
 			}
 
-			return _allTemplates;
+			return AllTemplates;
 		}
 
 		/// <summary>
@@ -286,11 +286,11 @@ namespace Synthesis.Configuration
 		/// <remarks>
 		/// Uses the link database. Agnostic of what template they belong to.
 		/// </remarks>
-		private IEnumerable<Item> GetAllFields()
+		protected virtual IEnumerable<Item> GetAllFields()
 		{
 			if (Database == null) return new List<Item>(); // master db didn't exist - fail
 
-			if (_allFields == null)
+			if (AllFields == null)
 			{
 				var templateFieldTemplate = new TemplateItem(Database.GetItem(TemplateIDs.TemplateField));
 
@@ -310,14 +310,14 @@ namespace Synthesis.Configuration
 					}
 				}
 
-				_allFields = fields;
+				AllFields = fields;
 			}
 
-			return _allFields;
+			return AllFields;
 		}
 
 		private Database _database;
-		private Database Database
+		protected virtual Database Database
 		{
 			get
 			{
