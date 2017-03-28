@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Sitecore;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.ComputedFields;
@@ -18,19 +18,19 @@ namespace Synthesis.ContentSearch.ComputedFields
 	/// recursive and gets ALL base templates, even of grandparent and above templates.
 	/// </summary>
 	public class InheritedTemplates : IComputedIndexField
-    {
-        public string FieldName { get; set; }
+	{
+		public string FieldName { get; set; }
 
-        public string ReturnType { get; set; }
+		public string ReturnType { get; set; }
 
-        public object ComputeFieldValue(IIndexable indexable)
-        {
+		public object ComputeFieldValue(IIndexable indexable)
+		{
             Assert.ArgumentNotNull(indexable, "indexable");
             return GetAllTemplates(indexable as SitecoreIndexableItem);
-        }
+		}
 
-        private static List<string> GetAllTemplates(Item item)
-        {
+		private static List<string> GetAllTemplates(Item item)
+		{
             // SitecoreIndexableItem is not of type Sitecore.Data.Items.Item
             if (item == null)
             {
@@ -38,21 +38,22 @@ namespace Synthesis.ContentSearch.ComputedFields
             }
 
             Assert.IsNotNull(item.Template, "Item template not found.");
-            var list = new List<string> { IdHelper.NormalizeGuid(item.TemplateID) };
-            RecurseTemplates(list, item.Template);
-            return list;
-        }
+			var list = new List<string> { IdHelper.NormalizeGuid(item.TemplateID) };
+			RecurseTemplates(list, item.Template);
+			return list;
+		}
 
-        private static void RecurseTemplates(ICollection<string> list, TemplateItem template)
-        {
-            foreach (var baseTemplateItem in template.BaseTemplates)
-            {
-                list.Add(IdHelper.NormalizeGuid(baseTemplateItem.ID));
-                if (baseTemplateItem.ID != TemplateIDs.StandardTemplate)
-                {
+		private static void RecurseTemplates(ICollection<string> list, TemplateItem template)
+		{
+			foreach (var baseTemplateItem in template.BaseTemplates)
+			{
+				list.Add(IdHelper.NormalizeGuid(baseTemplateItem.ID));
+			    if (baseTemplateItem.ID != TemplateIDs.StandardTemplate)
+			    {
                     RecurseTemplates(list, baseTemplateItem);
                 }
-            }
-        }
-    }
+					
+			}
+		}
+	}
 }
