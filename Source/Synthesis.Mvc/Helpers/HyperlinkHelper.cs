@@ -28,6 +28,7 @@ namespace Synthesis.Mvc.Helpers
 	/// </summary>
 	public static class HyperlinkHelper
 	{
+		[Obsolete("Use the Synthesis.Mvc.Extensions IHyperlinkField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string linkText = null, string cssClass = null)
 		{
 			return HyperlinkFor(helper, selector, x =>
@@ -40,6 +41,7 @@ namespace Synthesis.Mvc.Helpers
 			});
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions IHyperlinkField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, Action<Link> parameters)
 		{
 			var field = selector(helper.ViewData.Model);
@@ -56,6 +58,7 @@ namespace Synthesis.Mvc.Helpers
 			return new MvcHtmlString(string.Empty);
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions IHyperlinkField.RenderWithBody() extension method instead for improved readability.")]
 		public static IDisposable BeginHyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string cssClass = null)
 		{
 			var field = (FieldType)selector(helper.ViewData.Model);

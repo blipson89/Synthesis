@@ -21,16 +21,19 @@ namespace Synthesis.Mvc.Helpers
 	/// </summary>
 	public static class DateHelper
 	{
+		[Obsolete("Use the Synthesis.Mvc.Extensions IDateTimeField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString DateTimeFor<T>(this HtmlHelper<T> helper, Func<T, IDateTimeField> selector)
 		{
 			return DateTimeFor(helper, selector, "g");
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions IDateTimeField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString DateTimeFor<T>(this HtmlHelper<T> helper, Func<T, IDateTimeField> selector, string format)
 		{
 			return DateTimeFor(helper, selector, x => { x.Format = format; });
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions IDateTimeField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString DateTimeFor<T>(this HtmlHelper<T> helper, Func<T, IDateTimeField> selector, Action<Date> parameters)
 		{
 			var field = selector(helper.ViewData.Model);

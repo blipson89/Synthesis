@@ -80,6 +80,12 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Extensions\DateFields.cs" />
+    <Compile Include="Extensions\FileFields.cs" />
+    <Compile Include="Extensions\HyperlinkFields.cs" />
+    <Compile Include="Extensions\ImageFields.cs" />
+    <Compile Include="Extensions\NumberFields.cs" />
+    <Compile Include="Extensions\TextFields.cs" />
     <Compile Include="Helpers\HyperlinkHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\DateHelper.cs" />

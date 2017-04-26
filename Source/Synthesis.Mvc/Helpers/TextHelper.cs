@@ -21,11 +21,13 @@ namespace Synthesis.Mvc.Helpers
 	/// </summary>
 	public static class TextHelper
 	{
+		[Obsolete("Use the Synthesis.Mvc.Extensions ITextField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString TextFor<T>(this HtmlHelper<T> helper, Func<T, ITextField> selector)
 		{
 			return TextFor(helper, selector, true);
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions ITextField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString TextFor<T>(this HtmlHelper<T> helper, Func<T, ITextField> selector, bool editable)
 		{
 			var field = selector(helper.ViewData.Model);

@@ -7,33 +7,27 @@ using Sitecore.Resources.Media;
 using Sitecore.Web.UI.WebControls;
 using Synthesis.FieldTypes.Interfaces;
 
-namespace Synthesis.Mvc.Helpers
+namespace Synthesis.Mvc.Extensions
 {
 	/// <summary>
-	/// HTML helpers to enable simple rendering of Synthesis field types in Sitecore MVC
+	/// Extensions to enable simple rendering of Synthesis field types in Sitecore MVC
 	/// These are the preferred method of emitting Synthesis models to the markup as they handle
 	/// things like HTML encoding and field renderer parameters for you.
-	/// 
-	/// They all work similar to the form helpers in that they're lambdas on the model:
-	/// 
-	/// @Html.TextFor(x=>x.MyTextField)
-	/// 
-	/// You can also use them on non-model Synthesis objects if needed:
-	/// 
-	/// @Html.ImageFor(x=>someObject.ImageField, "image-class")
+	///
+	/// They are very simple to use:
+	///
+	/// @mySynthesisObject.Field.Render()
 	/// </summary>
-	public static class ImageHelper
+	public static class ImageFields
 	{
-		[Obsolete("Use the Synthesis.Mvc.Extensions IImageField.Render() extension methods instead for improved readability.")]
-		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, string cssClass)
+		public static IHtmlString Render(this IImageField field, string cssClass)
 		{
-			return ImageFor(helper, selector, x => { x.CssClass = cssClass; });
+			return Render(field, x => { x.CssClass = cssClass; });
 		}
 
-		[Obsolete("Use the Synthesis.Mvc.Extensions IImageField.Render() extension methods instead for improved readability.")]
-		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int? maxWidth = null, int? maxHeight = null, string cssClass = null)
+		public static IHtmlString Render(this IImageField field, int? maxWidth = null, int? maxHeight = null, string cssClass = null)
 		{
-			return ImageFor(helper, selector, x =>
+			return Render(field, x =>
 			{
 				if (maxWidth.HasValue)
 					x.MaxWidth = maxWidth.Value;
@@ -45,11 +39,8 @@ namespace Synthesis.Mvc.Helpers
 			});
 		}
 
-		[Obsolete("Use the Synthesis.Mvc.Extensions IImageField.Render() extension methods instead for improved readability.")]
-		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, Action<Image> parameters)
+		public static IHtmlString Render(this IImageField field, Action<Image> parameters)
 		{
-			var field = selector(helper.ViewData.Model);
-
 			if (field.HasValue || Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				var imageRenderer = new Image();
@@ -62,22 +53,19 @@ namespace Synthesis.Mvc.Helpers
 			return new MvcHtmlString(string.Empty);
 		}
 
-		[Obsolete("Use the Synthesis.Mvc.Extensions IImageField.RenderDpiAware() extension method instead for improved readability.")]
-		public static IHtmlString DpiAwareImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int? max1XWidth = null, int? max1XHeight = null, string cssClass = null, int maxScale = 2)
+		public static IHtmlString RenderDpiAware(this IImageField field, int? max1XWidth = null, int? max1XHeight = null, string cssClass = null, int maxScale = 2)
 		{
 			if (Sitecore.Context.PageMode.IsExperienceEditor || maxScale == 1)
 			{
-				return ImageFor(helper, selector, max1XWidth, max1XHeight, cssClass);
+				return Render(field, max1XWidth, max1XHeight, cssClass);
 			}
-
-			var field = selector(helper.ViewData.Model);
 
 			if (field.HasValue)
 			{
 				string mediaUrl = MediaManager.GetMediaUrl(field.MediaItem);
-				
+
 				var html = new StringBuilder();
-				html.AppendFormat("<img src=\"{0}\"", GenerateImageUrl(mediaUrl, max1XWidth, max1XHeight));		
+				html.AppendFormat("<img src=\"{0}\"", GenerateImageUrl(mediaUrl, max1XWidth, max1XHeight));
 
 				var srcset = new List<string>();
 				for (int scaleFactor = 2; scaleFactor <= maxScale; scaleFactor++)
@@ -85,6 +73,7 @@ namespace Synthesis.Mvc.Helpers
 					int scaledMaxWidth = (max1XWidth ?? 0) * scaleFactor;
 					int scaledMaxHeight = (max1XHeight ?? 0) * scaleFactor;
 
+					// ReSharper disable once UseStringInterpolation
 					srcset.Add(string.Format("{0} {1}x", HttpUtility.UrlPathEncode(GenerateImageUrl(mediaUrl, scaledMaxWidth, scaledMaxHeight)), scaleFactor));
 				}
 
@@ -113,6 +102,7 @@ namespace Synthesis.Mvc.Helpers
 			var url = new StringBuilder();
 
 			url.Append(baseUrl);
+
 			if (maxWidth > 0) url.AppendFormat("?mw={0}", maxWidth);
 			if (maxHeight > 0) url.AppendFormat("{0}mh={1}", maxWidth > 0 ? "&" : "?", maxHeight);
 

@@ -3,8 +3,6 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Sitecore;
-using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.Mvc.Helpers
@@ -24,11 +22,13 @@ namespace Synthesis.Mvc.Helpers
 	/// </summary>
 	public static class FileHelper
 	{
+		[Obsolete("Use the Synthesis.Mvc.Extensions IFileField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector, string linkText = null, string cssClass = null)
 		{
 			return FileLinkFor(helper, selector, linkText, new { @class = cssClass });
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions IFieldField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString FileLinkFor<T>(this HtmlHelper<T> helper, Func<T, IFileField> selector, string linkText, object attributes)
 		{
 			var field = selector(helper.ViewData.Model);
