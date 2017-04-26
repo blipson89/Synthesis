@@ -1,4 +1,5 @@
-﻿using Sitecore.Mvc.Presentation;
+﻿using Sitecore.ContentSearch;
+using Sitecore.Mvc.Presentation;
 using Sitecore.Sites;
 using Synthesis.FieldTypes.Adapters;
 
@@ -32,5 +33,17 @@ namespace Synthesis.Mvc.UI
 		public IDatabaseAdapter ContextDatabase => new DatabaseAdapter(Sitecore.Context.ContentDatabase ?? Sitecore.Context.Database);
 
 		public RenderingParameters Parameters => RenderingContext.CurrentOrNull?.Rendering?.Parameters ?? new RenderingParameters(string.Empty);
+
+		public ISearchIndex ContextIndex
+		{
+			get
+			{
+				var contextItem = ContextItem?.InnerItem;
+
+				if (contextItem == null) return null;
+
+				return ContentSearchManager.GetIndex(new SitecoreIndexableItem(contextItem));
+			}
+		}
 	}
 }

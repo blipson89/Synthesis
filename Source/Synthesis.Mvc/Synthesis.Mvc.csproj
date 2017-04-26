@@ -38,6 +38,9 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.ContentSearch, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.NoReferences.8.2.170407\lib\NET452\Sitecore.ContentSearch.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.ExperienceExplorer.Business">
       <HintPath>..\..\packages\Sitecore.ExperienceExplorer.Business.NoReferences.8.2.160729\lib\net452\Sitecore.ExperienceExplorer.Business.dll</HintPath>
     </Reference>
@@ -94,6 +97,7 @@
     <Compile Include="RenderingDisplayPathResolver.cs" />
     <Compile Include="TagRenderingContext.cs" />
     <Compile Include="UI\IContextDatabase.cs" />
+    <Compile Include="UI\IContextIndex.cs" />
     <Compile Include="UI\IContextItem.cs" />
     <Compile Include="UI\IContextSite.cs" />
     <Compile Include="UI\IRenderingContext.cs" />

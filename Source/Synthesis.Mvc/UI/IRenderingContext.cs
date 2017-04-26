@@ -2,7 +2,7 @@
 
 namespace Synthesis.Mvc.UI
 {
-	public interface IRenderingContext : IContextItem, IContextSite, IContextDatabase
+	public interface IRenderingContext : IContextItem, IContextSite, IContextDatabase, IContextIndex
 	{
 		/// <summary>
 		/// Gets the current rendering's datasource as an expected type
