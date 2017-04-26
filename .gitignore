@@ -9,6 +9,8 @@ Thumbs.db
 
 ######## GENERAL .NET IGNORES ########
 
+.vs/
+
 # Ignore binaries in the source
 Source/*/bin
 Source/*/obj
