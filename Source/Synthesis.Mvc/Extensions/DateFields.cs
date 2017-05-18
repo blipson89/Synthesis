@@ -19,12 +19,26 @@ namespace Synthesis.Mvc.Extensions
 	{
 		public static IHtmlString Render(this IDateTimeField field)
 		{
-			return Render(field, "g");
+			return Render(field, "g", true);
+		}
+
+		public static IHtmlString Render(this IDateTimeField field, bool editable)
+		{
+			return Render(field, "g", editable);
 		}
 
 		public static IHtmlString Render(this IDateTimeField field, string format)
 		{
-			return Render(field, x => { x.Format = format; });
+			return Render(field, format, true);
+		}
+
+		public static IHtmlString Render(this IDateTimeField field, string format, bool editable)
+		{
+			return Render(field, x =>
+			{
+				x.Format = format;
+				x.DisableWebEditing = !editable;
+			});
 		}
 
 		public static IHtmlString Render(IDateTimeField field, Action<Date> parameters)

@@ -18,7 +18,7 @@ namespace Synthesis.Mvc.Extensions
 	/// </summary>
 	public static class HyperlinkFields
 	{
-		public static IHtmlString Render(this IHyperlinkField field, string linkText = null, string cssClass = null)
+		public static IHtmlString Render(this IHyperlinkField field, string linkText = null, string cssClass = null, bool editable = true)
 		{
 			return Render(field, x =>
 			{
@@ -27,6 +27,9 @@ namespace Synthesis.Mvc.Extensions
 
 				if (cssClass != null)
 					x.CssClass = cssClass;
+
+				if(!editable)
+					x.DisableWebEditing = true;
 			});
 		}
 

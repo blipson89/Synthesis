@@ -22,10 +22,22 @@ namespace Synthesis.Mvc.Extensions
 	{
 		public static IHtmlString Render(this IImageField field, string cssClass)
 		{
-			return Render(field, x => { x.CssClass = cssClass; });
+			return Render(field, true, cssClass);
+		}
+		public static IHtmlString Render(this IImageField field, bool editable)
+		{
+			return Render(field, editable, "");
+		}
+		public static IHtmlString Render(this IImageField field, bool editable, string cssClass)
+		{
+			return Render(field, x =>
+			{
+				x.CssClass = cssClass;
+				x.DisableWebEditing = !editable;
+			});
 		}
 
-		public static IHtmlString Render(this IImageField field, int? maxWidth = null, int? maxHeight = null, string cssClass = null)
+		public static IHtmlString Render(this IImageField field, int? maxWidth = null, int? maxHeight = null, string cssClass = null, bool editable = true)
 		{
 			return Render(field, x =>
 			{
@@ -34,6 +46,9 @@ namespace Synthesis.Mvc.Extensions
 
 				if (maxHeight.HasValue)
 					x.MaxHeight = maxHeight.Value;
+
+				if (!editable)
+					x.DisableWebEditing = true;
 
 				x.CssClass = cssClass;
 			});
@@ -53,11 +68,11 @@ namespace Synthesis.Mvc.Extensions
 			return new MvcHtmlString(string.Empty);
 		}
 
-		public static IHtmlString RenderDpiAware(this IImageField field, int? max1XWidth = null, int? max1XHeight = null, string cssClass = null, int maxScale = 2)
+		public static IHtmlString RenderDpiAware(this IImageField field, int? max1XWidth = null, int? max1XHeight = null, string cssClass = null, int maxScale = 2, bool editable = true)
 		{
 			if (Sitecore.Context.PageMode.IsExperienceEditor || maxScale == 1)
 			{
-				return Render(field, max1XWidth, max1XHeight, cssClass);
+				return Render(field, max1XWidth, max1XHeight, cssClass, editable);
 			}
 
 			if (field.HasValue)
