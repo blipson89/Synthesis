@@ -20,9 +20,18 @@ namespace Synthesis.Mvc.Extensions
 			return Render(field, "g");
 		}
 
+		public static IHtmlString Render(this IIntegerField field, bool editable)
+		{
+			return Render(field, "g", editable);
+		}
 		public static IHtmlString Render(this IIntegerField field, string format)
 		{
-			if (Sitecore.Context.PageMode.IsExperienceEditor)
+			return Render(field, format, true);
+		}
+
+		public static IHtmlString Render(this IIntegerField field, string format, bool editable)
+		{
+			if (Sitecore.Context.PageMode.IsExperienceEditor && editable)
 			{
 				return new HtmlString(field.RenderedValue);
 			}
@@ -40,9 +49,19 @@ namespace Synthesis.Mvc.Extensions
 			return Render(field, "g");
 		}
 
+		public static IHtmlString Render(this INumericField field, bool editable)
+		{
+			return Render(field, "g", editable);
+		}
+
 		public static IHtmlString Render(this INumericField field, string format)
 		{
-			if (Sitecore.Context.PageMode.IsExperienceEditor)
+			return Render(field, format, true);
+		}
+
+		public static IHtmlString Render(this INumericField field, string format, bool editable)
+		{
+			if (Sitecore.Context.PageMode.IsExperienceEditor && editable)
 			{
 				return new HtmlString(field.RenderedValue);
 			}
