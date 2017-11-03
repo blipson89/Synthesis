@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Sitecore.Mvc;
+using Sitecore.Mvc.Helpers;
+using Sitecore.Pipelines.ItemProvider.HasChildren;
 using Sitecore.Web.UI.WebControls;
 using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
@@ -24,6 +28,7 @@ namespace Synthesis.Mvc.Helpers
 	/// </summary>
 	public static class HyperlinkHelper
 	{
+		[Obsolete("Use the Synthesis.Mvc.Extensions IHyperlinkField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string linkText = null, string cssClass = null)
 		{
 			return HyperlinkFor(helper, selector, x =>
@@ -36,11 +41,12 @@ namespace Synthesis.Mvc.Helpers
 			});
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions IHyperlinkField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString HyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, Action<Link> parameters)
 		{
 			var field = selector(helper.ViewData.Model);
 
-			if (field.HasValue || Sitecore.Context.PageMode.IsPageEditor)
+			if (field.HasValue || Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				var link = new Link();
 				link.AttachToLinkField(field);
@@ -50,6 +56,21 @@ namespace Synthesis.Mvc.Helpers
 			}
 
 			return new MvcHtmlString(string.Empty);
+		}
+
+		[Obsolete("Use the Synthesis.Mvc.Extensions IHyperlinkField.RenderWithBody() extension method instead for improved readability.")]
+		public static IDisposable BeginHyperlinkFor<T>(this HtmlHelper<T> helper, Func<T, IHyperlinkField> selector, string cssClass = null)
+		{
+			var field = (FieldType)selector(helper.ViewData.Model);
+
+			object parameters = new { haschildren = true };
+
+			if (cssClass != null)
+			{
+				parameters = new { haschildren = true, @class = cssClass };
+			}
+
+			return new TagRenderingContext<T>(helper, field, parameters);
 		}
 	}
 }

@@ -18,10 +18,7 @@ namespace Synthesis.Tests
 			return new FakeTemplateItem(innerItem);
 		}
 
-		public ID InitializesTemplateId
-		{
-			get { return ID.Null; }
-		}
+		public ID InitializesTemplateId => ID.Null;
 
 
 		public IStandardTemplateItem CreateInstanceFromSearch(IDictionary<string, string> searchFields)
@@ -37,9 +34,9 @@ namespace Synthesis.Tests
 		{
 		}
 
-		public override ID TemplateId { get { return ItemTemplateId; } }
+		public override ID TemplateId => ItemTemplateId;
 
-		public static ID ItemTemplateId { get { return ID.Null; } }
+		public static ID ItemTemplateId => ID.Null;
 
 		public static FakeTemplateItem Create(string name, Item parent)
 		{

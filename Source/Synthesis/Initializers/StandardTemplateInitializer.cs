@@ -16,9 +16,6 @@ namespace Synthesis.Initializers
 			return new StandardTemplateItem(searchFields);
 		}
 
-		public ID InitializesTemplateId
-		{
-			get { return ID.Null; }
-		}
+		public ID InitializesTemplateId => ID.Null;
 	}
 }

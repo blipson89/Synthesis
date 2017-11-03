@@ -26,15 +26,12 @@ namespace Synthesis.Testing
 		/// <summary>
 		///     Gets the entity that the relationship is to. Returns null if the entity doesn't exist.
 		/// </summary>
-		public IStandardTemplateItem Target { get; private set; }
+		public IStandardTemplateItem Target { get; }
 
 		/// <summary>
 		///     Checks if the relationship has a value. Does not check if the ID refers to a valid entity.
 		/// </summary>
-		public override bool HasValue
-		{
-			get { return TargetId != (ID) null && !TargetId.IsNull && !TargetId.IsGlobalNullId; }
-		}
+		public override bool HasValue => TargetId != (ID) null && !TargetId.IsNull && !TargetId.IsGlobalNullId;
 
 		public ReferenceField ToReferenceField()
 		{

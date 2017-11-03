@@ -20,10 +20,7 @@ namespace Synthesis.FieldTypes.Adapters
 			_axes = new ItemAxes(item);
 		}
 
-		public IStandardTemplateItem Parent
-		{
-			get { return _item.Parent.AsStronglyTyped(); }
-		}
+		public IStandardTemplateItem Parent => _item.Parent.AsStronglyTyped();
 
 		public IStandardTemplateItem[] GetAncestors()
 		{

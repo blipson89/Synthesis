@@ -18,6 +18,7 @@ namespace Synthesis.Generation
 			UseTemplatePathForNamespace = true;
 			ItemBaseClass = typeof(StandardTemplateItem);
 			ItemBaseInterface = typeof(IStandardTemplateItem);
+			EnableContentSearch = true;
 			// ReSharper restore DoNotCallOverridableMethodsInConstructor
 		}
 
@@ -148,6 +149,11 @@ namespace Synthesis.Generation
 		/// The name of the configuration being generated. Used to tag the generated classes.
 		/// </summary>
 		public virtual string ConfigurationName { get; set; }
+
+		/// <summary>
+		/// Enable or disable content search integration
+		/// </summary>
+		public virtual bool EnableContentSearch { get; set; }
 
 		/// <summary>
 		/// Adds friend metadata (e.g. a template built in a different configuration) which can be referenced by templates in this one as a base

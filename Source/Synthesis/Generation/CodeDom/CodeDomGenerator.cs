@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Sitecore.Configuration;
 using Sitecore.ContentSearch;
 using Sitecore.Data;
 using Sitecore.Data.Items;
@@ -49,8 +50,18 @@ namespace Synthesis.Generation.CodeDom
 			SortCodeCompileUnit(concreteUnit);
 			SortCodeCompileUnit(interfaceUnit);
 
-			WriteFileWithBackups(_parameters.ItemOutputPath, concreteUnit);
-			WriteFileWithBackups(_parameters.InterfaceOutputPath, interfaceUnit);
+			var itemOutputPath = ProcessOutputPath(_parameters.ItemOutputPath);
+			var interfaceOutputPath = ProcessOutputPath(_parameters.InterfaceOutputPath);
+
+			if (itemOutputPath != interfaceOutputPath)
+			{
+				WriteFileWithBackups(itemOutputPath, concreteUnit);
+				WriteFileWithBackups(interfaceOutputPath, interfaceUnit);
+			}
+			else
+			{
+				WriteFileWithBackups(itemOutputPath, interfaceUnit, concreteUnit);
+			}
 		}
 
 		/// <summary>
@@ -207,7 +218,7 @@ namespace Synthesis.Generation.CodeDom
 			if (!string.IsNullOrEmpty(template.HelpText))
 				entity.Comments.Add(new CodeCommentStatement("<summary>" + template.HelpText + "</summary>", true));
 			else
-				entity.Comments.Add(new CodeCommentStatement(string.Format("<summary>Represents the {0} template</summary>", template.FullPath), true));
+				entity.Comments.Add(new CodeCommentStatement($"<summary>Represents the {template.FullPath} template</summary>", true));
 		}
 
 		private static void AddCommentsToFieldProperty(CodeMemberProperty property, ITemplateFieldInfo field)
@@ -215,7 +226,7 @@ namespace Synthesis.Generation.CodeDom
 			if (!string.IsNullOrEmpty(field.HelpText))
 				property.Comments.Add(new CodeCommentStatement("<summary>" + field.HelpText + "</summary>", true));
 			else
-				property.Comments.Add(new CodeCommentStatement(string.Format("<summary>Represents the {0} field</summary>", field.DisplayName), true));
+				property.Comments.Add(new CodeCommentStatement($"<summary>Represents the {field.DisplayName} field</summary>", true));
 		}
 
 		private void CreateItemProperty(FieldPropertyInfo propertyInfo, CodeTypeMemberCollection members)
@@ -238,22 +249,21 @@ namespace Synthesis.Generation.CodeDom
 			};
 
 			// add [IndexField] attribute
-			property.CustomAttributes.Add(GetIndexFieldAttribute(propertyInfo.SearchFieldName));
+			if (_parameters.EnableContentSearch && propertyInfo.SearchFieldName != null)
+			{
+				property.CustomAttributes.Add(GetIndexFieldAttribute(propertyInfo.SearchFieldName));
+			}
 
-			// if(backingField == null)
-			//	backingField = new SynthesisFieldType(new Lazy<Field>(() => InnerItem.Fields["xxx"], GetSearchFieldValue("index-field-name"));
-
-			var initializerLambda = new CodeSnippetExpression(string.Format("new global::Synthesis.FieldTypes.LazyField(() => InnerItem.Fields[\"{0}\"], \"{1}\", \"{2}\")", propertyInfo.Field.Id, propertyInfo.Field.Template.FullPath, propertyInfo.Field.Name));
+			var initializerLambda = new CodeSnippetExpression($"new global::Synthesis.FieldTypes.LazyField(() => InnerItem.Fields[\"{propertyInfo.Field.Id}\"], \"{propertyInfo.Field.Template.FullPath}\", \"{propertyInfo.Field.Name}\")");
 			var initializerSearchReference = new CodeMethodInvokeExpression(new CodeThisReferenceExpression(),
 																			"GetSearchFieldValue",
 																			new CodePrimitiveExpression(propertyInfo.SearchFieldName));
 
 			var backingFieldNullCheck = new CodeConditionStatement();
-			backingFieldNullCheck.Condition = new CodeSnippetExpression(string.Format("{0} == null", backingFieldName));
+			backingFieldNullCheck.Condition = new CodeSnippetExpression($"{backingFieldName} == null");
 			backingFieldNullCheck.TrueStatements.Add(new CodeAssignStatement(new CodeVariableReferenceExpression(backingFieldName), new CodeObjectCreateExpression(propertyInfo.FieldType.InternalFieldType, initializerLambda, initializerSearchReference)));
 			property.GetStatements.Add(backingFieldNullCheck);
 
-			// return backingField;
 			property.GetStatements.Add(new CodeMethodReturnStatement(new CodeVariableReferenceExpression(backingFieldName)));
 
 			AddCommentsToFieldProperty(property, propertyInfo.Field);
@@ -274,7 +284,10 @@ namespace Synthesis.Generation.CodeDom
 			};
 
 			// add [IndexField] attribute
-			property.CustomAttributes.Add(GetIndexFieldAttribute(propertyInfo.SearchFieldName));
+			if (_parameters.EnableContentSearch && propertyInfo.SearchFieldName != null)
+			{
+				property.CustomAttributes.Add(GetIndexFieldAttribute(propertyInfo.SearchFieldName));
+			}
 
 			AddCommentsToFieldProperty(property, propertyInfo.Field);
 
@@ -382,15 +395,30 @@ namespace Synthesis.Generation.CodeDom
 		}
 
 		/// <summary>
+		/// Applies the global output base path, if one is set, to an output path.
+		/// </summary>
+		/// <remarks>
+		/// This is used so you can use sc.variable values in your output paths since those do not work in regular output paths.
+		/// </remarks>
+		private string ProcessOutputPath(string path)
+		{
+			var globalBasePath = Settings.GetSetting("Synthesis.ModelOutputBasePath", string.Empty);
+
+			if (string.IsNullOrWhiteSpace(globalBasePath)) return path;
+
+			return globalBasePath + path;
+		}
+
+		/// <summary>
 		/// Writes a file to disk and creates backup copies if a file with the same name already exists
 		/// </summary>
 		/// <remarks>Backups are numbered i.e. .1, .2, .3, .4, etc and rotate up as new copies are made (i.e. if .1 exists, it will be renamed .2 and the current one renamed to .1, etc)</remarks>
-		private void WriteFileWithBackups(string path, CodeCompileUnit code)
+		private void WriteFileWithBackups(string path, params CodeCompileUnit[] codes)
 		{
-			if (File.Exists(path)) // existing version present; make backups as necessary
-			{
-				uint maxBackups = _parameters.MaxBackupCopies;
+			uint maxBackups = _parameters.MaxBackupCopies;
 
+			if (maxBackups > 0 && File.Exists(path)) // existing version present; make backups as necessary
+			{
 				uint i = maxBackups;
 				do // find and move existing backups if needed
 				{
@@ -398,7 +426,7 @@ namespace Synthesis.Generation.CodeDom
 					bool instanceExists = File.Exists(instanceFileName);
 
 					if (i == maxBackups && instanceExists) File.Delete(instanceFileName); // truncate a backup that's too old
-					if (i > 0 && i != maxBackups && instanceExists) File.Move(instanceFileName, string.Format("{0}.{1}", path, (i + 1).ToString(CultureInfo.InvariantCulture))); // move an existing backup up a number in the backups
+					if (i > 0 && i != maxBackups && instanceExists) File.Move(instanceFileName, $"{path}.{(i + 1).ToString(CultureInfo.InvariantCulture)}"); // move an existing backup up a number in the backups
 
 					i--;
 				} while (i > 0);
@@ -407,12 +435,29 @@ namespace Synthesis.Generation.CodeDom
 				File.Move(path, path + ".1");
 			}
 
-			var rawCode = code.CompileToCSharpSourceCode();
+			var rawCodes = codes.Select(code =>
+			{
+				var sourceCode = code.CompileToCSharpSourceCode();
 
-			rawCode = Regex.Replace(rawCode, "Runtime Version[^\r]+", string.Empty);
+				return Regex.Replace(sourceCode, "Runtime Version[^\r]+", string.Empty);
+			});
+
+			var outputCodes = string.Join(Environment.NewLine, rawCodes);
+
+			// check if our code generated is actually different before writing
+			// saves recompile time if we don't touch an unchanged code file
+			if (File.Exists(path))
+			{
+				var existingFile = File.ReadAllText(path);
+
+				if (existingFile.Equals(outputCodes)) return;
+			}
+
+			// create output directory if it doesn't exist
+			Directory.CreateDirectory(Path.GetDirectoryName(path));
 
 			// write new file
-			File.WriteAllText(path, rawCode);
+			File.WriteAllText(path, outputCodes);
 		}
 
 		private CodeCompileUnit CreateCodeCompileUnit()

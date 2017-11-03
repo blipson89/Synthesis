@@ -55,7 +55,7 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 				_displayPathResolver = displayPathResolver;
 			}
 
-			public Renderer InnerRenderer { get; private set; }
+			public Renderer InnerRenderer { get; }
 
 			public override void Render(TextWriter writer)
 			{
@@ -69,13 +69,10 @@ namespace Synthesis.Mvc.Pipelines.GetRenderer
 
 			public override string ToString()
 			{
-				return InnerRenderer != null ? InnerRenderer.ToString() : base.ToString();
+				return InnerRenderer?.ToString() ?? base.ToString();
 			}
 
-			public override string CacheKey
-			{
-				get { return InnerRenderer != null ? InnerRenderer.CacheKey : base.CacheKey; }
-			}
+			public override string CacheKey => InnerRenderer != null ? InnerRenderer.CacheKey : base.CacheKey;
 		}
 
 		protected virtual RenderingDisplayPathResolver CreateRenderingDisplayPathResolver()

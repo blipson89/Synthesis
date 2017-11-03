@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.Diagnostics;
+using Synthesis.ContentSearch;
 using Synthesis.FieldTypes;
 using Synthesis.Generation.Model;
 using Synthesis.Templates;
@@ -13,18 +13,18 @@ namespace Synthesis.Generation
 		private readonly GeneratorParameters _parameters;
 		private HashSet<string> _baseClassFields;
 		private readonly IFieldMappingProvider _fieldMappingProvider;
+		private readonly IndexFieldNameMapper _indexFieldNameMapper;
 		private readonly ITemplateInputProvider _templateInputProvider;
-		private readonly FieldNameTranslator _indexFieldNameTranslator;
 		const string StandardTemplate = "STANDARD TEMPLATE";
 
-		public MetadataGenerator(GeneratorParameters parameters, ITemplateInputProvider templateProvider, IFieldMappingProvider fieldMappingProvider, FieldNameTranslator indexFieldNameTranslator)
+		public MetadataGenerator(GeneratorParameters parameters, ITemplateInputProvider templateProvider, IFieldMappingProvider fieldMappingProvider, IndexFieldNameMapper indexFieldNameMapper)
 		{
 			parameters.Validate();
 			_parameters = parameters;
 
 			_templateInputProvider = templateProvider;
 			_fieldMappingProvider = fieldMappingProvider;
-			_indexFieldNameTranslator = indexFieldNameTranslator;
+			_indexFieldNameMapper = indexFieldNameMapper;
 		}
 
 		public TemplateGenerationMetadata GenerateMetadata()
@@ -58,8 +58,14 @@ namespace Synthesis.Generation
 						string propertyName = field.Name.AsNovelIdentifier(fieldKeys);
 
 						var fieldInfo = new FieldPropertyInfo(field);
+
 						fieldInfo.FieldPropertyName = propertyName;
-						fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name);
+
+						if (_parameters.EnableContentSearch)
+						{
+							fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field);
+						}
+
 						fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
 
 						if (fieldInfo.FieldType == null)
@@ -83,7 +89,7 @@ namespace Synthesis.Generation
 			}
 
 			timer.Stop();
-			Log.Info(string.Format("Synthesis: Generated metadata for {0} concrete templates and {1} interface templates in {2} ms", templateData.Templates.Count, templateData.Interfaces.Count, timer.ElapsedMilliseconds), this);
+			Log.Info($"Synthesis: Generated metadata for {templateData.Templates.Count} concrete templates and {templateData.Interfaces.Count} interface templates in {timer.ElapsedMilliseconds} ms", this);
 
 			return templateData;
 		}
@@ -129,7 +135,12 @@ namespace Synthesis.Generation
 
 					var fieldInfo = new FieldPropertyInfo(field);
 					fieldInfo.FieldPropertyName = propertyName;
-					fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name);
+
+					if (_parameters.EnableContentSearch)
+					{
+						fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field);
+					}
+
 					fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
 
 					if (fieldInfo.FieldType == null)

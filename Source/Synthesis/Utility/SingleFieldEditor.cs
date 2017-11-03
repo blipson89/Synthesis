@@ -1,12 +1,11 @@
-﻿using System;
-using Sitecore.Data.Items;
+﻿using Sitecore.Data.Items;
 
 namespace Synthesis.Utility
 {
 	/// <summary>
 	/// When used with a using clause, transparently enables item editing for a single field edit transaction if edit mode is not already enabled
 	/// </summary>
-	internal class SingleFieldEditor : IDisposable
+	internal class SingleFieldEditor
 	{
 		private bool _initiatedEdit;
 		private readonly Item _item;
@@ -17,15 +16,10 @@ namespace Synthesis.Utility
 			EnsureEditMode();
 		}
 
-		public void Dispose()
-		{
-			EnsureEndEdit();
-		}
-
 		/// <summary>
 		/// Ends edit mode if we initiated it, otherwise leaves it alone
 		/// </summary>
-		private void EnsureEndEdit()
+		public void EnsureEndEditIfStarted()
 		{
 			if (_initiatedEdit && _item.Editing.IsEditing)
 				_item.Editing.EndEdit();
@@ -34,7 +28,7 @@ namespace Synthesis.Utility
 		/// <summary>
 		/// Ensures that the item is in edit mode. Does not handle any security changes.
 		/// </summary>
-		public void EnsureEditMode()
+		private void EnsureEditMode()
 		{
 			if (!_item.Editing.IsEditing)
 			{

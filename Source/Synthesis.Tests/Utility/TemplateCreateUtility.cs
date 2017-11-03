@@ -12,8 +12,8 @@ namespace Synthesis.Tests.Utility
 		const string TEMPLATE_PARENT_PATH = "/sitecore/Templates";
 		const string TEMPLATE_FOLDER = "Temp";
 
-		internal static string TestTemplatePath { get { return TEMPLATE_PARENT_PATH + "/" + TEMPLATE_FOLDER; } }
-		internal static Item TestTemplateFolder { get { return Factory.GetDatabase("master").GetItem(TestTemplatePath); } }
+		internal static string TestTemplatePath => TEMPLATE_PARENT_PATH + "/" + TEMPLATE_FOLDER;
+		internal static Item TestTemplateFolder => Factory.GetDatabase("master").GetItem(TestTemplatePath);
 
 		internal static Item CreateTestTemplate(string name)
 		{
@@ -80,7 +80,7 @@ namespace Synthesis.Tests.Utility
 			{
 				var item = Factory.GetDatabase("master").GetItem(TestTemplatePath);
 
-				if (item != null) item.Delete();
+				item?.Delete();
 			}
 		}
 	}

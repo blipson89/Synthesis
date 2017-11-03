@@ -25,12 +25,18 @@ namespace Synthesis.ContentSearch.ComputedFields
 
 		public object ComputeFieldValue(IIndexable indexable)
 		{
+			Assert.ArgumentNotNull(indexable, "indexable");
 			return GetAllTemplates(indexable as SitecoreIndexableItem);
 		}
 
 		private static List<string> GetAllTemplates(Item item)
 		{
-			Assert.ArgumentNotNull(item, "item");
+			// SitecoreIndexableItem is not of type Sitecore.Data.Items.Item
+			if (item == null)
+			{
+				return new List<string>();
+			}
+
 			Assert.IsNotNull(item.Template, "Item template not found.");
 			var list = new List<string> { IdHelper.NormalizeGuid(item.TemplateID) };
 			RecurseTemplates(list, item.Template);
@@ -43,7 +49,10 @@ namespace Synthesis.ContentSearch.ComputedFields
 			{
 				list.Add(IdHelper.NormalizeGuid(baseTemplateItem.ID));
 				if (baseTemplateItem.ID != TemplateIDs.StandardTemplate)
+				{
 					RecurseTemplates(list, baseTemplateItem);
+				}
+
 			}
 		}
 	}

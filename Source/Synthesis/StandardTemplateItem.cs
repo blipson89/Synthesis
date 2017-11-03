@@ -66,7 +66,7 @@ namespace Synthesis
 				Assert.IsNotNull(ItemUri, "uri");
 				if (_innerItem == null)
 				{
-					if(LogSearchPromotions)
+					if (LogSearchPromotions)
 						System.Diagnostics.Debug.WriteLine("Synthesis: {0} ({1}) instance promoted from search to database item.", Name, Id);
 
 					_innerItem = Sitecore.Data.Database.GetItem(ItemUri);
@@ -106,7 +106,7 @@ namespace Synthesis
 		/// </summary>
 		[IndexField("_group")]
 		[TypeConverter(typeof(IndexFieldIDValueConverter))]
-		public ID Id { get { return ItemUri.ItemID; } }
+		public ID Id => ItemUri.ItemID;
 
 		/// <summary>
 		/// Name of the item
@@ -120,10 +120,11 @@ namespace Synthesis
 			}
 			set
 			{
-				using (new SingleFieldEditor(InnerItem))
-				{
-					InnerItem.Name = value;
-				}
+				var editing = new SingleFieldEditor(InnerItem);
+
+				InnerItem.Name = value;
+
+				editing.EnsureEndEditIfStarted();
 			}
 		}
 
@@ -156,10 +157,11 @@ namespace Synthesis
 			}
 			set
 			{
-				using (new SingleFieldEditor(InnerItem))
-				{
-					InnerItem[FieldIDs.DisplayName] = value;
-				}
+				var editing = new SingleFieldEditor(InnerItem);
+
+				InnerItem[FieldIDs.DisplayName] = value;
+
+				editing.EnsureEndEditIfStarted();
 			}
 		}
 
@@ -209,13 +211,7 @@ namespace Synthesis
 		/// <summary>
 		/// The database this item resides in
 		/// </summary>
-		public IDatabaseAdapter Database
-		{
-			get
-			{
-				return new DatabaseAdapter(Factory.GetDatabase(ItemUri.DatabaseName));
-			}
-		}
+		public IDatabaseAdapter Database => new DatabaseAdapter(Factory.GetDatabase(ItemUri.DatabaseName));
 
 		/// <summary>
 		/// The name of the item source database
@@ -229,10 +225,7 @@ namespace Synthesis
 		/// <summary>
 		/// Item version number
 		/// </summary>
-		public virtual int Version
-		{
-			get { return ItemUri.Version.Number; }
-		}
+		public virtual int Version => ItemUri.Version.Number;
 
 		/// <summary>
 		/// Gets if the item backing this instance is the latest version in its language
@@ -256,10 +249,7 @@ namespace Synthesis
 		/// Item language.
 		/// </summary>
 		[IndexField("_language")]
-		public virtual Language Language
-		{
-			get { return ItemUri.Language; }
-		}
+		public virtual Language Language => ItemUri.Language;
 
 		/// <summary>
 		/// When this version was created
@@ -300,10 +290,7 @@ namespace Synthesis
 		/// <summary>
 		/// Gets a strongly typed version of the item's axes for relative querying
 		/// </summary>
-		public virtual IAxesAdapter Axes
-		{
-			get { return new AxesAdapter(InnerItem); }
-		}
+		public virtual IAxesAdapter Axes => new AxesAdapter(InnerItem);
 
 		/// <summary>
 		/// Gets the full path of the item
@@ -338,10 +325,7 @@ namespace Synthesis
 		/// Provides access to the publishing framework
 		/// Loads the Sitecore item if this is a search-driven instance
 		/// </summary>
-		public virtual IEditingAdapter Editing
-		{
-			get { return new EditingAdapter(InnerItem.Editing); }
-		}
+		public virtual IEditingAdapter Editing => new EditingAdapter(InnerItem.Editing);
 
 		/// <summary>
 		/// Gets the URL to this item using the default LinkManager options. Returns null if not yet created.
@@ -368,37 +352,19 @@ namespace Synthesis
 		/// Gets a Synthesis field object for a given field
 		/// Loads the Sitecore item if this is a search-driven instance
 		/// </summary>
-		public virtual FieldDictionary Fields
-		{
-			get
-			{
-				return new FieldDictionary(this);
-			}
-		}
+		public virtual FieldDictionary Fields => new FieldDictionary(this);
 
 		/// <summary>
 		/// Search field indexer. Provides raw access to index field values for search-backed instances.
 		/// </summary>
 		/// <param name="searchFieldName">The index field name to get the value of.</param>
 		/// <returns>The field name, or null if it did not exist.</returns>
-		public string this[string searchFieldName]
-		{
-			get
-			{
-				return GetSearchFieldValue(searchFieldName);
-			}
-		}
+		public string this[string searchFieldName] => GetSearchFieldValue(searchFieldName);
 
 		/// <summary>
 		/// Determines if this item instance is currently proxying a search index result or the Sitecore database
 		/// </summary>
-		public InstanceType InstanceType
-		{
-			get
-			{
-				return _innerItem == null ? InstanceType.Search : InstanceType.Database;
-			}
-		}
+		public InstanceType InstanceType => _innerItem == null ? InstanceType.Search : InstanceType.Database;
 
 		/// <summary>
 		/// Adds a new item as a child of this item
@@ -417,9 +383,9 @@ namespace Synthesis
 			{
 				var attribute = type.GetCustomAttribute<RepresentsSitecoreTemplateAttribute>(false);
 
-				if(attribute == null) throw new ArgumentException("Item interface did not have the requisite [RepresentsSitecoreTemplate] attribute.");
+				if (attribute == null) throw new ArgumentException("Item interface did not have the requisite [RepresentsSitecoreTemplate] attribute.");
 
-				if(!ID.TryParse(attribute.TemplateId, out templateId)) throw new ArgumentException("Item interface's [RepresentsSitecoreTemplate] attribute had an invalid template ID format.");
+				if (!ID.TryParse(attribute.TemplateId, out templateId)) throw new ArgumentException("Item interface's [RepresentsSitecoreTemplate] attribute had an invalid template ID format.");
 			}
 			else
 			{
@@ -429,7 +395,7 @@ namespace Synthesis
 
 				var propertyValue = property.GetValue(null) as ID;
 
-				if (propertyValue == (ID) null) throw new ArgumentException("ItemTemplateId property was not of the expected Sitecore.Data.ID type");
+				if (propertyValue == (ID)null) throw new ArgumentException("ItemTemplateId property was not of the expected Sitecore.Data.ID type");
 
 				templateId = propertyValue;
 			}
@@ -442,17 +408,14 @@ namespace Synthesis
 		/// <summary>
 		/// Gets children of the item. This is an alias to Axes.GetChildren() so it's in a familiar location.
 		/// </summary>
-		public IEnumerable<IStandardTemplateItem> Children
-		{
-			get { return Axes.GetChildren(); }
-		} 
+		public IEnumerable<IStandardTemplateItem> Children => Axes.GetChildren();
 
 		/// <summary>
 		/// Creates an informational string about this item.
 		/// </summary>
 		public override string ToString()
 		{
-			return string.Format("{0} ({1} v{2}, {3}) - {4}", Name, Language.Name, Version, Database.Name, Id);
+			return $"{Name} ({Language.Name} v{Version}, {Database.Name}) - {Id}";
 		}
 
 		/// <summary>
@@ -460,6 +423,7 @@ namespace Synthesis
 		/// </summary>
 		protected virtual string GetSearchFieldValue(string fieldName)
 		{
+			if (fieldName == null) return null;
 			if (_searchFields == null) return null;
 
 			string result;

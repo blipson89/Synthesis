@@ -29,26 +29,17 @@ namespace Synthesis.Testing
 		/// <summary>
 		///     Gets the set of IDs that make up the relationships
 		/// </summary>
-		public ReadOnlyCollection<ID> TargetIds
-		{
-			get { return _targetIds.AsReadOnly(); }
-		}
+		public ReadOnlyCollection<ID> TargetIds => _targetIds.AsReadOnly();
 
 		/// <summary>
 		///     Gets the items that make up the relationships
 		/// </summary>
-		public ReadOnlyCollection<IStandardTemplateItem> TargetItems
-		{
-			get { return _standardTemplateItems.AsReadOnly(); }
-		}
+		public ReadOnlyCollection<IStandardTemplateItem> TargetItems => _standardTemplateItems.AsReadOnly();
 
 		/// <summary>
 		///     Checks if the relationship has one or more relations
 		/// </summary>
-		public override bool HasValue
-		{
-			get { return TargetIds.Count > 0; }
-		}
+		public override bool HasValue => TargetIds.Count > 0;
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
@@ -108,15 +99,9 @@ namespace Synthesis.Testing
 			throw new NotImplementedException();
 		}
 
-		public int Count
-		{
-			get { return TargetIds.Count; }
-		}
+		public int Count => TargetIds.Count;
 
-		public bool IsReadOnly
-		{
-			get { return false; }
-		}
+		public bool IsReadOnly => false;
 
 		public MultilistField ToMultilistField()
 		{

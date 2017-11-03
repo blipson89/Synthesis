@@ -60,7 +60,7 @@ namespace Synthesis.Utility
 				case "":
 					return string.Empty;
 				default:
-					string message = String.Format("Unknown link type {0} in {1}", field.LinkType, field.InnerField.Item.Paths.FullPath);
+					string message = $"Unknown link type {field.LinkType} in {field.InnerField.Item.Paths.FullPath}";
 					Log.Warn(message, typeof(FieldUtility));
 
 					return string.Empty;
@@ -82,7 +82,7 @@ namespace Synthesis.Utility
 		{
 			string containsFriendlyLinks = LinkManager.ExpandDynamicLinks(fieldContent, Settings.Rendering.SiteResolving);
 			string mediaPrefix = string.Empty;
-			foreach (string currentPrefix in MediaManager.Provider.Config.MediaPrefixes)
+			foreach (string currentPrefix in MediaManager.Config.MediaPrefixes)
 			{
 				if (containsFriendlyLinks.IndexOf(currentPrefix, 0, StringComparison.Ordinal) > 0)
 				{

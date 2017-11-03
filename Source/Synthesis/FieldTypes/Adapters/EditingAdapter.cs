@@ -20,10 +20,7 @@ namespace Synthesis.FieldTypes.Adapters
 		/// <c>true</c> if this instance is editing; otherwise, <c>false</c>.
 		/// 
 		/// </value>
-		public bool IsEditing
-		{
-			get { return _itemEditing.IsEditing; }
-		}
+		public bool IsEditing => _itemEditing.IsEditing;
 
 		/// <summary>
 		/// Marks the beginning of an editing operation.

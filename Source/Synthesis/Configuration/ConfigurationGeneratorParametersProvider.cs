@@ -21,13 +21,30 @@ namespace Synthesis.Configuration
 			InterfaceSuffix = "Item";
 			SynthesisAssemblyPath = "~/bin/Synthesis.dll";
 			SitecoreKernelAssemblyPath = "~/bin/Sitecore.Kernel.dll";
+			MaxBackupCopies = 0;
+			EnableContentSearch = true;
 			// ReSharper restore DoNotCallOverridableMethodsInConstructor
 		}
 
 		public GeneratorParameters CreateParameters(string configurationName)
 		{
-			this.ConfigurationName = configurationName;
-			return this;
+			return new GeneratorParameters
+			{
+				ConfigurationName = configurationName,
+				InterfaceNamespace = InterfaceNamespace,
+				InterfaceOutputPath = InterfaceOutputPath,
+				InterfaceSuffix = InterfaceSuffix,
+				ItemBaseClass = ItemBaseClass,
+				ItemBaseInterface = ItemBaseInterface,
+				ItemNamespace = ItemNamespace,
+				ItemOutputPath = ItemOutputPath,
+				MaxBackupCopies = MaxBackupCopies,
+				SitecoreKernelAssemblyPath = SitecoreKernelAssemblyPath,
+				SynthesisAssemblyPath = SynthesisAssemblyPath,
+				TemplatePathRoot = TemplatePathRoot,
+				UseTemplatePathForNamespace = UseTemplatePathForNamespace,
+				EnableContentSearch = EnableContentSearch
+			};
 		}
 
 		/// <summary>
@@ -51,6 +68,15 @@ namespace Synthesis.Configuration
 			set
 			{
 				ItemBaseInterface = Type.GetType(value);
+			}
+		}
+
+		public virtual string ModelOutputPath
+		{
+			set
+			{
+				InterfaceOutputPath = value;
+				ItemOutputPath = value;
 			}
 		}
 

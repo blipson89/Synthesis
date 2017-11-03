@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synthesis</RootNamespace>
     <AssemblyName>Synthesis</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -34,27 +34,30 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lucene.Net, Version=2.9.4.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependencies\Libraries\Sitecore\Lucene.Net.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Framework" />
-    <Reference Include="Sitecore.ContentSearch">
-      <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.NoReferences.8.2.170407\lib\NET452\Sitecore.ContentSearch.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch.Linq">
-      <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.Linq.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch.Linq, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.NoReferences.8.2.170407\lib\NET452\Sitecore.ContentSearch.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch.Linq.Lucene">
-      <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.Linq.Lucene.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch.Linq.Lucene, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.Lucene.NoReferences.8.2.170407\lib\NET452\Sitecore.ContentSearch.Linq.Lucene.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch.LuceneProvider">
-      <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.LuceneProvider.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch.LuceneProvider, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.LuceneProvider.NoReferences.8.2.170407\lib\NET452\Sitecore.ContentSearch.LuceneProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Kernel, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.Kernel.dll</HintPath>
+    <Reference Include="Sitecore.Kernel, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.Kernel.NoReferences.8.2.170407\lib\NET452\Sitecore.Kernel.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -66,6 +69,10 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Configuration\Registration\DefaultConfigurationRegistration.cs" />
+    <Compile Include="Configuration\Registration\SynthesisConfigurationRegistration.cs" />
+    <Compile Include="Configuration\Registration\ISynthesisConfigurationRegistration.cs" />
+    <Compile Include="Configuration\Registration\ProxyGeneratorParametersProvider.cs" />
     <Compile Include="Configuration\ConfigurationFieldMappingProvider.cs" />
     <Compile Include="Configuration\ConfigurationGeneratorParametersProvider.cs" />
     <Compile Include="Configuration\ConfigurationProviderConfiguration.cs" />
@@ -80,9 +87,11 @@
     <Compile Include="ContentSearch\ContentSearchUtilities.cs" />
     <Compile Include="ContentSearch\DocumentMappingResult.cs" />
     <Compile Include="ContentSearch\Lucene\SynthesisLinqToLuceneIndex.cs" />
+    <Compile Include="ContentSearch\IndexFieldNameMapper.cs" />
     <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
     <Compile Include="ContentSearch\SynthesisFieldNameTranslator.cs" />
     <Compile Include="ControlPanel\ControlPanelPipelineProcessor.cs" />
+    <Compile Include="EventHandlers\AutomaticModelRebuilder.cs" />
     <Compile Include="FieldDictionary.cs" />
     <Compile Include="FieldExtensions.cs" />
     <Compile Include="FieldTypes\Adapters\DatabaseAdapter.cs" />
@@ -136,7 +145,8 @@
     <Compile Include="Initializers\ITemplateInitializer.cs" />
     <Compile Include="MissingTemplateFieldException.cs" />
     <Compile Include="Pipelines\Initialize\CheckModelSynchronization.cs" />
-    <Compile Include="Pipelines\Initialize\RegisterDefaultConfiguration.cs" />
+    <Compile Include="Pipelines\Initialize\SynthesisConfigRegistrar.cs" />
+    <Compile Include="SynthesisHelper.cs" />
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />
     <Compile Include="Synchronization\SyncSource.cs" />
@@ -149,7 +159,6 @@
     <Compile Include="Templates\Database\ItemTemplateFieldInfo.cs" />
     <Compile Include="Templates\Database\TemplateInfo.cs" />
     <Compile Include="ContentSearch\Lucene\SynthesisLuceneDocumentTypeMapper.cs" />
-    <Compile Include="Utility\BuildUtility.cs" />
     <Compile Include="Utility\CodeDomUtility.cs" />
     <Compile Include="Configuration\ITypeListProvider.cs" />
     <Compile Include="Utility\DebugUtility.cs" />
@@ -200,13 +209,16 @@
     <Compile Include="WebControlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Synthesis.Startup.config">
+    <None Include="packages.config" />
+    <None Include="Standard Config Files\Synthesis.AutoRegenerate.config" />
+    <None Include="Standard Config Files\Synthesis.LocalConfig.config.example" />
+    <None Include="Standard Config Files\Synthesis.Startup.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Synthesis.ControlPanel.config">
+    <None Include="Standard Config Files\Synthesis.ControlPanel.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Synthesis.config">
+    <None Include="Standard Config Files\Synthesis.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

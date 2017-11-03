@@ -9,24 +9,22 @@
     <projectUrl>https://github.com/kamsar/Synthesis</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-		Synthesis is a universal object mapper with LINQ support for Sitecore 7.2-8. Use the same strongly typed objects to run queries against search indexes or the database, or transparently convert from indexed to database when necessary. Supports fully polymorphic Sitecore template inheritance via a generated interface hierarchy.
+		Synthesis is a universal object mapper with LINQ support for Sitecore 8.1 and 8.2. Use the same strongly typed objects to run queries against search indexes or the database, or transparently convert from indexed to database when necessary. Supports fully polymorphic Sitecore template inheritance via a generated interface hierarchy.
 		
 		This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
 	</description>
 	<summary>
-		Synthesis is a universal object mapper with LINQ support for Sitecore 7.2-8. This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
+		Synthesis is a universal object mapper with LINQ support for Sitecore 8.1. This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
 	</summary>
-  <releaseNotes>Multiple configurations, better compiler, MVC bug fixes</releaseNotes>
-  <copyright>Copyright 2015 Kam Figy/ISITE Design</copyright>
+  <copyright>Copyright 2017 Kam Figy/Connective DX</copyright>
   <tags>sitecore</tags>
   <dependencies>
 		<dependency id="Synthesis.Core" version="$version$" />
   </dependencies>
   </metadata>
   <files>
-	   <file src="..\..\Source\Synthesis\Synthesis.config" target="content\App_Config\Include" />
-	   <file src="..\..\Source\Synthesis\Synthesis.ControlPanel.config" target="content\App_Config\Include" />
-	   <file src="..\..\Source\Synthesis\Synthesis.Startup.config" target="content\App_Config\Include" />
+	   <file src="..\..\Source\Synthesis\Standard Config Files\Synthesis*.config" target="content\App_Config\Include\Synthesis" />
+     <file src="..\..\Source\Synthesis\Standard Config Files\Synthesis*.example" target="content\App_Config\Include\Synthesis" />
 	   <file src="readme.txt" target="" />
   </files>
 </package>

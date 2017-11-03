@@ -16,14 +16,14 @@ namespace Synthesis.FieldTypes
 			_fieldName = fieldName;
 		}
 
-		public bool IsLoaded { get { return _innerLazyField.IsValueCreated; }}
+		public bool IsLoaded => _innerLazyField.IsValueCreated;
 
 		public Field Value
 		{
 			get
 			{
 				var value = _innerLazyField.Value;
-				if (value == null) throw new MissingTemplateFieldException(string.Format("The field {0} on template {1} was not found. It may be unpublished, missing, or you may need to regenerate your Synthesis model.", _fieldName, _templateName));
+				if (value == null) throw new MissingTemplateFieldException($"The field {_fieldName} on template {_templateName} was not found. It may be unpublished, missing, or you may need to regenerate your Synthesis model.");
 
 				return value;
 			}

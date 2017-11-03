@@ -80,10 +80,7 @@ namespace Synthesis.FieldTypes
 			return Values[key] != null;
 		}
 
-		public int Count
-		{
-			get { return Values.Count; }
-		}
+		public int Count => Values.Count;
 
 		private string ValueToQueryString()
 		{

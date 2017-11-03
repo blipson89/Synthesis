@@ -15,15 +15,9 @@ namespace Synthesis.FieldTypes.Adapters
 			_database = database;
 		}
 
-		public string Name
-		{
-			get { return _database.Name; }
-		}
+		public string Name => _database.Name;
 
-		public Database InnerDatabase
-		{
-			get { return _database; }
-		}
+		public Database InnerDatabase => _database;
 
 		public IStandardTemplateItem GetItem(ID itemId)
 		{

@@ -20,9 +20,7 @@ namespace Synthesis
 			{
 				var field = _item.InnerItem.Fields[fieldName];
 
-				if (field == null) return null;
-
-				return field.AsStronglyTyped();
+				return field?.AsStronglyTyped();
 			}
 		}
 	}

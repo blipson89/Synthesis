@@ -1,4 +1,5 @@
-﻿using Sitecore.Data.Items;
+﻿using System;
+using Sitecore.Data.Items;
 
 namespace Synthesis
 {
@@ -12,6 +13,7 @@ namespace Synthesis
 	///  mode when the object is disposed.
 	///  This provides an easy to use mechanism for editing items.
 	/// </remarks>
+	[Obsolete("You should not use an edit context because if an exception is thrown partial updates may be written to the item anyway. Use Editing.BeginEdit()...Editing.EndEdit() instead.")]
 	public class SynthesisEditContext : EditContext
 	{
 		public SynthesisEditContext(IStandardTemplateItem item) : base(item.InnerItem)

@@ -20,9 +20,6 @@ namespace Synthesis.Testing
 		/// <summary>
 		///     Checks if this field has a value. Note that this is always true for a tristate field because no value is still a valid value ("default").
 		/// </summary>
-		public override bool HasValue
-		{
-			get { return true; }
-		}
+		public override bool HasValue => true;
 	}
 }

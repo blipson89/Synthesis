@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Sitecore.Web.UI.WebControls;
 using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
 
@@ -24,16 +21,18 @@ namespace Synthesis.Mvc.Helpers
 	/// </summary>
 	public static class TextHelper
 	{
+		[Obsolete("Use the Synthesis.Mvc.Extensions ITextField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString TextFor<T>(this HtmlHelper<T> helper, Func<T, ITextField> selector)
 		{
 			return TextFor(helper, selector, true);
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions ITextField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString TextFor<T>(this HtmlHelper<T> helper, Func<T, ITextField> selector, bool editable)
 		{
 			var field = selector(helper.ViewData.Model);
 
-			if (field.HasTextValue || Sitecore.Context.PageMode.IsPageEditor)
+			if (field.HasTextValue || Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				if (editable)
 					return new MvcHtmlString(field.RenderedValue);

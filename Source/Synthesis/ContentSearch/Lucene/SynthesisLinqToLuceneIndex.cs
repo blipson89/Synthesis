@@ -11,27 +11,22 @@ namespace Synthesis.ContentSearch.Lucene
 	/// </summary>
 	public class SynthesisLinqToLuceneIndex<TItem> : LinqToLuceneIndex<TItem>
 	{
-		private readonly FieldNameTranslator _fieldNameTranslator;
-
 		public SynthesisLinqToLuceneIndex(LuceneSearchContext context) : this(context, null)
 		{
-			
+
 		}
 
 		public SynthesisLinqToLuceneIndex(LuceneSearchContext context, params IExecutionContext[] executionContexts)
 			: base(context, executionContexts)
 		{
-			_fieldNameTranslator = new SynthesisFieldNameTranslator(context.Index.FieldNameTranslator);
+			FieldNameTranslator = new SynthesisFieldNameTranslator(context.Index.FieldNameTranslator);
 		}
 
-		protected override FieldNameTranslator FieldNameTranslator
-		{
-			get { return _fieldNameTranslator; }
-		}
+		protected override FieldNameTranslator FieldNameTranslator { get; }
 
 		/*
 		 * THESE METHODS ARE A TOTAL HACK
-		 * They exist to work around a bug in Sitecore (7.x-8.0 at least) where it uses private reflection
+		 * They exist to work around a bug in Sitecore (7.x-8.1 at least) where it uses private reflection
 		 * in such a way that it breaks all derived classes of LinqToLuceneIndex when GetResults() is called
 		 * on the queryable (#4 on GitHub)
 		 * 
@@ -44,14 +39,16 @@ namespace Synthesis.ContentSearch.Lucene
 		 * 
 		 * The this.GetType() cause it to look for the private methods on any derived classes, where they do not exist.
 		 */
-        private object ApplySearchMethods<TElement>(LuceneQuery query, ITopDocs searchHits)
+		// ReSharper disable once UnusedMember.Local
+		private object ApplySearchMethods<TElement>(LuceneQuery query, ITopDocs searchHits)
 		{
 			var baseMethod = typeof(LinqToLuceneIndex<TItem>).GetMethod("ApplySearchMethods", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(typeof(TElement));
 
 			return baseMethod.Invoke(this, new object[] { query, searchHits });
 		}
 
-        private TResult ApplyScalarMethods<TResult, TDocument>(LuceneQuery query, object processedResults, ITopDocs results)
+		// ReSharper disable once UnusedMember.Local
+		private TResult ApplyScalarMethods<TResult, TDocument>(LuceneQuery query, object processedResults, ITopDocs results)
 		{
 			var baseMethod = typeof(LinqToLuceneIndex<TItem>).GetMethod("ApplyScalarMethods", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(typeof(TResult), typeof(TDocument));
 

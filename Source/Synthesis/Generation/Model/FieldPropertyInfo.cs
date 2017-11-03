@@ -5,14 +5,12 @@ namespace Synthesis.Generation.Model
 {
 	public class FieldPropertyInfo
 	{
-		private readonly ITemplateFieldInfo _field;
-
 		public FieldPropertyInfo(ITemplateFieldInfo field)
 		{
-			_field = field;
+			Field = field;
 		}
 
-		public ITemplateFieldInfo Field { get { return _field; } }
+		public ITemplateFieldInfo Field { get; }
 
 		public FieldMapping FieldType { get; set; }
 		public string SearchFieldName { get; set; }

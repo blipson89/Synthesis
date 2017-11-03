@@ -24,10 +24,10 @@ namespace Synthesis.Templates.Database
 
 		}
 
-		public virtual ID TemplateId { get { return _template.ID; } }
-		public virtual string Name { get { return _template.Name; } }
-		public virtual string HelpText { get { return _template.InnerItem.Help.Text; } }
-		public virtual string FullPath { get { return _template.InnerItem.Paths.FullPath; } }
+		public virtual ID TemplateId => _template.ID;
+		public virtual string Name => _template.Name;
+		public virtual string HelpText => _template.InnerItem.Help.Text;
+		public virtual string FullPath => _template.InnerItem.Paths.FullPath;
 
 		private List<ITemplateFieldInfo> _fields;
 		public virtual IList<ITemplateFieldInfo> Fields
@@ -71,13 +71,7 @@ namespace Synthesis.Templates.Database
 		/// <summary>
 		/// Gets all base templates (including base templates of base templates back up to the standard template)
 		/// </summary>
-		public virtual ReadOnlyCollection<ITemplateInfo> AllNonstandardBaseTemplates
-		{
-			get
-			{
-				return GetRecursiveBaseTemplates(this).AsReadOnly();
-			}
-		}
+		public virtual ReadOnlyCollection<ITemplateInfo> AllNonstandardBaseTemplates => GetRecursiveBaseTemplates(this).AsReadOnly();
 
 		private List<ITemplateInfo> GetRecursiveBaseTemplates(ITemplateInfo parent)
 		{

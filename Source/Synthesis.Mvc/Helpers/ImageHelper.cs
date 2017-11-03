@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
 using Sitecore.Resources.Media;
 using Sitecore.Web.UI.WebControls;
-using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.Mvc.Helpers
@@ -29,11 +24,13 @@ namespace Synthesis.Mvc.Helpers
 	/// </summary>
 	public static class ImageHelper
 	{
+		[Obsolete("Use the Synthesis.Mvc.Extensions IImageField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, string cssClass)
 		{
 			return ImageFor(helper, selector, x => { x.CssClass = cssClass; });
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions IImageField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int? maxWidth = null, int? maxHeight = null, string cssClass = null)
 		{
 			return ImageFor(helper, selector, x =>
@@ -48,11 +45,12 @@ namespace Synthesis.Mvc.Helpers
 			});
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions IImageField.Render() extension methods instead for improved readability.")]
 		public static IHtmlString ImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, Action<Image> parameters)
 		{
 			var field = selector(helper.ViewData.Model);
 
-			if (field.HasValue || Sitecore.Context.PageMode.IsPageEditor)
+			if (field.HasValue || Sitecore.Context.PageMode.IsExperienceEditor)
 			{
 				var imageRenderer = new Image();
 				imageRenderer.AttachToImageField(field);
@@ -64,9 +62,10 @@ namespace Synthesis.Mvc.Helpers
 			return new MvcHtmlString(string.Empty);
 		}
 
+		[Obsolete("Use the Synthesis.Mvc.Extensions IImageField.RenderDpiAware() extension method instead for improved readability.")]
 		public static IHtmlString DpiAwareImageFor<T>(this HtmlHelper<T> helper, Func<T, IImageField> selector, int? max1XWidth = null, int? max1XHeight = null, string cssClass = null, int maxScale = 2)
 		{
-			if (Sitecore.Context.PageMode.IsPageEditor || maxScale == 1)
+			if (Sitecore.Context.PageMode.IsExperienceEditor || maxScale == 1)
 			{
 				return ImageFor(helper, selector, max1XWidth, max1XHeight, cssClass);
 			}

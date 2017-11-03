@@ -154,15 +154,9 @@ namespace Synthesis.FieldTypes
 			throw new NotImplementedException();
 		}
 
-		public int Count
-		{
-			get { return TargetIds.Count; }
-		}
+		public int Count => TargetIds.Count;
 
-		public bool IsReadOnly
-		{
-			get { return false; }
-		}
+		public bool IsReadOnly => false;
 
 		#endregion
 
