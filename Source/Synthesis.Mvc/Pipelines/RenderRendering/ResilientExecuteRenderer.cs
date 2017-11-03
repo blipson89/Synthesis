@@ -29,7 +29,7 @@ namespace Synthesis.Mvc.Pipelines.RenderRendering
 			{
 				args.Cacheable = false;
 
-				Log.Error("Error occurred rendering a view.", ex);
+				Log.Error("Error occurred rendering a view.", ex, GetType());
 
 				var processed = ProcessException(ex);
 
