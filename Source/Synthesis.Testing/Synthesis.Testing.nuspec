@@ -3,15 +3,15 @@
   <metadata>
     <id>Synthesis.Testing</id>
     <version>$version$</version>
-    <authors>Kam Figy</authors>
-    <owners>ISITE Design</owners>
+    <authors>Ben Lipson,Kam Figy</authors>
+    <owners>Connective DX</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>https://github.com/kamsar/Synthesis</projectUrl>
+    <projectUrl>https://github.com/blipson89/Synthesis</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
 		Utilities to assist in unit testing with Synthesis
 	</description>
-    <copyright>Copyright 2015 Kam Figy/Connective DX</copyright>
+    <copyright>Copyright 2017 Ben Lipson/Connective DX</copyright>
     <tags>sitecore</tags>
     <dependencies>
 		<dependency id="Synthesis.Core" version="$version$" />
