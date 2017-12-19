@@ -9,19 +9,16 @@ namespace Synthesis.Solr.ContentSearch
 {
 	public class SynthesisLinqToSolrIndex<T> : LinqToSolrIndex<T>
 	{
-		private readonly FieldNameTranslator _fieldNameTranslator;
 		public SynthesisLinqToSolrIndex(SolrSearchContext context) : this(context, null)
 		{
 		}
 		public SynthesisLinqToSolrIndex(SolrSearchContext context, params IExecutionContext[] executionContexts)
 			: base(context, executionContexts)
 		{
-			_fieldNameTranslator = new SynthesisSolrFieldNameTranslator(context, context.Index.FieldNameTranslator); ;
+			FieldNameTranslator = new SynthesisSolrFieldNameTranslator(context, context.Index.FieldNameTranslator); ;
 		}
-		protected override FieldNameTranslator FieldNameTranslator
-		{
-			get { return _fieldNameTranslator; }
-		}
+		protected override FieldNameTranslator FieldNameTranslator { get; }
+
 		/*
 		 * THIS METHOD IS A TOTAL HACK
 		 * They exist to work around a bug in Sitecore (7.x-8.0 at least) where it uses private reflection
@@ -36,6 +33,7 @@ namespace Synthesis.Solr.ContentSearch
 		 * 
 		 * The this.GetType() cause it to look for the private methods on any derived classes, where they do not exist.
 		 */
+		// ReSharper disable once UnusedMember.Local
 		private TResult ApplyScalarMethods<TResult, TDocument>(SolrCompositeQuery compositeQuery, object processedResults, SolrQueryResults<Dictionary<string, object>> results)
 		{
 			var baseMethod = typeof(LinqToSolrIndex<T>).GetMethod("ApplyScalarMethods", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(typeof(TResult), typeof(TDocument));

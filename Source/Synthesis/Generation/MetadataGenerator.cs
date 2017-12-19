@@ -60,15 +60,11 @@ namespace Synthesis.Generation
 
 						var fieldInfo = new FieldPropertyInfo(field);
 						fieldInfo.FieldPropertyName = propertyName;
-						
+
 						if (_parameters.EnableContentSearch)
 						{
-						if (_indexFieldNameTranslator.GetType().Name.ToLower().Contains("solr"))
-							SolrFieldMappingHack(field, fieldInfo);
-						else
 							fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field); // new
-							fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name); //jeff
-}
+						}
 						fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
 
 						if (fieldInfo.FieldType == null)
@@ -140,11 +136,7 @@ namespace Synthesis.Generation
 					fieldInfo.FieldPropertyName = propertyName;
 					if (_parameters.EnableContentSearch)
 					{
-					if (_indexFieldNameTranslator.GetType().Name.ToLower().Contains("solr"))
-						SolrFieldMappingHack(field, fieldInfo);
-					else
-						fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field); //new
-						fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name); //jeff
+						fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field);
 					}
 					fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
 
@@ -176,28 +168,7 @@ namespace Synthesis.Generation
 
 			return interfaceInfo;
 		}
-		/// <summary>
-		/// Evil hack!
-		/// the sitecore solr field mapper has everything we need to identify the dynamic fields, however they dont expose them publicly.
-		/// This hack is to gain access to the method GetFieldConfigurationByFieldTypeName which is essentailly a mapping of sitecore type
-		/// to solr type (I.E. "Rich Text" -> "{0}_t").  This method lives in the SolrFieldMap field on the SolrFieldNameTranslator class
-		/// which is what we have here as the _indexFieldNameTranslator.
-		/// </summary>
-		/// <param name="field"></param>
-		/// <param name="fieldInfo"></param>
-		private void SolrFieldMappingHack(ITemplateFieldInfo field, FieldPropertyInfo fieldInfo)
-		{
-			var hack = _indexFieldNameTranslator.GetType().GetField("fieldMap", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(_indexFieldNameTranslator);
-			var hackPartTwo = hack.GetType().GetMethod("GetFieldConfigurationByFieldTypeName").Invoke(hack, new object[] { field.Type });
-			if (hackPartTwo != null)
-			{
-				var settings = _indexFieldNameTranslator.GetType().GetField("settings", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(_indexFieldNameTranslator);
-				var schema = _indexFieldNameTranslator.GetType().GetField("schema", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(_indexFieldNameTranslator);
-				fieldInfo.SearchFieldName = hackPartTwo.GetType().GetMethod("FormatFieldName", new[] { typeof(string), typeof(Sitecore.ContentSearch.ISearchIndexSchema), typeof(string), typeof(string) }).Invoke(hackPartTwo, new object[] { field.Name, schema, null, settings.GetType().GetMethod("DefaultLanguage").Invoke(settings, null) }).ToString();
-			}
-			else
-				fieldInfo.SearchFieldName = _indexFieldNameTranslator.GetIndexFieldName(field.Name) + "_t";
-		}
+	
 		/// <summary>
 		/// Gets the writeable property names defined in the item base class (normally StandardTemplateItem) so we generate unique field names for any fields that have the same names as these
 		/// </summary>
