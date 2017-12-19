@@ -144,9 +144,11 @@
     <Compile Include="ItemExtensions.cs" />
     <Compile Include="Initializers\ITemplateInitializer.cs" />
     <Compile Include="MissingTemplateFieldException.cs" />
+    <Compile Include="Pipelines\ContentSearch\ResolveLuceneQueryable.cs" />
     <Compile Include="Pipelines\Initialize\CheckModelSynchronization.cs" />
     <Compile Include="Pipelines\Initialize\SynthesisConfigRegistrar.cs" />
     <Compile Include="SynthesisHelper.cs" />
+    <Compile Include="Pipelines\SynthesisSearchContextArgs.cs" />
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />
     <Compile Include="Synchronization\SyncSource.cs" />

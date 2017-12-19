@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Testing", "Source
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Mvc", "Source\Synthesis.Mvc\Synthesis.Mvc.csproj", "{97C803D2-5E32-4D5C-8ECB-EE49D759A953}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Solr", "Source\Synthesis.Solr\Synthesis.Solr.csproj", "{D76CE576-81D7-4BDA-B6EB-7E5B72C0BCC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{97C803D2-5E32-4D5C-8ECB-EE49D759A953}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97C803D2-5E32-4D5C-8ECB-EE49D759A953}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97C803D2-5E32-4D5C-8ECB-EE49D759A953}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D76CE576-81D7-4BDA-B6EB-7E5B72C0BCC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D76CE576-81D7-4BDA-B6EB-7E5B72C0BCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D76CE576-81D7-4BDA-B6EB-7E5B72C0BCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D76CE576-81D7-4BDA-B6EB-7E5B72C0BCC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
