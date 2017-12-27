@@ -3,20 +3,22 @@
   <metadata>
     <id>Synthesis</id>
     <version>$version$</version>
-    <authors>Kam Figy</authors>
-    <owners>ISITE Design</owners>
+    <authors>Ben Lipson,Kam Figy</authors>
+    <owners>Connective DX</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>https://github.com/kamsar/Synthesis</projectUrl>
+    <projectUrl>https://github.com/blipson89/Synthesis</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-		Synthesis is a universal object mapper with LINQ support for Sitecore 8.1 and 8.2. Use the same strongly typed objects to run queries against search indexes or the database, or transparently convert from indexed to database when necessary. Supports fully polymorphic Sitecore template inheritance via a generated interface hierarchy.
+		Synthesis is a universal object mapper with LINQ support for Sitecore 8.2. Use the same strongly typed objects to run queries against search indexes or the database, or transparently convert from indexed to database when necessary. Supports fully polymorphic Sitecore template inheritance via a generated interface hierarchy.
 		
 		This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
+
+    NOTE: Synthesis 8.2.7 and above requires Sitecore 8.2 or higher
 	</description>
 	<summary>
-		Synthesis is a universal object mapper with LINQ support for Sitecore 8.1. This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
+		Synthesis is a universal object mapper with LINQ support for Sitecore 8.2 and up. This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
 	</summary>
-  <copyright>Copyright 2017 Kam Figy/Connective DX</copyright>
+  <copyright>Copyright 2017 Ben Lipson/Connective DX</copyright>
   <tags>sitecore</tags>
   <dependencies>
 		<dependency id="Synthesis.Core" version="$version$" />
