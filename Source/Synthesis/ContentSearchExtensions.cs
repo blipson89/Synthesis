@@ -7,8 +7,10 @@ using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.Data;
 using Sitecore.Data.Items;
+using Sitecore.DependencyInjection;
 using Sitecore.Exceptions;
 using Sitecore.Pipelines;
+using Synthesis.ContentSearch;
 using Synthesis.Pipelines;
 using Synthesis.Synchronization;
 
@@ -16,6 +18,8 @@ namespace Synthesis
 {
 	public static class ContentSearchExtensions
 	{
+		private static readonly LazyResetable<IQueryableResolver> QueryableResolver = ServiceLocator.GetRequiredResetableService<IQueryableResolver>();
+
 		/// <summary>
 		/// Gets a queryable for Synthesis items (supports querying on interfaces, unlike the standard method)
 		/// </summary>
@@ -55,12 +59,9 @@ namespace Synthesis
 			var args = new SynthesisSearchContextArgs
 			{
 				SearchContext = context,
-				ExecutionContext = executionContext,
-				SynthesisQueryType = typeof (TResult)
+				ExecutionContext = executionContext
 			};
-			var pipeline = CorePipelineFactory.GetPipeline("synthesisQueryable", string.Empty);
-			pipeline.Run(args);
-			var result = (IQueryable<TResult>)args.SynthesisQueryable;
+			var result = QueryableResolver.Value.GetSynthesisQueryable<TResult>(args);
 			if (applyStandardFilters) result = result.ApplyStandardFilters();
 			return result;
 		}

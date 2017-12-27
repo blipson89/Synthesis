@@ -63,7 +63,7 @@ namespace Synthesis.Generation
 
 						if (_parameters.EnableContentSearch)
 						{
-							fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field); // new
+							fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field);
 						}
 						fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
 
