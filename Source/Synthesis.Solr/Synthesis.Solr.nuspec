@@ -14,7 +14,6 @@
     <copyright>Copyright 2017 Ben Lipson/Connective DX</copyright>
     <tags>sitecore,synthesis,solr</tags>
     <dependencies>
-      <dependency id="Synthesis" version="$version$" />
     </dependencies>
   </metadata>
   <files>
