@@ -26,7 +26,7 @@ namespace Synthesis.Mvc.UI
 		public bool IsEditing => Sitecore.Context.Site.DisplayMode == DisplayMode.Edit;
 		public bool IsPreview => Sitecore.Context.Site.DisplayMode == DisplayMode.Preview;
 		public bool IsNormal => Sitecore.Context.Site.DisplayMode == DisplayMode.Normal;
-		public bool IsExperienceExplorer => DependencyResolver.Current.GetService<IExplorerContext>().IsExplorerMode();
+		public bool IsExperienceExplorer => DependencyResolver.Current.GetService<IExplorerContext>()?.IsExplorerMode() ?? false;
 		public bool IsDebugging => Sitecore.Context.PageMode.IsDebugging || Sitecore.Context.Diagnostics.Profiling || Sitecore.Context.Diagnostics.Tracing;
 		public bool IsCompletelyNormal => IsNormal && !IsExperienceExplorer && !IsDebugging;
 
