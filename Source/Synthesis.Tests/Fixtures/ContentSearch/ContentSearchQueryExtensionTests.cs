@@ -30,6 +30,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 			}
 		}
 
+
 		[Test]
 		public void ContentSearch_FindsSecurityFolderOrRenderingOptions_WhenContainsOrIsUsed()
 		{
@@ -45,5 +46,7 @@ namespace Synthesis.Tests.Fixtures.ContentSearch
 				Assert.IsTrue(query.Any(x => x.Name == listOfNames[1]), "ContainsOr result contained no rendering options item");
 			}
 		}
+
+
 	}
 }

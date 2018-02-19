@@ -41,3 +41,7 @@ $targetAssemblyVersion = $synthesisAssembly.ProductVersion
 & $nuGet pack "$scriptRoot\Synthesis.Mvc.nuget\Synthesis.Mvc.nuspec" -version $targetAssemblyVersion
 
 & $nuGet pack "$scriptRoot\..\Source\Synthesis.Mvc\Synthesis.Mvc.csproj" -Symbols -Prop Configuration=Release
+
+& $nuGet pack "$scriptRoot\Synthesis.Solr.nuget\Synthesis.Solr.nuspec" -version $targetAssemblyVersion
+
+& $nuGet pack "$scriptRoot\..\Source\Synthesis.Solr\Synthesis.Solr.csproj" -Symbols -Prop Configuration=Release

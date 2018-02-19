@@ -91,6 +91,8 @@
     <Compile Include="ContentSearch\ComputedFields\InheritedTemplates.cs" />
     <Compile Include="ContentSearch\ContentSearchUtilities.cs" />
     <Compile Include="ContentSearch\DocumentMappingResult.cs" />
+    <Compile Include="ContentSearch\IQueryableResolver.cs" />
+    <Compile Include="ContentSearch\Lucene\ResolveLuceneQueryable.cs" />
     <Compile Include="ContentSearch\Lucene\SynthesisLinqToLuceneIndex.cs" />
     <Compile Include="ContentSearch\IndexFieldNameMapper.cs" />
     <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="Pipelines\Initialize\CheckModelSynchronization.cs" />
     <Compile Include="Pipelines\Initialize\SynthesisConfigRegistrar.cs" />
     <Compile Include="SynthesisHelper.cs" />
+    <Compile Include="Pipelines\SynthesisSearchContextArgs.cs" />
     <Compile Include="SynthesisEditContext.cs" />
     <Compile Include="Synchronization\ModelTemplateReference.cs" />
     <Compile Include="Synchronization\SyncSource.cs" />
