@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synthesis.Solr</RootNamespace>
     <AssemblyName>Synthesis.Solr</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -82,13 +82,13 @@
     <None Include="Standard Config Files\Synthesis.Solr.Config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synthesis\Synthesis.csproj">
-      <Project>{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}</Project>
-      <Name>Synthesis</Name>
-    </ProjectReference>
+    <Folder Include="Pipelines\ContentSearch\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pipelines\ContentSearch\" />
+    <ProjectReference Include="..\Synthesis\Synthesis.csproj">
+      <Project>{ebae2c10-079d-4eb1-9e46-82cec35d7f4b}</Project>
+      <Name>Synthesis</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
