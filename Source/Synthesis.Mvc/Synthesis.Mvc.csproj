@@ -109,6 +109,7 @@
     <Compile Include="UI\IContextSite.cs" />
     <Compile Include="UI\IRenderingContext.cs" />
     <Compile Include="UI\SitecoreRenderingContext.cs" />
+    <Compile Include="Utility\DisplayModeSwitcher.cs" />
     <Compile Include="ViewErrorRenderer.cs" />
     <Compile Include="Pipelines\GetModel\GetFromSynthesis.cs" />
     <Compile Include="Pipelines\GetRenderer\RenderingDiagnosticsInjector.cs" />
