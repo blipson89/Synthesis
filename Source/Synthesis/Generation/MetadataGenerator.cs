@@ -5,6 +5,7 @@ using Synthesis.ContentSearch;
 using Synthesis.FieldTypes;
 using Synthesis.Generation.Model;
 using Synthesis.Templates;
+using System.Reflection;
 
 namespace Synthesis.Generation
 {
@@ -21,7 +22,7 @@ namespace Synthesis.Generation
 		{
 			parameters.Validate();
 			_parameters = parameters;
-
+			
 			_templateInputProvider = templateProvider;
 			_fieldMappingProvider = fieldMappingProvider;
 			_indexFieldNameMapper = indexFieldNameMapper;
@@ -58,14 +59,12 @@ namespace Synthesis.Generation
 						string propertyName = field.Name.AsNovelIdentifier(fieldKeys);
 
 						var fieldInfo = new FieldPropertyInfo(field);
-
 						fieldInfo.FieldPropertyName = propertyName;
 
 						if (_parameters.EnableContentSearch)
 						{
 							fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field);
 						}
-
 						fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
 
 						if (fieldInfo.FieldType == null)
@@ -135,12 +134,10 @@ namespace Synthesis.Generation
 
 					var fieldInfo = new FieldPropertyInfo(field);
 					fieldInfo.FieldPropertyName = propertyName;
-
 					if (_parameters.EnableContentSearch)
 					{
 						fieldInfo.SearchFieldName = _indexFieldNameMapper.MapToSearchField(field);
 					}
-
 					fieldInfo.FieldType = _fieldMappingProvider.GetFieldType(field);
 
 					if (fieldInfo.FieldType == null)
@@ -171,7 +168,7 @@ namespace Synthesis.Generation
 
 			return interfaceInfo;
 		}
-
+	
 		/// <summary>
 		/// Gets the writeable property names defined in the item base class (normally StandardTemplateItem) so we generate unique field names for any fields that have the same names as these
 		/// </summary>

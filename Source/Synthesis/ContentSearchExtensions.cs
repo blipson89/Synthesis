@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Lucene.Net.Documents;
+using Sitecore;
 using Sitecore.ContentSearch;
-using Sitecore.ContentSearch.Diagnostics;
 using Sitecore.ContentSearch.Linq.Common;
-using Sitecore.ContentSearch.LuceneProvider;
-using Sitecore.ContentSearch.Utilities;
 using Sitecore.Data;
 using Sitecore.Data.Items;
+using Sitecore.DependencyInjection;
 using Sitecore.Exceptions;
-using Synthesis.ContentSearch.Lucene;
+using Sitecore.Pipelines;
+using Synthesis.ContentSearch;
+using Synthesis.Pipelines;
 using Synthesis.Synchronization;
 
 namespace Synthesis
 {
 	public static class ContentSearchExtensions
 	{
+		private static readonly LazyResetable<IQueryableResolver> QueryableResolver = ServiceLocator.GetRequiredResetableService<IQueryableResolver>();
+
 		/// <summary>
 		/// Gets a queryable for Synthesis items (supports querying on interfaces, unlike the standard method)
 		/// </summary>
@@ -54,31 +56,14 @@ namespace Synthesis
 		public static IQueryable<TResult> GetSynthesisQueryable<TResult>(this IProviderSearchContext context, bool applyStandardFilters, params IExecutionContext[] executionContext)
 			where TResult : IStandardTemplateItem
 		{
-			IQueryable<TResult> queryable;
-
-			var luceneContext = context as LuceneSearchContext;
-
-			if (luceneContext != null)
+			var args = new SynthesisSearchContextArgs
 			{
-				var overrideMapper = new SynthesisLuceneDocumentTypeMapper();
-				overrideMapper.Initialize(context.Index);
-
-				var mapperExecutionContext = new OverrideExecutionContext<IIndexDocumentPropertyMapper<Document>>(overrideMapper);
-				var executionContexts = new List<IExecutionContext>();
-				if (executionContext != null) executionContexts.AddRange(executionContext);
-				executionContexts.Add(mapperExecutionContext);
-
-				queryable = GetLuceneQueryable<TResult>(luceneContext, executionContexts.ToArray());
-			}
-			else
-			{
-				// TODO: possible SOLR support with different mapper
-				throw new NotImplementedException("At this time Synthesis only supports Lucene indexes.");
-			}
-
-			if (applyStandardFilters) queryable = queryable.ApplyStandardFilters();
-
-			return queryable;
+				SearchContext = context,
+				ExecutionContext = executionContext
+			};
+			var result = QueryableResolver.Value.GetSynthesisQueryable<TResult>(args);
+			if (applyStandardFilters) result = result.ApplyStandardFilters();
+			return result;
 		}
 
 		/// <summary>
@@ -91,7 +76,7 @@ namespace Synthesis
 			where TResult : IStandardTemplateItem
 		{
 
-			var language = (Sitecore.Context.Item != null) ? Sitecore.Context.Item.Language : Sitecore.Context.Language;
+			var language = (Context.Item != null) ? Context.Item.Language : Context.Language;
 
 			var subquery = query.Where(x => x.Language == language && x.IsLatestVersion);
 
@@ -166,16 +151,7 @@ namespace Synthesis
 			}
 		}
 
-		private static IQueryable<TResult> GetLuceneQueryable<TResult>(LuceneSearchContext context, IExecutionContext[] executionContext)
-			where TResult : IStandardTemplateItem
-		{
-			var linqToLuceneIndex = new SynthesisLinqToLuceneIndex<TResult>(context, executionContext);
 
-			if (context.Index.Locator.GetInstance<IContentSearchConfigurationSettings>().EnableSearchDebug())
-				((IHasTraceWriter)linqToLuceneIndex).TraceWriter = new LoggingTraceWriter(SearchLog.Log);
-
-			return linqToLuceneIndex.GetQueryable();
-		}
 
 		private static ID GetTemplateId(Type synthesisType)
 		{

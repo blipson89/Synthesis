@@ -17,11 +17,11 @@ This file will be located at the ModelOutputPath in your config patch you create
 
 NOTE: your project including the model classes must reference Sitecore.Kernel and Sitecore.ContentSearch.Linq for the model to compile.
 
-Using modular architecture (e.g. Habitat) and need a model per module? See the example in the GitHub [README.md](https://github.com/kamsar/Synthesis) for directions to create a configuration registration.
+Using modular architecture (e.g. Habitat) and need a model per module? See the example in the GitHub [README.md](https://github.com/blipson89/Synthesis) for directions to create a configuration registration.
 
-Want deeper documentation? The Synthesis Wiki on GitHub has you covered: https://github.com/kamsar/Synthesis/wiki
+Want deeper documentation? The Synthesis Wiki on GitHub has you covered: https://github.com/blipson89/Synthesis/wiki
 
-Have questions? Tweet @kamsar or find me on Sitecore Community Slack.
+Have questions? Tweet @bllipson or find me on Sitecore Community Slack.
 
-Found a bug? Send me a pull request on GitHub if you're feeling awesome: https://github.com/kamsar/Synthesis
+Found a bug? Send me a pull request on GitHub if you're feeling awesome: https://github.com/blipson89/Synthesis
 (or an issue if you're feeling lazy)

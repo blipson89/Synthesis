@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Synthesis.Solr</id>
+    <version>$version$</version>
+    <authors>Ben Lipson,Kam Figy,Jeff Darchuk</authors>
+    <owners>Connective DX</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/blipson89/Synthesis</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Adds Solr support to Synthesis. This package contains the core library and configuration and is appropriate for the web project.
+
+      NOTE: Synthesis 9.0.1 and above requires Sitecore 9.0.1 or higher
+    </description>
+    <copyright>Copyright 2018 Ben Lipson/Connective DX</copyright>
+    <tags>sitecore,synthesis,solr</tags>
+    <dependencies>
+      <dependency id="Synthesis" version="$version$" />
+      <dependency id="Synthesis.Solr.Core" version="$version$" />
+    </dependencies>
+  </metadata>
+  <files>
+       <file src="..\..\Source\Synthesis.Solr\Standard Config Files\Synthesis.Solr.config" target="content\App_Config\Include\Synthesis" />
+  </files>
+</package>

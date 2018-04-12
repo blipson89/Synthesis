@@ -1,6 +1,8 @@
 ﻿using System.Web;
+using Sitecore.Sites;
 using Synthesis.FieldTypes;
 using Synthesis.FieldTypes.Interfaces;
+using Synthesis.Mvc.Utility;
 
 namespace Synthesis.Mvc.Extensions
 {
@@ -41,8 +43,11 @@ namespace Synthesis.Mvc.Extensions
 				var richText = field as RichTextField;
 
 				if (richText != null) return new HtmlString(Format(richText.ExpandedLinksValue, formatParameters));
-
-				return new HtmlString(Format(field.RawValue, formatParameters));
+				
+				using (new DisplayModeSwitcher(DisplayMode.Normal))
+				{
+					return new HtmlString(Format(field.RenderedValue, formatParameters));
+				}
 			}
 
 			return new HtmlString(string.Empty);

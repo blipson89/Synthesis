@@ -31,10 +31,10 @@ namespace Synthesis.ControlPanel
 		{
 			if (string.IsNullOrWhiteSpace(_activationUrl)) return;
 
-			if (args.Context.Request.RawUrl.StartsWith(_activationUrl, StringComparison.OrdinalIgnoreCase))
+			if (HttpContext.Current.Request.RawUrl.StartsWith(_activationUrl, StringComparison.OrdinalIgnoreCase))
 			{
-				ProcessRequest(args.Context);
-				args.Context.Response.End();
+				ProcessRequest(HttpContext.Current);
+				HttpContext.Current.Response.End();
 			}
 		}
 

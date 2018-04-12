@@ -21,8 +21,14 @@ namespace Synthesis.FieldTypes
 			{
 				if (!IsFieldLoaded && InnerSearchValue != null)
 				{
+					DateTime ret;
+					if (DateTime.TryParse(InnerSearchValue, out ret))
+						return ret;
+					if (DateTime.TryParseExact(InnerSearchValue, "yyyyMMdd'T'HHmm'Z'", CultureInfo.CurrentCulture,
+						DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out ret))
+						return ret;
 					var converter = new IndexFieldDateTimeValueConverter();
-					// ReSharper disable once PossibleNullReferenceException
+					//// ReSharper disable once PossibleNullReferenceException
 					return (DateTime)converter.ConvertFrom(InnerSearchValue);
 				}
 
