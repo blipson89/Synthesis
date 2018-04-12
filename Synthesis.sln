@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis", "Source\Synthesis\Synthesis.csproj", "{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}"
 EndProject
@@ -12,6 +12,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Mvc", "Source\Synthesis.Mvc\Synthesis.Mvc.csproj", "{97C803D2-5E32-4D5C-8ECB-EE49D759A953}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Solr", "Source\Synthesis.Solr\Synthesis.Solr.csproj", "{D76CE576-81D7-4BDA-B6EB-7E5B72C0BCC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{32C75F5C-605A-4CA4-A478-BB073D44ADC3}"
+	ProjectSection(SolutionItems) = preProject
+		Source\SharedAssemblyInfo.cs = Source\SharedAssemblyInfo.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +47,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C822470-AAD1-4433-A6FA-9AA631AF231B}
 	EndGlobalSection
 EndGlobal

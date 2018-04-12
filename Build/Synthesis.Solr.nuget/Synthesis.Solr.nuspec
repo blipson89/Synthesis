@@ -11,9 +11,9 @@
     <description>
       Adds Solr support to Synthesis. This package contains the core library and configuration and is appropriate for the web project.
 
-      NOTE: Synthesis 8.2.7 and above requires Sitecore 8.2 or higher
+      NOTE: Synthesis 9.0.1 and above requires Sitecore 9.0.1 or higher
     </description>
-    <copyright>Copyright 2017 Ben Lipson/Connective DX</copyright>
+    <copyright>Copyright 2018 Ben Lipson/Connective DX</copyright>
     <tags>sitecore,synthesis,solr</tags>
     <dependencies>
       <dependency id="Synthesis" version="$version$" />
