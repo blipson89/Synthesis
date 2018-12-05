@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synthesis.Solr</RootNamespace>
     <AssemblyName>Synthesis.Solr</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -78,15 +78,17 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ContentSearch\Solr\ResolveSolrQueryable.cs" />
-    <Compile Include="ContentSearch\SynthesisLinqToSolrIndex.cs" />
+    <Compile Include="ContentSearch\ResolveSolrQueryable.cs" />
     <Compile Include="ContentSearch\SynthesisSolrDocumentTypeMapper.cs" />
     <Compile Include="ContentSearch\SynthesisSolrFieldNameTranslator.cs" />
+    <Compile Include="ContentSearch\SynthesisSolrFieldNameTranslatorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Standard Config Files\Synthesis.Solr.Config" />
+    <None Include="Standard Config Files\Synthesis.Solr.Config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pipelines\ContentSearch\" />

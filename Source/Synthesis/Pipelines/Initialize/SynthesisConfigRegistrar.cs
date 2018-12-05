@@ -22,6 +22,10 @@ namespace Synthesis.Pipelines.Initialize
 
 		public virtual void Process(PipelineArgs args)
 		{
+            /*while(!Debugger.IsAttached)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }*/
 			var types = GetTypesInRegisteredAssemblies();
 			var configurations = GetConfigurationsFromTypes(types);
 

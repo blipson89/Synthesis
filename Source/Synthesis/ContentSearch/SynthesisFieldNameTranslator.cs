@@ -33,14 +33,14 @@ namespace Synthesis.ContentSearch
 			return _innerTranslator.GetIndexFieldName(PreProcessSynthesisFieldName(fieldName));
 		}
 
-		public override IEnumerable<string> GetTypeFieldNames(string fieldName)
+	    public override Dictionary<string, List<string>> MapFieldsToType(IEnumerable<string> fieldNames, Type type, MappingTargetType target)
+	    {
+	        return _innerTranslator.MapFieldsToType(fieldNames, type, target);
+	    }
+
+	    public override IEnumerable<string> GetTypeFieldNames(string fieldName)
 		{
 			return _innerTranslator.GetTypeFieldNames(fieldName);
-		}
-
-		public override Dictionary<string, List<string>> MapDocumentFieldsToType(Type type, MappingTargetType target, IEnumerable<string> documentFieldNames)
-		{
-			return _innerTranslator.MapDocumentFieldsToType(type, target, documentFieldNames);
 		}
 
 		protected virtual string PreProcessSynthesisFieldName(string fieldName)

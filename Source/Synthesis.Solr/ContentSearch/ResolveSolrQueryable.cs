@@ -2,24 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sitecore.ContentSearch;
-using Sitecore.ContentSearch.Diagnostics;
 using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.ContentSearch.SolrProvider;
-using Sitecore.ContentSearch.Utilities;
 using Sitecore.Diagnostics;
 using Synthesis.ContentSearch;
 using Synthesis.Pipelines;
 
-namespace Synthesis.Solr.ContentSearch.Solr
+namespace Synthesis.Solr.ContentSearch
 {
 	public class ResolveSolrQueryable : IQueryableResolver
 	{
+	    private readonly IFieldNameTranslatorFactory _fieldNameTranslator;
+
+	    public ResolveSolrQueryable(IFieldNameTranslatorFactory fieldNameTranslator)
+	    {
+	        _fieldNameTranslator = fieldNameTranslator;
+	    }
 		public IQueryable<TResult> GetSynthesisQueryable<TResult>(SynthesisSearchContextArgs args) where TResult : IStandardTemplateItem
 		{
 			Assert.IsNotNull(args, "Args must not be null");
-			var solrContext = args.SearchContext as SolrSearchContext;
-			if (solrContext == null)
-				throw new NotImplementedException("A Solr index is not being used, if you're using Lucene make sure that you're not overridding the synthesisSearchContext pipeline with the Solr processor");
+		    if (!(args.SearchContext is SolrSearchContext solrContext))
+				throw new NotImplementedException("A Solr index is not being used, if you're using Azure make sure that you're not overridding the synthesisSearchContext pipeline with the Solr processor");
 
 			var overrideMapper = new SynthesisSolrDocumentTypeMapper();
 			overrideMapper.Initialize(args.SearchContext.Index);
@@ -32,11 +35,8 @@ namespace Synthesis.Solr.ContentSearch.Solr
 		private IQueryable<TResult> GetSolrQueryable<TResult>(SolrSearchContext context, IExecutionContext[] executionContext)
 			where TResult : IStandardTemplateItem
 		{
-			var linqToSolrIndex = new SynthesisLinqToSolrIndex<TResult>(context, executionContext);
-
-			if (context.Index.Locator.GetInstance<IContentSearchConfigurationSettings>().EnableSearchDebug())
-				((IHasTraceWriter)linqToSolrIndex).TraceWriter = new LoggingTraceWriter(SearchLog.Log);
-			return linqToSolrIndex.GetQueryable();
+		    context.Index.FieldNameTranslator = _fieldNameTranslator.GetFieldNameTranslator(context.Index);
+            return context.GetQueryable<TResult>(executionContext);
 		}
 	}
 }

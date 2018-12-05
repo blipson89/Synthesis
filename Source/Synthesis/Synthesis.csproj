@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synthesis</RootNamespace>
     <AssemblyName>Synthesis</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -38,10 +38,6 @@
       <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Sitecore.ContentSearch, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -49,12 +45,6 @@
     </Reference>
     <Reference Include="Sitecore.ContentSearch.Linq, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.4.0.0\lib\net471\Sitecore.ContentSearch.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.ContentSearch.Linq.Lucene, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.Lucene.4.0.0\lib\net471\Sitecore.ContentSearch.Linq.Lucene.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.ContentSearch.LuceneProvider, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.LuceneProvider.4.0.0\lib\net471\Sitecore.ContentSearch.LuceneProvider.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.Kernel, Version=12.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sitecore.Kernel.12.0.0\lib\net471\Sitecore.Kernel.dll</HintPath>
@@ -98,9 +88,9 @@
     <Compile Include="ContentSearch\ComputedFields\InheritedTemplates.cs" />
     <Compile Include="ContentSearch\ContentSearchUtilities.cs" />
     <Compile Include="ContentSearch\DocumentMappingResult.cs" />
+    <Compile Include="ContentSearch\IFieldNameTranslatorFactory.cs" />
     <Compile Include="ContentSearch\IQueryableResolver.cs" />
     <Compile Include="ContentSearch\Lucene\ResolveLuceneQueryable.cs" />
-    <Compile Include="ContentSearch\Lucene\SynthesisLinqToLuceneIndex.cs" />
     <Compile Include="ContentSearch\IndexFieldNameMapper.cs" />
     <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
     <Compile Include="ContentSearch\SynthesisFieldNameTranslator.cs" />
@@ -173,10 +163,10 @@
     <Compile Include="Synchronization\TemplateComparisonResultCollection.cs" />
     <Compile Include="Templates\Database\ItemTemplateFieldInfo.cs" />
     <Compile Include="Templates\Database\TemplateInfo.cs" />
-    <Compile Include="ContentSearch\Lucene\SynthesisLuceneDocumentTypeMapper.cs" />
     <Compile Include="Utility\CodeDomUtility.cs" />
     <Compile Include="Configuration\ITypeListProvider.cs" />
     <Compile Include="Utility\DebugUtility.cs" />
+    <Compile Include="Utility\ObjectActivator.cs" />
     <Compile Include="Utility\TypeCollectionUtility.cs" />
     <Compile Include="FieldTypes\BooleanField.cs">
       <SubType>Code</SubType>

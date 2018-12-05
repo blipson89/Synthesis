@@ -1,27 +1,39 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using Sitecore;
-using Sitecore.ContentSearch;
+using Sitecore.ContentSearch.Abstractions;
+using Sitecore.ContentSearch.Linq.Common;
+using Sitecore.ContentSearch.SolrProvider;
+using Sitecore.ContentSearch.SolrProvider.FieldNames;
+using Sitecore.ContentSearch.SolrProvider.FieldNames.Normalization;
+using Sitecore.ContentSearch.SolrProvider.FieldNames.TypeResolving;
 using SolrNet.Schema;
 using Synthesis.ContentSearch;
 
 namespace Synthesis.Solr.ContentSearch
 {
-	public class SynthesisSolrFieldNameTranslator : SynthesisFieldNameTranslator
-	{
-		private readonly SolrSchema _schema;
-		public SynthesisSolrFieldNameTranslator(IProviderSearchContext context, AbstractFieldNameTranslator translator)
-			: base(translator)
-		{
-			//sitecore hides the solr schema behind a private field, we need it to find dynamic fields.
-			var fieldInfo = context.Index.Schema.GetType().GetField("schema", BindingFlags.NonPublic | BindingFlags.Instance);
-			if (fieldInfo != null)
-				_schema = (SolrSchema)fieldInfo.GetValue(context.Index.Schema);
-		}
+    public class SynthesisSolrFieldNameTranslator : SolrFieldNameTranslator
+    {
+
+        private readonly SolrSchema _schema;
+
+        public SynthesisSolrFieldNameTranslator(SolrFieldMap solrFieldMap, SolrIndexSchema solrIndexSchema,
+            ISettings settings, ISolrFieldConfigurationResolver fieldConfigurationResolver,
+            IExtensionStripHelper extensionStripHelper, TemplateFieldTypeResolverFactory typeResolverFactory,
+            ICultureContextGuard cultureContextGuard)
+            : base(solrFieldMap, solrIndexSchema, settings, fieldConfigurationResolver, extensionStripHelper,
+                typeResolverFactory, cultureContextGuard)
+        {
+            _schema = solrIndexSchema.SolrSchema;
+        }
+
 
 		public override string GetIndexFieldName(string fieldName)
 		{
-			if (_schema != null && _schema.FindSolrFieldByName(fieldName) != null || _schema.SolrDynamicFields.Any(x => fieldName.EndsWith(x.Name.Substring(1))))
+			if (_schema != null && (_schema.FindSolrFieldByName(fieldName) != null || _schema.SolrDynamicFields.Any(x => fieldName.EndsWith(x.Name.Substring(1)))))
 				return fieldName;
 			//at this point we can't be sure what type the data is in the field, our best bet would be a text field.
 			return AppendSolrText(fieldName);
@@ -39,6 +51,5 @@ namespace Synthesis.Solr.ContentSearch
 				fieldName += "_t_" + Context.Language;
 			return fieldName;
 		}
-
 	}
 }
