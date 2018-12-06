@@ -4,14 +4,14 @@
     <id>Synthesis.Solr.Core</id>
     <version>$version$</version>
     <authors>Ben Lipson,Kam Figy,Jeff Darchuk</authors>
-    <owners>Connective DX</owners>
+    <owners>Synthesis Team</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/blipson89/Synthesis</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
 		  Adds Solr support to Synthesis. This package contains the core library for class libraries. Use Synthesis.Solr to include configuration.
 	  </description>
-    <copyright>Copyright 2017 Ben Lipson/Connective DX</copyright>
+    <copyright>Copyright 2018 Ben Lipson/Synthesis Team</copyright>
     <tags>sitecore,synthesis,solr</tags>
     <dependencies>
     </dependencies>
