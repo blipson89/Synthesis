@@ -1,238 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synthesis</RootNamespace>
-    <AssemblyName>Synthesis</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>net471</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Build" />
-    <Reference Include="Microsoft.Build.Framework" />
-    <Reference Include="Sitecore.ContentSearch, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.4.0.0\lib\net471\Sitecore.ContentSearch.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.ContentSearch.Linq, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.4.0.0\lib\net471\Sitecore.ContentSearch.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.Kernel, Version=12.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.Kernel.12.0.0\lib\net471\Sitecore.Kernel.dll</HintPath>
-    </Reference>
-    <Reference Include="sysglobl" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.IO.FileSystem.Primitives" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xml" />
+    <None Remove="Synthesis.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Configuration\Registration\DefaultConfigurationRegistration.cs" />
-    <Compile Include="Configuration\Registration\SynthesisConfigurationRegistration.cs" />
-    <Compile Include="Configuration\Registration\ISynthesisConfigurationRegistration.cs" />
-    <Compile Include="Configuration\Registration\ProxyGeneratorParametersProvider.cs" />
-    <Compile Include="Configuration\ConfigurationFieldMappingProvider.cs" />
-    <Compile Include="Configuration\ConfigurationGeneratorParametersProvider.cs" />
-    <Compile Include="Configuration\ConfigurationProviderConfiguration.cs" />
-    <Compile Include="Configuration\ConfigurationTemplateInputProvider.cs" />
-    <Compile Include="Configuration\ConfigurationUtility.cs" />
-    <Compile Include="Configuration\ConfigurationTypeListProvider.cs" />
-    <Compile Include="Configuration\IProviderConfiguration.cs" />
-    <Compile Include="Configuration\ProviderResolver.cs" />
-    <Compile Include="ContentSearchExtensions.cs" />
-    <Compile Include="ContentSearchQueryExtensions.cs" />
-    <Compile Include="ContentSearch\ComputedFields\InheritedTemplates.cs" />
-    <Compile Include="ContentSearch\ContentSearchUtilities.cs" />
-    <Compile Include="ContentSearch\DocumentMappingResult.cs" />
-    <Compile Include="ContentSearch\IFieldNameTranslatorFactory.cs" />
-    <Compile Include="ContentSearch\IQueryableResolver.cs" />
-    <Compile Include="ContentSearch\Lucene\ResolveLuceneQueryable.cs" />
-    <Compile Include="ContentSearch\IndexFieldNameMapper.cs" />
-    <Compile Include="ContentSearch\SynthesisDocumentTypeMapper.cs" />
-    <Compile Include="ContentSearch\SynthesisFieldNameTranslator.cs" />
-    <Compile Include="ControlPanel\ControlPanelPipelineProcessor.cs" />
-    <Compile Include="EventHandlers\AutomaticModelRebuilder.cs" />
-    <Compile Include="FieldDictionary.cs" />
-    <Compile Include="FieldExtensions.cs" />
-    <Compile Include="FieldTypes\Adapters\DatabaseAdapter.cs" />
-    <Compile Include="FieldTypes\Adapters\EditingAdapter.cs" />
-    <Compile Include="FieldTypes\Adapters\IAxesAdapter.cs" />
-    <Compile Include="FieldTypes\Adapters\IDatabaseAdapter.cs" />
-    <Compile Include="FieldTypes\Adapters\IEditingAdapter.cs" />
-    <Compile Include="FieldTypes\FieldMapping.cs" />
-    <Compile Include="FieldTypes\Interfaces\INumericField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IPathItemReferenceField.cs" />
-    <Compile Include="FieldTypes\Interfaces\ITristateField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IIntegerField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IDateTimeField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IBooleanField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IFieldRenderableValuedFieldType.cs" />
-    <Compile Include="FieldTypes\Interfaces\IDictionaryField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IFieldRenderableFieldType.cs" />
-    <Compile Include="FieldTypes\Interfaces\IFieldType.cs" />
-    <Compile Include="FieldTypes\Interfaces\IFileField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IHyperlinkField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IImageField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IItemReferenceField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IItemReferenceListField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IRichTextField.cs" />
-    <Compile Include="FieldTypes\Interfaces\ITextField.cs" />
-    <Compile Include="FieldTypes\Interfaces\IValuedFieldType.cs" />
-    <Compile Include="FieldTypes\LazyField.cs" />
-    <Compile Include="FieldTypes\PathItemReferenceField.cs" />
-    <Compile Include="FieldTypes\TristateField.cs" />
-    <Compile Include="FieldTypes\DictionaryField.cs" />
-    <Compile Include="FieldTypes\IFieldMappingProvider.cs" />
-    <Compile Include="FieldTypes\RichTextField.cs" />
-    <Compile Include="Generation\CodeDom\CodeDomGenerator.cs" />
-    <Compile Include="Generation\GeneratorParameterException.cs" />
-    <Compile Include="Generation\IMetadataGenerator.cs" />
-    <Compile Include="Generation\ITemplateCodeGenerator.cs" />
-    <Compile Include="Generation\IGeneratorParametersProvider.cs" />
-    <Compile Include="Generation\MetadataGenerator.cs" />
-    <Compile Include="Generation\GeneratorParameters.cs" />
-    <Compile Include="Generation\Model\TypeNovelizer.cs" />
-    <Compile Include="Generation\NamingUtility.cs" />
-    <Compile Include="Generation\Model\FieldPropertyInfo.cs" />
-    <Compile Include="Generation\Model\TemplateInfo.cs" />
-    <Compile Include="Generation\Model\TemplateGenerationMetadata.cs" />
-    <Compile Include="HtmlTextWriterExtensions.cs" />
-    <Compile Include="Initializers\IInitializerProvider.cs" />
-    <Compile Include="Initializers\StandardInitializerProvider.cs" />
-    <Compile Include="Initializers\StandardTemplateInitializer.cs" />
-    <Compile Include="InstanceType.cs" />
-    <Compile Include="ItemExtensions.cs" />
-    <Compile Include="Initializers\ITemplateInitializer.cs" />
-    <Compile Include="MissingTemplateFieldException.cs" />
-    <Compile Include="Pipelines\Initialize\CheckModelSynchronization.cs" />
-    <Compile Include="Pipelines\Initialize\SynthesisConfigRegistrar.cs" />
-    <Compile Include="SynthesisHelper.cs" />
-    <Compile Include="Pipelines\SynthesisSearchContextArgs.cs" />
-    <Compile Include="SynthesisEditContext.cs" />
-    <Compile Include="Synchronization\ModelTemplateReference.cs" />
-    <Compile Include="Synchronization\SyncSource.cs" />
-    <Compile Include="Templates\ITemplateFieldInfo.cs" />
-    <Compile Include="Templates\ITemplateInfo.cs" />
-    <Compile Include="Templates\ITemplateInputProvider.cs" />
-    <Compile Include="Templates\ITemplateSignatureProvider.cs" />
-    <Compile Include="Synchronization\TemplateComparisonResult.cs" />
-    <Compile Include="Synchronization\TemplateComparisonResultCollection.cs" />
-    <Compile Include="Templates\Database\ItemTemplateFieldInfo.cs" />
-    <Compile Include="Templates\Database\TemplateInfo.cs" />
-    <Compile Include="Utility\CodeDomUtility.cs" />
-    <Compile Include="Configuration\ITypeListProvider.cs" />
-    <Compile Include="Utility\DebugUtility.cs" />
-    <Compile Include="Utility\ObjectActivator.cs" />
-    <Compile Include="Utility\TypeCollectionUtility.cs" />
-    <Compile Include="FieldTypes\BooleanField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\DateTimeField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\FieldType.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\FileField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\HyperlinkField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\ImageField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\IntegerField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\ItemReferenceListField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\NumericField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\ItemReferenceField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FieldTypes\TextField.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Templates\Sha1TemplateSignatureProvider.cs" />
-    <Compile Include="Synchronization\RepresentsSitecoreTemplateAttribute.cs" />
-    <Compile Include="FieldTypes\Adapters\AxesAdapter.cs" />
-    <Compile Include="IStandardTemplateItem.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StandardTemplateItem.cs" />
-    <Compile Include="Synchronization\SynchronizationEngine.cs" />
-    <Compile Include="Utility\FieldUtility.cs" />
-    <Compile Include="Utility\SingleFieldEditor.cs" />
-    <Compile Include="Utility\WildcardUtility.cs" />
-    <Compile Include="WebControlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Standard Config Files\Synthesis.AutoRegenerate.config" />
-    <None Include="Standard Config Files\Synthesis.LocalConfig.config.example" />
-    <None Include="Standard Config Files\Synthesis.Startup.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Standard Config Files\Synthesis.ControlPanel.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Standard Config Files\Synthesis.config">
-      <SubType>Designer</SubType>
-    </None>
+    <PackageReference Include="Sitecore.ContentSearch" Version="4.0.0" />
+    <PackageReference Include="Sitecore.ContentSearch.Linq" Version="4.0.0" />
+    <PackageReference Include="Sitecore.Kernel" Version="12.0.0" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

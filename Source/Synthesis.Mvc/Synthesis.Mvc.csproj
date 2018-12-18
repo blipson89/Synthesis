@@ -1,151 +1,34 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{97C803D2-5E32-4D5C-8ECB-EE49D759A953}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synthesis.Mvc</RootNamespace>
-    <AssemblyName>Synthesis.Mvc</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>net471</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.ContentSearch, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.4.0.0\lib\net471\Sitecore.ContentSearch.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.ExperienceExplorer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ExperienceExplorer.4.0.0\lib\net471\Sitecore.ExperienceExplorer.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.ExperienceExplorer.Core, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ExperienceExplorer.Core.4.0.0\lib\net471\Sitecore.ExperienceExplorer.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.Kernel, Version=12.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.Kernel.12.0.0\lib\net471\Sitecore.Kernel.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.Mvc, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.Mvc.3.0.0\lib\net471\Sitecore.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="sysglobl" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.IO.FileSystem.Primitives" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
+    <None Remove="Synthesis.Mvc.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Sitecore.ContentSearch" Version="4.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Sitecore.ExperienceExplorer.Core" Version="4.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Sitecore.Kernel" Version="12.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Sitecore.Mvc" Version="3.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Extensions\DateFields.cs" />
-    <Compile Include="Extensions\FileFields.cs" />
-    <Compile Include="Extensions\HyperlinkFields.cs" />
-    <Compile Include="Extensions\ImageFields.cs" />
-    <Compile Include="Extensions\NumberFields.cs" />
-    <Compile Include="Extensions\TextFields.cs" />
-    <Compile Include="Helpers\HyperlinkHelper.cs" />
-    <Compile Include="Helpers\ImageHelper.cs" />
-    <Compile Include="Helpers\DateHelper.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
-    <Compile Include="Helpers\TextHelper.cs" />
-    <Compile Include="RenderingDisplayPathResolver.cs" />
-    <Compile Include="TagRenderingContext.cs" />
-    <Compile Include="UI\IContextDatabase.cs" />
-    <Compile Include="UI\IContextIndex.cs" />
-    <Compile Include="UI\IContextItem.cs" />
-    <Compile Include="UI\IContextSite.cs" />
-    <Compile Include="UI\IRenderingContext.cs" />
-    <Compile Include="UI\SitecoreRenderingContext.cs" />
-    <Compile Include="Utility\DisplayModeSwitcher.cs" />
-    <Compile Include="ViewErrorRenderer.cs" />
-    <Compile Include="Pipelines\GetModel\GetFromSynthesis.cs" />
-    <Compile Include="Pipelines\GetRenderer\RenderingDiagnosticsInjector.cs" />
-    <Compile Include="Pipelines\RenderRendering\ResilientExecuteRenderer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenderingErrorModel.cs" />
-    <Compile Include="Utility\RenderingDiagnostics.cs" />
-    <Compile Include="Utility\RenderingDiagnosticsDisabler.cs" />
-    <Compile Include="Utility\SiteHelper.cs" />
-    <Compile Include="ViewModelTypeResolver.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Synthesis.Mvc.config">
-      <SubType>Designer</SubType>
-    </None>
+    <ProjectReference Include="..\Synthesis\Synthesis.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Synthesis\Synthesis.csproj">
-      <Project>{ebae2c10-079d-4eb1-9e46-82cec35d7f4b}</Project>
-      <Name>Synthesis</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="UI\README.txt" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
