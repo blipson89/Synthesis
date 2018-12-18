@@ -24,6 +24,8 @@ Source/*/Properties/Version.cs
 
 # NuGet output
 Build/*.nupkg
+Build/Versions
+Build/tools
 
 # NuGet packages
 Packages/*

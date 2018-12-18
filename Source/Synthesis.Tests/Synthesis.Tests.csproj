@@ -1,137 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CC01C529-5740-4827-A544-918CE0F327F0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synthesis.Tests</RootNamespace>
-    <AssemblyName>Synthesis.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <TargetFramework>net471</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.1.0.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.ContentSearch, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.NoReferences.9.0.171219\lib\NET462\Sitecore.ContentSearch.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.ContentSearch.Linq, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.NoReferences.9.0.171219\lib\NET462\Sitecore.ContentSearch.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.ContentSearch.LuceneProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependencies\Libraries\Sitecore\Sitecore.ContentSearch.LuceneProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.Kernel, Version=11.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.Kernel.NoReferences.9.0.171219\lib\NET462\Sitecore.Kernel.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FakeTemplateItem.cs" />
-    <Compile Include="Fixtures\Configuration\TemplateInputProviderTests.cs" />
-    <Compile Include="Fixtures\ContentSearch\ContentSearchTestFixture.cs" />
-    <Compile Include="Fixtures\ContentSearch\Data\SearchTemplateItem.cs" />
-    <Compile Include="Fixtures\ContentSearch\Data\ISearchTemplateItem.cs" />
-    <Compile Include="Fixtures\ContentSearch\FieldTypeTests.cs" />
-    <Compile Include="Fixtures\ContentSearch\ContentSearchQueryExtensionTests.cs" />
-    <Compile Include="Fixtures\ContentSearch\InitializerForcer.cs" />
-    <Compile Include="Fixtures\ContentSearch\StandardTemplateTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\BooleanFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\ItemReferenceFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\ItemReferenceListFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\NumericFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\DateTimeFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\FileFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\HyperlinkFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\ImageFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\IntegerFieldTests.cs" />
-    <Compile Include="Fixtures\FieldTypes\TextFieldTests.cs" />
-    <Compile Include="Fixtures\ItemExtensionsTests.cs" />
-    <Compile Include="Fixtures\TemplateSignatureProviderTests.cs" />
-    <Compile Include="IFakeTemplateItem.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetupFixture.cs" />
-    <Compile Include="TestFields.cs" />
-    <Compile Include="Utility\TemplateCreateUtility.cs" />
-    <Compile Include="Utility\TemplateFieldTypes.cs" />
-    <Compile Include="Utility\TestItemContext.cs" />
-    <Compile Include="Utility\FieldTestTemplateCreator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synthesis.Solr\Synthesis.Solr.csproj">
-      <Project>{d76ce576-81d7-4bda-b6eb-7e5b72c0bcc5}</Project>
-      <Name>Synthesis.Solr</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Synthesis\Synthesis.csproj">
-      <Project>{EBAE2C10-079D-4EB1-9E46-82CEC35D7F4B}</Project>
-      <Name>Synthesis</Name>
-    </ProjectReference>
+    <PackageReference Include="NUnit" Version="2.6.4" />
+    <PackageReference Include="Sitecore.ContentSearch" Version="4.0.0" />
+    <PackageReference Include="Sitecore.ContentSearch.Linq" Version="4.0.0" />
+    <PackageReference Include="Sitecore.Kernel" Version="12.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Synthesis.TestRunnerConfig.config" />
+    <ProjectReference Include="..\Synthesis\Synthesis.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="_HOW TO TEST.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
