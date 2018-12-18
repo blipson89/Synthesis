@@ -7,7 +7,7 @@
     <owners>Synthesis Team</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/blipson89/Synthesis</projectUrl>
-    <iconUrl>http://www.benlipson.net/wp-content/uploads/2018/12/synthesis.png</iconUrl>
+    <iconUrl>http://www.benlipson.net/wp-content/uploads/2018/12/synthesis-logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       Synthesis is a universal object mapper with LINQ support for Sitecore 8.1 and up. Use the same strongly typed objects to run queries against search indexes or the database, or transparently convert from indexed to database when necessary. Supports fully polymorphic Sitecore template inheritance via a generated interface hierarchy.

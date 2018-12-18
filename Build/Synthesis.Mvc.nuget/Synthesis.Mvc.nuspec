@@ -7,7 +7,7 @@
     <owners>Synthesis Team</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/blipson89/Synthesis</projectUrl>
-    <iconUrl>http://www.benlipson.net/wp-content/uploads/2018/12/synthesis.png</iconUrl>
+    <iconUrl>http://www.benlipson.net/wp-content/uploads/2018/12/synthesis-logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       Automatic injection of Synthesis models for Sitecore MVC view renderings. This package contains the core library and configuration and is appropriate for the web project.
