@@ -7,6 +7,7 @@
     <owners>Synthesis Team</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/blipson89/Synthesis</projectUrl>
+    <iconUrl>http://www.benlipson.net/wp-content/uploads/2018/12/synthesis.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
 		  Adds Solr support to Synthesis. This package contains the core library for class libraries. Use Synthesis.Solr to include configuration.
