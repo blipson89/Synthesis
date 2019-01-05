@@ -25,9 +25,9 @@
     </contentFiles>
   </metadata>
   <files>
-    <file src="..\..\Source\Synthesis.Mvc\Standard Config Files\*" target="contentFiles\any\any\App_Config\Include\Synthesis" />
+    <file src="..\..\Source\Synthesis.Mvc\Standard Config Files\*" target="contentFiles\any\any\App_Config\Modules\Synthesis" />
 
     <!-- Legacy Support -->
-    <file src="..\..\Source\Synthesis.Mvc\Standard Config Files\Synthesis.Mvc.config" target="content\App_Config\Include\Synthesis" />
+    <file src="..\..\Source\Synthesis.Mvc\Standard Config Files\Synthesis.Mvc.config" target="content\App_Config\Modules\Synthesis" />
   </files>
 </package>

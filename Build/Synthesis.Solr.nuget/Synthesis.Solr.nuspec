@@ -25,9 +25,9 @@
     </contentFiles>
   </metadata>
   <files>
-    <file src="..\..\Source\Synthesis.Solr\Standard Config Files\*" target="contentFiles\any\any\App_Config\Include\Synthesis" />
+    <file src="..\..\Source\Synthesis.Solr\Standard Config Files\*" target="contentFiles\any\any\App_Config\Modules\Synthesis" />
 
     <!-- Legacy Support -->
-    <file src="..\..\Source\Synthesis.Solr\Standard Config Files\Synthesis.Solr.config" target="content\App_Config\Include\Synthesis" />
+    <file src="..\..\Source\Synthesis.Solr\Standard Config Files\Synthesis.Solr.config" target="content\App_Config\Modules\Synthesis" />
   </files>
 </package>
