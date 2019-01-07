@@ -90,8 +90,8 @@ using (var context = ContentSearchManager.CreateSearchContext(new SitecoreIndexa
 
     ISampleItemItem exampleResult = results.Hits.First().Document;
 
-    // if you have the title field indexed with value, this will grab the value out of Lucene without any database work
-    var luceneString = exampleResult.Title.RawValue;
+    // if you have the title field indexed with value, this will grab the value out of Solr without any database work
+    var solrString = exampleResult.Title.RawValue;
 
     // but this value isn't stored in the index. Accessing it will transparently cause the Sitecore.Data.Item to be loaded, and the value retrieved. Nice huh?
     var promoted = exampleResult.Text.ExpandedLinksValue;
@@ -118,8 +118,8 @@ using (var context = ContentSearchManager.CreateSearchContext(new SitecoreIndexa
 
     ISampleItemItem exampleResult = results.Hits.First().Document;
 
-    // if you have the title field indexed with value, this will grab the value out of Lucene without any database work
-    var luceneString = exampleResult.Title.RawValue;
+    // if you have the title field indexed with value, this will grab the value out of Solr without any database work
+    var solrString = exampleResult.Title.RawValue;
 
     // but this value isn't stored in the index. Accessing it will transparently cause the Sitecore.Data.Item to be loaded, and the value retrieved. Nice huh?
     var promoted = exampleResult.Text.ExpandedLinksValue;
