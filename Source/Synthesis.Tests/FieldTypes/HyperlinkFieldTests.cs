@@ -1,133 +1,132 @@
-﻿using NUnit.Framework;
+﻿using System;
 using Synthesis.Tests.Utility;
+using Xunit;
 
-namespace Synthesis.Tests.Fixtures.FieldTypes
+namespace Synthesis.Tests.FieldTypes
 {
-	[TestFixture]
-	[Category("FieldType Tests")]
-	public class HyperlinkFieldTests
+
+    [Trait("Category", "FieldType Tests")]
+    public class HyperlinkFieldTests : IDisposable
 	{
-		[TestFixtureSetUp]
-		public void SetUpTestTemplate()
+		public HyperlinkFieldTests()
 		{
 			new FieldTestTemplateCreator().CreateSampleTemplate();
 		}
 
-		[TestFixtureTearDown]
-		public void TearDownTestTemplate()
+		public void Dispose()
 		{
 			new FieldTestTemplateCreator().DeleteSampleTemplate();
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_HasValue_WhenTrue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_HasValue_WhenFalse()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_GetTitle_ReturnsCorrectValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_GetTitle_ReturnsEmptyStringWhenBlank()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_SetTitle_SavesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_GetTarget_ReturnsCorrectValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_GetTarget_ReturnsEmptyStringWhenBlank()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_SetTarget_SavesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_GetCssClass_ReturnsCorrectValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_GetCssClass_ReturnsEmptyStringWhenBlank()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_SetCssClass_SavesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_GetHref_ReturnsCorrectValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_GetHref_ReturnsEmptyStringWhenBlank()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_AttachHyperLink_SetsNavigateUrl()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_AttachHyperLink_SetsTarget()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_AttachHyperLink_SetsTitle()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_AttachHyperLink_SetsCssClass()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_AttachLink_SetsItemAndField()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void HyperlinkField_CanImplicitCastToLinkField()
 		{
 

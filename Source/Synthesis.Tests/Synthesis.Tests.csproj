@@ -4,17 +4,43 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="App.config" />
+    <None Remove="license.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\license.xml">
+      <Link>license.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="2.6.4" />
+    <PackageReference Include="AutoFixture" Version="4.6.0" />
+    <PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.6.0" />
+    <PackageReference Include="FluentAssertions" Version="5.5.3" />
+    <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="Sitecore.ContentSearch" Version="4.0.0" />
     <PackageReference Include="Sitecore.ContentSearch.Linq" Version="4.0.0" />
+    <PackageReference Include="Sitecore.ContentSearch.SolrProvider" Version="4.0.0" />
+    <PackageReference Include="Sitecore.FakeDb" Version="2.0.0-beta2" />
+    <PackageReference Include="Sitecore.FakeDb.AutoFixture" Version="2.0.0-beta2" />
+    <PackageReference Include="Sitecore.FakeDb.NSubstitute" Version="2.0.0-beta2" />
     <PackageReference Include="Sitecore.Kernel" Version="12.0.0" />
+    <PackageReference Include="Sitecore.Logging" Version="12.0.0" />
+    <PackageReference Include="Sitecore.Nexus" Version="3.0.0">
+      <PrivateAssets></PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Synthesis.Solr\Synthesis.Solr.csproj" />
     <ProjectReference Include="..\Synthesis\Synthesis.csproj" />
   </ItemGroup>
 </Project>
