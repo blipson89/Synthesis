@@ -34,7 +34,7 @@ namespace Synthesis.Solr.ContentSearch
 
 
             ICultureContextGuard cultureContextGuard = ObjectActivator.GetActivator<ICultureContextGuard>(ctor).Invoke();
-            return new SynthesisSolrFieldNameTranslator(fieldMap, schema, instance, configurationResolver, new ExtensionStripHelper(fieldMap, schema), typeResolverFactory, cultureContextGuard);
+            return new SynthesisFieldNameTranslator(new SynthesisSolrFieldNameTranslator(fieldMap, schema, instance, configurationResolver, new ExtensionStripHelper(fieldMap, schema), typeResolverFactory, cultureContextGuard));
         }
     }
 }
