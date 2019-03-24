@@ -1,85 +1,83 @@
-﻿using NUnit.Framework;
-
+﻿using Xunit;
 namespace Synthesis.Tests.Fixtures
 {
-	[TestFixture]
-	[Category("Object Conversion Tests")]
+	[Trait("Category", "Object Conversion Tests")]
 	public class ItemExtensionsTests
 	{
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemExtensions_AsT_ConvertsValidItem()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsT_ReturnsNullIfInvalidCast()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsT_ReturnsNullIfInvalidCast()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsStronglyTyped_ConvertsValidItem()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsStronglyTyped_ConvertsValidItem()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsStronglyTyped_ReturnsNullConvertingInvalidItem()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsStronglyTyped_ReturnsNullConvertingInvalidItem()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsStronglyTyped_ReturnsNullConvertingNullItem()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsStronglyTyped_ReturnsNullConvertingNullItem()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsCollectionOfT_ReturnsEnumerableOfValidItems()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsCollectionOfT_ReturnsEnumerableOfValidItems()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsCollectionOfT_ReturnsEnumerableOfSomeValidItems()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsCollectionOfT_ReturnsEnumerableOfSomeValidItems()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsCollectionOfT_ReturnsEmptyEnumerableWithNoValidItems()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsCollectionOfT_ReturnsEmptyEnumerableWithNoValidItems()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsCollectionOfT_ReturnsEmptyEnumerableWithNoItems()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsCollectionOfT_ReturnsEmptyEnumerableWithNoItems()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsStronglyTypedCollection_ReturnsEnumerableOfValidItems()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsStronglyTypedCollection_ReturnsEnumerableOfValidItems()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsStronglyTypedCollection_ReturnsEnumerableOfSomeValidItems()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsStronglyTypedCollection_ReturnsEnumerableOfSomeValidItems()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsStronglyTypedCollection_ReturnsEmptyEnumerableWithNoValidItems()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsStronglyTypedCollection_ReturnsEmptyEnumerableWithNoValidItems()
 		{
 
 		}
 
-		[Test, Ignore]
-		public void ItemExtensions_AsStronglyTypedCollection_ReturnsEmptyEnumerableWithNoItems()
+        [Fact(Skip = "TODO")]
+        public void ItemExtensions_AsStronglyTypedCollection_ReturnsEmptyEnumerableWithNoItems()
 		{
 
 		}

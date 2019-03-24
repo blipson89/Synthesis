@@ -14,22 +14,35 @@ namespace Synthesis.Tests.Utility
 		internal TestItemContext()
 		{
 			var testName = "test-" + ID.NewID.ToShortID();
-			var database = Factory.GetDatabase("master");
+            var database = Sitecore.Context.Database;
 
 			using (new SecurityDisabler())
 			{
 				var parent = database.GetItem(ROOT_PATH);
 				TestItem = parent.Add(testName, new TemplateID(FieldTestTemplateCreator.CurrentTestTemplateID));
+                Xunit.Assert.NotNull(TestItem);
 			}
 		}
+
+        internal TestItemContext(TemplateID templateId)
+        {
+            var testName = "test-" + ID.NewID.ToShortID();
+            var database = Factory.GetDatabase("master");
+
+            using (new SecurityDisabler())
+            {
+                var parent = database.GetItem(ROOT_PATH);
+                TestItem = parent.Add(testName, templateId);
+            }
+        }
 
 		internal Item TestItem { get; private set; }
 
 		internal void SetField(string fieldName, string fieldValue)
 		{
 			using (new SecurityDisabler())
-			{
-				using (new EditContext(TestItem))
+			{using (new EditContext(TestItem))
+				
 				{
 					TestItem[fieldName] = fieldValue;
 				}

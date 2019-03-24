@@ -1,91 +1,89 @@
-﻿using NUnit.Framework;
+﻿using System;
 using Synthesis.Tests.Utility;
+using Xunit;
 
-namespace Synthesis.Tests.Fixtures.FieldTypes
+namespace Synthesis.Tests.FieldTypes
 {
-	[TestFixture]
-	[Category("FieldType Tests")]
-	public class FileFieldTests
+    [Trait("Category", "FieldType Tests")]
+    public class FileFieldTests : IDisposable
 	{
-		[TestFixtureSetUp]
-		public void SetUpTestTemplate()
+		public FileFieldTests()
 		{
 			new FieldTestTemplateCreator().CreateSampleTemplate();
 		}
 
-		[TestFixtureTearDown]
-		public void TearDownTestTemplate()
+		public void Dispose()
 		{
 			new FieldTestTemplateCreator().DeleteSampleTemplate();
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_GetUrl_IsResultValid()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_GetUrl_ReturnsEmptyStringWhenNoFile()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_GetMediaItemID_ValidMediaItem()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_GetMediaItemID_InvalidMediaItem()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_SetMediaItemID_SavesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_HasValue_WhenTrue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_HasValue_WhenFalse()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_AttachLink_SetsInvisibleWhenNoValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_AttachLink_SetsCorrectUrl()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_RenderLink_RendersNothingWhenNoValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_RenderLink_RendersCorrectLink()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void FileField_CanImplicitCastToSitecoreFileField()
 		{
 

@@ -1,30 +1,28 @@
 ﻿using System;
-using NUnit.Framework;
 using Sitecore;
 using Sitecore.Data.Fields;
 using Sitecore.SecurityModel;
 using Synthesis.FieldTypes;
 using Synthesis.Tests.Utility;
+using Xunit;
 
-namespace Synthesis.Tests.Fixtures.FieldTypes
+namespace Synthesis.Tests.FieldTypes
 {
-	[TestFixture]
-	[Category("FieldType Tests")]
-	public class DateTimeFieldTests
+    [Trait("Category", "FieldType Tests")]
+    public class DateTimeFieldTests : IDisposable
 	{
-		[TestFixtureSetUp]
-		public void SetUpTestTemplate()
+        private readonly FieldTestTemplateCreator _creator;
+        public DateTimeFieldTests()
 		{
-			new FieldTestTemplateCreator().CreateSampleTemplate();
+			_creator = new FieldTestTemplateCreator();
 		}
 
-		[TestFixtureTearDown]
-		public void TearDownTestTemplate()
+		public void Dispose()
 		{
-			new FieldTestTemplateCreator().DeleteSampleTemplate();
+			_creator.Dispose();
 		}
 
-		[Test]
+		[Fact]
 		public void DateTimeField_GetValue_ReturnsDateMinWhenEmpty()
 		{
 			using (var item = new TestItemContext())
@@ -33,31 +31,31 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 
-				Assert.AreEqual(field.Value, DateTime.MinValue);
+				Assert.Equal(DateTime.MinValue, field.Value);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void DateTimeField_GetValue_ReturnsValidValue()
 		{
 			using (var item = new TestItemContext())
 			{
-				var dateSet = DateUtil.IsoDateToDateTime(DateUtil.ToIsoDate(DateTime.Now)); // convert now to sitecore format and back to make sure the rounding is correct - sitecore doesn't have quite the same precision (no msec) as DateTime.Now
+				var dateSet = DateUtil.IsoDateToDateTime(DateUtil.ToIsoDate(DateTime.UtcNow)); // convert now to sitecore format and back to make sure the rounding is correct - sitecore doesn't have quite the same precision (no msec) as DateTime.Now
 				item.SetField(TestFields.DATETIME, DateUtil.ToIsoDate(dateSet));
 
 				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 
-				Assert.AreEqual(field.Value, dateSet);
+				Assert.Equal(dateSet, field.Value);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void DateTimeField_SetValue_SavesDate()
 		{
 			using (var item = new TestItemContext())
 			{
 				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
-				var dateSet = DateUtil.IsoDateToDateTime(DateUtil.ToIsoDate(DateTime.Now)); // convert now to sitecore format and back to make sure the rounding is correct - sitecore doesn't have quite the same precision (no msec) as DateTime.Now
+				var dateSet = DateUtil.IsoDateToDateTime(DateUtil.ToIsoDate(DateTime.UtcNow)); // convert now to sitecore format and back to make sure the rounding is correct - sitecore doesn't have quite the same precision (no msec) as DateTime.Now
 				
 				using (new SecurityDisabler())
 				{
@@ -66,17 +64,17 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				DateField sitecoreField = item[TestFields.DATETIME];
 
-				Assert.AreEqual(dateSet, sitecoreField.DateTime);
+				Assert.Equal(dateSet, sitecoreField.DateTime);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void DateTimeField_SetValue_SavesMaxDate()
 		{
 			using (var item = new TestItemContext())
 			{
 				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
-				var dateSet = DateUtil.IsoDateToDateTime(DateUtil.ToIsoDate(DateTime.MaxValue)); // convert maxvalue to sitecore format and back to make sure the rounding is correct - sitecore doesn't have quite the same precision (no msec) as DateTime.Now
+				var dateSet = DateUtil.IsoDateToDateTime(DateUtil.ToIsoDate(DateTime.MaxValue.ToUniversalTime())); // convert maxvalue to sitecore format and back to make sure the rounding is correct - sitecore doesn't have quite the same precision (no msec) as DateTime.Now
 				
 				using (new SecurityDisabler())
 				{
@@ -85,11 +83,11 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				DateField sitecoreField = item[TestFields.DATETIME];
 
-				Assert.AreEqual(dateSet, sitecoreField.DateTime);
+				Assert.Equal(dateSet, sitecoreField.DateTime);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void DateTimeField_SetValue_SavesMinDate()
 		{
 			using (var item = new TestItemContext())
@@ -103,11 +101,11 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				DateField sitecoreField = item[TestFields.DATETIME];
 
-				Assert.AreEqual(DateTime.MinValue, sitecoreField.DateTime);
+				Assert.Equal(DateTime.MinValue, sitecoreField.DateTime);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void DateTimeField_HasValue_WhenTrue()
 		{
 			using (var item = new TestItemContext())
@@ -116,11 +114,11 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 
-				Assert.IsTrue(field.HasValue);
+				Assert.True(field.HasValue);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void DateTimeField_HasValue_WhenFalse()
 		{
 			using (var item = new TestItemContext())
@@ -129,7 +127,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				var field = new DateTimeField(new LazyField(() => item[TestFields.DATETIME], "TEST", TestFields.DATETIME), null);
 
-				Assert.IsFalse(field.HasValue);
+				Assert.False(field.HasValue);
 			}
 		}
 	}

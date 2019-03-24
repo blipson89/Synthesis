@@ -1,49 +1,47 @@
-﻿using NUnit.Framework;
+﻿using System;
 using Synthesis.Tests.Utility;
+using Xunit;
 
-namespace Synthesis.Tests.Fixtures.FieldTypes
+namespace Synthesis.Tests.FieldTypes
 {
-	[TestFixture]
-	[Category("FieldType Tests")]
-	public class NumericFieldTests
+    [Trait("Category", "FieldType Tests")]
+    public class NumericFieldTests : IDisposable
 	{
-		[TestFixtureSetUp]
-		public void SetUpTestTemplate()
+		public NumericFieldTests()
 		{
 			new FieldTestTemplateCreator().CreateSampleTemplate();
 		}
 
-		[TestFixtureTearDown]
-		public void TearDownTestTemplate()
+		public void Dispose()
 		{
 			new FieldTestTemplateCreator().DeleteSampleTemplate();
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void NumericField_GetValue_ReturnsValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void NumericField_GetValue_ReturnsDefaultDecimalWhenBlank()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void NumericField_SetValue_SavesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void NumericField_HasValue_WhenTrue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void NumericField_HasValue_WhenFalse()
 		{
 

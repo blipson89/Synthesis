@@ -1,28 +1,26 @@
-﻿using NUnit.Framework;
+﻿using System;
 using Sitecore.Data.Fields;
 using Sitecore.SecurityModel;
 using Synthesis.FieldTypes;
 using Synthesis.Tests.Utility;
+using Xunit;
 
-namespace Synthesis.Tests.Fixtures.FieldTypes
+namespace Synthesis.Tests.FieldTypes
 {
-	[TestFixture]
-	[Category("FieldType Tests")]
-	public class BooleanFieldTests
-	{
-		[TestFixtureSetUp]
-		public void SetUpTestTemplate()
+	[Trait("Category", "FieldType Tests")]
+	public class BooleanFieldTests : IDisposable
+    {
+        private readonly FieldTestTemplateCreator _creator;
+		public BooleanFieldTests()
 		{
-			new FieldTestTemplateCreator().CreateSampleTemplate();
+			_creator = new FieldTestTemplateCreator();
+		}
+		public void Dispose()
+		{
+            _creator.Dispose();
 		}
 
-		[TestFixtureTearDown]
-		public void TearDownTestTemplate()
-		{
-			new FieldTestTemplateCreator().DeleteSampleTemplate();
-		}
-
-		[Test]
+		[Fact]
 		public void BooleanField_GetValue_WhenTrue()
 		{
 			using (var item = new TestItemContext())
@@ -31,11 +29,11 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				var field = new BooleanField(new LazyField(() => item[TestFields.BOOLEAN], "TEST", TestFields.BOOLEAN), null);
 				
-				Assert.IsTrue(field.Value);
+				Assert.True(field.Value);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void BooleanField_GetValue_ReturnsFalseWhenBlank()
 		{
 			using (var item = new TestItemContext())
@@ -44,11 +42,11 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				var field = new BooleanField(new LazyField(() => item[TestFields.BOOLEAN], "TEST", TestFields.BOOLEAN), null);
 
-				Assert.IsFalse(field.Value);
+				Assert.False(field.Value);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void BooleanField_GetValue_ReturnsFalseWhenZero()
 		{
 			using (var item = new TestItemContext())
@@ -57,11 +55,11 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				var field = new BooleanField(new LazyField(() => item[TestFields.BOOLEAN], "TEST", TestFields.BOOLEAN), null);
 
-				Assert.IsFalse(field.Value);
+				Assert.False(field.Value);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void BooleanField_SetValue_SavesWhenSetTrue()
 		{
 			using (var item = new TestItemContext())
@@ -75,11 +73,11 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				CheckboxField sitecoreField = item[TestFields.BOOLEAN];
 
-				Assert.IsTrue(sitecoreField.Checked);
+				Assert.True(sitecoreField.Checked);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void BooleanField_SetValue_SavesWhenSetFalse()
 		{
 			using (var item = new TestItemContext())
@@ -93,7 +91,7 @@ namespace Synthesis.Tests.Fixtures.FieldTypes
 
 				CheckboxField sitecoreField = item[TestFields.BOOLEAN];
 
-				Assert.IsFalse(sitecoreField.Checked);
+				Assert.False(sitecoreField.Checked);
 			}
 		}
 	}
