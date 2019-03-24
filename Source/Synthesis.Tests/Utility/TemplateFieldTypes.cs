@@ -1,7 +1,7 @@
 ﻿
 namespace Synthesis.Tests.Utility
 {
-	internal static class TemplateFieldTypes
+	public static class TemplateFieldTypes
 	{
 		
 		public const string CHECKBOX_FIELD = "Checkbox";
