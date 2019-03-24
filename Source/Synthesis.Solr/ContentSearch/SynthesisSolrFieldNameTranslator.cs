@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using Sitecore;
-using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.Abstractions;
-using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.ContentSearch.SolrProvider;
 using Sitecore.ContentSearch.SolrProvider.FieldNames;
 using Sitecore.ContentSearch.SolrProvider.FieldNames.Normalization;
 using Sitecore.ContentSearch.SolrProvider.FieldNames.TypeResolving;
 using SolrNet.Schema;
-using Synthesis.ContentSearch;
 using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.Solr.ContentSearch
@@ -43,31 +38,19 @@ namespace Synthesis.Solr.ContentSearch
 
         public override string GetIndexFieldName(MemberInfo member)
         {
-            var name = member.Name;
-            var indexFieldNameFormatterAttribute = this.GetIndexFieldNameFormatterAttribute(member);
+            // If it's not a synthesis field type, let Sitecore handle it.
+            if (!(member is PropertyInfo p) || !typeof(IFieldType).IsAssignableFrom(p.PropertyType))
+                return base.GetIndexFieldName(member);
 
-            if (indexFieldNameFormatterAttribute != null)
-            {
-                name = indexFieldNameFormatterAttribute.GetIndexFieldName(member.Name);
-                if (member is PropertyInfo p)
-                {
-                    // If this is a Synthesis field, then just use the name from the field attribute
-                    if (typeof(IFieldType).IsAssignableFrom(p.PropertyType))
-                        return name;
-                }
-            }
-
-            return base.GetIndexFieldName(member);
+            string name = GetIndexFieldNameFormatterAttribute(member)?.GetIndexFieldName(member.Name);
+            return !string.IsNullOrEmpty(name) ? name : base.GetIndexFieldName(member);
         }
 
         public override string GetIndexFieldName(string fieldName, Type returnType)
         {
-            var name = PreProcessSynthesisFieldName(fieldName);
+            string name = PreProcessSynthesisFieldName(fieldName);
 
-            if (typeof(IFieldType).IsAssignableFrom(returnType))
-                return name;
-
-            return base.GetIndexFieldName(name, returnType);
+            return typeof(IFieldType).IsAssignableFrom(returnType) ? name : base.GetIndexFieldName(name, returnType);
         }
 
         protected virtual string PreProcessSynthesisFieldName(string fieldName)
