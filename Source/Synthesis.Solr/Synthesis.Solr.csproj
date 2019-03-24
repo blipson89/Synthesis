@@ -21,8 +21,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Sitecore.ContentSearch.SolrProvider" Version="4.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
-    <PackageReference Include="Sitecore.Kernel" Version="12.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Sitecore.ContentSearch.SolrProvider" Version="9.1.0" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Sitecore.Kernel" Version="9.1.0" ExcludeAssets="runtime" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synthesis\Synthesis.csproj" />

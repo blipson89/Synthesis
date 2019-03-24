@@ -10,9 +10,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="2.6.4" />
-    <PackageReference Include="Sitecore.ContentSearch" Version="4.0.0" />
-    <PackageReference Include="Sitecore.ContentSearch.Linq" Version="4.0.0" />
-    <PackageReference Include="Sitecore.Kernel" Version="12.0.0" />
+    <PackageReference Include="Sitecore.ContentSearch" Version="9.1.0" />
+    <PackageReference Include="Sitecore.ContentSearch.Linq" Version="9.1.0" />
+    <PackageReference Include="Sitecore.Kernel" Version="9.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synthesis\Synthesis.csproj" />
