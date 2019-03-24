@@ -6,6 +6,7 @@
   <ItemGroup>
     <None Remove="App.config" />
     <None Remove="license.xml" />
+    <None Remove="Synthesis.Solr.Tests.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\App.config">
