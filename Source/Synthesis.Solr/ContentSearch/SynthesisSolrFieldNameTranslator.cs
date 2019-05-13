@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using Sitecore;
 using Sitecore.ContentSearch.Abstractions;
-using Sitecore.ContentSearch.Linq.Common;
 using Sitecore.ContentSearch.SolrProvider;
 using Sitecore.ContentSearch.SolrProvider.FieldNames;
 using Sitecore.ContentSearch.SolrProvider.FieldNames.Normalization;
 using Sitecore.ContentSearch.SolrProvider.FieldNames.TypeResolving;
 using SolrNet.Schema;
-using Synthesis.ContentSearch;
+using Synthesis.FieldTypes.Interfaces;
 
 namespace Synthesis.Solr.ContentSearch
 {
@@ -38,12 +35,35 @@ namespace Synthesis.Solr.ContentSearch
 			//at this point we can't be sure what type the data is in the field, our best bet would be a text field.
 			return AppendSolrText(fieldName);
 		}
-		/// <summary>
-		/// If the context is a foreign language we should use the foreign language text solr fields
-		/// </summary>
-		/// <param name="fieldName">the initial field name</param>
-		/// <returns>field name with a dynamic field identifier on it</returns>
-		private string AppendSolrText(string fieldName)
+
+        public override string GetIndexFieldName(MemberInfo member)
+        {
+            // If it's not a synthesis field type, let Sitecore handle it.
+            if (!(member is PropertyInfo p) || !typeof(IFieldType).IsAssignableFrom(p.PropertyType))
+                return base.GetIndexFieldName(member);
+
+            string name = GetIndexFieldNameFormatterAttribute(member)?.GetIndexFieldName(member.Name);
+            return !string.IsNullOrEmpty(name) ? name : base.GetIndexFieldName(member);
+        }
+
+        public override string GetIndexFieldName(string fieldName, Type returnType)
+        {
+            string name = PreProcessSynthesisFieldName(fieldName);
+
+            return typeof(IFieldType).IsAssignableFrom(returnType) ? name : base.GetIndexFieldName(name, returnType);
+        }
+
+        protected virtual string PreProcessSynthesisFieldName(string fieldName)
+        {
+            return fieldName.Split('.').First();
+        }
+
+        /// <summary>
+        /// If the context is a foreign language we should use the foreign language text solr fields
+        /// </summary>
+        /// <param name="fieldName">the initial field name</param>
+        /// <returns>field name with a dynamic field identifier on it</returns>
+        private string AppendSolrText(string fieldName)
 		{
 			if (Context.Site == null || Context.Language.Name == Context.Site.Language)
 				fieldName += "_t";

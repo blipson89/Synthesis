@@ -1,137 +1,136 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
-namespace Synthesis.Tests.Fixtures.FieldTypes
+namespace Synthesis.Tests.FieldTypes
 {
-	[TestFixture]
-	[Category("FieldType Tests")]
-	public class ItemReferenceListFieldTests
+    [Trait("Category", "FieldType Tests")]
+    public class ItemReferenceListFieldTests
 	{
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_GetTargetIDs_ReturnsValues()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_GetTargetIDs_HandlesMalformedFieldValues()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_GetTargetIDs_ReturnsEmptyArrayWhenBlank()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_GetTargetItems_ReturnsValues()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_GetTargetItems_IgnoresInvalidOrMissingIds()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_GetTargetItems_ReturnsEmptyCollectionWhenBlank()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_HasValue_WhenTrue()
 		{
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_HasValue_WhenFalse()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_Enumerator_EnumeratesIDs()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_EnumeratorOfID_EnumeratesIDs()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_AddID_SavesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_AddItem_SavesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_AddStronglyTypedItem_SavesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_RemoveID_RemovesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_RemoveItem_RemovesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_RemoveStronglyTypedItem_RemovesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_Clear_RemovesValues()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_Contains_WhenTrue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_Contains_WhenFalse()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_Count_IsCorrect()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_Count_IsCorrectWhenBlank()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void ItemReferenceListField_CanImplicitCastToMultilistField()
 		{
 

@@ -6,6 +6,7 @@
   <ItemGroup>
     <None Remove="App.config" />
     <None Remove="license.xml" />
+    <None Remove="Synthesis.Solr.Tests.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\App.config">
@@ -25,6 +26,7 @@
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.6.0" />
     <PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.6.0" />
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.6.0" />
     <PackageReference Include="FluentAssertions" Version="5.5.3" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="Sitecore.ContentSearch" Version="9.1.0" />
@@ -42,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synthesis.Solr\Synthesis.Solr.csproj" />
+    <ProjectReference Include="..\Synthesis.Testing\Synthesis.Testing.csproj" />
+    <ProjectReference Include="..\Synthesis.Tests\Synthesis.Tests.csproj" />
     <ProjectReference Include="..\Synthesis\Synthesis.csproj" />
   </ItemGroup>
 </Project>

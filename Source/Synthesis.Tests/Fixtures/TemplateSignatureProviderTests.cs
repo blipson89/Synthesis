@@ -1,21 +1,26 @@
-﻿using NUnit.Framework;
+﻿using System;
+using Xunit;
 
 namespace Synthesis.Tests.Fixtures
 {
-	[TestFixture]
-	[Category("Template Synchronization Tests")]
-	public class TemplateSignatureProviderTests
+    [Trait("Category", "Template Synchronization Tests")]
+    public class TemplateSignatureProviderTests : IDisposable
 	{
-		[Test, Ignore]
+		[Fact(Skip = "Not Implemented")]
 		public void TemplateSignatureProvider_SignatureIsValidOnTestTemplate()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "Not Implemented")]
 		public void TemplateSignatureProvider_SignatureIsValidOnEmptyTemplate()
 		{
 
 		}
-	}
+
+        public void Dispose()
+        {
+            
+        }
+    }
 }

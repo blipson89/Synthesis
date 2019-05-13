@@ -1,67 +1,65 @@
-﻿using NUnit.Framework;
+﻿using System;
 using Synthesis.Tests.Utility;
+using Xunit;
 
-namespace Synthesis.Tests.Fixtures.FieldTypes
+namespace Synthesis.Tests.FieldTypes
 {
-	[TestFixture]
-	[Category("FieldType Tests")]
-	public class TextFieldTests
+    [Trait("Category", "FieldType Tests")]
+    public class TextFieldTests : IDisposable
 	{
-		[TestFixtureSetUp]
-		public void SetUpTestTemplate()
+		public TextFieldTests()
 		{
 			new FieldTestTemplateCreator().CreateSampleTemplate();
 		}
 
-		[TestFixtureTearDown]
-		public void TearDownTestTemplate()
+		public void Dispose()
 		{
 			new FieldTestTemplateCreator().DeleteSampleTemplate();
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void TextField_GetRawValue_ReturnsValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void TextField_SetRawValue_SavesValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void TextField_HasValue_WhenTrue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void TextField_HasValue_WhenEmptyValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void TextField_HasValue_WhenWhitespaceValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void TextField_HasTextValue_WhenTrue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void TextField_HasTextValue_WhenEmptyValue()
 		{
 
 		}
 
-		[Test, Ignore]
+		[Fact(Skip = "TODO")]
 		public void TextField_HasTextValue_WhenWhitespaceValue()
 		{
 

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Tests", "Source\Synthesis.Tests\Synthesis.Tests.csproj", "{CC01C529-5740-4827-A544-918CE0F327F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Synthesis.Tests", "Source\Synthesis.Tests\Synthesis.Tests.csproj", "{CC01C529-5740-4827-A544-918CE0F327F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthesis.Testing", "Source\Synthesis.Testing\Synthesis.Testing.csproj", "{3482B71D-81B1-4643-815E-342318CE9FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Synthesis.Testing", "Source\Synthesis.Testing\Synthesis.Testing.csproj", "{3482B71D-81B1-4643-815E-342318CE9FCD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{32C75F5C-605A-4CA4-A478-BB073D44ADC3}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Synthesis.Mvc", "Source\Synthesis.Mvc\Synthesis.Mvc.csproj", "{E87EFD9C-5C4E-430C-AA90-3C93487E5194}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Synthesis", "Source\Synthesis\Synthesis.csproj", "{E9F0D7E7-859E-4815-81DF-D5FFDF97BE91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{51C3BF8F-5023-40DF-B689-BD79F2294EFE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Synthesis.Solr.Tests", "Source\Synthesis.Solr.Tests\Synthesis.Solr.Tests.csproj", "{FDF12CB8-B264-4859-BF01-D4135E0C406A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,9 +48,18 @@ Global
 		{E9F0D7E7-859E-4815-81DF-D5FFDF97BE91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9F0D7E7-859E-4815-81DF-D5FFDF97BE91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9F0D7E7-859E-4815-81DF-D5FFDF97BE91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDF12CB8-B264-4859-BF01-D4135E0C406A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDF12CB8-B264-4859-BF01-D4135E0C406A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDF12CB8-B264-4859-BF01-D4135E0C406A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDF12CB8-B264-4859-BF01-D4135E0C406A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CC01C529-5740-4827-A544-918CE0F327F0} = {51C3BF8F-5023-40DF-B689-BD79F2294EFE}
+		{3482B71D-81B1-4643-815E-342318CE9FCD} = {51C3BF8F-5023-40DF-B689-BD79F2294EFE}
+		{FDF12CB8-B264-4859-BF01-D4135E0C406A} = {51C3BF8F-5023-40DF-B689-BD79F2294EFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C822470-AAD1-4433-A6FA-9AA631AF231B}
