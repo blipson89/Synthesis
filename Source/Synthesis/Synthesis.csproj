@@ -15,12 +15,16 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Standard Config Files\Synthesis.ControlPanel.IdentityServer.config.disabled" />
     <None Remove="Synthesis.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Standard Config Files\Synthesis.ControlPanel.IdentityServer.config.disabled" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Sitecore.ContentSearch" Version="9.1.0" />

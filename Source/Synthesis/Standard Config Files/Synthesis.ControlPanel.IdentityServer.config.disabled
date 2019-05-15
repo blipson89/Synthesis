@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+
+<!--
+	SYNTHESIS CONTROL PANEL
+  Identity Server Fix
+  
+  If you are using Sitecore 9.1+ with Identity Server, this file must be deployed to the server
+-->
+<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/" xmlns:role="http://www.sitecore.net/xmlconfig/role/">
+  <sitecore role:require="Standalone OR ContentManagement">
+    <pipelines>
+      <!-- credit: Nicolai Skovvart -->
+      <owin.cookieAuthentication.validateIdentity help="Processors should derive from Sitecore.Owin.Authentication.Pipelines.CookieAuthentication.ValidateIdentity.ValidateIdentityProcessor">
+        <processor type="Sitecore.Owin.Authentication.Pipelines.CookieAuthentication.ValidateIdentity.ValidateSiteNeutralPaths, Sitecore.Owin.Authentication">
+          <siteNeutralPaths hint="list">
+            <path hint="synthesis">/synthesis.aspx</path>
+          </siteNeutralPaths>
+        </processor>
+      </owin.cookieAuthentication.validateIdentity>
+    </pipelines>
+  </sitecore>
+</configuration>
