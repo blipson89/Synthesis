@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System;
 
@@ -7,5 +7,5 @@ using System;
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("9.1.0")]
 [assembly: AssemblyFileVersion("9.1.0")]
-[assembly: AssemblyInformationalVersion("9.1.0.1")]
+[assembly: AssemblyInformationalVersion("9.1.0.2")]
 [assembly: CLSCompliant(false)]
