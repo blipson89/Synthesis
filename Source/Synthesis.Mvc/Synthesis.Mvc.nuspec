@@ -4,16 +4,17 @@
     <id>Synthesis.Mvc.Core</id>
     <version>$version$</version>
     <authors>Ben Lipson,Kam Figy</authors>
-    <owners>Connective DX</owners>
+    <owners>Synthesis Team</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/blipson89/Synthesis</projectUrl>
+    <iconUrl>http://www.benlipson.net/wp-content/uploads/2018/12/synthesis-logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       Automatic injection of Synthesis models for Sitecore MVC view renderings. This package contains the core library for class libraries. Use Synthesis.Mvc to include configuration.
 
-      NOTE: Synthesis 9.0.1 and above requires Sitecore 9.0.1 or higher
+      NOTE: Synthesis 9.0.0 and above requires Sitecore 9.0.0
     </description>
-    <copyright>Copyright 2018 Ben Lipson/Connective DX</copyright>
+    <copyright>Copyright 2019 Ben Lipson/Synthesis Team</copyright>
     <tags>sitecore</tags>
     <dependencies>
     </dependencies>
