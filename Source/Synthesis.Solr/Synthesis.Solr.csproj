@@ -35,25 +35,20 @@
       <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.NoReferences.8.2.170407\lib\NET452\Sitecore.ContentSearch.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.ContentSearch, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.NoReferences.9.0.171002\lib\NET462\Sitecore.ContentSearch.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch.Linq, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.NoReferences.8.2.170407\lib\NET452\Sitecore.ContentSearch.Linq.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.ContentSearch.Linq, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.NoReferences.9.0.171002\lib\NET462\Sitecore.ContentSearch.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch.Linq.Solr, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.Solr.NoReferences.8.2.170407\lib\NET452\Sitecore.ContentSearch.Linq.Solr.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.ContentSearch.Linq.Solr, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.Solr.NoReferences.9.0.171002\lib\NET462\Sitecore.ContentSearch.Linq.Solr.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch.SolrProvider, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.ContentSearch.SolrProvider.NoReferences.8.2.170407\lib\NET452\Sitecore.ContentSearch.SolrProvider.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.ContentSearch.SolrProvider, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.SolrProvider.NoReferences.9.0.171002\lib\NET462\Sitecore.ContentSearch.SolrProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Kernel, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sitecore.Kernel.NoReferences.8.2.170407\lib\NET452\Sitecore.Kernel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.Kernel, Version=11.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.Kernel.NoReferences.9.0.171002\lib\NET462\Sitecore.Kernel.dll</HintPath>
     </Reference>
     <Reference Include="SolrNet, Version=0.4.0.4001, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SolrNet.0.4.0.4001\lib\SolrNet.dll</HintPath>
