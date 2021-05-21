@@ -93,8 +93,8 @@ namespace Synthesis.FieldTypes
 		{
 			get
 			{
-				if (InnerField == null) return false; 
-				return !(MediaItemId == (ID)null || MediaItemId.IsNull);
+				if (InnerField == null) return false;
+				return !(string.IsNullOrEmpty(InnerField.Value));
 			}
 		}
 	}
