@@ -31,10 +31,12 @@
   <files>
     <file src="..\..\Source\Synthesis\Standard Config Files\Synthesis*.config" target="contentFiles\any\any\App_Config\Include\Synthesis" />
     <file src="..\..\Source\Synthesis\Standard Config Files\Synthesis*.example" target="contentFiles\any\any\App_Config\Include\Synthesis" />
+    <file src="..\..\Source\Synthesis\Standard Config Files\Synthesis*.config.disabled" target="contentFiles\any\any\App_Config\Include\Synthesis" />
     <file src="readme.txt" target="" />
 
     <!-- Legacy Support -->
     <file src="..\..\Source\Synthesis\Standard Config Files\Synthesis*.config" target="content\App_Config\Include\Synthesis" />
     <file src="..\..\Source\Synthesis\Standard Config Files\Synthesis*.example" target="content\App_Config\Include\Synthesis" />
+    <file src="..\..\Source\Synthesis\Standard Config Files\Synthesis*.config.disabled" target="content\App_Config\Include\Synthesis" />
   </files>
 </package>
