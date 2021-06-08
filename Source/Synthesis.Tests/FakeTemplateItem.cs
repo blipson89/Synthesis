@@ -7,6 +7,7 @@ using Synthesis.FieldTypes.Interfaces;
 using Synthesis.Initializers;
 using FileField = Synthesis.FieldTypes.FileField;
 using ImageField = Synthesis.FieldTypes.ImageField;
+using ContentHubField = Synthesis.FieldTypes.ContentHubImageField;
 using TextField = Synthesis.FieldTypes.TextField;
 
 namespace Synthesis.Tests
@@ -70,6 +71,11 @@ namespace Synthesis.Tests
 		{
 			get { return new ImageField(new LazyField(() => InnerItem.Fields[TestFields.IMAGE], "TEST", TestFields.IMAGE), null); }
 		}
+
+		public IContentHubImageField ContentHubPicture
+        {
+			get { return new ContentHubImageField(new LazyField(() => InnerItem.Fields[TestFields.CONTENT_HUB_IMAGE], "TEST", TestFields.CONTENT_HUB_IMAGE), null); }
+        }
 
 		public IIntegerField DaysTillChristmas
 		{
