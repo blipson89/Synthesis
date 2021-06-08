@@ -10,6 +10,7 @@ namespace Synthesis.Tests
 		IFileField File { get; }
 		IHyperlinkField Link { get; }
 		IImageField TerriblePicture { get; }
+		IContentHubImageField ContentHubPicture { get; }
 		IIntegerField DaysTillChristmas { get; }
 		IItemReferenceListField RelatedFolders { get; }
 		INumericField AccountBalance { get; }
