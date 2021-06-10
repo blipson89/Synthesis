@@ -8,6 +8,7 @@ namespace Synthesis.Tests
 		internal const string FILE = "File";
 		internal const string HYPERLINK = "Link";
 		internal const string IMAGE = "Terrible Picture";
+		internal const string CONTENT_HUB_IMAGE = "Content Hub Image";
 		internal const string INTEGER = "Days Till Christmas";
 		internal const string MULTIPLE_RELATION = "Related Folders";
 		internal const string NUMERIC = "Account Balance";

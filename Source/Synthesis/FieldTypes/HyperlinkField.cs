@@ -5,7 +5,7 @@ using Synthesis.Utility;
 
 namespace Synthesis.FieldTypes
 {
-	public class HyperlinkField : FieldType, IHyperlinkField
+	public class HyperlinkField : XmlFieldType, IHyperlinkField
 	{
 		public HyperlinkField(LazyField field, string indexValue) : base(field, indexValue) { }
 

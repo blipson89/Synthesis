@@ -7,7 +7,7 @@ using System;
 
 namespace Synthesis.FieldTypes
 {
-	public class FileField : FieldType, IFileField
+	public class FileField : XmlFieldType, IFileField
 	{
 		private string _url;
 		private MediaItem _mediaItem;
@@ -93,8 +93,12 @@ namespace Synthesis.FieldTypes
 		{
 			get
 			{
-				if (InnerField == null) return false; 
-				return !(MediaItemId == (ID)null || MediaItemId.IsNull);
+				if (InnerField == null)
+				{
+					return false;
+				}
+
+				return !(MediaItemId == (ID) null || MediaItemId.IsNull);
 			}
 		}
 	}

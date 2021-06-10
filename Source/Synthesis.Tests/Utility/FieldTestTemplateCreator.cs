@@ -39,6 +39,7 @@ namespace Synthesis.Tests.Utility
 				CreateTemplateField(template, TestFields.FILE, TemplateFieldTypes.FILE_FIELD);
 				CreateTemplateField(template, TestFields.HYPERLINK, TemplateFieldTypes.GENERAL_LINK_FIELD);
 				CreateTemplateField(template, TestFields.IMAGE, TemplateFieldTypes.IMAGE_FIELD);
+                CreateTemplateField(template, TestFields.CONTENT_HUB_IMAGE, TemplateFieldTypes.CONTENT_HUB_IMAGE_FIELD);
 				CreateTemplateField(template, TestFields.INTEGER, TemplateFieldTypes.INTEGER_FIELD);
 				CreateTemplateField(template, TestFields.MULTIPLE_RELATION, TemplateFieldTypes.TREELIST_FIELD);
 				CreateTemplateField(template, TestFields.NUMERIC, TemplateFieldTypes.NUMBER_FIELD);

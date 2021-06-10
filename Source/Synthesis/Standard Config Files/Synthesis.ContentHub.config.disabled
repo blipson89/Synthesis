@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
+  <sitecore>
+    <synthesis>
+      <providers>
+        <fieldMappingProvider type="Synthesis.Configuration.ConfigurationFieldMappingProvider, Synthesis">
+          <fieldMappings hint="raw:AddMapping">
+            <map
+              field="Image"
+              type="Synthesis.FieldTypes.ContentHubImageField, Synthesis"
+              interface="Synthesis.FieldTypes.Interfaces.IContentHubImageField, Synthesis"
+              patch:instead="map[@field='Image']"
+              />
+          </fieldMappings>
+        </fieldMappingProvider>
+      </providers>
+    </synthesis>
+  </sitecore>
+</configuration>
