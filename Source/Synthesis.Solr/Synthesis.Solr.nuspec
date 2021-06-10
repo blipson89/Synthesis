@@ -12,7 +12,7 @@
     <description>
 		  Adds Solr support to Synthesis. This package contains the core library for class libraries. Use Synthesis.Solr to include configuration.
 	  </description>
-    <copyright>Copyright 2018 Ben Lipson/Synthesis Team</copyright>
+    <copyright>Copyright 2021 Ben Lipson/Synthesis Team</copyright>
     <tags>sitecore,synthesis,solr</tags>
     <dependencies>
     </dependencies>

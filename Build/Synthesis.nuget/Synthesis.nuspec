@@ -19,7 +19,7 @@
     <summary>
       Synthesis is a universal object mapper with LINQ support for Sitecore 8.1 and up. This package contains both the Synthesis core library and the configuration for it, which is appropriate for web projects. Install Synthesis.Core if you only want the library.
     </summary>
-    <copyright>Copyright 2018 Ben Lipson/Synthesis Team</copyright>
+    <copyright>Copyright 2021 Ben Lipson/Synthesis Team</copyright>
     <tags>sitecore</tags>
     <dependencies>
       <dependency id="Synthesis.Core" version="[$version$]" />
