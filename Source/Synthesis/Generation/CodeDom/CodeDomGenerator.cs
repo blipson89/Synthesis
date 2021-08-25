@@ -144,7 +144,7 @@ namespace Synthesis.Generation.CodeDom
 			var itemConstructor = new CodeConstructor();
 			itemConstructor.Attributes = MemberAttributes.Public;
 
-			itemConstructor.Parameters.Add(new CodeParameterDeclarationExpression(typeof(Item), "innerItem"));
+			itemConstructor.Parameters.Add(new CodeParameterDeclarationExpression(new CodeTypeReference(typeof(Item), CodeTypeReferenceOptions.GlobalReference), "innerItem"));
 			itemConstructor.BaseConstructorArgs.Add(new CodeVariableReferenceExpression("innerItem"));
 
 			var indexConstructor = new CodeConstructor();
@@ -180,7 +180,7 @@ namespace Synthesis.Generation.CodeDom
 
 			var templateIdStaticProperty = new CodeMemberProperty
 			{
-				Type = new CodeTypeReference(typeof(ID)),
+				Type = new CodeTypeReference(typeof(ID), CodeTypeReferenceOptions.GlobalReference),
 				Name = "ItemTemplateId",
 				HasGet = true,
 				HasSet = false,
@@ -189,7 +189,7 @@ namespace Synthesis.Generation.CodeDom
 				// ReSharper restore BitwiseOperatorOnEnumWithoutFlags
 			};
 
-			templateIdStaticProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("new Sitecore.Data.ID(\"" + template.TemplateId + "\")")));
+			templateIdStaticProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("new global::Sitecore.Data.ID(\"" + template.TemplateId + "\")")));
 
 			templateIdStaticProperty.Comments.Add(new CodeCommentStatement("<summary>The ID of the Sitecore Template that this class represents</summary>", true));
 
@@ -197,7 +197,7 @@ namespace Synthesis.Generation.CodeDom
 
 			var templateIdInstanceProperty = new CodeMemberProperty
 			{
-				Type = new CodeTypeReference(typeof(ID)),
+				Type = new CodeTypeReference(typeof(ID), CodeTypeReferenceOptions.GlobalReference),
 				Name = "TemplateId",
 				HasGet = true,
 				HasSet = false,
@@ -311,12 +311,12 @@ namespace Synthesis.Generation.CodeDom
 				// ReSharper disable BitwiseOperatorOnEnumWithoutFlags
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				// ReSharper restore BitwiseOperatorOnEnumWithoutFlags
-				Type = new CodeTypeReference(typeof(ID)),
+				Type = new CodeTypeReference(typeof(ID), CodeTypeReferenceOptions.GlobalReference),
 				Name = "InitializesTemplateId"
 			};
 
 			// all this for return new ID("xxxxx"); lol
-			templateIdProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeObjectCreateExpression(typeof(ID), new CodeSnippetExpression("\"" + templateId + "\""))));
+			templateIdProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeObjectCreateExpression(new CodeTypeReference(typeof(ID), CodeTypeReferenceOptions.GlobalReference), new CodeSnippetExpression("\"" + templateId + "\""))));
 
 			initializer.Members.Add(templateIdProperty);
 
@@ -329,7 +329,7 @@ namespace Synthesis.Generation.CodeDom
 				ReturnType = new CodeTypeReference(typeof(IStandardTemplateItem))
 			};
 
-			initializerItemMethod.Parameters.Add(new CodeParameterDeclarationExpression(typeof(Item), "innerItem"));
+			initializerItemMethod.Parameters.Add(new CodeParameterDeclarationExpression(new CodeTypeReference(typeof(Item), CodeTypeReferenceOptions.GlobalReference), "innerItem"));
 
 			// all this for return new ConcreteType(innerItem); lol
 			initializerItemMethod.Statements.Add(new CodeMethodReturnStatement(new CodeObjectCreateExpression(new CodeTypeReference(concrete.Name), new CodeVariableReferenceExpression("innerItem"))));
@@ -376,7 +376,7 @@ namespace Synthesis.Generation.CodeDom
 		private CodeAttributeDeclaration GetIndexFieldAttribute(string indexFieldName)
 		{
 			// this is effectively [IndexField("index_field_name")]
-			return new CodeAttributeDeclaration(new CodeTypeReference(typeof(IndexFieldAttribute)), new CodeAttributeArgument(new CodePrimitiveExpression(indexFieldName)));
+			return new CodeAttributeDeclaration(new CodeTypeReference(typeof(IndexFieldAttribute), CodeTypeReferenceOptions.GlobalReference), new CodeAttributeArgument(new CodePrimitiveExpression(indexFieldName)));
 		}
 
 		/// <summary>
