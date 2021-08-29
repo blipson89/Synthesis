@@ -1,4 +1,5 @@
 param(
-    [Parameter(Mandatory=$true)] [string] $version
+    [Parameter(Mandatory=$true)] [string] $version,
+    [Parameter(Mandatory=$true)] [string] $apiKey
 )
-gci "versions\$version\*.nupkg" -exclude *.symbols.nupkg | % { ..\dependencies\NuGet.exe push $_ -Source https://api.nuget.org/v3/index.json }
+gci "versions\$version\*.nupkg" -exclude *.symbols.nupkg | % { dotnet nuget push $_.FullName --api-key $apiKey -s https://api.nuget.org/v3/index.json }
