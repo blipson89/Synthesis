@@ -1,5 +1,4 @@
 ﻿using System;
-using Sitecore.Configuration;
 using Sitecore.Diagnostics;
 using Sitecore.Mvc.Presentation;
 using Synthesis.Mvc.Pipelines.GetRenderer;
@@ -8,8 +7,6 @@ namespace Synthesis.Mvc
 {
 	public class RenderingDisplayPathResolver
 	{
-		private const string SUPPRESS_NULL_ITEM_SETTING_NAME = "Synthesis.RenderingDisplayPathResolver.SuppressNullItemException";
-		private readonly bool _suppressNullItemException = Settings.GetBoolSetting(SUPPRESS_NULL_ITEM_SETTING_NAME, false);
 		/// <summary>
 		/// Gets the rendering path for the rendering
 		/// </summary>
@@ -45,13 +42,8 @@ namespace Synthesis.Mvc
 
 			if (rendering.Item == null)
 			{
-				if (_suppressNullItemException)
-				{
-					Log.Error($"[{nameof(ResolveRenderingPath)}] Rendering item is null", this);
-					return string.Empty;
-				}
-
-				throw new NullReferenceException($"[{nameof(ResolveRenderingPath)}] Rendering item is null");
+				Log.Error($"[{nameof(ResolveRenderingPath)}] Rendering item is null", this);
+				return string.Empty;
 			}
 
 			return rendering.Item.Paths.FullPath;
