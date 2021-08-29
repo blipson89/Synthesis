@@ -16,5 +16,10 @@
 		/// Gets the StyleLabs Content Type
 		/// </summary>
 		string ContentType { get; }
+
+		/// <summary>
+		/// Returns if the image is from Content Hub
+		/// </summary>
+		bool IsContentHub { get; }
 	}
 }

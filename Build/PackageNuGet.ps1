@@ -1,4 +1,7 @@
-param($scriptRoot)
+param(
+	[string]$scriptRoot,
+	[string]$Mode = "Release"
+)
 
 $ErrorActionPreference = "Stop"
 
@@ -26,23 +29,25 @@ $msBuild = Resolve-MsBuild
 $nuGet = "$scriptRoot..\Dependencies\NuGet.exe"
 $solution = "$scriptRoot\..\Synthesis.sln"
 
-& $nuGet restore $solution
-& $msBuild $solution /p:Configuration=Release /t:Rebuild /m
+dotnet-gitversion /updateassemblyinfo Source/SharedAssemblyInfo.cs
 
-$synthesisAssembly = Get-Item "$scriptRoot\..\Source\Synthesis\bin\Release\*\Synthesis.dll" | Select-Object -ExpandProperty VersionInfo
+& $nuGet restore $solution
+& $msBuild $solution /p:Configuration=$Mode /t:Rebuild /m
+
+$synthesisAssembly = Get-Item "$scriptRoot\..\Source\Synthesis\bin\$Mode\*\Synthesis.dll" | Select-Object -ExpandProperty VersionInfo
 
 $targetAssemblyVersion = $synthesisAssembly.ProductVersion
 
 & $nuGet pack "$scriptRoot\Synthesis.nuget\Synthesis.nuspec" -version $targetAssemblyVersion -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
 
-& $nuGet pack "$scriptRoot\..\Source\Synthesis\Synthesis.csproj" -Symbols -Prop Configuration=Release -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
+& $nuGet pack "$scriptRoot\..\Source\Synthesis\Synthesis.csproj" -Symbols -Prop Configuration=$Mode -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
 
-& $nuGet pack "$scriptRoot\..\Source\Synthesis.Testing\Synthesis.Testing.csproj" -Symbols -Prop Configuration=Release -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
+& $nuGet pack "$scriptRoot\..\Source\Synthesis.Testing\Synthesis.Testing.csproj" -Symbols -Prop Configuration=$Mode -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
 
 & $nuGet pack "$scriptRoot\Synthesis.Mvc.nuget\Synthesis.Mvc.nuspec" -version $targetAssemblyVersion -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
 
-& $nuGet pack "$scriptRoot\..\Source\Synthesis.Mvc\Synthesis.Mvc.csproj" -Symbols -Prop Configuration=Release -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
+& $nuGet pack "$scriptRoot\..\Source\Synthesis.Mvc\Synthesis.Mvc.csproj" -Symbols -Prop Configuration=$Mode -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
 
 & $nuGet pack "$scriptRoot\Synthesis.Solr.nuget\Synthesis.Solr.nuspec" -version $targetAssemblyVersion -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
 
-& $nuGet pack "$scriptRoot\..\Source\Synthesis.Solr\Synthesis.Solr.csproj" -Symbols -Prop Configuration=Release -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"
+& $nuGet pack "$scriptRoot\..\Source\Synthesis.Solr\Synthesis.Solr.csproj" -Symbols -Prop Configuration=$Mode -OutputDirectory "$scriptRoot\Versions\$targetAssemblyVersion"

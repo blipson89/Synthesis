@@ -1,0 +1,12 @@
+mode: ContinuousDeployment
+assembly-file-versioning-scheme: MajorMinorPatchTag
+increment: none
+branches:
+  master:
+    regex: ^main$
+    increment: patch
+  feature:
+    increment: minor
+ignore:
+  sha: []
+merge-message-formats: {}

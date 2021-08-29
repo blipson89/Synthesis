@@ -1,13 +1,14 @@
-﻿using System;
-using Sitecore.Data;
+﻿using Sitecore.Data;
 using Sitecore.Data.Items;
 using Synthesis.FieldTypes.Interfaces;
+using System;
 
 namespace Synthesis.FieldTypes
 {
 	public class ContentHubImageField : ImageField, IContentHubImageField
 	{
 		private string _contentId;
+		private string _src;
 		private string _thumbnailSrc;
 		private string _contentType;
 
@@ -66,6 +67,24 @@ namespace Synthesis.FieldTypes
 				}
 
 				return _contentType = GetAttribute("stylelabs-content-type");
+			}
+		}
+
+		public override string Url
+		{
+			get
+			{
+				if (!IsContentHub)
+				{
+					return base.Url;
+				}
+
+				if (_src != null)
+				{
+					return _src;
+				}
+
+				return _src = GetAttribute("src");
 			}
 		}
 

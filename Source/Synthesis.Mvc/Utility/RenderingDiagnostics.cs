@@ -30,10 +30,9 @@ namespace Synthesis.Mvc.Utility
 		public RenderingDiagnostics(HtmlTextWriter writer, string renderingName, RenderingCachingDefinition cachingDefinition)
 		{
 			Assert.IsNotNull(writer, "HtmlTextWriter cannot be null");
-			Assert.IsNotNull(renderingName, "Rendering name cannot be null");
 
 			_writer = writer;
-			_renderingName = renderingName;
+			_renderingName = renderingName ?? "UNKNOWN RENDERING";
 			_cacheable = cachingDefinition.Cacheable;
 			_varyByData = cachingDefinition.VaryByData;
 			_varyByDevice = cachingDefinition.VaryByDevice;
