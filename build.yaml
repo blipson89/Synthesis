@@ -46,8 +46,7 @@ jobs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
       nuGetFeedType: 'internal'
-      publishVstsFeed: '8e7d8e9a-96b7-4364-985a-625841ad216e/f096d8c4-c6ef-4c3f-ab64-f47f1c625b2e'
-      arguments: --no-symbols
+      publishVstsFeed: '7ab2c440-aec1-4e12-bf13-ea865a80e862/3f9c2bf3-62a1-4ef2-821b-2d835c63a5aa'
   - task: PublishPipelineArtifact@1
     displayName: "Publish Build Artifact"
     inputs:
