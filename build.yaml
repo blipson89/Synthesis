@@ -1,0 +1,56 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+pool:
+  vmImage: "windows-latest"
+jobs:
+- job: Build
+  steps:
+  - task: GitVersion@5
+    inputs:
+      runtime: 'core'
+      configFilePath: 'GitVersion.yml'
+      updateAssemblyInfo: true
+      updateAssemblyInfoFilename: 'Source/SharedAssemblyInfo.cs'
+  - task: DotNetCoreCLI@2
+    displayName: "Dotnet Restore"
+    inputs:
+      command: 'restore'
+      feedsToUse: 'config'
+      nugetConfigPath: 'NuGet.config'
+  - task: DotNetCoreCLI@2
+    displayName: "Build"
+    inputs:
+      command: 'build'
+      arguments: --no-restore -c "Release"
+  - task: DotNetCoreCLI@2
+    displayName: "Dotnet Pack"
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/*.csproj'
+      versioningScheme: 'byEnvVar'
+      versionEnvVar: 'GitVersion.NuGetVersion'
+      includeSymbols: true
+      nobuild: true
+  - task: DotNetCoreCLI@2
+    displayName: "Dotnet Pack Nuspecs"
+    inputs:
+      command: 'pack'
+      packagesToPack: 'Build/*/*.nuspec'
+      versioningScheme: 'byEnvVar'
+      versionEnvVar: 'GitVersion.NuGetVersion'
+      includeSymbols: true
+      nobuild: true
+  - task: DotNetCoreCLI@2
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    displayName: "Push to Artifact feed"
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '8e7d8e9a-96b7-4364-985a-625841ad216e/f096d8c4-c6ef-4c3f-ab64-f47f1c625b2e'
+      arguments: --no-symbols
+  - task: PublishPipelineArtifact@1
+    displayName: "Publish Build Artifact"
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifactName: Packages
+    
