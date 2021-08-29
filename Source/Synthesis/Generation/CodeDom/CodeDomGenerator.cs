@@ -368,7 +368,7 @@ namespace Synthesis.Generation.CodeDom
 			if (_synthesisVersion == null)
 				_synthesisVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
-			attribute.Arguments.Add(new CodeAttributeArgument(new CodePrimitiveExpression(_synthesisVersion.ToString(2))));
+			attribute.Arguments.Add(new CodeAttributeArgument(new CodePrimitiveExpression(_synthesisVersion.ToString(3))));
 
 			type.CustomAttributes.Add(attribute);
 		}
