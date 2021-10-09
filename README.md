@@ -1,3 +1,9 @@
+**Update 2021-10-09**: Synthesis is still actively maintained and supported. If you encounter any issues, have any questions, or just need help getting started, please feel free to reach out to me (Ben Lipson) on Sitecore Slack or create an issue on this repo. I am always happy to help.
+
+Synthesis is a completed product and, as such, new features are unlikely to be released on a regular cadence. 
+
+Synthesis is tested against the latest versions of Sitecore when they come out. It is currently compatible up to **Sitecore 10.1**.
+
 # Synthesis
 
 Synthesis is an object mapping framework for Sitecore that enables developing more reliable and maintainable sites in less time than traditional Sitecore development. It is a strongly typed template object generator that is easily understandable for developers with either a Sitecore or traditional .NET background. It neatly integrates with Sitecore MVC (via the `Synthesis.Mvc` package) as a View rendering model provider and IoC dependency for controller renderings.
