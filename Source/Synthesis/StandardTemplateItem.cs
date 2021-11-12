@@ -375,32 +375,26 @@ namespace Synthesis
 		public TItem Add<TItem>(string name)
 			where TItem : class, IStandardTemplateItem
 		{
-			var type = typeof(TItem);
-
-			ID templateId;
-
-			if (type.IsInterface)
-			{
-				var attribute = type.GetCustomAttribute<RepresentsSitecoreTemplateAttribute>(false);
-
-				if (attribute == null) throw new ArgumentException("Item interface did not have the requisite [RepresentsSitecoreTemplate] attribute.");
-
-				if (!ID.TryParse(attribute.TemplateId, out templateId)) throw new ArgumentException("Item interface's [RepresentsSitecoreTemplate] attribute had an invalid template ID format.");
-			}
-			else
-			{
-				var property = type.GetProperty("ItemTemplateId", BindingFlags.Static | BindingFlags.Public);
-
-				if (property == null) throw new ArgumentException(type.FullName + " does not seem to be a generated item type (no ItemTemplateId property was present)");
-
-				var propertyValue = property.GetValue(null) as ID;
-
-				if (propertyValue == (ID)null) throw new ArgumentException("ItemTemplateId property was not of the expected Sitecore.Data.ID type");
-
-				templateId = propertyValue;
-			}
+			ID templateId = GetTemplateId(typeof(TItem));
 
 			Item newItem = InnerItem.Add(name, new TemplateID(templateId));
+
+			return newItem.As<TItem>();
+		}
+
+		/// <summary>
+		/// Adds a new item with a specific ID as a child of this item
+		/// </summary>
+		/// <typeparam name="TItem">The Synthesis type of the child to add. Must be a concrete template type.</typeparam>
+		/// <param name="name">Name of the new item</param>
+		/// <param name="newItemId">ID of the new item</param>
+		/// <returns>The newly added child item</returns>
+		public TItem AddWithSpecificId<TItem>(string name, ID newItemId)
+			where TItem : class, IStandardTemplateItem
+		{
+			ID templateId = GetTemplateId(typeof(TItem));
+
+			Item newItem = InnerItem.Add(name, new TemplateID(templateId), newItemId);
 
 			return newItem.As<TItem>();
 		}
@@ -491,6 +485,34 @@ namespace Synthesis
 			}
 
 			return getFromItemAction();
+		}
+
+		private static ID GetTemplateId(Type synthesisType)
+		{
+			ID templateId;
+
+			if (synthesisType.IsInterface)
+			{
+				var attribute = synthesisType.GetCustomAttribute<RepresentsSitecoreTemplateAttribute>(false);
+
+				if (attribute == null) throw new ArgumentException("Item interface did not have the requisite [RepresentsSitecoreTemplate] attribute.");
+
+				if (!ID.TryParse(attribute.TemplateId, out templateId)) throw new ArgumentException("Item interface's [RepresentsSitecoreTemplate] attribute had an invalid template ID format.");
+			}
+			else
+			{
+				var property = synthesisType.GetProperty("ItemTemplateId", BindingFlags.Static | BindingFlags.Public);
+
+				if (property == null) throw new ArgumentException(synthesisType.FullName + " does not seem to be a generated item type (no ItemTemplateId property was present)");
+
+				var propertyValue = property.GetValue(null) as ID;
+
+				if (propertyValue == (ID)null) throw new ArgumentException("ItemTemplateId property was not of the expected Sitecore.Data.ID type");
+
+				templateId = propertyValue;
+			}
+
+			return templateId;
 		}
 	}
 }
