@@ -164,6 +164,15 @@ namespace Synthesis
 		TItem Add<TItem>(string name) where TItem : class, IStandardTemplateItem;
 
 		/// <summary>
+		/// Adds a new item with a specific ID as a child of this item
+		/// </summary>
+		/// <typeparam name="TItem">The Synthesis type of the child to add. Must be a concrete template type.</typeparam>
+		/// <param name="name">Name of the new item</param>
+		/// <param name="newItemId">ID of the new item</param>
+		/// <returns>The newly added child item</returns>
+		TItem AddWithSpecificId<TItem>(string name, ID newItemId) where TItem : class, IStandardTemplateItem;
+
+		/// <summary>
 		/// Gets children of the item. This is an alias to Axes.GetChildren() so it's in a familiar location.
 		/// </summary>
 		IEnumerable<IStandardTemplateItem> Children { get; }
