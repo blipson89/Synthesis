@@ -29,7 +29,7 @@ namespace Synthesis.Mvc.Pipelines.RenderRendering
 			{
 				args.Cacheable = false;
 
-				Log.Error("Error occurred rendering a view.", ex, GetType());
+				LogException(ex);
 
 				var processed = ProcessException(ex);
 
@@ -39,6 +39,11 @@ namespace Synthesis.Mvc.Pipelines.RenderRendering
 
 				DispatchException(model, args.PageContext.RequestContext, args.Writer);
 			}
+		}
+
+		protected virtual void LogException(Exception ex)
+		{
+			Log.Error("Error occurred rendering a view.", ex, GetType());
 		}
 
 		protected virtual Exception ProcessException(Exception exception)
