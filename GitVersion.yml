@@ -1,6 +1,9 @@
 mode: ContinuousDeployment
 assembly-file-versioning-scheme: MajorMinorPatchTag
 increment: none
+legacy-semver-padding: 0
+build-metadata-padding: 0
+commits-since-version-source-padding: 0
 branches:
   master:
     regex: ^main$
