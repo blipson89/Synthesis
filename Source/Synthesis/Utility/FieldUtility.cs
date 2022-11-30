@@ -37,25 +37,23 @@ namespace Synthesis.Utility
 			switch (field.LinkType)
 			{
 				case "internal":
+				case "media":
 					// catch internal links with external HTTP URLs
 					if (Regex.IsMatch(field.Url, "^https?://"))
 						return field.Url;
-
 					if (field.TargetItem == null) return field.Url ?? string.Empty;
-					url = LinkManager.GetItemUrl(field.TargetItem);
+					Item target = field.TargetItem;
+
+					url = field.LinkType == "media" || target.Paths.IsMediaItem
+						? GetMediaUrl(target)
+						: LinkManager.GetItemUrl(target);
+
 					break;
 				case "external":
 				case "mailto":
 				case "anchor":
 				case "javascript":
 					url = field.Url;
-					break;
-				case "media":
-					Item target = field.TargetItem;
-
-					if (target == null) return string.Empty;
-
-					url = GetMediaUrl(target);
 					break;
 				case "":
 					return string.Empty;
