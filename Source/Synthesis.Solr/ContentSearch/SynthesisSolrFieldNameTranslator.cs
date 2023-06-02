@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Sitecore;
@@ -28,13 +29,14 @@ namespace Synthesis.Solr.ContentSearch
         }
 
 
-		public override string GetIndexFieldName(string fieldName)
-		{
-			if (_schema != null && (_schema.FindSolrFieldByName(fieldName) != null || _schema.SolrDynamicFields.Any(x => fieldName.EndsWith(x.Name.Substring(1)))))
-				return fieldName;
-			//at this point we can't be sure what type the data is in the field, our best bet would be a text field.
-			return AppendSolrText(fieldName);
-		}
+        public override string GetIndexFieldName(string fieldName)
+        {
+            if (_schema != null && (_schema.FindSolrFieldByName(fieldName) != null || _schema.SolrDynamicFields.Any(x => fieldName.EndsWith(x.Name.Substring(1)))))
+                return fieldName;
+            
+            // Let default Sitecore API try to resolve it
+            return base.GetIndexFieldName(fieldName, (CultureInfo)null);
+        }
 
         public override string GetIndexFieldName(MemberInfo member)
         {
@@ -64,12 +66,12 @@ namespace Synthesis.Solr.ContentSearch
         /// <param name="fieldName">the initial field name</param>
         /// <returns>field name with a dynamic field identifier on it</returns>
         private string AppendSolrText(string fieldName)
-		{
-			if (Context.Site == null || Context.Language.Name == Context.Site.Language)
-				fieldName += "_t";
-			else
-				fieldName += "_t_" + Context.Language;
-			return fieldName;
-		}
-	}
+        {
+            if (Context.Site == null || Context.Language.Name == Context.Site.Language)
+                fieldName += "_t";
+            else
+                fieldName += "_t_" + Context.Language;
+            return fieldName;
+        }
+    }
 }
